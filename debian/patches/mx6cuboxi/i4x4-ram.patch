@@ -8,10 +8,10 @@ Description: Add support for cubox i4x4
  Thanks to vagrantc for identifying the underlying change needed.
 Author: Peter Michael Green <plugwash@debian.org>
 
-Index: u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/mx6cuboxi.c
+Index: u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
 ===================================================================
---- u-boot-2016.11+dfsg1.orig/board/solidrun/mx6cuboxi/mx6cuboxi.c
-+++ u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/mx6cuboxi.c
+--- u-boot.orig/board/solidrun/mx6cuboxi/mx6cuboxi.c
++++ u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
 @@ -563,6 +563,19 @@ static struct mx6_ddr3_cfg mem_ddr_4g =
  	.trasmin = 3500,
  };
@@ -45,10 +45,10 @@ Index: u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/mx6cuboxi.c
  	else if (is_cpu_type(MXC_CPU_MX6DL))
  		mx6_dram_cfg(&sysinfo, &mx6dl_1g_mmcd_calib, &mem_ddr_2g);
  	else if (is_cpu_type(MXC_CPU_MX6SOLO))
-Index: u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/Kconfig
+Index: u-boot/board/solidrun/mx6cuboxi/Kconfig
 ===================================================================
---- u-boot-2016.11+dfsg1.orig/board/solidrun/mx6cuboxi/Kconfig
-+++ u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/Kconfig
+--- u-boot.orig/board/solidrun/mx6cuboxi/Kconfig
++++ u-boot/board/solidrun/mx6cuboxi/Kconfig
 @@ -9,4 +9,8 @@ config SYS_VENDOR
  config SYS_CONFIG_NAME
  	default "mx6cuboxi"
@@ -58,11 +58,11 @@ Index: u-boot-2016.11+dfsg1/board/solidrun/mx6cuboxi/Kconfig
 +	default n
 +
  endif
-Index: u-boot-2016.11+dfsg1/configs/mx6cuboxi4x4_defconfig
+Index: u-boot/configs/mx6cuboxi4x4_defconfig
 ===================================================================
 --- /dev/null
-+++ u-boot-2016.11+dfsg1/configs/mx6cuboxi4x4_defconfig
-@@ -0,0 +1,40 @@
++++ u-boot/configs/mx6cuboxi4x4_defconfig
+@@ -0,0 +1,34 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SPL_GPIO_SUPPORT=y
@@ -76,30 +76,24 @@ Index: u-boot-2016.11+dfsg1/configs/mx6cuboxi4x4_defconfig
 +CONFIG_SPL_SERIAL_SUPPORT=y
 +CONFIG_SPL_WATCHDOG_SUPPORT=y
 +CONFIG_VIDEO=y
++CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_SYS_EXTRA_OPTIONS="IMX_CONFIG=arch/arm/imx-common/spl_sd.cfg,MX6QDL"
 +# CONFIG_SYS_STDIO_DEREGISTER is not set
++CONFIG_BOARD_EARLY_INIT_F=y
 +CONFIG_SPL=y
-+CONFIG_HUSH_PARSER=y
-+CONFIG_CMD_BOOTZ=y
 +# CONFIG_CMD_IMLS is not set
 +# CONFIG_CMD_FLASH is not set
 +CONFIG_CMD_MMC=y
 +CONFIG_CMD_USB=y
 +CONFIG_CMD_GPIO=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_CMD_MII=y
-+CONFIG_CMD_PING=y
 +CONFIG_CMD_CACHE=y
-+CONFIG_CMD_EXT2=y
-+CONFIG_CMD_EXT4=y
 +CONFIG_CMD_EXT4_WRITE=y
-+CONFIG_CMD_FAT=y
-+CONFIG_CMD_FS_GENERIC=y
++# CONFIG_SPL_PARTITION_UUIDS is not set
 +CONFIG_DM=y
 +CONFIG_DM_THERMAL=y
 +CONFIG_USB=y
 +CONFIG_USB_STORAGE=y
-+# CONFIG_VIDEO_SW_CURSOR is not set
 +CONFIG_USB_KEYBOARD=y
++# CONFIG_VIDEO_SW_CURSOR is not set
 +CONFIG_OF_LIBFDT=y
 +CONFIG_I4X4_RAM=y
