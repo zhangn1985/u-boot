@@ -1,7 +1,7 @@
 == Installation ==
 
 The raspberry pi targets can be installed by copying u-boot.bin to the
-FAT partition of the raspberry pi boot firmwware:
+FAT partition of the raspberry pi boot firmware:
 
   mkdir -p /boot/fat
   mount /dev/mmcblk0p1 /boot/fat

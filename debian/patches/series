@@ -32,3 +32,5 @@ odroid-xu3/bootdelay
 
 orangepi_zero/0001-sunxi-add-proper-device-tree-for-Orange-Pi-Zero-boar.patch
 orangepi_zero/0002-sunxi-add-orangepi-zero-defconfig.patch
+
+upstream/openrd/0001-armv5te-make-ret-lr-produce-iinterworking-bx-lr.patch
