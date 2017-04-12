@@ -14,7 +14,6 @@
 
 /* U-Boot Build Configuration */
 #define CONFIG_SKIP_LOWLEVEL_INIT	/* U-Boot is a 2nd stage loader */
-#define CONFIG_BOARD_EARLY_INIT_F
 
 /* SoC Configuration */
 #define CONFIG_ARCH_CPU_INIT
@@ -48,13 +47,20 @@
 #define CONFIG_SYS_SPL_MALLOC_START	(CONFIG_SPL_BSS_START_ADDR + \
 					CONFIG_SPL_BSS_MAX_SIZE)
 #define CONFIG_SYS_SPL_MALLOC_SIZE	(32 * 1024)
-#define CONFIG_SPL_STACK_SIZE		(8 * 1024)
+#define KEYSTONE_SPL_STACK_SIZE		(8 * 1024)
 #define CONFIG_SPL_STACK		(CONFIG_SYS_SPL_MALLOC_START + \
 					CONFIG_SYS_SPL_MALLOC_SIZE + \
 					SPL_MALLOC_F_SIZE + \
-					CONFIG_SPL_STACK_SIZE - 4)
+					KEYSTONE_SPL_STACK_SIZE - 4)
 #define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	CONFIG_SPL_PAD_TO
+
+/* SRAM scratch space entries  */
+#define SRAM_SCRATCH_SPACE_ADDR	CONFIG_SPL_STACK + 0x8
+
+#define TI_SRAM_SCRATCH_BOARD_EEPROM_START	(SRAM_SCRATCH_SPACE_ADDR)
+#define TI_SRAM_SCRATCH_BOARD_EEPROM_END	(SRAM_SCRATCH_SPACE_ADDR + 0x200)
+#define KEYSTONE_SRAM_SCRATCH_SPACE_END		(TI_SRAM_SCRATCH_BOARD_EEPROM_END)
 
 /* UART Configuration */
 #define CONFIG_SYS_NS16550_MEM32
@@ -194,7 +200,6 @@
 /* USB Configuration */
 #define CONFIG_USB_XHCI_KEYSTONE
 #define CONFIG_SYS_USB_XHCI_MAX_ROOT_PORTS	2
-#define CONFIG_EFI_PARTITION
 #define CONFIG_FS_FAT
 #define CONFIG_USB_SS_BASE			KS2_USB_SS_BASE
 #define CONFIG_USB_HOST_XHCI_BASE		KS2_USB_HOST_XHCI_BASE
@@ -302,13 +307,6 @@
 
 /* Now for the remaining common defines */
 #include <configs/ti_armv7_common.h>
-
-/* We wont be loading up OS from SPL for now.. */
-
-/* We do not have MMC support.. yet.. */
-#undef CONFIG_GENERIC_MMC
-
-/* And no support for GPIO, yet.. */
 
 /* we may include files below only after all above definitions */
 #include <asm/arch/hardware.h>

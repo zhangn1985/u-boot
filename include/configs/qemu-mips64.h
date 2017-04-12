@@ -16,9 +16,6 @@
 
 #define CONFIG_MISC_INIT_R
 
-
-#define CONFIG_BAUDRATE		115200
-
 #define CONFIG_TIMESTAMP		/* Print image info with timestamp */
 #undef CONFIG_BOOTARGS
 
@@ -54,7 +51,6 @@
 #define CONFIG_CONS_INDEX		1
 
 #define CONFIG_CMD_IDE
-#define CONFIG_DOS_PARTITION
 
 #ifdef CONFIG_SYS_BIG_ENDIAN
 #define CONFIG_IDE_SWAP_IO

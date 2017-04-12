@@ -9,15 +9,10 @@
 /* Virtual target or real hardware */
 #undef CONFIG_SOCFPGA_VIRTUAL_TARGET
 
-#define CONFIG_SYS_THUMB_BUILD
-
 /*
  * High level configuration
  */
 #define CONFIG_DISPLAY_BOARDINFO_LATE
-#define CONFIG_ARCH_MISC_INIT
-#define CONFIG_ARCH_EARLY_INIT_R
-#define CONFIG_SYS_NO_FLASH
 #define CONFIG_CLOCKS
 
 #define CONFIG_CRC32_VERIFY
@@ -143,10 +138,6 @@
  */
 #ifdef CONFIG_CMD_MMC
 #define CONFIG_BOUNCE_BUFFER
-#define CONFIG_GENERIC_MMC
-#define CONFIG_DWMMC
-#define CONFIG_SOCFPGA_DWMMC
-#define CONFIG_SOCFPGA_DWMMC_FIFO_DEPTH	1024
 /* FIXME */
 /* using smaller max blk cnt to avoid flooding the limited stack we have */
 #define CONFIG_SYS_MMC_MAX_BLK_COUNT	256	/* FIXME -- SPL only? */
@@ -225,7 +216,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 #define CONFIG_SYS_NS16550_CLK		100000000
 #endif
 #define CONFIG_CONS_INDEX		1
-#define CONFIG_BAUDRATE			115200
 
 /*
  * USB
@@ -309,7 +299,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
  * 0xFFFF_FF00 ...... End of SRAM
  */
 #define CONFIG_SPL_FRAMEWORK
-#define CONFIG_SPL_RAM_DEVICE
 #define CONFIG_SPL_TEXT_BASE		CONFIG_SYS_INIT_RAM_ADDR
 #define CONFIG_SPL_MAX_SIZE		(64 * 1024)
 
@@ -318,8 +307,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 #if defined(CONFIG_SPL_FAT_SUPPORT) || defined(CONFIG_SPL_EXT_SUPPORT)
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	2
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME		"u-boot-dtb.img"
-#else
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_PARTITION	1
 #endif
 #endif
 

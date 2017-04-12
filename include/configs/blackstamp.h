@@ -172,7 +172,6 @@
 /*
  * Console settings
  */
-#define CONFIG_BAUDRATE		57600
 #define CONFIG_LOADS_ECHO	1
 #define CONFIG_UART_CONSOLE	0
 #define CONFIG_BFIN_SERIAL
@@ -214,11 +213,6 @@
 #define CONFIG_EBIU_SDRRC_VAL		0x268
 #define CONFIG_EBIU_SDGCTL_VAL		0x911109
 
-/* Even though Rev C boards have Parallel Flash
- * We aren't supporting it. Newer versions of the
- * hardware don't support Parallel Flash at all.
- */
-#define CONFIG_SYS_NO_FLASH
 #undef CONFIG_CMD_JFFS2
 
 #endif

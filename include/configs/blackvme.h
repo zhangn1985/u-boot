@@ -160,7 +160,6 @@
 /*
  * Console settings
  */
-#define CONFIG_BAUDRATE		57600
 #define CONFIG_LOADS_ECHO	1
 #define CONFIG_UART_CONSOLE	0
 #define CONFIG_BFIN_SERIAL
@@ -218,10 +217,6 @@
 # define CONFIG_SYS_I2C_SLAVE		0xFE
 #endif
 
-/*
- * No Parallel Flash on this board
- */
-#define CONFIG_SYS_NO_FLASH
 #undef CONFIG_CMD_JFFS2
 
 #endif

@@ -38,7 +38,9 @@ unsigned long get_board_ddr_clk(void);
 #define SPD_EEPROM_ADDRESS		0x51
 #define CONFIG_SYS_SPD_BUS_NUM		0
 
+#ifndef CONFIG_SPL
 #define CONFIG_FSL_DDR_INTERACTIVE	/* Interactive debugging */
+#endif
 
 #define CONFIG_DDR_ECC
 #ifdef CONFIG_DDR_ECC
@@ -97,8 +99,6 @@ unsigned long get_board_ddr_clk(void);
 #define CONFIG_SCSI_AHCI
 #define CONFIG_SCSI_AHCI_PLAT
 #define CONFIG_SCSI
-#define CONFIG_DOS_PARTITION
-#define CONFIG_BOARD_LATE_INIT
 
 /* EEPROM */
 #define CONFIG_ID_EEPROM
@@ -214,7 +214,6 @@ unsigned long get_board_ddr_clk(void);
 #if defined(CONFIG_QSPI_BOOT) || defined(CONFIG_SD_BOOT_QSPI)
 #define CONFIG_QIXIS_I2C_ACCESS
 #define CONFIG_SYS_I2C_EARLY_INIT
-#define CONFIG_SYS_NO_FLASH
 #endif
 
 /*

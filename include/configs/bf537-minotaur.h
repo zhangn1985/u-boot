@@ -84,12 +84,6 @@
 #define CONFIG_ROOTPATH		"/romfs"
 
 /*
- * Flash Settings
- */
-/* We don't have a parallel flash chip there */
-#define CONFIG_SYS_NO_FLASH
-
-/*
  * SPI Settings
  */
 #define CONFIG_BFIN_SPI
@@ -120,7 +114,6 @@
 #define CONFIG_CMDLINE_EDITING	1
 #define CONFIG_ENV_OVERWRITE	1
 
-#define CONFIG_BAUDRATE		57600
 #define CONFIG_UART_CONSOLE	0
 #define CONFIG_BFIN_SERIAL
 

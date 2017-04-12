@@ -77,7 +77,6 @@
  * Flash Settings
  */
 #define CONFIG_ENV_OVERWRITE	1
-#define CONFIG_SYS_NO_FLASH		/* we have only NAND */
 
 /*
  * SPI Settings
@@ -117,7 +116,6 @@
 /*
  * Misc Settings
  */
-#define CONFIG_BAUDRATE		115200
 #define CONFIG_UART_CONSOLE	0
 
 #undef CONFIG_SHOW_BOOT_PROGRESS

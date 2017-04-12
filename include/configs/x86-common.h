@@ -56,7 +56,6 @@
 /*-----------------------------------------------------------------------
  * Serial Configuration
  */
-#define CONFIG_BAUDRATE			115200
 #define CONFIG_SYS_BAUDRATE_TABLE	{300, 600, 1200, 2400, 4800, \
 					 9600, 19200, 38400, 115200}
 #define CONFIG_SYS_NS16550_PORT_MAPPED
@@ -67,19 +66,9 @@
 
 #define CONFIG_SUPPORT_VFAT
 
-/************************************************************
- * DISK Partition support
- ************************************************************/
-#define CONFIG_EFI_PARTITION
-#define CONFIG_DOS_PARTITION
-#define CONFIG_MAC_PARTITION
-#define CONFIG_ISO_PARTITION		/* Experimental */
-
-#define CONFIG_CMD_PART
 #ifdef CONFIG_SYS_COREBOOT
 #define CONFIG_CMD_CBFS
 #endif
-#define CONFIG_PARTITION_UUIDS
 
 /* x86 GPIOs are accessed through a PCI device */
 #define CONFIG_INTEL_ICH6_GPIO
@@ -135,7 +124,6 @@
 /*-----------------------------------------------------------------------
  * FLASH configuration
  */
-#define CONFIG_SYS_NO_FLASH
 #define CONFIG_CMD_SF_TEST
 #define CONFIG_SPI
 

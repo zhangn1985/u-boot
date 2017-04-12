@@ -67,11 +67,6 @@
 #define CONFIG_TFTP_BLOCKSIZE	4404
 
 /*
- * Flash Settings
- */
-#define CONFIG_SYS_NO_FLASH	/* We have no parallel FLASH */
-
-/*
  * SPI Settings
  */
 #define CONFIG_BFIN_SPI
@@ -115,7 +110,6 @@
 /*
  * Misc Settings
  */
-#define CONFIG_BAUDRATE		115200
 #define CONFIG_RTC_BFIN
 #define CONFIG_UART_CONSOLE	0
 #define CONFIG_BOOTCOMMAND	"run nandboot"

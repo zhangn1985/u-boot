@@ -16,7 +16,6 @@
 #define CONFIG_SYS_FSL_CLK
 
 #define CONFIG_SKIP_LOWLEVEL_INIT
-#define CONFIG_BOARD_EARLY_INIT_F
 #define CONFIG_DEEP_SLEEP
 
 /*
@@ -134,18 +133,14 @@
  * size increases then increase this size in case of secure boot as
  * it uses raw u-boot image instead of fit image.
  */
-#define CONFIG_SYS_MONITOR_LEN		(0x80000 + CONFIG_U_BOOT_HDR_SIZE)
+#define CONFIG_SYS_MONITOR_LEN		(0x100000 + CONFIG_U_BOOT_HDR_SIZE)
 #else
-#define CONFIG_SYS_MONITOR_LEN		0x80000
+#define CONFIG_SYS_MONITOR_LEN		0x100000
 #endif /* ifdef CONFIG_U_BOOT_HDR_SIZE */
 #endif
 
 #ifdef CONFIG_QSPI_BOOT
 #define CONFIG_SYS_TEXT_BASE		0x40010000
-#endif
-
-#if defined(CONFIG_QSPI_BOOT) || defined(CONFIG_SD_BOOT_QSPI)
-#define CONFIG_SYS_NO_FLASH
 #endif
 
 #ifndef CONFIG_SYS_TEXT_BASE
@@ -158,8 +153,6 @@
 
 #define CONFIG_SYS_DDR_SDRAM_BASE      0x80000000UL
 #define CONFIG_SYS_SDRAM_BASE          CONFIG_SYS_DDR_SDRAM_BASE
-
-#define CONFIG_FSL_CAAM			/* Enable CAAM */
 
 #if !defined(CONFIG_SD_BOOT) && !defined(CONFIG_NAND_BOOT) && \
 	!defined(CONFIG_QSPI_BOOT)
@@ -271,8 +264,6 @@
 #define CONFIG_SYS_NS16550_CLK		get_serial_clock()
 #endif
 
-#define CONFIG_BAUDRATE			115200
-
 /*
  * I2C
  */
@@ -295,9 +286,6 @@
  * MMC
  */
 #define CONFIG_FSL_ESDHC
-#define CONFIG_GENERIC_MMC
-
-#define CONFIG_DOS_PARTITION
 
 /* SPI */
 #if defined(CONFIG_QSPI_BOOT) || defined(CONFIG_SD_BOOT_QSPI)
@@ -370,23 +358,6 @@
 /* PCIe */
 #define CONFIG_PCIE1		/* PCIE controller 1 */
 #define CONFIG_PCIE2		/* PCIE controller 2 */
-#define CONFIG_PCIE_LAYERSCAPE	/* Use common FSL Layerscape PCIe code */
-#define FSL_PCIE_COMPAT "fsl,ls1021a-pcie"
-
-#define CONFIG_SYS_PCI_64BIT
-
-#define CONFIG_SYS_PCIE_CFG0_PHYS_OFF	0x00000000
-#define CONFIG_SYS_PCIE_CFG0_SIZE	0x00001000	/* 4k */
-#define CONFIG_SYS_PCIE_CFG1_PHYS_OFF	0x00001000
-#define CONFIG_SYS_PCIE_CFG1_SIZE	0x00001000	/* 4k */
-
-#define CONFIG_SYS_PCIE_IO_BUS		0x00000000
-#define CONFIG_SYS_PCIE_IO_PHYS_OFF	0x00010000
-#define CONFIG_SYS_PCIE_IO_SIZE		0x00010000	/* 64k */
-
-#define CONFIG_SYS_PCIE_MEM_BUS		0x08000000
-#define CONFIG_SYS_PCIE_MEM_PHYS_OFF	0x04000000
-#define CONFIG_SYS_PCIE_MEM_SIZE	0x08000000	/* 128M */
 
 #ifdef CONFIG_PCI
 #define CONFIG_PCI_SCAN_SHOW

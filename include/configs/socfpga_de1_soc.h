@@ -9,8 +9,6 @@
 #include <asm/arch/base_addr_ac5.h>
 
 /* U-Boot Commands */
-#define CONFIG_SYS_NO_FLASH
-#define CONFIG_DOS_PARTITION
 #define CONFIG_FAT_WRITE
 #define CONFIG_HW_WATCHDOG
 
@@ -51,7 +49,5 @@
 
 /* The rest of the configuration is shared */
 #include <configs/socfpga_common.h>
-
-#define CONFIG_SPL_ABORT_ON_RAW_IMAGE
 
 #endif	/* __CONFIG_TERASIC_DE1_SOC_H__ */

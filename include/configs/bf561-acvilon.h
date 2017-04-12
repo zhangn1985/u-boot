@@ -86,11 +86,6 @@
 #define CONFIG_HOSTNAME		bf561-acvilon
 
 /*
- * Flash Settings
- */
-#define CONFIG_SYS_NO_FLASH
-
-/*
  * I2C Settings
  */
 #define CONFIG_HARD_I2C
@@ -139,7 +134,6 @@
  * Misc Settings
  */
 #define CONFIG_UART_CONSOLE			0
-#define CONFIG_BAUDRATE				57600
 
 /*
  * Pull in common ADI header for remaining command/environment setup

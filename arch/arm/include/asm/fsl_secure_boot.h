@@ -7,24 +7,11 @@
 #ifndef __FSL_SECURE_BOOT_H
 #define __FSL_SECURE_BOOT_H
 
-#ifdef CONFIG_SECURE_BOOT
-
-#ifndef CONFIG_FIT_SIGNATURE
-#define CONFIG_CHAIN_OF_TRUST
-#endif
-
-#endif
-
 #ifdef CONFIG_CHAIN_OF_TRUST
 #define CONFIG_CMD_ESBC_VALIDATE
 #define CONFIG_FSL_SEC_MON
 #define CONFIG_SHA_HW_ACCEL
 #define CONFIG_SHA_PROG_HW_ACCEL
-#define CONFIG_RSA_FREESCALE_EXP
-
-#ifndef CONFIG_FSL_CAAM
-#define CONFIG_FSL_CAAM
-#endif
 
 #define CONFIG_SPL_BOARD_INIT
 #ifdef CONFIG_SPL_BUILD
@@ -51,11 +38,11 @@
  * in boot ROM of the SoC.
  * The feature is only applicable in case of NOR boot and is
  * not applicable in case of RAMBOOT (NAND, SD, SPI).
+ * For LS, this feature is available for all device if IE Table
+ * is copied to XIP memory
+ * Also, for LS, ISBC doesn't verify this table.
  */
-#ifndef CONFIG_ESBC_HDR_LS
-/* Current Key EXT feature not available in LS ESBC Header */
 #define CONFIG_FSL_ISBC_KEY_EXT
-#endif
 
 #endif
 
@@ -80,18 +67,18 @@
 
 /* Copying Bootscript and Header to DDR from NOR for LS2 and for rest, from
  * Non-XIP Memory (Nand/SD)*/
-#if defined(CONFIG_SYS_RAMBOOT) || defined(CONFIG_LS2080A) || \
+#if defined(CONFIG_SYS_RAMBOOT) || defined(CONFIG_FSL_LSCH3) || \
 	defined(CONFIG_SD_BOOT)
 #define CONFIG_BOOTSCRIPT_COPY_RAM
 #endif
 /* The address needs to be modified according to NOR, NAND, SD and
  * DDR memory map
  */
-#ifdef CONFIG_LS2080A
-#define CONFIG_BS_HDR_ADDR_DEVICE	0x583920000
-#define CONFIG_BS_ADDR_DEVICE		0x583900000
-#define CONFIG_BS_HDR_ADDR_RAM		0xa3920000
-#define CONFIG_BS_ADDR_RAM		0xa3900000
+#ifdef CONFIG_FSL_LSCH3
+#define CONFIG_BS_HDR_ADDR_DEVICE	0x580d00000
+#define CONFIG_BS_ADDR_DEVICE		0x580e00000
+#define CONFIG_BS_HDR_ADDR_RAM		0xa0d00000
+#define CONFIG_BS_ADDR_RAM		0xa0e00000
 #define CONFIG_BS_HDR_SIZE		0x00002000
 #define CONFIG_BS_SIZE			0x00001000
 #else
@@ -99,8 +86,8 @@
 /* For SD boot address and size are assigned in terms of sector
  * offset and no. of sectors respectively.
  */
-#define CONFIG_BS_HDR_ADDR_DEVICE	0x00000800
-#define CONFIG_BS_ADDR_DEVICE		0x00000840
+#define CONFIG_BS_HDR_ADDR_DEVICE	0x00000900
+#define CONFIG_BS_ADDR_DEVICE		0x00000940
 #define CONFIG_BS_HDR_SIZE		0x00000010
 #define CONFIG_BS_SIZE			0x00000008
 #else
@@ -125,6 +112,8 @@
 #ifdef CONFIG_SYS_LS_PPA_FW_IN_XIP
 #ifdef CONFIG_LS1043A
 #define CONFIG_SYS_LS_PPA_ESBC_ADDR	0x600c0000
+#elif defined(CONFIG_FSL_LSCH3)
+#define CONFIG_SYS_LS_PPA_ESBC_ADDR     0x580c40000
 #endif
 #else
 #error "No CONFIG_SYS_LS_PPA_FW_IN_xxx defined"

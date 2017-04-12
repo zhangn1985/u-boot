@@ -12,6 +12,10 @@ config ARC
 	bool "ARC architecture"
 	select HAVE_PRIVATE_LIBGCC
 	select SUPPORT_OF_CONTROL
+	select ARCH_EARLY_INIT_R
+	select CLK
+	select TIMER
+	select ARC_TIMER
 
 config ARM
 	bool "ARM architecture"
@@ -25,6 +29,7 @@ config AVR32
 
 config BLACKFIN
 	bool "Blackfin architecture"
+	select ARCH_MISC_INIT
 
 config M68K
 	bool "M68000 architecture"
@@ -60,6 +65,7 @@ config PPC
 
 config SANDBOX
 	bool "Sandbox"
+	select BOARD_LATE_INIT
 	select SUPPORT_OF_CONTROL
 	select DM
 	select DM_KEYBOARD

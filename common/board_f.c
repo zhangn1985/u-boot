@@ -325,15 +325,6 @@ __weak ulong board_get_usable_ram_top(ulong total_size)
 	return gd->ram_top;
 }
 
-__weak phys_size_t board_reserve_ram_top(phys_size_t ram_size)
-{
-#ifdef CONFIG_SYS_MEM_TOP_HIDE
-	return ram_size - CONFIG_SYS_MEM_TOP_HIDE;
-#else
-	return ram_size;
-#endif
-}
-
 static int setup_dest_addr(void)
 {
 	debug("Monitor len: %08lX\n", gd->mon_len);
@@ -341,26 +332,19 @@ static int setup_dest_addr(void)
 	 * Ram is setup, size stored in gd !!
 	 */
 	debug("Ram size: %08lX\n", (ulong)gd->ram_size);
-#ifdef CONFIG_SYS_MEM_RESERVE_SECURE
-	/* Reserve memory for secure MMU tables, and/or security monitor */
-	gd->ram_size -= CONFIG_SYS_MEM_RESERVE_SECURE;
-	/*
-	 * Record secure memory location. Need recalcuate if memory splits
-	 * into banks, or the ram base is not zero.
-	 */
-	gd->arch.secure_ram = gd->ram_size;
-#endif
+#if defined(CONFIG_SYS_MEM_TOP_HIDE)
 	/*
 	 * Subtract specified amount of memory to hide so that it won't
 	 * get "touched" at all by U-Boot. By fixing up gd->ram_size
 	 * the Linux kernel should now get passed the now "corrected"
-	 * memory size and won't touch it either. This has been used
-	 * by arch/powerpc exclusively. Now ARMv8 takes advantage of
-	 * thie mechanism. If memory is split into banks, addresses
-	 * need to be calculated.
+	 * memory size and won't touch it either. This should work
+	 * for arch/ppc and arch/powerpc. Only Linux board ports in
+	 * arch/powerpc with bootwrapper support, that recalculate the
+	 * memory size from the SDRAM controller setup will have to
+	 * get fixed.
 	 */
-	gd->ram_size = board_reserve_ram_top(gd->ram_size);
-
+	gd->ram_size -= CONFIG_SYS_MEM_TOP_HIDE;
+#endif
 #ifdef CONFIG_SYS_SDRAM_BASE
 	gd->ram_top = CONFIG_SYS_SDRAM_BASE;
 #endif
@@ -767,8 +751,16 @@ static int setup_reloc(void)
 	return 0;
 }
 
+#ifdef CONFIG_OF_BOARD_FIXUP
+static int fix_fdt(void)
+{
+	return board_fix_fdt((void *)gd->fdt_blob);
+}
+#endif
+
 /* ARM calls relocate_code from its crt0.S */
-#if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX)
+#if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
+		!CONFIG_IS_ENABLED(X86_64)
 
 static int jump_to_copy(void)
 {
@@ -845,7 +837,7 @@ __weak int arch_cpu_init_dm(void)
 	return 0;
 }
 
-static init_fnc_t init_sequence_f[] = {
+static const init_fnc_t init_sequence_f[] = {
 #ifdef CONFIG_SANDBOX
 	setup_ram_buf,
 #endif
@@ -858,10 +850,6 @@ static init_fnc_t init_sequence_f[] = {
 #endif
 	initf_malloc,
 	initf_console_record,
-#if defined(CONFIG_MPC85xx) || defined(CONFIG_MPC86xx)
-	/* TODO: can this go into arch_cpu_init()? */
-	probecpu,
-#endif
 #if defined(CONFIG_X86) && defined(CONFIG_HAVE_FSP)
 	x86_fsp_init,
 #endif
@@ -887,11 +875,6 @@ static init_fnc_t init_sequence_f[] = {
 		defined(CONFIG_BLACKFIN) || defined(CONFIG_NDS32) || \
 		defined(CONFIG_SH) || defined(CONFIG_SPARC)
 	timer_init,		/* initialize timer */
-#endif
-#ifdef CONFIG_SYS_ALLOC_DPRAM
-#if !defined(CONFIG_CPM2)
-	dpram_init,
-#endif
 #endif
 #if defined(CONFIG_BOARD_POSTCLK_INIT)
 	board_postclk_init,
@@ -925,10 +908,9 @@ static init_fnc_t init_sequence_f[] = {
 #if defined(CONFIG_PPC) || defined(CONFIG_M68K) || defined(CONFIG_SH)
 	checkcpu,
 #endif
+#if defined(CONFIG_DISPLAY_CPUINFO)
 	print_cpuinfo,		/* display cpu info (and speed) */
-#if defined(CONFIG_MPC5xxx)
-	prt_mpc5xxx_clks,
-#endif /* CONFIG_MPC5xxx */
+#endif
 #if defined(CONFIG_DISPLAY_BOARDINFO)
 	show_board_info,
 #endif
@@ -1037,18 +1019,22 @@ static init_fnc_t init_sequence_f[] = {
 #ifdef CONFIG_SYS_EXTBDINFO
 	setup_board_extra,
 #endif
+#ifdef CONFIG_OF_BOARD_FIXUP
+	fix_fdt,
+#endif
 	INIT_FUNC_WATCHDOG_RESET
 	reloc_fdt,
 	setup_reloc,
 #if defined(CONFIG_X86) || defined(CONFIG_ARC)
 	copy_uboot_to_ram,
-	clear_bss,
 	do_elf_reloc_fixups,
+	clear_bss,
 #endif
 #if defined(CONFIG_XTENSA)
 	clear_bss,
 #endif
-#if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX)
+#if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
+		!CONFIG_IS_ENABLED(X86_64)
 	jump_to_copy,
 #endif
 	NULL,
@@ -1082,7 +1068,7 @@ void board_init_f(ulong boot_flags)
 		hang();
 
 #if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
-		!defined(CONFIG_EFI_APP)
+		!defined(CONFIG_EFI_APP) && !CONFIG_IS_ENABLED(X86_64)
 	/* NOTREACHED - jump_to_copy() does not return */
 	hang();
 #endif
@@ -1106,8 +1092,10 @@ void board_init_f(ulong boot_flags)
  * NOTE: At present only x86 uses this route, but it is intended that
  * all archs will move to this when generic relocation is implemented.
  */
-static init_fnc_t init_sequence_f_r[] = {
+static const init_fnc_t init_sequence_f_r[] = {
+#if !CONFIG_IS_ENABLED(X86_64)
 	init_cache_f_r,
+#endif
 
 	NULL,
 };
