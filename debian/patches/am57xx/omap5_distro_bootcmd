@@ -2,7 +2,7 @@ Index: u-boot/include/configs/ti_omap5_common.h
 ===================================================================
 --- u-boot.orig/include/configs/ti_omap5_common.h
 +++ u-boot/include/configs/ti_omap5_common.h
-@@ -61,6 +61,18 @@
+@@ -58,6 +58,18 @@
  #define DFUARGS
  #endif
  
@@ -21,7 +21,7 @@ Index: u-boot/include/configs/ti_omap5_common.h
  #define CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
  #define CONFIG_EXTRA_ENV_SETTINGS \
  	DEFAULT_LINUX_BOOT_ENV \
-@@ -103,25 +115,7 @@
+@@ -100,25 +112,7 @@
  			"echo WARNING: Could not determine device tree to use; fi; \0" \
  	DFUARGS \
  	NETARGS \
@@ -48,3 +48,15 @@ Index: u-boot/include/configs/ti_omap5_common.h
  
  /*
   * SPL related defines.  The Public RAM memory map the ROM defines the
+Index: u-boot/configs/am57xx_evm_defconfig
+===================================================================
+--- u-boot.orig/configs/am57xx_evm_defconfig
++++ u-boot/configs/am57xx_evm_defconfig
+@@ -8,6 +8,7 @@ CONFIG_SPL_SPI_SUPPORT=y
+ CONFIG_ARMV7_LPAE=y
+ CONFIG_SPL_STACK_R_ADDR=0x82000000
+ CONFIG_DEFAULT_DEVICE_TREE="am572x-idk"
++CONFIG_DISTRO_DEFAULTS=y
+ CONFIG_FIT=y
+ CONFIG_SPL_LOAD_FIT=y
+ CONFIG_OF_BOARD_SETUP=y
