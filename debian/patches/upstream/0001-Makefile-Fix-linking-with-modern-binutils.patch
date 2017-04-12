@@ -1,4 +1,4 @@
-From 34b826f537ca7aec75aca711b595f8c924054628 Mon Sep 17 00:00:00 2001
+From e391b1e64b0bd65709a28a4764afe4f32d408243 Mon Sep 17 00:00:00 2001
 From: Joel Stanley <joel@jms.id.au>
 Date: Sun, 9 Apr 2017 20:33:58 +0200
 Subject: [PATCH] Makefile: Fix linking with modern binutils

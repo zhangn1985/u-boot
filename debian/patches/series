@@ -30,4 +30,4 @@ odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 
 odroid-xu3/bootdelay
 
-0001-Makefile-Fix-linking-with-modern-binutils.patch
+upstream/0001-Makefile-Fix-linking-with-modern-binutils.patch
