@@ -133,7 +133,7 @@ config ROCKCHIP_RK3036_PINCTRL
 	  function.
 
 config ROCKCHIP_RK3188_PINCTRL
-	bool "Rockchip pin control driver"
+	bool "Rockchip rk3188 pin control driver"
 	depends on DM
 	help
 	  Support pin multiplexing control on Rockchip rk3188 SoCs. The driver
@@ -142,13 +142,27 @@ config ROCKCHIP_RK3188_PINCTRL
 	  function.
 
 config ROCKCHIP_RK3288_PINCTRL
-	bool "Rockchip pin control driver"
+	bool "Rockchip rk3288 pin control driver"
 	depends on DM
 	help
 	  Support pin multiplexing control on Rockchip rk3288 SoCs. The driver
 	  is controlled by a device tree node which contains both the GPIO
 	  definitions and pin control functions for each available multiplex
 	  function.
+
+config PINCTRL_AT91
+	bool "AT91 pinctrl driver"
+	depends on DM
+	help
+	  This option is to enable the AT91 pinctrl driver for AT91 PIO
+	  controller. AT91 PIO controller is a combined gpio-controller,
+	  pin-mux and pin-config module. Each I/O pin may be dedicated as
+	  a general-purpose I/O or be assigned to a function of an embedded
+	  peripheral. Each I/O pin has a glitch filter providing rejection of
+	  glitches lower than one-half of peripheral clock cycle and
+	  a debouncing filter providing rejection of unwanted pulses from key
+	  or push button operations. You can also control the multi-driver
+	  capability, pull-up and pull-down feature on each I/O pin.
 
 config PINCTRL_AT91PIO4
 	bool "AT91 PIO4 pinctrl driver"
@@ -158,7 +172,7 @@ config PINCTRL_AT91PIO4
 	  controller which is available on SAMA5D2 SoC.
 
 config ROCKCHIP_RK3328_PINCTRL
-	bool "Rockchip pin control driver"
+	bool "Rockchip rk3328 pin control driver"
 	depends on DM
 	help
 	  Support pin multiplexing control on Rockchip rk3328 SoCs. The driver
@@ -167,7 +181,7 @@ config ROCKCHIP_RK3328_PINCTRL
 	  function.
 
 config ROCKCHIP_RK3399_PINCTRL
-	bool "Rockchip pin control driver"
+	bool "Rockchip rk3399 pin control driver"
 	depends on DM
 	help
 	  Support pin multiplexing control on Rockchip rk3399 SoCs. The driver

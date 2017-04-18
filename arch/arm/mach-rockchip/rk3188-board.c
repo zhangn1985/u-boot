@@ -11,6 +11,7 @@
 #include <syscon.h>
 #include <asm/io.h>
 #include <asm/arch/clock.h>
+#include <asm/arch/grf_rk3188.h>
 #include <asm/arch/periph.h>
 #include <asm/arch/pmu_rk3288.h>
 #include <asm/arch/boot_mode.h>
@@ -18,6 +19,23 @@
 #include <dm/pinctrl.h>
 
 DECLARE_GLOBAL_DATA_PTR;
+
+int board_late_init(void)
+{
+	struct rk3188_grf *grf;
+
+	grf = syscon_get_first_range(ROCKCHIP_SYSCON_GRF);
+	if (IS_ERR(grf)) {
+		error("grf syscon returned %ld\n", PTR_ERR(grf));
+	} else {
+		/* enable noc remap to mimic legacy loaders */
+		rk_clrsetreg(&grf->soc_con0,
+			NOC_REMAP_MASK << NOC_REMAP_SHIFT,
+			NOC_REMAP_MASK << NOC_REMAP_SHIFT);
+	}
+
+	return 0;
+}
 
 int board_init(void)
 {
@@ -56,8 +74,22 @@ err:
 
 int dram_init(void)
 {
-	/* FIXME: read back ram size from sys_reg2 */
-	gd->ram_size = 0x40000000;
+	struct ram_info ram;
+	struct udevice *dev;
+	int ret;
+
+	ret = uclass_get_device(UCLASS_RAM, 0, &dev);
+	if (ret) {
+		debug("DRAM init failed: %d\n", ret);
+		return ret;
+	}
+	ret = ram_get_info(dev, &ram);
+	if (ret) {
+		debug("Cannot get DRAM size: %d\n", ret);
+		return ret;
+	}
+	debug("SDRAM base=%lx, size=%x\n", ram.base, ram.size);
+	gd->ram_size = ram.size;
 
 	return 0;
 }

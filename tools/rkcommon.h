@@ -77,4 +77,14 @@ bool rkcommon_need_rc4_spl(struct image_tool_params *params);
  */
 void rkcommon_rc4_encode_spl(void *buf, unsigned int offset, unsigned int size);
 
+/**
+ * rkcommon_vrec_header() - allocate memory for the header
+ *
+ * @params:     Pointer to the tool params structure
+ * @tparams:    Pointer tot the image type structure (for setting
+ *              the header and header_size)
+ */
+void rkcommon_vrec_header(struct image_tool_params *params,
+			  struct image_type_params *tparams);
+
 #endif

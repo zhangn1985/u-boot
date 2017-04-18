@@ -214,6 +214,10 @@ config ENABLE_ARM_SOC_BOOT0_HOOK
 	  ARM_SOC_BOOT0_HOOK which contains the required assembler
 	  preprocessor code.
 
+config ARM_CORTEX_CPU_IS_UP
+	bool
+	default n
+
 config USE_ARCH_MEMCPY
 	bool "Use an assembly optimized implementation of memcpy"
 	default y
@@ -1238,6 +1242,8 @@ source "arch/arm/cpu/armv8/Kconfig"
 
 source "arch/arm/imx-common/Kconfig"
 
+source "board/aries/m28evk/Kconfig"
+source "board/aries/m53evk/Kconfig"
 source "board/bosch/shc/Kconfig"
 source "board/BuR/brxre1/Kconfig"
 source "board/BuR/brppt1/Kconfig"
@@ -1258,8 +1264,6 @@ source "board/cirrus/edb93xx/Kconfig"
 source "board/compulab/cm_t335/Kconfig"
 source "board/compulab/cm_t43/Kconfig"
 source "board/creative/xfi3/Kconfig"
-source "board/denx/m28evk/Kconfig"
-source "board/denx/m53evk/Kconfig"
 source "board/freescale/ls2080a/Kconfig"
 source "board/freescale/ls2080aqds/Kconfig"
 source "board/freescale/ls2080ardb/Kconfig"

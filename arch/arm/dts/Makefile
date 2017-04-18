@@ -29,17 +29,20 @@ dtb-$(CONFIG_EXYNOS5) += exynos5250-arndale.dtb \
 dtb-$(CONFIG_EXYNOS7420) += exynos7420-espresso7420.dtb
 dtb-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3036-sdk.dtb \
+	rk3188-radxarock.dtb \
+	rk3288-evb.dtb \
+	rk3288-fennec.dtb \
 	rk3288-firefly.dtb \
+	rk3288-miqi.dtb \
+	rk3288-popmetal.dtb \
+	rk3288-rock2-square.dtb \
+	rk3288-tinker.dtb \
 	rk3288-veyron-jerry.dtb \
 	rk3288-veyron-mickey.dtb \
 	rk3288-veyron-minnie.dtb \
-	rk3288-rock2-square.dtb \
-	rk3288-evb.dtb \
-	rk3288-fennec.dtb \
-	rk3288-tinker.dtb \
-	rk3288-popmetal.dtb \
 	rk3328-evb.dtb \
-	rk3399-evb.dtb
+	rk3399-evb.dtb \
+	rk3399-puma.dtb
 dtb-$(CONFIG_ARCH_MESON) += \
 	meson-gxbb-odroidc2.dtb
 dtb-$(CONFIG_TEGRA) += tegra20-harmony.dtb \
@@ -225,6 +228,7 @@ dtb-$(CONFIG_MACH_SUN5I) += \
 	sun5i-a13-olinuxino-micro.dtb \
 	sun5i-a13-q8-tablet.dtb \
 	sun5i-a13-utoo-p66.dtb \
+	sun5i-gr8-chip-pro.dtb \
 	sun5i-r8-chip.dtb
 dtb-$(CONFIG_MACH_SUN6I) += \
 	sun6i-a31-app4-evb1.dtb \
@@ -298,13 +302,17 @@ dtb-$(CONFIG_MACH_SUN8I_H3) += \
 	sun8i-h3-orangepi-pc-plus.dtb \
 	sun8i-h3-orangepi-plus.dtb \
 	sun8i-h3-orangepi-plus2e.dtb \
-	sun8i-h3-nanopi-neo.dtb
+	sun8i-h3-nanopi-neo.dtb \
+	sun8i-h3-nanopi-neo-air.dtb
+dtb-$(CONFIG_MACH_SUN50I_H5) += \
+	sun50i-h5-orangepi-pc2.dtb
 dtb-$(CONFIG_MACH_SUN50I) += \
 	sun50i-a64-pine64-plus.dtb \
 	sun50i-a64-pine64.dtb
 dtb-$(CONFIG_MACH_SUN9I) += \
 	sun9i-a80-optimus.dtb \
-	sun9i-a80-cubieboard4.dtb
+	sun9i-a80-cubieboard4.dtb \
+	sun9i-a80-cx-a99.dtb
 
 dtb-$(CONFIG_VF610) += vf500-colibri.dtb \
 	vf610-colibri.dtb \
@@ -315,11 +323,13 @@ dtb-$(CONFIG_VF610) += vf500-colibri.dtb \
 dtb-$(CONFIG_MX53) += imx53-cx9020.dtb
 
 dtb-$(CONFIG_MX6) += imx6ull-14x14-evk.dtb \
+	imx6sl-evk.dtb \
 	imx6sll-evk.dtb \
 	imx6dl-icore.dtb \
 	imx6dl-icore-rqs.dtb \
 	imx6q-icore.dtb \
 	imx6q-icore-rqs.dtb \
+	imx6q-logicpd.dtb \
 	imx6sx-sabreauto.dtb \
 	imx6ul-geam-kit.dtb \
 	imx6ul-isiot-emmc.dtb \
@@ -338,6 +348,23 @@ dtb-$(CONFIG_SOC_KEYSTONE) += keystone-k2hk-evm.dtb \
 
 dtb-$(CONFIG_TARGET_SAMA5D2_XPLAINED) += \
 	at91-sama5d2_xplained.dtb
+
+dtb-$(CONFIG_TARGET_SAMA5D3XEK) += \
+	sama5d31ek.dtb \
+	sama5d33ek.dtb \
+	sama5d34ek.dtb \
+	sama5d35ek.dtb \
+	sama5d36ek.dtb \
+	sama5d36ek_cmp.dtb
+
+dtb-$(CONFIG_TARGET_SAMA5D3_XPLAINED) += \
+	at91-sama5d3_xplained.dtb
+
+dtb-$(CONFIG_TARGET_SAMA5D4EK) += \
+	at91-sama5d4ek.dtb
+
+dtb-$(CONFIG_TARGET_SAMA5D4_XPLAINED) += \
+	at91-sama5d4_xplained.dtb
 
 dtb-$(CONFIG_ARCH_BCM283X) += \
 	bcm2835-rpi-a-plus.dtb \

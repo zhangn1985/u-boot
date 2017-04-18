@@ -96,7 +96,7 @@ found:
 	popts->cpo_sample = 0x70;
 }
 
-phys_size_t initdram(int board_type)
+int fsl_initdram(void)
 {
 	phys_size_t dram_size;
 
@@ -110,5 +110,7 @@ phys_size_t initdram(int board_type)
 
 	erratum_a008850_post();
 
-	return dram_size;
+	gd->ram_size = dram_size;
+
+	return 0;
 }

@@ -46,7 +46,7 @@
 #endif
 
 /* CPU */
-#define CONFIG_TIMER_CLK_FREQ		24000000
+#define COUNTER_FREQUENCY		24000000
 
 /*
  * The DRAM Base differs between some models. We cannot use macros for the
@@ -79,7 +79,7 @@
 
 #define CONFIG_SPL_BSS_MAX_SIZE		0x00080000 /* 512 KiB */
 
-#if defined(CONFIG_MACH_SUN9I) || defined(CONFIG_MACH_SUN50I)
+#ifdef CONFIG_SUNXI_HIGH_SRAM
 /*
  * The A80's A1 sram starts at 0x00010000 rather then at 0x00000000 and is
  * slightly bigger. Note that it is possible to map the first 32 KiB of the
@@ -125,6 +125,9 @@
 #define CONFIG_SYS_NAND_MAX_ECCPOS 1664
 #define CONFIG_SYS_NAND_ONFI_DETECTION
 #define CONFIG_SYS_MAX_NAND_DEVICE 8
+
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
 #endif
 
 #ifdef CONFIG_SPL_SPI_SUNXI
@@ -134,9 +137,13 @@
 /* mmc config */
 #ifdef CONFIG_MMC
 #define CONFIG_MMC_SUNXI_SLOT		0
-#define CONFIG_ENV_IS_IN_MMC
+#endif
+
+#if defined(CONFIG_ENV_IS_IN_MMC)
 #define CONFIG_SYS_MMC_ENV_DEV		0	/* first detected MMC controller */
 #define CONFIG_SYS_MMC_MAX_DEVICE	4
+#elif defined(CONFIG_ENV_IS_NOWHERE)
+#define CONFIG_ENV_SIZE			(128 << 10)
 #endif
 
 /* 64MB of malloc() pool */
@@ -155,17 +162,9 @@
 /* standalone support */
 #define CONFIG_STANDALONE_LOAD_ADDR	CONFIG_SYS_LOAD_ADDR
 
-/* baudrate */
-
-/* The stack sizes are set up in start.S using the settings below */
-#define CONFIG_STACKSIZE		(256 << 10)	/* 256 KiB */
-
 /* FLASH and environment organization */
 
 #define CONFIG_SYS_MONITOR_LEN		(768 << 10)	/* 768 KiB */
-
-#define CONFIG_ENV_OFFSET		(544 << 10) /* (8 + 24 + 512) KiB */
-#define CONFIG_ENV_SIZE			(128 << 10)	/* 128 KiB */
 
 #define CONFIG_FAT_WRITE	/* enable write access */
 
@@ -175,16 +174,17 @@
 #define CONFIG_SPL_BOARD_LOAD_IMAGE
 #endif
 
-#if defined(CONFIG_MACH_SUN9I)
+#ifdef CONFIG_SUNXI_HIGH_SRAM
 #define CONFIG_SPL_TEXT_BASE		0x10040		/* sram start+header */
-#define CONFIG_SPL_MAX_SIZE		0x5fc0		/* ? KiB on sun9i */
-#elif defined(CONFIG_MACH_SUN50I)
-#define CONFIG_SPL_TEXT_BASE		0x10040		/* sram start+header */
-#define CONFIG_SPL_MAX_SIZE		0x7fc0		/* 32 KiB on sun50i */
+#define CONFIG_SPL_MAX_SIZE		0x7fc0		/* 32 KiB */
+#define LOW_LEVEL_SRAM_STACK		0x00018000
 #else
 #define CONFIG_SPL_TEXT_BASE		0x40		/* sram start+header */
 #define CONFIG_SPL_MAX_SIZE		0x5fc0		/* 24KB on sun4i/sun7i */
+#define LOW_LEVEL_SRAM_STACK		0x00008000	/* End of sram */
 #endif
+
+#define CONFIG_SPL_STACK		LOW_LEVEL_SRAM_STACK
 
 #ifndef CONFIG_ARM64
 #define CONFIG_SPL_LDSCRIPT "arch/arm/cpu/armv7/sunxi/u-boot-spl.lds"
@@ -192,15 +192,6 @@
 
 #define CONFIG_SPL_PAD_TO		32768		/* decimal for 'dd' */
 
-#if defined(CONFIG_MACH_SUN9I) || defined(CONFIG_MACH_SUN50I)
-/* FIXME: 40 KiB instead of 32 KiB ? */
-#define LOW_LEVEL_SRAM_STACK		0x00018000
-#define CONFIG_SPL_STACK		LOW_LEVEL_SRAM_STACK
-#else
-/* end of 32 KiB in sram */
-#define LOW_LEVEL_SRAM_STACK		0x00008000 /* End of sram */
-#define CONFIG_SPL_STACK		LOW_LEVEL_SRAM_STACK
-#endif
 
 /* I2C */
 #if defined CONFIG_AXP152_POWER || defined CONFIG_AXP209_POWER || \
@@ -338,13 +329,6 @@ extern int soft_i2c_gpio_scl;
 #define CONFIG_SYS_USB_EVENT_POLL_VIA_INT_QUEUE
 #endif
 
-#if !defined CONFIG_ENV_IS_IN_MMC && \
-    !defined CONFIG_ENV_IS_IN_NAND && \
-    !defined CONFIG_ENV_IS_IN_FAT && \
-    !defined CONFIG_ENV_IS_IN_SPI_FLASH
-#define CONFIG_ENV_IS_NOWHERE
-#endif
-
 #define CONFIG_MISC_INIT_R
 
 #ifndef CONFIG_SPL_BUILD
@@ -474,6 +458,20 @@ extern int soft_i2c_gpio_scl;
 	"stderr=serial\0"
 #endif
 
+#ifdef CONFIG_MTDIDS_DEFAULT
+#define SUNXI_MTDIDS_DEFAULT \
+	"mtdids=" CONFIG_MTDIDS_DEFAULT "\0"
+#else
+#define SUNXI_MTDIDS_DEFAULT
+#endif
+
+#ifdef CONFIG_MTDPARTS_DEFAULT
+#define SUNXI_MTDPARTS_DEFAULT \
+	"mtdparts=" CONFIG_MTDPARTS_DEFAULT "\0"
+#else
+#define SUNXI_MTDPARTS_DEFAULT
+#endif
+
 #define CONSOLE_ENV_SETTINGS \
 	CONSOLE_STDIN_SETTINGS \
 	CONSOLE_STDOUT_SETTINGS
@@ -484,6 +482,8 @@ extern int soft_i2c_gpio_scl;
 	DFU_ALT_INFO_RAM \
 	"fdtfile=" CONFIG_DEFAULT_DEVICE_TREE ".dtb\0" \
 	"console=ttyS0,115200\0" \
+	SUNXI_MTDIDS_DEFAULT \
+	SUNXI_MTDPARTS_DEFAULT \
 	BOOTCMD_SUNXI_COMPAT \
 	BOOTENV
 
