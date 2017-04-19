@@ -1,0 +1,37 @@
+From 096a0bd9a0b5aa97b416e84453f8eb1a46a7a80e Mon Sep 17 00:00:00 2001
+From: "xypron.glpk@gmx.de" <xypron.glpk@gmx.de>
+Date: Sat, 15 Apr 2017 21:30:39 +0200
+Subject: [PATCH 1/2] meson: gxbb: enable MMC as boot target
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+To enable automatic booting from SD card or eMMC the MMC
+devices 0, 1, and 2 are added to the BOOT_TARGET_DEVICES.
+
+Booting from SD card, eMMC, and DHCP are tried in sequence.
+A missing or failing device is gracefully handled.
+
+Cc: Andreas Färber <afaerber@suse.de>
+Signed-off-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
+---
+ include/configs/meson-gxbb-common.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/configs/meson-gxbb-common.h b/include/configs/meson-gxbb-common.h
+index cc2b5b61d4..997ce2df19 100644
+--- a/include/configs/meson-gxbb-common.h
++++ b/include/configs/meson-gxbb-common.h
+@@ -39,6 +39,9 @@
+ #include <config_distro_defaults.h>
+ 
+ #define BOOT_TARGET_DEVICES(func) \
++	func(MMC, mmc, 0) \
++	func(MMC, mmc, 1) \
++	func(MMC, mmc, 2) \
+ 	func(DHCP, dhcp, na)
+ 
+ #include <config_distro_bootcmd.h>
+-- 
+2.11.0
+
