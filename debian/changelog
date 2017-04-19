@@ -1,3 +1,23 @@
+u-boot (2017.05~rc2+dfsg1-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+
+  * Remove patches applied upstream:
+    - mx6cuboxi/serial_console_speed
+    - Makefile-Fix-linking-with-modern-binutils
+
+  * Refresh patches:
+    - am57xx/omap5_distro_bootcmd
+    - arndale/board-spl-rule
+
+  * [arm64] Add u-boot-amlogic
+    - Enable the odroid-c2 target.
+    - Add patches:
+      + Enable MMC boot on odroid-c2.
+      + Fix ramdisk load address on odroid-c2.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 18 Apr 2017 20:24:42 -0700
+
 u-boot (2017.05~rc1+dfsg1-1) experimental; urgency=medium
 
   * New upstream release candidate.
