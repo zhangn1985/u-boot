@@ -143,7 +143,7 @@ Description: A boot loader for exynos systems
  ${uboot:platforms}
 
 Package: u-boot-rockchip
-Architecture: armhf
+Architecture: armhf arm64
 Multi-Arch: same
 Depends: ${misc:Depends}
 Description: A boot loader for rockchip systems
