@@ -28,6 +28,3 @@ am57xx/omap5_distro_bootcmd
 odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 
 odroid-xu3/bootdelay
-
-odroid-c2/0001-meson-gxbb-enable-MMC-as-boot-target.patch
-odroid-c2/0002-meson-gxbb-change-ramdisk_addr_r.patch
