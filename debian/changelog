@@ -1,3 +1,17 @@
+u-boot (2017.05+dfsg1-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Remove patches, applied upstream:
+    - odroid-c2/0001-meson-gxbb-enable-MMC-as-boot-target.patch
+    - odroid-c2/0002-meson-gxbb-change-ramdisk_addr_r.patch
+  * Refresh patches:
+    - am57xx/omap5_distro_bootcmd
+    - n900-bootz-raw-initrd.diff
+  * Split Build-Depends into multiple lines.
+  * Add dependencies for cross-building arm64, armhf and armel.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 08 May 2017 17:17:42 -0700
+
 u-boot (2017.05~rc2+dfsg1-1) experimental; urgency=medium
 
   * New upstream release candidate.
