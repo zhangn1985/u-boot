@@ -12,6 +12,7 @@
  * SPDX-License-Identifier:	GPL-2.0+
  */
 #include <common.h>
+#include <debug_uart.h>
 #include <spl.h>
 #include <asm/arch/sys_proto.h>
 #include <linux/sizes.h>
@@ -159,6 +160,9 @@ void early_system_init(void)
 	setup_early_clocks();
 	do_board_detect();
 	vcores_init();
+#ifdef CONFIG_DEBUG_UART_OMAP
+	debug_uart_init();
+#endif
 	prcm_init();
 }
 
@@ -171,6 +175,7 @@ void board_init_f(ulong dummy)
 #endif
 	/* For regular u-boot sdram_init() is called from dram_init() */
 	sdram_init();
+	gd->ram_size = omap_sdram_size();
 }
 #endif
 

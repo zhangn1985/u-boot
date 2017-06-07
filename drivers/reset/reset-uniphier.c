@@ -6,8 +6,8 @@
  */
 
 #include <common.h>
+#include <dm.h>
 #include <reset-uclass.h>
-#include <dm/device.h>
 #include <linux/bitops.h>
 #include <linux/io.h>
 #include <linux/sizes.h>
@@ -254,7 +254,7 @@ static int uniphier_reset_probe(struct udevice *dev)
 	struct uniphier_reset_priv *priv = dev_get_priv(dev);
 	fdt_addr_t addr;
 
-	addr = dev_get_addr(dev->parent);
+	addr = devfdt_get_addr(dev->parent);
 	if (addr == FDT_ADDR_T_NONE)
 		return -EINVAL;
 

@@ -159,14 +159,6 @@
 #define CONFIG_4xx_CONFIG_I2C_EEPROM_OFFSET	0
 #define CONFIG_4xx_CONFIG_BLOCKSIZE		16
 
-/* I2C SYSMON (LM75, AD7414 is almost compatible)			*/
-#define CONFIG_DTT_LM75		1	/* ON Semi's LM75		*/
-#define CONFIG_DTT_AD7414	1	/* use AD7414			*/
-#define CONFIG_DTT_SENSORS	{0}	/* Sensor addresses		*/
-#define CONFIG_SYS_DTT_MAX_TEMP	70
-#define CONFIG_SYS_DTT_LOW_TEMP	-30
-#define CONFIG_SYS_DTT_HYSTERESIS	3
-
 /*
  * Default environment variables
  */
@@ -192,16 +184,13 @@
 
 /* USB */
 #ifdef CONFIG_440EPX
-
-#undef CONFIG_USB_EHCI	/* OHCI by default */
-
-#ifdef CONFIG_USB_EHCI
+#ifdef CONFIG_USB_EHCI_HCD
 #define CONFIG_USB_EHCI_PPC4XX
 #define CONFIG_SYS_PPC4XX_USB_ADDR	0xe0000300
 #define CONFIG_EHCI_HCD_INIT_AFTER_RESET
 #define CONFIG_EHCI_MMIO_BIG_ENDIAN
 #define CONFIG_EHCI_DESC_BIG_ENDIAN
-#else /* CONFIG_USB_EHCI */
+#else /* CONFIG_USB_EHCI_HCD */
 #define CONFIG_USB_OHCI_NEW
 #define CONFIG_SYS_OHCI_BE_CONTROLLER
 
@@ -222,7 +211,6 @@
 /*
  * Commands additional to the ones defined in amcc-common.h
  */
-#define CONFIG_CMD_DTT
 #define CONFIG_CMD_NAND
 #define CONFIG_CMD_PCI
 #define CONFIG_CMD_SDRAM

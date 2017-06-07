@@ -31,6 +31,9 @@
 #include <trace.h>
 #include <video.h>
 #include <watchdog.h>
+#ifdef CONFIG_MACH_TYPE
+#include <asm/mach-types.h>
+#endif
 #if defined(CONFIG_MP) && defined(CONFIG_PPC)
 #include <asm/mp.h>
 #endif
@@ -184,7 +187,7 @@ __weak int dram_init_banksize(void)
 	return 0;
 }
 
-#if defined(CONFIG_HARD_I2C) || defined(CONFIG_SYS_I2C)
+#if defined(CONFIG_SYS_I2C)
 static int init_func_i2c(void)
 {
 	puts("I2C:   ");
@@ -488,6 +491,20 @@ static int reserve_fdt(void)
 	return 0;
 }
 
+static int reserve_bootstage(void)
+{
+#ifdef CONFIG_BOOTSTAGE
+	int size = bootstage_get_size();
+
+	gd->start_addr_sp -= size;
+	gd->new_bootstage = map_sysmem(gd->start_addr_sp, size);
+	debug("Reserving %#x Bytes for bootstage at: %08lx\n", size,
+	      gd->start_addr_sp);
+#endif
+
+	return 0;
+}
+
 int arch_reserve_stacks(void)
 {
 	return 0;
@@ -602,6 +619,24 @@ static int reloc_fdt(void)
 	return 0;
 }
 
+static int reloc_bootstage(void)
+{
+#ifdef CONFIG_BOOTSTAGE
+	if (gd->flags & GD_FLG_SKIP_RELOC)
+		return 0;
+	if (gd->new_bootstage) {
+		int size = bootstage_get_size();
+
+		debug("Copying bootstage from %p to %p, size %x\n",
+		      gd->bootstage, gd->new_bootstage, size);
+		memcpy(gd->new_bootstage, gd->bootstage, size);
+		gd->bootstage = gd->new_bootstage;
+	}
+#endif
+
+	return 0;
+}
+
 static int setup_reloc(void)
 {
 	if (gd->flags & GD_FLG_SKIP_RELOC) {
@@ -670,8 +705,29 @@ static int jump_to_copy(void)
 #endif
 
 /* Record the board_init_f() bootstage (after arch_cpu_init()) */
-static int mark_bootstage(void)
+static int initf_bootstage(void)
 {
+#if defined(CONFIG_SPL_BOOTSTAGE) && defined(CONFIG_BOOTSTAGE_STASH)
+	bool from_spl = true;
+#else
+	bool from_spl = false;
+#endif
+	int ret;
+
+	ret = bootstage_init(!from_spl);
+	if (ret)
+		return ret;
+	if (from_spl) {
+		const void *stash = map_sysmem(CONFIG_BOOTSTAGE_STASH_ADDR,
+					       CONFIG_BOOTSTAGE_STASH_SIZE);
+
+		ret = bootstage_unstash(stash, CONFIG_BOOTSTAGE_STASH_SIZE);
+		if (ret && ret != -ENOENT) {
+			debug("Failed to unstash bootstage: err=%d\n", ret);
+			return ret;
+		}
+	}
+
 	bootstage_mark_name(BOOTSTAGE_ID_START_UBOOT_F, "board_init_f");
 
 	return 0;
@@ -691,7 +747,9 @@ static int initf_dm(void)
 #if defined(CONFIG_DM) && defined(CONFIG_SYS_MALLOC_F_LEN)
 	int ret;
 
+	bootstage_start(BOOTSTATE_ID_ACCUM_DM_F, "dm_f");
 	ret = dm_init_and_scan(true);
+	bootstage_accum(BOOTSTATE_ID_ACCUM_DM_F);
 	if (ret)
 		return ret;
 #endif
@@ -724,6 +782,7 @@ static const init_fnc_t init_sequence_f[] = {
 	trace_early_init,
 #endif
 	initf_malloc,
+	initf_bootstage,	/* uses its own timer, so does not need DM */
 	initf_console_record,
 #if defined(CONFIG_HAVE_FSP)
 	arch_fsp_init,
@@ -732,7 +791,6 @@ static const init_fnc_t init_sequence_f[] = {
 	mach_cpu_init,		/* SoC/machine dependent CPU setup */
 	initf_dm,
 	arch_cpu_init_dm,
-	mark_bootstage,		/* need timer, go after init dm */
 #if defined(CONFIG_BOARD_EARLY_INIT_F)
 	board_early_init_f,
 #endif
@@ -740,7 +798,9 @@ static const init_fnc_t init_sequence_f[] = {
 	/* get CPU and bus clocks according to the environment variable */
 	get_clocks,		/* get CPU and bus clocks (etc.) */
 #endif
+#if !defined(CONFIG_M68K)
 	timer_init,		/* initialize timer */
+#endif
 #if defined(CONFIG_BOARD_POSTCLK_INIT)
 	board_postclk_init,
 #endif
@@ -765,7 +825,7 @@ static const init_fnc_t init_sequence_f[] = {
 	misc_init_f,
 #endif
 	INIT_FUNC_WATCHDOG_RESET
-#if defined(CONFIG_HARD_I2C) || defined(CONFIG_SYS_I2C)
+#if defined(CONFIG_SYS_I2C)
 	init_func_i2c,
 #endif
 #if defined(CONFIG_HARD_SPI)
@@ -817,6 +877,7 @@ static const init_fnc_t init_sequence_f[] = {
 	setup_machine,
 	reserve_global_data,
 	reserve_fdt,
+	reserve_bootstage,
 	reserve_arch,
 	reserve_stacks,
 	dram_init_banksize,
@@ -838,6 +899,7 @@ static const init_fnc_t init_sequence_f[] = {
 #endif
 	INIT_FUNC_WATCHDOG_RESET
 	reloc_fdt,
+	reloc_bootstage,
 	setup_reloc,
 #if defined(CONFIG_X86) || defined(CONFIG_ARC)
 	copy_uboot_to_ram,

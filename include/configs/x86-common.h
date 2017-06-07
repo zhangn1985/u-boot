@@ -70,11 +70,7 @@
 /*-----------------------------------------------------------------------
  * Command line configuration.
  */
-#define CONFIG_CMD_FPGA_LOADMK
-#define CONFIG_CMD_IO
-#define CONFIG_CMD_IRQ
 #define CONFIG_CMD_PCI
-#define CONFIG_CMD_GETTIME
 #define CONFIG_SCSI
 
 #define CONFIG_CMD_ZBOOT
@@ -134,7 +130,6 @@
 /*-----------------------------------------------------------------------
  * USB configuration
  */
-#define CONFIG_USB_EHCI
 #define CONFIG_USB_EHCI_PCI
 #define CONFIG_SYS_USB_EHCI_MAX_ROOT_PORTS     12
 #define CONFIG_USB_MAX_CONTROLLER_COUNT        2

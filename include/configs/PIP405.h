@@ -37,12 +37,8 @@
 /*
  * Command line configuration.
  */
-#define CONFIG_CMD_IDE
 #define CONFIG_CMD_PCI
-#define CONFIG_CMD_IRQ
-#define CONFIG_CMD_EEPROM
 #define CONFIG_CMD_REGINFO
-#define CONFIG_CMD_FDC
 #define CONFIG_SCSI
 #define CONFIG_CMD_SDRAM
 #define CONFIG_CMD_SAVES

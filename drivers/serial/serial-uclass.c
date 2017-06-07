@@ -74,7 +74,8 @@ static void serial_find_console_or_panic(void)
 		 * bind it anyway.
 		 */
 		if (node > 0 &&
-		    !lists_bind_fdt(gd->dm_root, blob, node, &dev)) {
+		    !lists_bind_fdt(gd->dm_root, offset_to_ofnode(node),
+				    &dev)) {
 			if (!device_probe(dev)) {
 				gd->cur_serial_dev = dev;
 				return;
@@ -349,7 +350,7 @@ static int serial_pre_remove(struct udevice *dev)
 #if CONFIG_IS_ENABLED(SYS_STDIO_DEREGISTER)
 	struct serial_dev_priv *upriv = dev_get_uclass_priv(dev);
 
-	if (stdio_deregister_dev(upriv->sdev, 0))
+	if (stdio_deregister_dev(upriv->sdev, true))
 		return -EPERM;
 #endif
 

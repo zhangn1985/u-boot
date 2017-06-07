@@ -125,8 +125,6 @@
 /*
  * Command line configuration.
  */
-#define CONFIG_CMD_EEPROM
-#define CONFIG_CMD_IDE
 
 /*
  * Miscellaneous configurable options

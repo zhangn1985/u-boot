@@ -46,8 +46,6 @@
  * Command line configuration.
  */
 #define CONFIG_CMD_PCI
-#define CONFIG_CMD_IRQ
-#define CONFIG_CMD_EEPROM
 
 #undef	CONFIG_WATCHDOG			/* watchdog disabled		*/
 

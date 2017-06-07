@@ -31,9 +31,6 @@
 #define PLLMR0_DEFAULT PLLMR0_266_133_66
 #define PLLMR1_DEFAULT PLLMR1_266_133_66
 
-/* new uImage format support */
-#define CONFIG_FIT_DISABLE_SHA256
-
 #define CONFIG_ENV_IS_IN_FLASH	/* use FLASH for environment vars */
 
 /*
@@ -57,9 +54,6 @@
 /*
  * Commands additional to the ones defined in amcc-common.h
  */
-#define CONFIG_CMD_DTT
-#undef CONFIG_CMD_EEPROM
-#undef CONFIG_CMD_IRQ
 
 /*
  * SDRAM configuration (please see cpu/ppc/sdram.[ch])
@@ -93,11 +87,6 @@
 #define CONFIG_SYS_I2C_PPC4XX_SPEED_0		100000
 
 /* Temp sensor/hwmon/dtt */
-#define CONFIG_DTT_LM63		1	/* National LM63	*/
-#define CONFIG_DTT_SENSORS	{ 0 }	/* Sensor addresses	*/
-#define CONFIG_DTT_PWM_LOOKUPTABLE	\
-		{ { 40, 10 }, { 50, 20 }, { 60, 40 } }
-#define CONFIG_DTT_TACH_LIMIT	0xa10
 
 /*
  * FLASH organization

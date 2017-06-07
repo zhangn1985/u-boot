@@ -20,9 +20,6 @@
 #define CONFIG_LCD_DT_SIMPLEFB
 #define LCD_BPP				LCD_COLOR32
 
-#define CONFIG_HW_WATCHDOG
-#define CONFIG_OMAP_WATCHDOG
-
 /* Bootcount using the RTC block */
 #define CONFIG_SYS_BOOTCOUNT_ADDR	0x44E3E000
 #define CONFIG_BOOTCOUNT_LIMIT
@@ -279,7 +276,6 @@ MMCARGS
  * enabled a number of useful commands and support.
  */
 #if defined(CONFIG_MMC) || defined(CONFIG_USB_STORAGE)
-#define CONFIG_FAT_WRITE
 #define CONFIG_FS_EXT4
 #define CONFIG_EXT4_WRITE
 #endif /* CONFIG_MMC, ... */

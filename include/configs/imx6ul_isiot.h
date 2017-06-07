@@ -42,7 +42,6 @@
 	"splashpos=m,m\0" \
 	"console=ttymxc0\0" \
 	"fdt_high=0xffffffff\0" \
-	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
 	"fdt_addr=0x87800000\0" \
 	"boot_fdt=try\0" \
 	"mmcpart=1\0" \
@@ -125,9 +124,6 @@
 
 /* FIT */
 #ifdef CONFIG_FIT
-# define CONFIG_HASH_VERIFY
-# define CONFIG_SHA1
-# define CONFIG_SHA256
 # define CONFIG_IMAGE_FORMAT_LEGACY
 #endif
 

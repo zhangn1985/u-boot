@@ -525,8 +525,7 @@ int i2c_get_chip_for_busnum(int busnum, int chip_addr, uint offset_len,
  * @node:	Node offset to read from
  * @spi:	Place to put the decoded information
  */
-int i2c_chip_ofdata_to_platdata(const void *blob, int node,
-				struct dm_i2c_chip *chip);
+int i2c_chip_ofdata_to_platdata(struct udevice *dev, struct dm_i2c_chip *chip);
 
 /**
  * i2c_dump_msgs() - Dump a list of I2C messages
@@ -570,9 +569,6 @@ void i2c_dump_msgs(struct i2c_msg *msg, int nmsgs);
 /* define the I2C bus number for RTC and DTT if not already done */
 #if !defined(CONFIG_SYS_RTC_BUS_NUM)
 #define CONFIG_SYS_RTC_BUS_NUM		0
-#endif
-#if !defined(CONFIG_SYS_DTT_BUS_NUM)
-#define CONFIG_SYS_DTT_BUS_NUM		0
 #endif
 #if !defined(CONFIG_SYS_SPD_BUS_NUM)
 #define CONFIG_SYS_SPD_BUS_NUM		0
@@ -706,9 +702,6 @@ void i2c_early_init_f(void);
 #endif
 void i2c_init(int speed, int slaveaddr);
 void i2c_init_board(void);
-#ifdef CONFIG_SYS_I2C_BOARD_LATE_INIT
-void i2c_board_late_init(void);
-#endif
 
 #ifdef CONFIG_SYS_I2C
 /*

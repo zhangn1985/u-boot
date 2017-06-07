@@ -36,7 +36,7 @@
 #include "beagle.h"
 #include <command.h>
 
-#ifdef CONFIG_USB_EHCI
+#ifdef CONFIG_USB_EHCI_HCD
 #include <usb.h>
 #include <asm/ehci-omap.h>
 #endif
@@ -524,21 +524,21 @@ void set_muxconf_regs(void)
 	MUX_BEAGLE();
 }
 
-#if defined(CONFIG_GENERIC_MMC)
+#if defined(CONFIG_MMC)
 int board_mmc_init(bd_t *bis)
 {
 	return omap_mmc_init(0, 0, 0, -1, -1);
 }
 #endif
 
-#if defined(CONFIG_GENERIC_MMC)
+#if defined(CONFIG_MMC)
 void board_mmc_power_init(void)
 {
 	twl4030_power_mmc_init(0);
 }
 #endif
 
-#if defined(CONFIG_USB_EHCI) && !defined(CONFIG_SPL_BUILD)
+#if defined(CONFIG_USB_EHCI_HCD) && !defined(CONFIG_SPL_BUILD)
 /* Call usb_stop() before starting the kernel */
 void show_boot_progress(int val)
 {
@@ -563,7 +563,7 @@ int ehci_hcd_stop(int index)
 	return omap_ehci_hcd_stop();
 }
 
-#endif /* CONFIG_USB_EHCI */
+#endif /* CONFIG_USB_EHCI_HCD */
 
 #if defined(CONFIG_USB_ETHER) && defined(CONFIG_USB_MUSB_GADGET)
 int board_eth_init(bd_t *bis)

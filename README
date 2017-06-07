@@ -292,7 +292,7 @@ board_init_r():
 	- stack is optionally in SDRAM, if CONFIG_SPL_STACK_R is defined and
 		CONFIG_SPL_STACK_R_ADDR points into SDRAM
 	- preloader_console_init() can be called here - typically this is
-		done by defining CONFIG_SPL_BOARD_INIT and then supplying a
+		done by selecting CONFIG_SPL_BOARD_INIT and then supplying a
 		spl_board_init() function containing this call
 	- loads U-Boot or (in falcon mode) Linux
 
@@ -827,22 +827,11 @@ The following options need to be configured:
 		CONFIG_CMD_BOOTI	* ARM64 Linux kernel Image support
 		CONFIG_CMD_CACHE	* icache, dcache
 		CONFIG_CMD_CONSOLE	  coninfo
-		CONFIG_CMD_CRC32	* crc32
-		CONFIG_CMD_DATE		* support for RTC, date/time...
 		CONFIG_CMD_DHCP		* DHCP support
 		CONFIG_CMD_DIAG		* Diagnostics
-		CONFIG_CMD_DS4510	* ds4510 I2C gpio commands
-		CONFIG_CMD_DS4510_INFO	* ds4510 I2C info command
-		CONFIG_CMD_DS4510_MEM	* ds4510 I2C eeprom/sram commansd
-		CONFIG_CMD_DS4510_RST	* ds4510 I2C rst command
-		CONFIG_CMD_DTT		* Digital Therm and Thermostat
 		CONFIG_CMD_ECHO		  echo arguments
 		CONFIG_CMD_EDITENV	  edit env variable
-		CONFIG_CMD_EEPROM	* EEPROM read/write support
-		CONFIG_CMD_EEPROM_LAYOUT* EEPROM layout aware commands
 		CONFIG_CMD_ELF		* bootelf, bootvx
-		CONFIG_CMD_ENV_CALLBACK	* display details about env callbacks
-		CONFIG_CMD_ENV_FLAGS	* display details about env flags
 		CONFIG_CMD_ENV_EXISTS	* check existence of env variable
 		CONFIG_CMD_EXPORTENV	* export the environment
 		CONFIG_CMD_EXT2		* ext2 command support
@@ -851,28 +840,17 @@ The following options need to be configured:
 					  that work for multiple fs types
 		CONFIG_CMD_FS_UUID	* Look up a filesystem UUID
 		CONFIG_CMD_SAVEENV	  saveenv
-		CONFIG_CMD_FDC		* Floppy Disk Support
-		CONFIG_CMD_FAT		* FAT command support
 		CONFIG_CMD_FLASH	  flinfo, erase, protect
 		CONFIG_CMD_FPGA		  FPGA device initialization support
-		CONFIG_CMD_FUSE		* Device fuse support
-		CONFIG_CMD_GETTIME	* Get time since boot
 		CONFIG_CMD_GO		* the 'go' command (exec code)
 		CONFIG_CMD_GREPENV	* search environment
-		CONFIG_CMD_HASH		* calculate hash / digest
 		CONFIG_CMD_I2C		* I2C serial bus support
-		CONFIG_CMD_IDE		* IDE harddisk support
 		CONFIG_CMD_IMI		  iminfo
 		CONFIG_CMD_IMLS		  List all images found in NOR flash
 		CONFIG_CMD_IMLS_NAND	* List all images found in NAND flash
-		CONFIG_CMD_IMMAP	* IMMR dump support
-		CONFIG_CMD_IOTRACE	* I/O tracing for debugging
 		CONFIG_CMD_IMPORTENV	* import an environment
 		CONFIG_CMD_INI		* import data from an ini file into the env
-		CONFIG_CMD_IRQ		* irqinfo
 		CONFIG_CMD_ITEST	  Integer/string test of 2 values
-		CONFIG_CMD_JFFS2	* JFFS2 Support
-		CONFIG_CMD_KGDB		* kgdb
 		CONFIG_CMD_LDRINFO	* ldrinfo (display Blackfin loader)
 		CONFIG_CMD_LINK_LOCAL	* link-local IP address auto-configuration
 					  (169.254.*.*)
@@ -909,8 +887,6 @@ The following options need to be configured:
 		CONFIG_CMD_SETGETDCR	  Support for DCR Register access
 					  (4xx only)
 		CONFIG_CMD_SF		* Read/write/erase SPI NOR flash
-		CONFIG_CMD_SHA1SUM	* print sha1 memory digest
-					  (requires CONFIG_CMD_MEMORY)
 		CONFIG_CMD_SOFTSWITCH	* Soft switch setting command for BF60x
 		CONFIG_CMD_SOURCE	  "source" command Support
 		CONFIG_CMD_SPI		* SPI serial bus support
@@ -969,7 +945,7 @@ The following options need to be configured:
 		tree is available in the global data as gd->fdt_blob.
 
 		U-Boot needs to get its device tree from somewhere. This can
-		be done using one of the two options below:
+		be done using one of the three options below:
 
 		CONFIG_OF_EMBED
 		If this variable is defined, U-Boot will embed a device tree
@@ -989,6 +965,12 @@ The following options need to be configured:
 		u-boot-dtb.bin which is useful in the common case. You can
 		still use the individual files if you need something more
 		exotic.
+
+		CONFIG_OF_BOARD
+		If this variable is defined, U-Boot will use the device tree
+		provided by the board at runtime instead of embedding one with
+		the image. Only boards defining board_fdt_blob_setup() support
+		this option (see include/fdtdec.h file).
 
 - Watchdog:
 		CONFIG_WATCHDOG
@@ -1082,15 +1064,13 @@ The following options need to be configured:
 - Partition Labels (disklabels) Supported:
 		Zero or more of the following:
 		CONFIG_MAC_PARTITION   Apple's MacOS partition table.
-		CONFIG_DOS_PARTITION   MS Dos partition table, traditional on the
-				       Intel architecture, USB sticks, etc.
 		CONFIG_ISO_PARTITION   ISO partition table, used on CDROM etc.
 		CONFIG_EFI_PARTITION   GPT partition table, common when EFI is the
 				       bootloader.  Note 2TB partition limit; see
 				       disk/part_efi.c
 		CONFIG_MTD_PARTITIONS  Memory Technology Device partition table.
 
-		If IDE or SCSI support is enabled (CONFIG_CMD_IDE or
+		If IDE or SCSI support is enabled (CONFIG_IDE or
 		CONFIG_SCSI) you must configure support for at
 		least one non-MTD partition type as well.
 
@@ -1536,21 +1516,6 @@ The following options need to be configured:
 		CONFIG_SYS_JFFS2_FIRST_BANK, CONFIG_SYS_JFFS2_NUM_BANKS
 		Define these for a default partition on a NOR device
 
-- FAT(File Allocation Table) filesystem write function support:
-		CONFIG_FAT_WRITE
-
-		Define this to enable support for saving memory data as a
-		file in FAT formatted partition.
-
-		This will also enable the command "fatwrite" enabling the
-		user to write files to FAT.
-
-- FAT(File Allocation Table) filesystem cluster size:
-		CONFIG_FS_FAT_MAX_CLUSTSIZE
-
-		Define the max cluster size for fat operations else
-		a default value of 65536 will be defined.
-
 - Keyboard Support:
 		See Kconfig help for available keyboard drivers.
 
@@ -1736,29 +1701,6 @@ The following options need to be configured:
 		NOTE: the bzip2 algorithm requires a lot of RAM, so
 		the malloc area (as defined by CONFIG_SYS_MALLOC_LEN) should
 		be at least 4MB.
-
-		CONFIG_LZMA
-
-		If this option is set, support for lzma compressed
-		images is included.
-
-		Note: The LZMA algorithm adds between 2 and 4KB of code and it
-		requires an amount of dynamic memory that is given by the
-		formula:
-
-			(1846 + 768 << (lc + lp)) * sizeof(uint16)
-
-		Where lc and lp stand for, respectively, Literal context bits
-		and Literal pos bits.
-
-		This value is upper-bounded by 14MB in the worst case. Anyway,
-		for a ~4MB large kernel image, we have lc=3 and lp=0 for a
-		total amount of (1846 + 768 << (3 + 0)) * 2 = ~41KB... that is
-		a very small buffer.
-
-		Use the lzmainfo tool to determinate the lc and lp values and
-		then calculate the amount of needed dynamic memory (ensuring
-		the appropriate CONFIG_SYS_MALLOC_LEN value).
 
 		CONFIG_LZO
 
@@ -2199,52 +2141,7 @@ The following options need to be configured:
 
 		If you do not have i2c muxes on your board, omit this define.
 
-- Legacy I2C Support:	CONFIG_HARD_I2C
-
-		NOTE: It is intended to move drivers to CONFIG_SYS_I2C which
-		provides the following compelling advantages:
-
-		- more than one i2c adapter is usable
-		- approved multibus support
-		- better i2c mux support
-
-		** Please consider updating your I2C driver now. **
-
-		These enable legacy I2C serial bus commands. Defining
-		CONFIG_HARD_I2C will include the appropriate I2C driver
-		for the selected CPU.
-
-		This will allow you to use i2c commands at the u-boot
-		command line (as long as you set CONFIG_CMD_I2C in
-		CONFIG_COMMANDS) and communicate with i2c based realtime
-		clock chips. See common/cmd_i2c.c for a description of the
-		command line interface.
-
-		CONFIG_HARD_I2C selects a hardware I2C controller.
-
-		There are several other quantities that must also be
-		defined when you define CONFIG_HARD_I2C.
-
-		In both cases you will need to define CONFIG_SYS_I2C_SPEED
-		to be the frequency (in Hz) at which you wish your i2c bus
-		to run and CONFIG_SYS_I2C_SLAVE to be the address of this node (ie
-		the CPU's i2c node address).
-
-		Now, the u-boot i2c code for the mpc8xx
-		(arch/powerpc/cpu/mpc8xx/i2c.c) sets the CPU up as a master node
-		and so its address should therefore be cleared to 0 (See,
-		eg, MPC823e User's Manual p.16-473). So, set
-		CONFIG_SYS_I2C_SLAVE to 0.
-
-		CONFIG_SYS_I2C_INIT_MPC5XXX
-
-		When a board is reset during an i2c bus transfer
-		chips might think that the current transfer is still
-		in progress.  Reset the slave devices by sending start
-		commands until the slave device responds.
-
-		That's all that's required for CONFIG_HARD_I2C.
-
+- Legacy I2C Support:
 		If you use the software i2c interface (CONFIG_SYS_I2C_SOFT)
 		then the following macros need to be defined (examples are
 		from include/configs/lwmon.h):
@@ -2333,23 +2230,6 @@ The following options need to be configured:
 		custom i2c_init_board() routine in boards/xxx/board.c
 		is run early in the boot sequence.
 
-		CONFIG_SYS_I2C_BOARD_LATE_INIT
-
-		An alternative to CONFIG_SYS_I2C_INIT_BOARD. If this option is
-		defined a custom i2c_board_late_init() routine in
-		boards/xxx/board.c is run AFTER the operations in i2c_init()
-		is completed. This callpoint can be used to unreset i2c bus
-		using CPU i2c controller register accesses for CPUs whose i2c
-		controller provide such a method. It is called at the end of
-		i2c_init() to allow i2c_init operations to setup the i2c bus
-		controller on the CPU (e.g. setting bus speed & slave address).
-
-		CONFIG_I2CFAST (PPC405GP|PPC405EP only)
-
-		This option enables configuration of bi_iic_fast[] flags
-		in u-boot bd_info structure based on u-boot environment
-		variable "i2cfast". (see also i2cfast)
-
 		CONFIG_I2C_MULTI_BUS
 
 		This option allows the use of multiple I2C buses, each of which
@@ -2384,17 +2264,6 @@ The following options need to be configured:
 
 		If defined, then this indicates the I2C bus number for the RTC.
 		If not defined, then U-Boot assumes that RTC is on I2C bus 0.
-
-		CONFIG_SYS_DTT_BUS_NUM
-
-		If defined, then this indicates the I2C bus number for the DTT.
-		If not defined, then U-Boot assumes that DTT is on I2C bus 0.
-
-		CONFIG_SYS_I2C_DTT_ADDR:
-
-		If defined, specifies the I2C address of the DTT device.
-		If not defined, then U-Boot uses predefined value for
-		specified DTT device.
 
 		CONFIG_SOFT_I2C_READ_REPEATED_START
 
@@ -2461,19 +2330,6 @@ The following options need to be configured:
 		CONFIG_FPGA_COUNT
 
 		Specify the number of FPGA devices to support.
-
-		CONFIG_CMD_FPGA_LOADMK
-
-		Enable support for fpga loadmk command
-
-		CONFIG_CMD_FPGA_LOADP
-
-		Enable support for fpga loadp command - load partial bitstream
-
-		CONFIG_CMD_FPGA_LOADBP
-
-		Enable support for fpga loadbp command - load partial bitstream
-		(Xilinx only)
 
 		CONFIG_SYS_FPGA_PROG_FEEDBACK
 
@@ -2802,38 +2658,6 @@ The following options need to be configured:
 		A better solution is to properly configure the firewall,
 		but sometimes that is not allowed.
 
-- Hashing support:
-		CONFIG_CMD_HASH
-
-		This enables a generic 'hash' command which can produce
-		hashes / digests from a few algorithms (e.g. SHA1, SHA256).
-
-		CONFIG_HASH_VERIFY
-
-		Enable the hash verify command (hash -v). This adds to code
-		size a little.
-
-		CONFIG_SHA1 - This option enables support of hashing using SHA1
-		algorithm. The hash is calculated in software.
-		CONFIG_SHA256 - This option enables support of hashing using
-		SHA256 algorithm. The hash is calculated in software.
-		CONFIG_SHA_HW_ACCEL - This option enables hardware acceleration
-		for SHA1/SHA256 hashing.
-		This affects the 'hash' command and also the
-		hash_lookup_algo() function.
-		CONFIG_SHA_PROG_HW_ACCEL - This option enables
-		hardware-acceleration for SHA1/SHA256 progressive hashing.
-		Data can be streamed in a block at a time and the hashing
-		is performed in hardware.
-
-		Note: There is also a sha1sum command, which should perhaps
-		be deprecated in favour of 'hash sha1'.
-
-- Freescale i.MX specific commands:
-		CONFIG_CMD_HDMIDETECT
-		This enables 'hdmidet' command which returns true if an
-		HDMI monitor is detected.  This command is i.MX 6 specific.
-
 - bootcount support:
 		CONFIG_BOOTCOUNT_LIMIT
 
@@ -3029,15 +2853,6 @@ FIT uImage format:
 
 		This define is introduced, as the legacy image format is
 		enabled per default for backward compatibility.
-
-- FIT image support:
-		CONFIG_FIT_DISABLE_SHA256
-		Supporting SHA256 hashes has quite an impact on binary size.
-		For constrained systems sha256 hash support can be disabled
-		with this option.
-
-		TODO(sjg@chromium.org): Adjust this option to be positive,
-		and move it to Kconfig
 
 - Standalone program support:
 		CONFIG_STANDALONE_LOAD_ADDR
@@ -3703,11 +3518,6 @@ Configuration Settings:
 	If defined, don't allow the -f switch to env set override variable
 	access flags.
 
-- CONFIG_OMAP_PLATFORM_RESET_TIME_MAX_USEC (OMAP only)
-	This is set by OMAP boards for the max time that reset should
-	be asserted. See doc/README.omap-reset-time for details on how
-	the value can be calculated on a given board.
-
 - CONFIG_USE_STDINT
 	If stdint.h is available with your toolchain you can define this
 	option to enable it. You can provide option 'USE_STDINT=1' when
@@ -4042,7 +3852,7 @@ but it can not erase, write this NOR flash by SRIO or PCIE interface.
          environment.
 
        - CONFIG_FAT_WRITE:
-         This should be defined. Otherwise it cannot save the environment file.
+         This must be enabled. Otherwise it cannot save the environment file.
 
 - CONFIG_ENV_IS_IN_MMC:
 
@@ -4506,11 +4316,6 @@ Low Level (hardware related) configuration options:
 - CONFIG_X86_RESET_VECTOR
 		If defined, the x86 reset vector code is included. This is not
 		needed when U-Boot is running from Coreboot.
-
-- CONFIG_SYS_MPUCLK
-		Defines the MPU clock speed (in MHz).
-
-		NOTE : currently only supported on AM335x platforms.
 
 - CONFIG_SPL_AM33XX_ENABLE_RTC32K_OSC:
 		Enables the RTC32K OSC on AM33xx based plattforms

@@ -48,8 +48,6 @@
 /*
  * Command line configuration.
  */
-#define CONFIG_CMD_EEPROM
-#define CONFIG_CMD_IRQ
 #define CONFIG_CMD_PCI
 
 #undef  CONFIG_WATCHDOG			/* watchdog disabled */

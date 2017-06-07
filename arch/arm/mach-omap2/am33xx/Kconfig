@@ -1,3 +1,23 @@
+if TI816X
+
+config TARGET_TI816X_EVM
+	bool "Support ti816x_evm"
+	help
+	  This option specifies support for the TI8168 EVM development platform
+	  with PG2.0 silicon and DDR3 DRAM.
+
+endif
+
+if TI814X
+
+config TARGET_TI814X_EVM
+	bool "Support ti814x_evm"
+	help
+	  This option specifies support for the TI8148
+	  EVM development platform.
+
+endif
+
 if AM33XX
 
 config AM33XX_CHILISOM
@@ -29,6 +49,11 @@ config TARGET_AM335X_EVM
 	imply SPL_SERIAL_SUPPORT
 	imply SPL_WATCHDOG_SUPPORT
 	imply SPL_YMODEM_SUPPORT
+	imply SPL_SYS_MALLOC_SIMPLE
+	imply SPL_SEPARATE_BSS
+	imply SPL_DM
+	imply SPL_DM_SEQ_ALIAS
+	imply SPL_OF_LIBFDT
 	help
 	  This option specifies support for the AM335x
 	  GP and HS EVM development platforms. The AM335x
@@ -44,8 +69,9 @@ config TARGET_AM335X_BALTOS
 	select DM_SERIAL
 	select DM_GPIO
 
-config TARGET_AM335X_IGEP0033
-	bool "Support am335x_igep0033"
+config TARGET_AM335X_IGEP003X
+	bool "Support am335x_igep003x"
+	select BOARD_LATE_INIT
 	select DM
 	select DM_SERIAL
 	select DM_GPIO

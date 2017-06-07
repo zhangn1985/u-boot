@@ -88,8 +88,6 @@
 /*
  * Command line configuration.
  */
-#define CONFIG_CMD_IDE		/* IDE harddisk support */
-#define CONFIG_CMD_IRQ		/* irqinfo */
 #define CONFIG_CMD_PCI		/* pciinfo */
 
 #define CONFIG_SYS_LOWBOOT	1
@@ -149,29 +147,6 @@
 #define OF_CPU			"PowerPC,5200@0"
 #define OF_SOC			"soc5200@f0000000"
 #define OF_TBCLK		(bd->bi_busfreq / 4)
-
-/*
- * I2C configuration
- */
-#define CONFIG_HARD_I2C		1	/* I2C with hardware support */
-#define CONFIG_SYS_I2C_MODULE	2	/* Select I2C module #1 or #2 */
-
-#define CONFIG_SYS_I2C_SPEED	100000	/* 100 kHz */
-#define CONFIG_SYS_I2C_SLAVE	0x7F
-
-/*
- * EEPROM configuration
- */
-#define CONFIG_SYS_I2C_EEPROM_ADDR		0x53
-#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN		2
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS	6
-#define CONFIG_SYS_EEPROM_PAGE_WRITE_DELAY_MS	10
-
-/*
- * RTC configuration
- */
-#define CONFIG_RTC_PCF8563
-#define CONFIG_SYS_I2C_RTC_ADDR		0x51
 
 #define CONFIG_SYS_FLASH_BASE		0xFC000000
 #define CONFIG_SYS_FLASH_SIZE		0x01000000

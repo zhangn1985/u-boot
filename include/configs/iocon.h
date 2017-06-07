@@ -33,9 +33,6 @@
 #define PLLMR0_DEFAULT PLLMR0_266_133_66
 #define PLLMR1_DEFAULT PLLMR1_266_133_66
 
-/* new uImage format support */
-#define CONFIG_FIT_DISABLE_SHA256
-
 #define CONFIG_ENV_IS_IN_FLASH	/* use FLASH for environment vars */
 
 /*
@@ -57,9 +54,6 @@
 /*
  * Commands additional to the ones defined in amcc-common.h
  */
-#define CONFIG_CMD_FPGAD
-#undef CONFIG_CMD_EEPROM
-#undef CONFIG_CMD_IRQ
 
 /*
  * SDRAM configuration (please see cpu/ppc/sdram.[ch])

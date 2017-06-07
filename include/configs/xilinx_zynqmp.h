@@ -52,7 +52,6 @@
 	{ 4800, 9600, 19200, 38400, 57600, 115200 }
 
 /* Command line configuration */
-#define CONFIG_CMD_ENV
 #define CONFIG_MP
 
 /* BOOTP options */
@@ -81,10 +80,6 @@
 # define FAT_ENV_DEVICE_AND_PART	"0:auto"
 # define FAT_ENV_FILE			"uboot.env"
 # define FAT_ENV_INTERFACE		"mmc"
-#endif
-
-#if defined(CONFIG_MMC_SDHCI_ZYNQ) || defined(CONFIG_ZYNQMP_USB)
-# define CONFIG_FAT_WRITE
 #endif
 
 #ifdef CONFIG_NAND_ARASAN
@@ -184,7 +179,6 @@
 
 /* EEPROM */
 #ifdef CONFIG_ZYNQMP_EEPROM
-# define CONFIG_CMD_EEPROM
 # define CONFIG_SYS_I2C_EEPROM_ADDR_LEN		2
 # define CONFIG_SYS_I2C_EEPROM_ADDR		0x54
 # define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS	4
@@ -271,7 +265,6 @@
 #define CONFIG_SPL_BSS_MAX_SIZE		0x80000
 
 #define CONFIG_SPL_FRAMEWORK
-#define CONFIG_SPL_BOARD_INIT
 
 /* u-boot is like dtb */
 #define CONFIG_SPL_FS_LOAD_ARGS_NAME	"u-boot.bin"

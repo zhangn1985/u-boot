@@ -21,7 +21,7 @@
 
 #define CONFIG_VIDEO_BMP_GZIP
 #define CONFIG_SYS_VIDEO_LOGO_MAX_SIZE	(1366*767*4)
-#define CONFIG_BMP_24BMP
+#define CONFIG_BMP_24BPP
 #define CONFIG_BMP_32BPP
 
 /* memory */
@@ -118,12 +118,5 @@ BUR_COMMON_ENV \
 #define CONFIG_ENV_OFFSET		0x40000	/* TODO: Adresse definieren */
 #define CONFIG_ENV_OFFSET_REDUND	(CONFIG_ENV_OFFSET + CONFIG_ENV_SIZE)
 #define CONFIG_SYS_REDUNDAND_ENVIRONMENT
-/*
- * Common filesystems support.  When we have removable storage we
- * enabled a number of useful commands and support.
- */
-#if defined(CONFIG_MMC) || defined(CONFIG_USB_STORAGE)
-#define CONFIG_FAT_WRITE
-#endif /* CONFIG_MMC, ... */
 
 #endif	/* __CONFIG_BRXRE1_H__ */

@@ -34,6 +34,7 @@ config M68K
 config MICROBLAZE
 	bool "MicroBlaze architecture"
 	select SUPPORT_OF_CONTROL
+	imply CMD_IRQ
 
 config MIPS
 	bool "MIPS architecture"
@@ -43,6 +44,7 @@ config MIPS
 
 config NDS32
 	bool "NDS32 architecture"
+	select SUPPORT_OF_CONTROL
 
 config NIOS2
 	bool "Nios II architecture"
@@ -68,6 +70,15 @@ config SANDBOX
 	select DM_SPI
 	select DM_GPIO
 	select DM_MMC
+	imply CMD_GETTIME
+	imply CMD_HASH
+	imply CMD_IO
+	imply CMD_IOTRACE
+	imply CMD_LZMADEC
+	imply CRC32_VERIFY
+	imply FAT_WRITE
+	imply HASH_VERIFY
+	imply LZMA
 
 config SH
 	bool "SuperH architecture"
@@ -84,6 +95,12 @@ config X86
 	select DM_GPIO
 	select DM_SPI
 	select DM_SPI_FLASH
+	select USB_EHCI_HCD
+	select DM_MMC if MMC
+	imply CMD_FPGA_LOADMK
+	imply CMD_GETTIME
+	imply CMD_IO
+	imply CMD_IRQ
 
 config XTENSA
 	bool "Xtensa architecture"
