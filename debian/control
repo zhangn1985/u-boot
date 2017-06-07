@@ -12,8 +12,10 @@ Build-Depends:
  libc6:arm64 [arm64] <cross>,
  libc6:armhf [armhf] <cross>,
  libc6:armel [armel] <cross>,
+ libpython-dev:native [armhf],
  python:any [armhf],
  skales:native [arm64],
+ swig [armhf],
 Standards-Version: 3.9.8
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/u-boot.git
