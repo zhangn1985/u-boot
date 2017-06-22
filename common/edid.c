@@ -148,8 +148,8 @@ static bool cea_is_hdmi_vsdb_present(struct edid_cea861_info *info)
 	/* check for end of data block */
 	end = info->dtd_offset;
 	if (end == 0)
-		end = 127;
-	if (end < 4 || end > 127)
+		end = sizeof(info->data);
+	if (end < 4 || end > sizeof(info->data))
 		return false;
 	end -= 4;
 
@@ -295,7 +295,7 @@ static void edid_print_dtd(struct edid_monitor_descriptor *monitor,
 
 		h_total = h_active + h_blanking;
 		v_total = v_active + v_blanking;
-		if (v_total * h_total)
+		if (v_total > 0 && h_total > 0)
 			vfreq = pixclock / (v_total * h_total);
 		else
 			vfreq = 1; /* Error case */

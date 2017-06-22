@@ -41,9 +41,15 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3288-veyron-mickey.dtb \
 	rk3288-veyron-minnie.dtb \
 	rk3328-evb.dtb \
+	rk3368-sheep.dtb \
+	rk3368-geekbox.dtb \
+	rk3368-px5-evb.dtb \
 	rk3399-evb.dtb \
 	rk3399-firefly.dtb \
-	rk3399-puma.dtb
+	rk3399-puma-ddr1333.dtb \
+	rk3399-puma-ddr1600.dtb \
+	rk3399-puma-ddr1866.dtb \
+	rv1108-evb.dtb
 dtb-$(CONFIG_ARCH_MESON) += \
 	meson-gxbb-odroidc2.dtb
 dtb-$(CONFIG_TEGRA) += tegra20-harmony.dtb \
@@ -54,7 +60,6 @@ dtb-$(CONFIG_TEGRA) += tegra20-harmony.dtb \
 	tegra20-tec.dtb \
 	tegra20-trimslice.dtb \
 	tegra20-ventana.dtb \
-	tegra20-whistler.dtb \
 	tegra20-colibri.dtb \
 	tegra30-apalis.dtb \
 	tegra30-beaver.dtb \
@@ -311,6 +316,7 @@ dtb-$(CONFIG_MACH_SUN8I_H3) += \
 	sun8i-h3-orangepi-plus.dtb \
 	sun8i-h3-orangepi-plus2e.dtb \
 	sun8i-h3-nanopi-m1.dtb \
+	sun8i-h3-nanopi-m1-plus.dtb \
 	sun8i-h3-nanopi-neo.dtb \
 	sun8i-h3-nanopi-neo-air.dtb
 dtb-$(CONFIG_MACH_SUN8I_R40) += \
@@ -318,10 +324,13 @@ dtb-$(CONFIG_MACH_SUN8I_R40) += \
 dtb-$(CONFIG_MACH_SUN8I_V3S) += \
 	sun8i-v3s-licheepi-zero.dtb
 dtb-$(CONFIG_MACH_SUN50I_H5) += \
+	sun50i-h5-nanopi-neo2.dtb \
 	sun50i-h5-orangepi-pc2.dtb \
-	sun50i-h5-orangepi-prime.dtb
+	sun50i-h5-orangepi-prime.dtb \
+	sun50i-h5-orangepi-zero-plus2.dtb
 dtb-$(CONFIG_MACH_SUN50I) += \
 	sun50i-a64-bananapi-m64.dtb \
+	sun50i-a64-orangepi-win.dtb \
 	sun50i-a64-pine64-plus.dtb \
 	sun50i-a64-pine64.dtb
 dtb-$(CONFIG_MACH_SUN9I) += \

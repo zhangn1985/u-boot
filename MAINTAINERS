@@ -135,6 +135,7 @@ M:	Simon Glass <sjg@chromium.org>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-rockchip.git
 F:	arch/arm/mach-rockchip/
+F:	board/rockchip/
 
 ARM SAMSUNG
 M:	Minkyu Kang <mk7.kang@samsung.com>
@@ -320,12 +321,6 @@ M:	Wolfgang Denk <wd@denx.de>
 S:	Maintained
 F:	arch/powerpc/
 
-POWERPC MPC5XXX
-M:	Wolfgang Denk <wd@denx.de>
-S:	Maintained
-T:	git git://git.denx.de/u-boot-mpc5xxx.git
-F:	arch/powerpc/cpu/mpc5*/
-
 POWERPC MPC8XX
 M:	Wolfgang Denk <wd@denx.de>
 S:	Maintained
@@ -339,8 +334,8 @@ T:	git git://git.denx.de/u-boot-mpc82xx.git
 F:	arch/powerpc/cpu/mpc82*/
 
 POWERPC MPC83XX
-#M:	Kim Phillips <kim.phillips@freescale.com>
-S:	Orphaned (Since 2016-02)
+M:	Mario Six <mario.six@gdsys.cc>
+S:	Maintained
 T:	git git://git.denx.de/u-boot-mpc83xx.git
 F:	arch/powerpc/cpu/mpc83xx/
 F:	arch/powerpc/include/asm/arch-mpc83xx/

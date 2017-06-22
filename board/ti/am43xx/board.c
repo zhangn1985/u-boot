@@ -20,6 +20,7 @@
 #include <asm/arch/ddr_defs.h>
 #include <asm/arch/gpio.h>
 #include <asm/emif.h>
+#include <asm/omap_common.h>
 #include "../common/board_detect.h"
 #include "board.h"
 #include <power/pmic.h>
@@ -418,6 +419,13 @@ void scale_vcores_generic(u32 m)
 
 	/* Set DCDC2 (MPU) voltage */
 	if (tps65218_voltage_update(TPS65218_DCDC2, mpu_vdd)) {
+		printf("%s failure\n", __func__);
+		return;
+	}
+
+	/* Set DCDC3 (DDR) voltage */
+	if (tps65218_voltage_update(TPS65218_DCDC3,
+	    TPS65218_DCDC3_VOLT_SEL_1350MV)) {
 		printf("%s failure\n", __func__);
 		return;
 	}
