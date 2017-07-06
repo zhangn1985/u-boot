@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -x
+set -e
+builddir="$1"
+platform="$2"
+platform_cpu=$(grep CONFIG_ROCKCHIP_RK configs/${platform}_defconfig)
+case $platform_cpu in
+    *3399=y) platform_cpu_type=rk3399 ;;
+    *3288=y) platform_cpu_type=rk3288 ;;
+esac
+
+${builddir}/tools/mkimage -T rksd -n ${platform_cpu_type} \
+    -d ${builddir}/spl/u-boot-spl.bin \
+    ${builddir}/u-boot-spl.rksd

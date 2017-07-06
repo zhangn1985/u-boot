@@ -45,8 +45,7 @@ override_dh_auto_build:
 		done ; \
 	        case $${subarch} in \
 		rockchip) \
-			$$builddir/tools/mkimage -T rksd -n rk3288 \
-				-d $$builddir/spl/u-boot-spl.bin $$builddir/u-boot-spl.rksd; \
+			debian/bin/generate-rksd $$builddir $$platform; \
 			echo $$builddir/u-boot-spl.rksd /usr/lib/u-boot/$$platform/ \
 				>> debian/build/targets.$$subarch; \
 			;; \
