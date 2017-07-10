@@ -1,3 +1,23 @@
+u-boot (2017.07+dfsg1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * debian/patches:
+    - Refresh am57xx/omap5_distro_bootcmd.
+    - Refresh distro_bootcmd patches for am57xx and odroid.
+    - Sync mx6cuboxi4x4 patch with mx6cuboxi.
+  * u-boot-sunxi: Install README.sunxi64.
+  * [arm64] u-boot-sunxi: Install additional pine64 targets needed to
+    manually build an SPL image.
+  * [arm64] u-boot-rockchip: Add firefly-rk3399 target.
+  * [armhf] Add Build-Depends on libpython-dev:native and swig.
+  * [arm64] Add build-depends on libpython-dev:native, python and swig.
+  * debian/rules: Split generation of rksd images into script, supporting
+    generation for both rk3288 and rk3399 systems.
+  * debian/copyright: Remove entries from Files-Excluded no longer present
+    upstream.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 10 Jul 2017 12:46:22 -0700
+
 u-boot (2017.05+dfsg1-1) experimental; urgency=medium
 
   * New upstream release.
