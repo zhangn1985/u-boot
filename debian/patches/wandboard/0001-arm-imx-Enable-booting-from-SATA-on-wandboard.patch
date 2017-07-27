@@ -1,0 +1,30 @@
+Forwarded: https://patchwork.ozlabs.org/patch/794530/
+From bc27d9ac6de05436c4e68198102418dd975c743e Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Thu, 27 Jul 2017 12:40:45 -0400
+Subject: [PATCH] arm: imx: Enable booting from SATA on wandboard.
+
+Enable booting from SATA on the wandboard.
+
+Sata support was already enabled, but distro_bootcmd is not configured
+to boot from it.
+
+---
+ include/configs/wandboard.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/configs/wandboard.h b/include/configs/wandboard.h
+index a8a48a597f..4c6b3188ec 100644
+--- a/include/configs/wandboard.h
++++ b/include/configs/wandboard.h
+@@ -124,6 +124,7 @@
+ #define BOOT_TARGET_DEVICES(func) \
+ 	func(MMC, mmc, 0) \
+ 	func(MMC, mmc, 1) \
++	func(SATA, sata, 0) \
+ 	func(USB, usb, 0) \
+ 	func(PXE, pxe, na) \
+ 	func(DHCP, dhcp, na)
+-- 
+2.11.0
+
