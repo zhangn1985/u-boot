@@ -1,0 +1,74 @@
+From ff1815632563a826cfe49fc9496a36d00febb6e3 Mon Sep 17 00:00:00 2001
+From: Peter Robinson <pbrobinson@gmail.com>
+Date: Sat, 1 Jul 2017 18:44:03 +0100
+Subject: [PATCH] mx6cuboxi: Add support for sata
+
+The Cubox-i and Hummingboard series of devices have an option of
+SATA on board, and depending on how the fuses are blown even the
+option to boot SPL from SATA. So enable support for it so it can
+be used to boot the OS from if people desire.
+
+Cc: Fabio Estevam <fabio.estevam@nxp.com>
+Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+Acked-by: Fabio Estevam <fabio.estevam@nxp.com>
+---
+ board/solidrun/mx6cuboxi/mx6cuboxi.c |  5 +++++
+ include/configs/mx6cuboxi.h          | 12 ++++++++++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/board/solidrun/mx6cuboxi/mx6cuboxi.c b/board/solidrun/mx6cuboxi/mx6cuboxi.c
+index 285588d80a..5c62216477 100644
+--- a/board/solidrun/mx6cuboxi/mx6cuboxi.c
++++ b/board/solidrun/mx6cuboxi/mx6cuboxi.c
+@@ -22,6 +22,7 @@
+ #include <linux/errno.h>
+ #include <asm/gpio.h>
+ #include <asm/imx-common/iomux-v3.h>
++#include <asm/imx-common/sata.h>
+ #include <asm/imx-common/video.h>
+ #include <mmc.h>
+ #include <fsl_esdhc.h>
+@@ -314,6 +315,10 @@ int board_early_init_f(void)
+ 	ret = setup_display();
+ #endif
+ 
++#ifdef CONFIG_CMD_SATA
++	setup_sata();
++#endif
++
+ #ifdef CONFIG_USB_EHCI_MX6
+ 	setup_usb();
+ #endif
+diff --git a/include/configs/mx6cuboxi.h b/include/configs/mx6cuboxi.h
+index bc22f56d1d..71acc7c4db 100644
+--- a/include/configs/mx6cuboxi.h
++++ b/include/configs/mx6cuboxi.h
+@@ -21,6 +21,17 @@
+ /* MMC Configs */
+ #define CONFIG_SYS_FSL_ESDHC_ADDR	USDHC2_BASE_ADDR
+ 
++/* SATA Configuration */
++#define CONFIG_CMD_SATA
++#ifdef CONFIG_CMD_SATA
++#define CONFIG_DWC_AHSATA
++#define CONFIG_SYS_SATA_MAX_DEVICE      1
++#define CONFIG_DWC_AHSATA_PORT_ID       0
++#define CONFIG_DWC_AHSATA_BASE_ADDR     SATA_ARB_BASE_ADDR
++#define CONFIG_LBA48
++#define CONFIG_LIBATA
++#endif
++
+ /* Ethernet Configuration */
+ #define CONFIG_FEC_MXC
+ #define CONFIG_MII
+@@ -116,6 +127,7 @@
+ 
+ #define BOOT_TARGET_DEVICES(func) \
+ 	func(MMC, mmc, 0) \
++	func(SATA, sata, 0) \
+ 	func(USB, usb, 0) \
+ 	func(PXE, pxe, na) \
+ 	func(DHCP, dhcp, na)
+-- 
+2.11.0
+
