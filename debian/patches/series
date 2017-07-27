@@ -30,3 +30,5 @@ odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 odroid-xu3/bootdelay
 
 upstream/mx6cuboxi-sata/0001-mx6cuboxi-Add-support-for-sata.patch
+
+wandboard/distro-bootcmd-sata
