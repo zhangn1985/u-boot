@@ -1,3 +1,21 @@
+u-boot (2017.07+dfsg1-2) unstable; urgency=medium
+
+  * u-boot-rockchip:
+    - Ship u-boot.bin in firefly-rk3288 instead of u-boot.img.
+    - Add NEWS file explaining the change for firefly-rk3288.
+  * u-boot-imx:
+    - mx6cuboxi: Add patch from upstream to support SATA.
+    - Add patch to enable booting from SATA on wandboard.
+  * u-boot-tools:
+    - Install upstream fw_env.config, which includes several
+      well-commented examples.
+  * Consistantly use dd with conv=fsync,notrunc in Debian README files
+    (Closes: #864742). Thanks to Heinrich Schuchardt.
+  * debian/control:
+    - Update to Standards-Version 4.0.0.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 01 Aug 2017 17:10:48 -0400
+
 u-boot (2017.07+dfsg1-1) unstable; urgency=medium
 
   * New upstream release.
