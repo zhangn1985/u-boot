@@ -4,7 +4,7 @@ At this point, you must install U-Boot to flash yourself.
 
 Many sunxi boards (Bananapi, Cubieboard) can be written to SD directly:
 
- dd if=/usr/lib/u-boot/BOARD/u-boot-sunxi-with-spl.bin of=/dev/mmcblkX bs=1024 seek=8
+ dd conv=fsync,notrunc if=/usr/lib/u-boot/BOARD/u-boot-sunxi-with-spl.bin of=/dev/mmcblkX bs=1024 seek=8
 
 == U-Boot environment tools ==
 
