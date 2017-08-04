@@ -1,3 +1,11 @@
+u-boot (2017.07+dfsg1-3) unstable; urgency=medium
+
+  * u-boot-rockchip:
+    - Generate u-boot.rksd used for firefly-rk3288 installation.
+    - Add README.Debian describing how to install firefly-rk3288.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 04 Aug 2017 15:56:56 -0400
+
 u-boot (2017.07+dfsg1-2) unstable; urgency=medium
 
   * u-boot-rockchip:
