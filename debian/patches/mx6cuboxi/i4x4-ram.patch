@@ -12,7 +12,7 @@ Index: u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
 ===================================================================
 --- u-boot.orig/board/solidrun/mx6cuboxi/mx6cuboxi.c
 +++ u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
-@@ -563,6 +563,19 @@ static struct mx6_ddr3_cfg mem_ddr_4g =
+@@ -568,6 +568,19 @@ static struct mx6_ddr3_cfg mem_ddr_4g =
  	.trasmin = 3500,
  };
  
@@ -32,7 +32,7 @@ Index: u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
  static void ccgr_init(void)
  {
  	struct mxc_ccm_reg *ccm = (struct mxc_ccm_reg *)CCM_BASE_ADDR;
-@@ -617,7 +630,11 @@ static void spl_dram_init(int width)
+@@ -622,7 +635,11 @@ static void spl_dram_init(int width)
  	if (is_cpu_type(MXC_CPU_MX6D))
  		mx6_dram_cfg(&sysinfo, &mx6q_1g_mmcd_calib, &mem_ddr_2g);
  	else if (is_cpu_type(MXC_CPU_MX6Q))
@@ -62,7 +62,7 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 ===================================================================
 --- /dev/null
 +++ u-boot/configs/mx6cuboxi4x4_defconfig
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,39 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SPL_GPIO_SUPPORT=y
@@ -77,7 +77,8 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 +# CONFIG_CMD_BMODE is not set
 +CONFIG_CMD_HDMIDETECT=y
 +CONFIG_DISTRO_DEFAULTS=y
-+CONFIG_SYS_EXTRA_OPTIONS="IMX_CONFIG=arch/arm/imx-common/spl_sd.cfg,MX6QDL"
++CONFIG_SYS_EXTRA_OPTIONS="IMX_CONFIG=arch/arm/mach-imx/spl_sd.cfg,MX6QDL"
++CONFIG_ENV_IS_IN_MMC=y
 +# CONFIG_SYS_STDIO_DEREGISTER is not set
 +CONFIG_BOARD_EARLY_INIT_F=y
 +CONFIG_SPL=y
@@ -85,13 +86,15 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 +CONFIG_SPL_I2C_SUPPORT=y
 +# CONFIG_CMD_IMLS is not set
 +# CONFIG_CMD_FLASH is not set
-+CONFIG_CMD_MMC=y
-+CONFIG_CMD_USB=y
 +CONFIG_CMD_GPIO=y
++CONFIG_CMD_MMC=y
++CONFIG_CMD_SATA=y
++CONFIG_CMD_USB=y
 +CONFIG_CMD_CACHE=y
 +CONFIG_CMD_EXT4_WRITE=y
 +# CONFIG_SPL_PARTITION_UUIDS is not set
 +CONFIG_DM=y
++CONFIG_PHYLIB=y
 +CONFIG_DM_THERMAL=y
 +CONFIG_USB=y
 +CONFIG_USB_STORAGE=y
