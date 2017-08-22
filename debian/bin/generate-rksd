@@ -17,7 +17,7 @@ ${builddir}/tools/mkimage -T rksd -n ${platform_cpu_type} \
 echo ${builddir}/u-boot-spl.rksd /usr/lib/u-boot/${platform}/ \
     >> debian/build/targets.${subarch}
 
-if grep ^CONFIG_ROCKCHIP_SPL_BACK_TO_BROM=y configs/${platform}_defconfig ; then
+if grep ^CONFIG_SPL_ROCKCHIP_BACK_TO_BROM=y configs/${platform}_defconfig ; then
    cat ${builddir}/u-boot-spl.rksd ${builddir}/u-boot.bin > ${builddir}/u-boot.rksd
    echo ${builddir}/u-boot.rksd /usr/lib/u-boot/${platform}/ \
        >> debian/build/targets.${subarch}
