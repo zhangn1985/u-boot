@@ -5,13 +5,13 @@ Index: u-boot/include/configs/nokia_rx51.h
 ===================================================================
 --- u-boot.orig/include/configs/nokia_rx51.h
 +++ u-boot/include/configs/nokia_rx51.h
-@@ -106,6 +106,9 @@
- #define CONFIG_CMDLINE_EDITING		/* add command line history */
- #define CONFIG_AUTO_COMPLETE		/* add autocompletion support */
+@@ -160,6 +160,9 @@
+ #define PART6_OFFS			0x004c0000
+ #define PART6_MASK			0x00000000
  
 +#define CONFIG_CMD_BOOTZ       /* boot zImage                  */
 +#define CONFIG_SUPPORT_RAW_INITRD
 +
  #ifdef ONENAND_SUPPORT
  
- #define CONFIG_CMD_ONENAND		/* ONENAND support */
+ #define CONFIG_SYS_ONENAND_BASE		ONENAND_MAP
