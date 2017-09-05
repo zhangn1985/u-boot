@@ -71,7 +71,7 @@ armhf	omap		am57xx_evm	u-boot.img spl/u-boot-spl.bin MLO
 armhf 	omap		dra7xx_evm	u-boot.img spl/u-boot-spl.bin MLO
 
 # Robert Nelson <robertcnelson@gmail.com>
-armhf	omap		igep0020	u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		igep00x0	u-boot.img spl/u-boot-spl.bin MLO
 
 armhf	omap		nokia_rx51	u-boot.bin
 
