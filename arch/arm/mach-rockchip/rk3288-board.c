@@ -37,11 +37,11 @@ static void setup_boot_mode(void)
 	switch (boot_mode) {
 	case BOOT_FASTBOOT:
 		printf("enter fastboot!\n");
-		setenv("preboot", "setenv preboot; fastboot usb0");
+		env_set("preboot", "setenv preboot; fastboot usb0");
 		break;
 	case BOOT_UMS:
 		printf("enter UMS!\n");
-		setenv("preboot", "setenv preboot; if mmc dev 0;"
+		env_set("preboot", "setenv preboot; if mmc dev 0;"
 		       "then ums mmc 0; else ums mmc 1;fi");
 		break;
 	}
@@ -78,7 +78,7 @@ int board_late_init(void)
 	return rk_board_late_init();
 }
 
-#ifndef CONFIG_ROCKCHIP_SPL_BACK_TO_BROM
+#if !CONFIG_IS_ENABLED(ROCKCHIP_BACK_TO_BROM)
 static int veyron_init(void)
 {
 	struct udevice *dev;
@@ -115,7 +115,7 @@ static int veyron_init(void)
 
 int board_init(void)
 {
-#ifdef CONFIG_ROCKCHIP_SPL_BACK_TO_BROM
+#if CONFIG_IS_ENABLED(ROCKCHIP_BACK_TO_BROM)
 	struct udevice *pinctrl;
 	int ret;
 
@@ -155,28 +155,6 @@ err:
 
 	return 0;
 #endif
-}
-
-int dram_init(void)
-{
-	struct ram_info ram;
-	struct udevice *dev;
-	int ret;
-
-	ret = uclass_get_device(UCLASS_RAM, 0, &dev);
-	if (ret) {
-		debug("DRAM init failed: %d\n", ret);
-		return ret;
-	}
-	ret = ram_get_info(dev, &ram);
-	if (ret) {
-		debug("Cannot get DRAM size: %d\n", ret);
-		return ret;
-	}
-	debug("SDRAM base=%lx, size=%x\n", ram.base, ram.size);
-	gd->ram_size = ram.size;
-
-	return 0;
 }
 
 #ifndef CONFIG_SYS_DCACHE_OFF

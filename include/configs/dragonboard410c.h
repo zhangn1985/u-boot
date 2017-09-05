@@ -49,8 +49,6 @@
 /* Enable that for switching of boot partitions */
 /* Disabled by default as some sub-commands can brick eMMC */
 /*#define CONFIG_SUPPORT_EMMC_BOOT */
-#define CONFIG_CMD_REGINFO	/* Register dump		*/
-#define CONFIG_CMD_TFTP
 
 /* Partition table support */
 #define HAVE_BLOCK_DEVICE /* Needed for partition commands */
@@ -59,9 +57,6 @@
 
 /* BOOTP options */
 #define CONFIG_BOOTP_BOOTFILESIZE
-
-/* Environment - Boot*/
-#define CONFIG_BOOTARGS "console=ttyMSM0,115200n8"
 
 #define BOOT_TARGET_DEVICES(func) \
 	func(USB, usb, 0) \
@@ -111,7 +106,6 @@ REFLASH(dragonboard/u-boot.img, 8)\
 	"pxefile_addr_r=0x90100000\0"\
 	BOOTENV
 
-#define CONFIG_ENV_IS_NOWHERE
 #define CONFIG_ENV_SIZE			0x2000
 #define CONFIG_ENV_VARS_UBOOT_CONFIG
 
@@ -120,9 +114,6 @@ REFLASH(dragonboard/u-boot.img, 8)\
 
 /* Monitor Command Prompt */
 #define CONFIG_SYS_CBSIZE		512	/* Console I/O Buffer Size */
-#define CONFIG_SYS_PBSIZE		(CONFIG_SYS_CBSIZE + \
-					sizeof(CONFIG_SYS_PROMPT) + 16)
-#define CONFIG_SYS_BARGSIZE		CONFIG_SYS_CBSIZE
 #define CONFIG_SYS_MAXARGS		64	/* max command args */
 
 #endif

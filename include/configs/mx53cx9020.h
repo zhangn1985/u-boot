@@ -46,7 +46,6 @@
 
 /* USB Configs */
 #define CONFIG_USB_EHCI_MX5
-#define CONFIG_USB_STORAGE
 #define CONFIG_USB_HOST_ETHER
 #define CONFIG_USB_ETHER_ASIX
 #define CONFIG_USB_ETHER_MCS7830
@@ -66,8 +65,9 @@
 #define CONFIG_SYS_TEXT_BASE    0x77800000
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	"fdt_addr=0x71ff0000\0" \
-	"rdaddr=0x72000000\0" \
+	"fdt_addr_r=0x71ff0000\0" \
+	"pxefile_addr_r=0x73000000\0" \
+	"ramdisk_addr_r=0x72000000\0" \
 	"console=ttymxc1,115200\0" \
 	"uenv=/boot/uEnv.txt\0" \
 	"optargs=\0" \
@@ -81,10 +81,11 @@
 		"rootfstype=${mmcrootfstype} " \
 		"${cmdline}\0" \
 	"loadimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
-	"loadrd=load mmc ${bootpart} ${rdaddr} ${bootdir}/${rdfile};" \
+	"loadpxe=dhcp;setenv kernel_addr_r ${loadaddr};pxe get;pxe boot;\0" \
+	"loadrd=load mmc ${bootpart} ${ramdisk_addr_r} ${bootdir}/${rdfile};" \
 		"setenv rdsize ${filesize}\0" \
 	"loadfdt=echo loading ${fdt_path} ...;" \
-		"load mmc ${bootpart} ${fdt_addr} ${fdt_path}\0" \
+		"load mmc ${bootpart} ${fdt_addr_r} ${fdt_path}\0" \
 	"mmcboot=mmc dev ${mmcdev}; " \
 		"if mmc rescan; then " \
 			"echo SD/MMC found on device ${mmcdev};" \
@@ -128,8 +129,11 @@
 			"fi;" \
 			"run mmcargs;" \
 			"echo debug: [${bootargs}] ... ;" \
-			"echo debug: [bootz ${loadaddr} - ${fdt_addr}] ... ;" \
-			"bootz ${loadaddr} - ${fdt_addr}; " \
+			"echo debug: [bootz ${loadaddr} - ${fdt_addr_r}];" \
+			"bootz ${loadaddr} - ${fdt_addr_r}; " \
+		"else " \
+			"echo loading from dhcp ...; " \
+			"run loadpxe; " \
 		"fi;\0"
 
 #define CONFIG_BOOTCOMMAND \
@@ -141,9 +145,6 @@
 #define CONFIG_SYS_LONGHELP	/* undef to save memory */
 #define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_CBSIZE		512	/* Console I/O Buffer Size */
-
-#define CONFIG_SYS_MAXARGS	16	/* max number of command args */
-#define CONFIG_SYS_BARGSIZE CONFIG_SYS_CBSIZE	/* Boot Argument Buffer Size */
 
 #define CONFIG_SYS_MEMTEST_START       0x70000000
 #define CONFIG_SYS_MEMTEST_END         0x70010000
@@ -172,7 +173,6 @@
 /* environment organization */
 #define CONFIG_ENV_OFFSET      (6 * 64 * 1024)
 #define CONFIG_ENV_SIZE        (8 * 1024)
-#define CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SYS_MMC_ENV_DEV 0
 
 /* Framebuffer and LCD */

@@ -39,7 +39,6 @@
 #define CONFIG_FEC_XCV_TYPE		RMII
 #define CONFIG_FEC_MXC_PHYADDR		0
 
-#define CONFIG_PHYLIB
 #define CONFIG_PHY_SMSC
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
@@ -137,7 +136,6 @@
 #define CONFIG_ENV_SIZE			SZ_8K
 
 #if defined CONFIG_SPI_BOOT
-#define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_ENV_OFFSET               (768 * 1024)
 #define CONFIG_ENV_SECT_SIZE            (64 * 1024)
 #define CONFIG_ENV_SPI_BUS              CONFIG_SF_DEFAULT_BUS
@@ -146,7 +144,6 @@
 #define CONFIG_ENV_SPI_MAX_HZ           CONFIG_SF_DEFAULT_SPEED
 #else
 #define CONFIG_ENV_OFFSET		(8 * SZ_64K)
-#define CONFIG_ENV_IS_IN_MMC
 #endif
 
 #ifdef CONFIG_CMD_SF

@@ -63,12 +63,6 @@
 
 #endif
 
-/* USB */
-
-#ifdef CONFIG_CMD_USB
-#define CONFIG_SYS_USB_EHCI_MAX_ROOT_PORTS	3
-#endif
-
 /* USB device */
 #define CONFIG_USB_ETHER
 #define CONFIG_USB_ETH_RNDIS
@@ -102,9 +96,6 @@
 			    "mmc read ${loadaddr} ${k_offset} ${k_blksize};" \
 			    "mmc read ${oftaddr} ${dtb_offset} ${dtb_blksize};" \
 			    "bootz ${loadaddr} -  ${oftaddr}"
-
-#undef CONFIG_BOOTARGS
-#define CONFIG_BOOTARGS	    "console=ttyS0,115200 earlyprintk rw root=/dev/mmcblk0p2 rootfstype=ext4 rootwait quiet lpj=1990656"
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"kernel_start=0x20000\0" \

@@ -468,7 +468,7 @@ int fw_env_write(char *name, char *value)
  *	    modified or deleted
  *
  */
-int fw_setenv(int argc, char *argv[], struct env_opts *opts)
+int fw_env_set(int argc, char *argv[], struct env_opts *opts)
 {
 	int i;
 	size_t len;
@@ -1088,7 +1088,21 @@ static int flash_io (int mode)
 
 		rc = flash_write (fd_current, fd_target, dev_target);
 
+		if (fsync(fd_current) &&
+		    !(errno == EINVAL || errno == EROFS)) {
+			fprintf (stderr,
+				 "fsync failed on %s: %s\n",
+				 DEVNAME (dev_current), strerror (errno));
+		}
+
 		if (HaveRedundEnv) {
+			if (fsync(fd_target) &&
+			    !(errno == EINVAL || errno == EROFS)) {
+				fprintf (stderr,
+					 "fsync failed on %s: %s\n",
+					 DEVNAME (dev_current), strerror (errno));
+			}
+
 			if (close (fd_target)) {
 				fprintf (stderr,
 					"I/O error on %s: %s\n",
