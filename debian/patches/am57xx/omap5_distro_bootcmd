@@ -43,7 +43,7 @@ Index: u-boot/configs/am57xx_evm_defconfig
 +CONFIG_DISTRO_DEFAULTS=y
  CONFIG_SPL_LOAD_FIT=y
  CONFIG_OF_BOARD_SETUP=y
- # CONFIG_ENV_IS_IN_FAT is not set
+ CONFIG_USE_BOOTARGS=y
 Index: u-boot/configs/dra7xx_evm_defconfig
 ===================================================================
 --- u-boot.orig/configs/dra7xx_evm_defconfig
@@ -55,4 +55,4 @@ Index: u-boot/configs/dra7xx_evm_defconfig
 +CONFIG_DISTRO_DEFAULTS=y
  CONFIG_SPL_LOAD_FIT=y
  CONFIG_OF_BOARD_SETUP=y
- # CONFIG_ENV_IS_IN_FAT is not set
+ CONFIG_USE_BOOTARGS=y

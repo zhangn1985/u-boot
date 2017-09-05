@@ -15,7 +15,7 @@ Index: u-boot/include/configs/udoo.h
 ===================================================================
 --- u-boot.orig/include/configs/udoo.h
 +++ u-boot/include/configs/udoo.h
-@@ -95,11 +95,15 @@
+@@ -80,11 +80,15 @@
  		"fi\0" \
  	"mmcargs=setenv bootargs console=${console},${baudrate} " \
  		"root=${mmcroot}\0" \
@@ -31,7 +31,7 @@ Index: u-boot/include/configs/udoo.h
  	"loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
  	"mmcboot=echo Booting from mmc ...; " \
  		"run mmcargs; " \
-@@ -149,17 +153,33 @@
+@@ -134,17 +138,33 @@
  				"echo WARNING: Could not determine dtb to use; fi; \0"
  
  #define CONFIG_BOOTCOMMAND \
@@ -74,5 +74,5 @@ Index: u-boot/include/configs/udoo.h
 +		"fi;" \
 +	"fi;"
  
- /* Print Buffer Size */
- #define CONFIG_SYS_PBSIZE (CONFIG_SYS_CBSIZE + sizeof(CONFIG_SYS_PROMPT) + 16)
+ /* Physical Memory Map */
+ #define CONFIG_NR_DRAM_BANKS		1

@@ -2,8 +2,8 @@ Index: u-boot/include/configs/am335x_evm.h
 ===================================================================
 --- u-boot.orig/include/configs/am335x_evm.h
 +++ u-boot/include/configs/am335x_evm.h
-@@ -274,9 +274,8 @@
- #endif
+@@ -264,9 +264,8 @@
+ #define CONFIG_AM335X_USB1_MODE MUSB_HOST
  
  #ifdef CONFIG_USB_MUSB_GADGET
 -#define CONFIG_USB_ETHER
