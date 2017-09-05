@@ -32,7 +32,7 @@ Index: u-boot/board/solidrun/mx6cuboxi/mx6cuboxi.c
  static void ccgr_init(void)
  {
  	struct mxc_ccm_reg *ccm = (struct mxc_ccm_reg *)CCM_BASE_ADDR;
-@@ -622,7 +635,11 @@ static void spl_dram_init(int width)
+@@ -611,7 +624,11 @@ static void spl_dram_init(int width)
  	if (is_cpu_type(MXC_CPU_MX6D))
  		mx6_dram_cfg(&sysinfo, &mx6q_1g_mmcd_calib, &mem_ddr_2g);
  	else if (is_cpu_type(MXC_CPU_MX6Q))
@@ -62,7 +62,7 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 ===================================================================
 --- /dev/null
 +++ u-boot/configs/mx6cuboxi4x4_defconfig
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,40 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SPL_GPIO_SUPPORT=y
@@ -78,7 +78,6 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 +CONFIG_CMD_HDMIDETECT=y
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_SYS_EXTRA_OPTIONS="IMX_CONFIG=arch/arm/mach-imx/spl_sd.cfg,MX6QDL"
-+CONFIG_ENV_IS_IN_MMC=y
 +# CONFIG_SYS_STDIO_DEREGISTER is not set
 +CONFIG_BOARD_EARLY_INIT_F=y
 +CONFIG_SPL=y
@@ -93,12 +92,14 @@ Index: u-boot/configs/mx6cuboxi4x4_defconfig
 +CONFIG_CMD_CACHE=y
 +CONFIG_CMD_EXT4_WRITE=y
 +# CONFIG_SPL_PARTITION_UUIDS is not set
++CONFIG_ENV_IS_IN_MMC=y
 +CONFIG_DM=y
 +CONFIG_PHYLIB=y
 +CONFIG_DM_THERMAL=y
 +CONFIG_USB=y
 +CONFIG_USB_STORAGE=y
 +CONFIG_USB_KEYBOARD=y
++CONFIG_SYS_USB_EVENT_POLL=y
 +# CONFIG_VIDEO_SW_CURSOR is not set
 +CONFIG_OF_LIBFDT=y
 +CONFIG_I4X4_RAM=y
