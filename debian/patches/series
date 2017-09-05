@@ -28,5 +28,3 @@ am57xx/omap5_distro_bootcmd
 odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 
 odroid-xu3/bootdelay
-
-wandboard/0001-arm-imx-Enable-booting-from-SATA-on-wandboard.patch
