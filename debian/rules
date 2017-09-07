@@ -74,7 +74,7 @@ override_dh_auto_build:
 	$(MAKE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		NO_SDL=1 \
-	    env
+	    envtools
 	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/env/fw_printenv
 	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/mkimage
 	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/mkenvimage
