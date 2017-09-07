@@ -1,0 +1,65 @@
+From 2d3229bea240a26516e70257e26757d0ec0d98f1 Mon Sep 17 00:00:00 2001
+From: Tom Rini <trini@konsulko.com>
+Date: Tue, 5 Sep 2017 14:01:29 -0400
+Subject: [PATCH 16/19] env: Fix out of tree building of tools-all
+
+With the move of environment code from common/ to env/ a number of
+changes needed to be made to various make targets.  We missed updating
+some of the files required for out of tree builds of the tools.  Correct
+the 'environ' target to know that we need to work under tools/env/ still
+(not tools/environ/) and then update the wrappers in env_attr.c and
+env_flags.c to point to the new correct file.
+
+Reported-by: Peter Robinson <pbrobinson@gmail.com>
+Tested-by: Peter Robinson <pbrobinson@gmail.com>
+Signed-off-by: Tom Rini <trini@konsulko.com>
+---
+ Makefile              | 2 +-
+ tools/env/env_attr.c  | 2 +-
+ tools/env/env_flags.c | 2 +-
+ tools/env/fw_env.c    | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7921625211..020ebd50ad 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1466,7 +1466,7 @@ checkarmreloc: u-boot
+ 	fi
+ 
+ environ: scripts_basic
+-	$(Q)$(MAKE) $(build)=tools/$@
++	$(Q)$(MAKE) $(build)=tools/env
+ 
+ tools-only: scripts_basic $(version_h) $(timestamp_h)
+ 	$(Q)$(MAKE) $(build)=tools
+diff --git a/tools/env/env_attr.c b/tools/env/env_attr.c
+index 502d4c900b..4d8536335c 100644
+--- a/tools/env/env_attr.c
++++ b/tools/env/env_attr.c
+@@ -1 +1 @@
+-#include "../../common/env_attr.c"
++#include "../../env/attr.c"
+diff --git a/tools/env/env_flags.c b/tools/env/env_flags.c
+index b261cb8e39..71e13e2021 100644
+--- a/tools/env/env_flags.c
++++ b/tools/env/env_flags.c
+@@ -1 +1 @@
+-#include "../../common/env_flags.c"
++#include "../../env/flags.c"
+diff --git a/tools/env/fw_env.c b/tools/env/fw_env.c
+index 965e1662d7..ab06415898 100644
+--- a/tools/env/fw_env.c
++++ b/tools/env/fw_env.c
+@@ -755,7 +755,7 @@ static int flash_read_buf (int dev, int fd, void *buf, size_t count,
+ 
+ 		/*
+ 		 * If a block is bad, we retry in the next block at the same
+-		 * offset - see common/env_nand.c::writeenv()
++		 * offset - see env/nand.c::writeenv()
+ 		 */
+ 		lseek (fd, blockstart + block_seek, SEEK_SET);
+ 
+-- 
+2.11.0
+

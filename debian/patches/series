@@ -28,3 +28,6 @@ am57xx/omap5_distro_bootcmd
 odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 
 odroid-xu3/bootdelay
+
+upstream/0016-env-Fix-out-of-tree-building-of-tools-all.patch
+upstream/0018-env-Fix-operation-of-make-environ.patch
