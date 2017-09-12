@@ -5,7 +5,7 @@
 VERSION = 2017
 PATCHLEVEL = 09
 SUBLEVEL =
-EXTRAVERSION = -rc4
+EXTRAVERSION =
 NAME =
 
 # *DOCUMENTATION*
@@ -1465,14 +1465,14 @@ checkarmreloc: u-boot
 		false; \
 	fi
 
-environ: scripts_basic
-	$(Q)$(MAKE) $(build)=tools/$@
+envtools: scripts_basic
+	$(Q)$(MAKE) $(build)=tools/env
 
 tools-only: scripts_basic $(version_h) $(timestamp_h)
 	$(Q)$(MAKE) $(build)=tools
 
 tools-all: export HOST_TOOLS_ALL=y
-tools-all: environ tools ;
+tools-all: envtools tools ;
 
 cross_tools: export CROSS_BUILD_TOOLS=y
 cross_tools: tools ;
@@ -1586,6 +1586,7 @@ help:
 	@echo  '  ubootrelease	  - Output the release version string (use with make -s)'
 	@echo  '  ubootversion	  - Output the version stored in Makefile (use with make -s)'
 	@echo  "  cfg		  - Don't build, just create the .cfg files"
+	@echo  "  envtools	  - Build only the target-side environment tools"
 	@echo  ''
 	@echo  'Static analysers'
 	@echo  '  checkstack      - Generate a list of stack hogs'

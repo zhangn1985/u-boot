@@ -37,10 +37,6 @@
 #endif
 
 /* Ethernet */
-#ifdef CONFIG_CMD_NET
-#define CONFIG_USB_HOST_ETHER
-#define CONFIG_USB_ETHER_SMSC95XX
-#endif
 
 /* Booting Linux */
 #define CONFIG_BOOTFILE		"uImage"
