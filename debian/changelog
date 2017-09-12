@@ -1,3 +1,17 @@
+u-boot (2017.09+dfsg1-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Refreshed patches for new upstream version.
+  * Update check for generating u-boot.rksd.
+  * [armhf] u-boot-omap: Update to use igep00x0 target, which replaced
+    igep0020.
+  * debian/rules:
+    - Use pkg-info.mk from dpkg-dev to set SOURCE_DATE_EPOCH and get the
+      package version.
+    - Switch "env" target to "envtools".
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 12 Sep 2017 13:19:29 -0700
+
 u-boot (2017.07+dfsg1-3) unstable; urgency=medium
 
   * u-boot-rockchip:
