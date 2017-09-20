@@ -35,14 +35,16 @@ override_dh_auto_build:
 				cp configs/mx6cuboxi_defconfig configs/mx6cuboxi4x4_defconfig;\
 				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4;\
 				targets="$$targets" ;\
+				maketargets="$$targets" ;\
 				;; \
 			*) \
 				targets="$$targets uboot.elf" ;\
+				maketargets="all" ;\
 				;; \
 		esac; \
 		mkdir -p $$builddir; \
 		$(MAKE) O=$$builddir $${platform}_defconfig; \
-		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir all; \
+		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
 		case "$$targets" in \
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
