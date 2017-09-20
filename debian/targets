@@ -41,48 +41,48 @@ armhf	imx		mx53loco	u-boot.imx
 # Vagrant Cascadian <vagrant@debian.org>, CuBox-i4pro, Cubox-i4x4, hummingboard-i1, hummingboard-i2ex
 # Rainer Dorsch <ml@bokomoko.de>, CuBox-i2u (i2u-300-d)
 # Rick Thomas <rbthomas@pobox.com>, Cubox-i4x4, Cubox-i4PRO
-armhf	imx		mx6cuboxi	u-boot.img spl/u-boot-spl.bin SPL
+armhf	imx		mx6cuboxi	u-boot.img SPL
 armhf	imx		mx6cuboxi4x4	SPL
 
 # Hector Oron <zumbi@debian.org>
 armhf	imx		nitrogen6q	u-boot.imx
 
 # Tony Mancill <tmancill@debian.org> 
-armhf	imx		novena		u-boot.img spl/u-boot-spl.bin SPL
+armhf	imx		novena		u-boot.img SPL
 
 # Michael Fladischer <michael@fladi.at>
-armhf	imx		udoo		u-boot.img spl/u-boot-spl.bin SPL
+armhf	imx		udoo		u-boot.img SPL
 
 # Vagrant Cascadian <vagrant@debian.org>
 armhf	imx		usbarmory	u-boot.imx
 
 # Vagrant Cascadian <vagrant@debian.org>
 # Robert Nelson <robertcnelson@gmail.com>
-armhf	imx		wandboard	u-boot.img spl/u-boot-spl.bin SPL
+armhf	imx		wandboard	u-boot.img SPL
 
 # Vagrant Cascadian <vagrant@debian.org>
 # Andrew M.A. Cater <amacater@galactic.demon.co.uk>
-armhf	omap		am335x_boneblack u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		am335x_boneblack u-boot.img MLO
 
 # Vagrant Cascadian <vagrant@debian.org>
-armhf	omap		am57xx_evm	u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		am57xx_evm	u-boot.img MLO
 
 # Ben Hutchings <ben.hutchings@codethink.co.uk>
-armhf 	omap		dra7xx_evm	u-boot.img spl/u-boot-spl.bin MLO
+armhf 	omap		dra7xx_evm	u-boot.img MLO
 
 # Robert Nelson <robertcnelson@gmail.com>
-armhf	omap		igep00x0	u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		igep00x0	u-boot.img MLO
 
 armhf	omap		nokia_rx51	u-boot.bin
 
 # Robert Nelson <robertcnelson@gmail.com>
-armhf	omap		omap3_beagle	u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		omap3_beagle	u-boot.img MLO
 
 # Vagrant Cascadian <vagrant@debian.org>
 armhf	omap		omap3_pandora	u-boot.bin
 
 # Robert Nelson <robertcnelson@gmail.com>
-armhf	omap		omap4_panda	u-boot.img spl/u-boot-spl.bin MLO
+armhf	omap		omap4_panda	u-boot.img MLO
 
 # Emilio Pozuelo Monfort <pochu@debian.org>
 # Sjoerd Simons <sjoerd@debian.org>
