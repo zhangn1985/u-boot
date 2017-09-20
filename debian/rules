@@ -31,7 +31,13 @@ override_dh_auto_build:
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
 		targets="$$targets uboot.elf" ;\
-	        mkdir -p $$builddir; \
+		case $$platform in \
+			mx6cuboxi4x4) \
+				cp configs/mx6cuboxi_defconfig configs/mx6cuboxi4x4_defconfig;\
+				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4;\
+				;; \
+		esac; \
+		mkdir -p $$builddir; \
 		$(MAKE) O=$$builddir $${platform}_defconfig; \
 		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir all; \
 		install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
@@ -87,6 +93,7 @@ override_dh_auto_test:
 
 override_dh_clean:
 	rm -rf debian/build/
+	rm -f configs/mx6cuboxi4x4_defconfig
 	dh_clean
 
 override_dh_gencontrol:
