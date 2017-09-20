@@ -30,19 +30,26 @@ override_dh_auto_build:
 	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
-		targets="$$targets uboot.elf" ;\
 		case $$platform in \
 			mx6cuboxi4x4) \
 				cp configs/mx6cuboxi_defconfig configs/mx6cuboxi4x4_defconfig;\
 				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4;\
+				targets="$$targets" ;\
+				;; \
+			*) \
+				targets="$$targets uboot.elf" ;\
 				;; \
 		esac; \
 		mkdir -p $$builddir; \
 		$(MAKE) O=$$builddir $${platform}_defconfig; \
 		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir all; \
-		install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
-	        $(CROSS_COMPILE)strip --remove-section=.comment \
-	            $$builddir/uboot.elf; \
+		case "$$targets" in \
+			*uboot.elf*) \
+				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
+				$(CROSS_COMPILE)strip --remove-section=.comment \
+					$$builddir/uboot.elf; \
+				;; \
+		esac; \
 		for target in $$targets; do \
 			chmod -x $$builddir/$$target; \
 			echo $$builddir/$$target /usr/lib/u-boot/$$platform/ \
