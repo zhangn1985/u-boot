@@ -34,6 +34,9 @@ armhf	exynos		odroid		u-boot.bin
 # Vagrant Cascadian <vagrant@debian.org>, Odroid-XU4
 armhf	exynos		odroid-xu3	u-boot.bin
 
+# Marek Vasut <marex@denx.de>
+armhf	imx		dh_imx6		u-boot-with-spl.imx
+
 # Robert Nelson <robertcnelson@gmail.com>
 armhf	imx		mx53loco	u-boot.imx
 
