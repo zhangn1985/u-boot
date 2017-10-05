@@ -1,3 +1,20 @@
+u-boot (2017.09+dfsg1-2) unstable; urgency=medium
+
+  * u-boot-imx: mx6cuboxi4x4: Use a symlink for u-boot.img to mx6cuboxi,
+    as it is identical.
+  * u-boot-imx/u-boot-omap: Do not install spl/u-boot-spl.bin when the
+    target uses SPL or MLO.
+  * debian/rules: Generate mx6cuboxi4x4_defconfig based on
+    mx6cuboxi_defconfig.
+  * debian/rules: Do not install uboot.elf in mx6cuboxi4x4 target.
+  * debian/rules: Only build the SPL target on mx6cuboxi4x4.
+  * debian/patches: Fix odroid patch to actually use distro_bootcmd.
+  * u-boot-rockchip: Fix USB on firefly-rk3399 with patches from usptream.
+  * u-boot-exynos: Add patch to fix "console" environment variable
+    (Closes: #877074). Thanks to Peter Lebbing!
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Thu, 05 Oct 2017 16:09:47 -0700
+
 u-boot (2017.09+dfsg1-1) experimental; urgency=medium
 
   * New upstream release.
