@@ -36,8 +36,8 @@ Index: u-boot/configs/am57xx_evm_defconfig
 ===================================================================
 --- u-boot.orig/configs/am57xx_evm_defconfig
 +++ u-boot/configs/am57xx_evm_defconfig
-@@ -10,6 +10,7 @@ CONFIG_SPL_SPI_SUPPORT=y
- CONFIG_SPL_STACK_R_ADDR=0x82000000
+@@ -9,6 +9,7 @@ CONFIG_SPL_SPI_FLASH_SUPPORT=y
+ CONFIG_SPL_SPI_SUPPORT=y
  CONFIG_ARMV7_LPAE=y
  CONFIG_DEFAULT_DEVICE_TREE="am572x-idk"
 +CONFIG_DISTRO_DEFAULTS=y
@@ -48,8 +48,8 @@ Index: u-boot/configs/dra7xx_evm_defconfig
 ===================================================================
 --- u-boot.orig/configs/dra7xx_evm_defconfig
 +++ u-boot/configs/dra7xx_evm_defconfig
-@@ -10,6 +10,7 @@ CONFIG_SPL_SPI_SUPPORT=y
- CONFIG_SPL_STACK_R_ADDR=0x82000000
+@@ -9,6 +9,7 @@ CONFIG_SPL_SPI_FLASH_SUPPORT=y
+ CONFIG_SPL_SPI_SUPPORT=y
  CONFIG_ARMV7_LPAE=y
  CONFIG_DEFAULT_DEVICE_TREE="dra7-evm"
 +CONFIG_DISTRO_DEFAULTS=y
