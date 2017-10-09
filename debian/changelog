@@ -1,3 +1,13 @@
+u-boot (2017.09+dfsg1-3) unstable; urgency=medium
+
+  * Set the fdtfile variable from the value of CONFIG_DEFAULT_DEVICE_TREE
+    (Closes: #870897). Thanks to Diego Roversi for the bug report!
+  * Add patch to fix building jffs2 with gcc-7 (Closes: #877963). Thanks
+    to Adrian Bunk!
+  * Update Standards-Version of Debian Policy 4.1.1, no changes needed.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 09 Oct 2017 15:14:03 -0700
+
 u-boot (2017.09+dfsg1-2) unstable; urgency=medium
 
   * u-boot-imx: mx6cuboxi4x4: Use a symlink for u-boot.img to mx6cuboxi,
