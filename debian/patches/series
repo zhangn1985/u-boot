@@ -34,3 +34,5 @@ upstream/rk3399/0003-rockchip-rk3399-spl-remove-hard-coded-addresses-for-.patch
 upstream/rk3399/0004-rockchip-clk-rk3399-add-clk_enable-function-and-supp.patch
 
 firefly/fdtfile
+
+jffs2-gcc7.patch
