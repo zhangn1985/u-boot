@@ -69,4 +69,4 @@ Index: u-boot/include/configs/odroid.h
 +	BOOTENV
  
  /* GPT */
- #define CONFIG_RANDOM_UUID
+ 
