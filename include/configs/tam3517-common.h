@@ -16,8 +16,6 @@
 
 #define CONFIG_SYS_TEXT_BASE 0x80008000
 
-#define CONFIG_EMIF4	/* The chip has EMIF4 controller */
-
 #include <asm/arch/cpu.h>		/* get chip and board defs */
 #include <asm/arch/omap.h>
 
@@ -126,12 +124,11 @@
 
 /* **** PISMO SUPPORT *** */
 #define CONFIG_NAND_OMAP_GPMC
-#define SMNAND_ENV_OFFSET		0x180000 /* environment starts here */
 
 /* Redundant Environment */
 #define CONFIG_SYS_ENV_SECT_SIZE	(128 << 10)	/* 128 KiB */
-#define CONFIG_ENV_OFFSET		SMNAND_ENV_OFFSET
-#define CONFIG_ENV_ADDR			SMNAND_ENV_OFFSET
+#define CONFIG_ENV_OFFSET		0x180000
+#define CONFIG_ENV_ADDR			0x180000
 #define CONFIG_ENV_OFFSET_REDUND	(CONFIG_ENV_OFFSET + \
 						2 * CONFIG_SYS_ENV_SECT_SIZE)
 #define CONFIG_ENV_SIZE_REDUND		CONFIG_ENV_SIZE

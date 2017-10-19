@@ -129,8 +129,6 @@
 #define CONFIG_MXC_USB_FLAGS		0
 /* Gadget part */
 #define CONFIG_USBD_HS
-#define CONFIG_USB_ETHER
-#define CONFIG_USB_ETH_CDC
 #define CONFIG_NETCONSOLE
 #endif
 
@@ -141,7 +139,6 @@
 #define CONFIG_SPLASH_SCREEN
 #define CONFIG_BMP_16BPP
 #define CONFIG_VIDEO_LOGO
-#define CONFIG_IPUV3_CLK		260000000
 #define CONFIG_IMX_HDMI
 #define CONFIG_IMX_VIDEO_SKIP
 #endif

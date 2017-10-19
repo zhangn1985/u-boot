@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <mapmem.h>
 #include <syscon.h>
+#include <bitfield.h>
 #include <asm/io.h>
 #include <asm/arch/clock.h>
 #include <asm/arch/cru_rk3399.h>
@@ -181,7 +182,8 @@ enum {
 
 	/* CLKSEL_CON26 */
 	CLK_SARADC_DIV_CON_SHIFT	= 8,
-	CLK_SARADC_DIV_CON_MASK		= 0xff << CLK_SARADC_DIV_CON_SHIFT,
+	CLK_SARADC_DIV_CON_MASK		= GENMASK(15, 8),
+	CLK_SARADC_DIV_CON_WIDTH	= 8,
 
 	/* CLKSEL_CON27 */
 	CLK_TSADC_SEL_X24M		= 0x0,
@@ -661,7 +663,7 @@ static ulong rk3399_spi_get_clk(struct rk3399_cru *cru, ulong clk_id)
 		break;
 
 	default:
-		error("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
+		pr_err("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
 		return -EINVAL;
 	}
 
@@ -685,7 +687,7 @@ static ulong rk3399_spi_set_clk(struct rk3399_cru *cru, ulong clk_id, uint hz)
 		break;
 
 	default:
-		error("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
+		pr_err("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
 		return -EINVAL;
 	}
 
@@ -854,12 +856,38 @@ static ulong rk3399_ddr_set_clk(struct rk3399_cru *cru,
 		{.refdiv = 1, .fbdiv = 116, .postdiv1 = 3, .postdiv2 = 1};
 		break;
 	default:
-		error("Unsupported SDRAM frequency!,%ld\n", set_rate);
+		pr_err("Unsupported SDRAM frequency!,%ld\n", set_rate);
 	}
 	rkclk_set_pll(&cru->dpll_con[0], &dpll_cfg);
 
 	return set_rate;
 }
+
+static ulong rk3399_saradc_get_clk(struct rk3399_cru *cru)
+{
+	u32 div, val;
+
+	val = readl(&cru->clksel_con[26]);
+	div = bitfield_extract(val, CLK_SARADC_DIV_CON_SHIFT,
+			       CLK_SARADC_DIV_CON_WIDTH);
+
+	return DIV_TO_RATE(OSC_HZ, div);
+}
+
+static ulong rk3399_saradc_set_clk(struct rk3399_cru *cru, uint hz)
+{
+	int src_clk_div;
+
+	src_clk_div = DIV_ROUND_UP(OSC_HZ, hz) - 1;
+	assert(src_clk_div < 128);
+
+	rk_clrsetreg(&cru->clksel_con[26],
+		     CLK_SARADC_DIV_CON_MASK,
+		     src_clk_div << CLK_SARADC_DIV_CON_SHIFT);
+
+	return rk3399_saradc_get_clk(cru);
+}
+
 static ulong rk3399_clk_get_rate(struct clk *clk)
 {
 	struct rk3399_clk_priv *priv = dev_get_priv(clk->dev);
@@ -894,6 +922,9 @@ static ulong rk3399_clk_get_rate(struct clk *clk)
 	case DCLK_VOP1:
 		break;
 	case PCLK_EFUSE1024NS:
+		break;
+	case SCLK_SARADC:
+		rate = rk3399_saradc_get_clk(priv->cru);
 		break;
 	default:
 		return -ENOENT;
@@ -943,6 +974,9 @@ static ulong rk3399_clk_set_rate(struct clk *clk, ulong rate)
 		break;
 	case PCLK_EFUSE1024NS:
 		break;
+	case SCLK_SARADC:
+		ret = rk3399_saradc_set_clk(priv->cru, rate);
+		break;
 	default:
 		return -ENOENT;
 	}
@@ -950,9 +984,24 @@ static ulong rk3399_clk_set_rate(struct clk *clk, ulong rate)
 	return ret;
 }
 
+static int rk3399_clk_enable(struct clk *clk)
+{
+	switch (clk->id) {
+	case HCLK_HOST0:
+	case HCLK_HOST0_ARB:
+	case HCLK_HOST1:
+	case HCLK_HOST1_ARB:
+		return 0;
+	}
+
+	debug("%s: unsupported clk %ld\n", __func__, clk->id);
+	return -ENOENT;
+}
+
 static struct clk_ops rk3399_clk_ops = {
 	.get_rate = rk3399_clk_get_rate,
 	.set_rate = rk3399_clk_set_rate,
+	.enable = rk3399_clk_enable,
 };
 
 static int rk3399_clk_probe(struct udevice *dev)
@@ -963,7 +1012,7 @@ static int rk3399_clk_probe(struct udevice *dev)
 #if CONFIG_IS_ENABLED(OF_PLATDATA)
 	struct rk3399_clk_plat *plat = dev_get_platdata(dev);
 
-	priv->cru = map_sysmem(plat->dtd.reg[1], plat->dtd.reg[3]);
+	priv->cru = map_sysmem(plat->dtd.reg[0], plat->dtd.reg[1]);
 #endif
 	rkclk_init(priv->cru);
 #endif
@@ -975,7 +1024,7 @@ static int rk3399_clk_ofdata_to_platdata(struct udevice *dev)
 #if !CONFIG_IS_ENABLED(OF_PLATDATA)
 	struct rk3399_clk_priv *priv = dev_get_priv(dev);
 
-	priv->cru = (struct rk3399_cru *)devfdt_get_addr(dev);
+	priv->cru = dev_read_addr_ptr(dev);
 #endif
 	return 0;
 }
@@ -1145,7 +1194,7 @@ static int rk3399_pmuclk_probe(struct udevice *dev)
 #if CONFIG_IS_ENABLED(OF_PLATDATA)
 	struct rk3399_pmuclk_plat *plat = dev_get_platdata(dev);
 
-	priv->pmucru = map_sysmem(plat->dtd.reg[1], plat->dtd.reg[3]);
+	priv->pmucru = map_sysmem(plat->dtd.reg[0], plat->dtd.reg[1]);
 #endif
 
 #ifndef CONFIG_SPL_BUILD
@@ -1159,7 +1208,7 @@ static int rk3399_pmuclk_ofdata_to_platdata(struct udevice *dev)
 #if !CONFIG_IS_ENABLED(OF_PLATDATA)
 	struct rk3399_pmuclk_priv *priv = dev_get_priv(dev);
 
-	priv->pmucru = (struct rk3399_pmucru *)devfdt_get_addr(dev);
+	priv->pmucru = dev_read_addr_ptr(dev);
 #endif
 	return 0;
 }

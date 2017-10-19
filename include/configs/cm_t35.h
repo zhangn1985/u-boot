@@ -24,8 +24,6 @@
  */
 #define CONFIG_CM_T3X	/* working with CM-T35 and CM-T3730 */
 
-#define CONFIG_SDRC	/* The chip has SDRC controller */
-
 #include <asm/arch/cpu.h>		/* get chip and board defs */
 #include <asm/arch/omap.h>
 
@@ -207,9 +205,8 @@
 #define CONFIG_SYS_MONITOR_BASE		CONFIG_SYS_FLASH_BASE
 #define CONFIG_SYS_MONITOR_LEN		(256 << 10)	/* Reserve 2 sectors */
 
-#define SMNAND_ENV_OFFSET		0x260000 /* environment starts here */
-#define CONFIG_ENV_OFFSET		SMNAND_ENV_OFFSET
-#define CONFIG_ENV_ADDR			SMNAND_ENV_OFFSET
+#define CONFIG_ENV_OFFSET		0x260000
+#define CONFIG_ENV_ADDR			0x260000
 
 #if defined(CONFIG_CMD_NET)
 #define CONFIG_SMC911X

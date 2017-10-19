@@ -146,8 +146,6 @@
 #define CONFIG_MXC_USB_PORTSC     (PORT_PTS_UTMI | PORT_PTS_PTW)
 #define CONFIG_MXC_USB_FLAGS      0
 #define CONFIG_USBD_HS
-#define CONFIG_USB_ETHER
-#define CONFIG_USB_ETH_CDC
 #define CONFIG_NETCONSOLE
 
 /* USB Mass Storage Gadget */
@@ -156,7 +154,6 @@
 /* Framebuffer and LCD */
 #define CONFIG_VIDEO_IPUV3
 #define CONFIG_VIDEO_LOGO
-#define CONFIG_IPUV3_CLK          260000000
 #define CONFIG_IMX_HDMI
 #define CONFIG_IMX_VIDEO_SKIP
 #define CONFIG_VIDEO_BMP_LOGO

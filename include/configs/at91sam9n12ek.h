@@ -10,12 +10,6 @@
 #ifndef __AT91SAM9N12_CONFIG_H_
 #define __AT91SAM9N12_CONFIG_H_
 
-/*
- * SoC must be defined first, before hardware.h is included.
- * In this case SoC is defined in boards.cfg.
- */
-#include <asm/hardware.h>
-
 #define CONFIG_SYS_TEXT_BASE		0x26f00000
 
 /* ARM asynchronous clock */
@@ -55,7 +49,7 @@
  * that address while providing maximum stack area below.
  */
 # define CONFIG_SYS_INIT_SP_ADDR \
-	(ATMEL_BASE_SRAM + 16 * 1024 - GENERATED_GBL_DATA_SIZE)
+	(0x00300000 + 16 * 1024 - GENERATED_GBL_DATA_SIZE)
 
 /* DataFlash */
 #ifdef CONFIG_CMD_SF
@@ -114,7 +108,7 @@
 #define CONFIG_SYS_USB_OHCI_MAX_ROOT_PORTS	1
 #endif
 
-#ifdef CONFIG_SYS_USE_SPIFLASH
+#ifdef CONFIG_SPI_BOOT
 
 /* bootstrap + u-boot + env + linux in dataflash on CS0 */
 #define CONFIG_ENV_OFFSET		0x5000
@@ -125,7 +119,7 @@
 	"sf probe 0; sf read 0x22000000 0x100000 0x300000; "		\
 	"bootm 0x22000000"
 
-#elif defined(CONFIG_SYS_USE_NANDFLASH)
+#elif defined(CONFIG_NAND_BOOT)
 
 /* bootstrap + u-boot + env + linux in nandflash */
 #define CONFIG_ENV_OFFSET		0x120000
@@ -137,7 +131,7 @@
 	"nand read 0x22000000 0x200000 0x400000;"			\
 	"bootm 0x22000000 - 0x21000000"
 
-#else /* CONFIG_SYS_USE_MMC */
+#else /* CONFIG_SD_BOOT */
 
 /* bootstrap + u-boot + env + linux in mmc */
 
@@ -186,13 +180,19 @@
 #define CONFIG_SYS_MCKR			0x1301
 #define CONFIG_SYS_MCKR_CSS		0x1302
 
-#ifdef CONFIG_SYS_USE_MMC
+#ifdef CONFIG_SD_BOOT
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME		"u-boot.img"
 
 #elif CONFIG_SYS_USE_NANDFLASH
+#elif CONFIG_SPI_BOOT
+#define CONFIG_SPL_SPI_LOAD
+#define CONFIG_SYS_SPI_U_BOOT_OFFS	0x8400
+
+#elif CONFIG_NAND_BOOT
 #define CONFIG_SPL_NAND_DRIVERS
 #define CONFIG_SPL_NAND_BASE
+#endif
 #define CONFIG_SYS_NAND_U_BOOT_OFFS	0x40000
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
 #define CONFIG_SYS_NAND_PAGE_SIZE	0x800
@@ -201,11 +201,5 @@
 #define CONFIG_SYS_NAND_BLOCK_SIZE	0x20000
 #define CONFIG_SYS_NAND_BAD_BLOCK_POS	0x0
 #define CONFIG_SPL_GENERATE_ATMEL_PMECC_HEADER
-
-#elif CONFIG_SYS_USE_SPIFLASH
-#define CONFIG_SPL_SPI_LOAD
-#define CONFIG_SYS_SPI_U_BOOT_OFFS	0x8400
-
-#endif
 
 #endif
