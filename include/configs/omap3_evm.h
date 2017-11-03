@@ -48,10 +48,8 @@
 
 /* NAND */
 #if defined(CONFIG_NAND)
-#define CONFIG_NAND_OMAP_GPMC
 #define CONFIG_SYS_FLASH_BASE		NAND_BASE
 #define CONFIG_SYS_MAX_NAND_DEVICE      1
-#define CONFIG_SYS_NAND_BUSWIDTH_16BIT
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
 #define CONFIG_SYS_NAND_PAGE_COUNT      64
 #define CONFIG_SYS_NAND_PAGE_SIZE       2048
@@ -84,13 +82,6 @@
 
 /* USB EHCI */
 #define CONFIG_SYS_USB_FAT_BOOT_PARTITION  1
-
-/* SMSC911x Ethernet */
-#if defined(CONFIG_CMD_NET)
-#define CONFIG_SMC911X
-#define CONFIG_SMC911X_32_BIT
-#define CONFIG_SMC911X_BASE             0x2C000000
-#endif /* CONFIG_CMD_NET */
 
 /* Environment */
 #define CONFIG_PREBOOT                  "usb start"
