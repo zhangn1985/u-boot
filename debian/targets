@@ -183,7 +183,7 @@ arm64	sunxi		pine64_plus	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/
 arm64	tegra		p2371-2180	u-boot.bin
 
 # Vagrant Cascadian <vagrant@debian.org>
-arm64  rockchip        firefly-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin u-boot.dtb
+arm64  rockchip        firefly-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-firefly.dtb
 
 avr32	-		hammerhead	u-boot.img
 
