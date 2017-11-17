@@ -1,3 +1,21 @@
+u-boot (2017.11+dfsg1-1) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * Remove patches applied upstream.
+  * Refresh patches.
+  * Drop beaglebone black patch for usb-mass-storage.
+
+  [ Marek Vasut ]
+  * Add DHCOM i.MX6 PDK board support (Closes: #881298).
+
+  [ Vagrant Cascadian ]
+  * u-boot-sunxi: Include documentation for pine64 using u-boot SPL
+    (Closes: #842688).
+  * u-boot-rockchip: Include rk3399-firefly.dtb instead of generic
+    u-boot.dtb file.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 17 Nov 2017 12:02:57 -0800
+
 u-boot (2017.09+dfsg1-3) unstable; urgency=medium
 
   * Set the fdtfile variable from the value of CONFIG_DEFAULT_DEVICE_TREE
