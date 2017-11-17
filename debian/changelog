@@ -339,7 +339,7 @@ u-boot (2016.05+dfsg1-1) experimental; urgency=medium
   [ Ryan Finnie ]
   * u-boot-rpi: Add rpi_3, rpi_3_32b target (Closes: #823524).
   * u-boot-rpi: Add arm64 arch.
- 
+
   [ Vagrant Cascadian ]
   * Remove patches applied upstream:
    - Revert-ti_armv7_common.h-Fix-U-Boot-location-on-eMMC.patch
@@ -648,7 +648,7 @@ u-boot (2015.07+dfsg1-1) unstable; urgency=medium
     - Refresh support patch.
   * Drop no-error-on-set-but-unused-variable patch, no longer relevent.
   * Add patch to ensure that CONFIG_SANDBOX is set when running "make env".
-  
+
   * Use patch applied upstream to use SOURCE_DATE_EPOCH when set.
   * debian/rules: Use the Date from debian/changelog to set
     SOURCE_DATE_EPOCH.
@@ -699,7 +699,7 @@ u-boot (2015.04+dfsg1-1) experimental; urgency=medium
     + mx6cuboxi: Add patch to use config_distro_bootcmd.
     + wandboard: Add patch to use config_distro_bootcmd and remove old
       environment patches.
-    
+
   * u-boot-omap:
     + am335x_boneblack: Remove patch to set voltage.
     + am335x_boneblack: Add patch to use config_distro_bootcmd and remove
@@ -799,7 +799,7 @@ u-boot (2014.10+dfsg1-2) unstable; urgency=medium
   * Resync cubox-i patches with github.
     - fixes support for booting on the cubox-i2ultra/i2ex.
       (Closes: #766266)
-  
+
   [ Vagrant Cascadian ]
   * wandboard, cubox-i: Add patches to use variables expected by
     debian-installer bootscript.
@@ -839,7 +839,7 @@ u-boot (2014.10~rc3+dfsg1-1) unstable; urgency=medium
   * Remove patches applied upstream:
     - bootcmd-scsi-scan-before-scsi.patch
     - sunxi/0001-sun7i-Add-support-for-Olimex-A20-OLinuXino-LIME.patch
-  * Refresh patches:  
+  * Refresh patches:
     - am335x-bootscript.diff
     - am335x-uenv.txt.diff
     - cubox-i/cubox-i-support.diff
@@ -891,11 +891,11 @@ u-boot (2014.10~rc2+dfsg1-2~exp1) experimental; urgency=medium
     - Enable A20-OLinuXino-LIME target.
     - Disable mx6_cubox-i
     - Disable efikamx and efikasb.
-  
+
   * debian/patches:
     - Add patch from upstream to support A20-OLinuXino-LIME.
     - Disable patches for cubox-i.
-  
+
   * debian/rules:
     - Remove excess conditional architecture check, drop build-dep on
       dctrl-tools.
@@ -908,23 +908,23 @@ u-boot (2014.10~rc2+dfsg1-2~exp1) experimental; urgency=medium
 u-boot (2014.10~rc2+dfsg1-1) experimental; urgency=medium
 
   * New upstream release candidate.
-  
+
   * Update debian/patches:
     - Remove Cubieboard and Cubietruck patches, applied upstream.
     - Remove kerma-sheevaplug-mvsdio patch, applied upstream.
     - Update openrd-mmc patch, partially applied upstream.
     - Add patch to workaround failure when building env tools.
-  
+
   * [armhf] Add Bananapi target.
 
   * debian/rules:
     - Install fw_printenv and fw_setenv symlink in platform-specific dir.
     - Create include/config/auto.conf to allow tools-only target to build.
     - Update to use defconfig target rather than config target.
-  
+
   * debian/copyright:
     - Update Files-Excluded as some files were removed upstream.
-  
+
   * Updated lintian overrides.
 
  -- Vagrant Cascadian <vagrant@debian.org>  Wed, 03 Sep 2014 23:28:59 -0700
@@ -1007,7 +1007,7 @@ u-boot (2014.04+dfsg1-1) unstable; urgency=medium
 
 u-boot (2014.04-2) unstable; urgency=medium
 
-  * Fix FTBFS on powerpc by not setting CROSS_COMPILE when empty. 
+  * Fix FTBFS on powerpc by not setting CROSS_COMPILE when empty.
 
  -- Vagrant Cascadian <vagrant@debian.org>  Mon, 26 May 2014 11:32:49 -0700
 
@@ -1032,7 +1032,7 @@ u-boot (2014.04-1) unstable; urgency=low
     - Build target "tools-only".
     - Drop special-casing of MLO, add MLO to debian/targets.
   * debian/patches/cubox-i-raw-initrd.diff:
-    - Patch to support raw initrd on cubox-i. 
+    - Patch to support raw initrd on cubox-i.
   * debian/watch: Use http.
   * debian/control: Bump Standards-Version to 3.9.5, no changes needed.
 
@@ -1053,8 +1053,8 @@ u-boot (2014.01-2) unstable; urgency=medium
 
 u-boot (2014.01-1) unstable; urgency=low
 
-  * New upstream version. 
-  * Updated patches. 
+  * New upstream version.
+  * Updated patches.
   * debian/watch: Update to catch -rc versions.
   * debian/control: Update Vcs-* headers.
   * u-boot-tools: Strip comment sections from mkimage and fw_printenv.
@@ -1081,7 +1081,7 @@ u-boot (2013.10-2) unstable; urgency=low
     - Switch back to explicitly building the specified target.
     - Allow building multiple targets per platform.
   * debian/targets:
-    - Build the spl/u-boot-spl.bin target on several armhf platforms, which 
+    - Build the spl/u-boot-spl.bin target on several armhf platforms, which
       generates the MLO file.
 
  -- Vagrant Cascadian <vagrant@debian.org>  Mon, 21 Oct 2013 11:33:01 -0700
