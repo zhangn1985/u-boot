@@ -30,3 +30,5 @@ odroid-xu3/877074-u-boot-exynos-Default-environment-for-Odr.patch
 firefly/fdtfile
 
 test-imagetools-test-fixes
+
+dh_imx6/0001-ARM-imx6-Adjust-DDR-DRAM-settings-on-DHCOM-i.MX6-PDK.patch
