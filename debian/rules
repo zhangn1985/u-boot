@@ -75,11 +75,9 @@ override_dh_auto_build:
 	        esac; \
 	done
 
-	# Avoid requirement for .config
-	mkdir -p $(TOOLSDIR)/include/config
-	touch $(TOOLSDIR)/include/config/auto.conf
 	# Load dummy config
-	$(MAKE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) sandbox_defconfig
+	touch configs/tools_defconfig
+	$(MAKE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
 	# board-independent tools
 	$(MAKE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
@@ -102,7 +100,7 @@ override_dh_auto_test:
 
 override_dh_clean:
 	rm -rf debian/build/
-	rm -f configs/mx6cuboxi4x4_defconfig
+	rm -f configs/mx6cuboxi4x4_defconfig configs/tools_defconfig
 	dh_clean
 
 override_dh_gencontrol:
