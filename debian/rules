@@ -96,7 +96,7 @@ override_dh_auto_build:
 	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/dumpimage
 
 override_dh_auto_test:
-	# skip tests.
+	BASEDIR=debian/build/tools test/image/test-imagetools.sh
 
 override_dh_clean:
 	rm -rf debian/build/
