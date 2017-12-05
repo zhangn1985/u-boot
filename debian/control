@@ -16,7 +16,7 @@ Build-Depends:
  python:any [armhf arm64],
  skales:native [arm64],
  swig [armhf arm64],
-Standards-Version: 4.1.1
+Standards-Version: 4.1.2
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/u-boot.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/u-boot.git/
