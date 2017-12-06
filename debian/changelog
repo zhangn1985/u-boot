@@ -1,3 +1,20 @@
+u-boot (2017.11+dfsg1-2) unstable; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * u-boot-tools: Fix broken FIT image generation by building tools-only
+    target with an empty defconfig.
+  * Run basic tests for mkimage/dumpimage.
+
+  [ Marek Vasut ]
+  * Backport DH iMX6 DDR configuration fix (Closes: #882123).
+
+  [ Vagrant Cascadian ]
+  * debian/control: Bump Standards-Version 4.1.2, no changes.
+  * debian/rules: Use dpkg/architecture.mk instead of manually calling
+    dpkg-architecture.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 05 Dec 2017 15:43:23 -0800
+
 u-boot (2017.11+dfsg1-1) experimental; urgency=medium
 
   [ Vagrant Cascadian ]
