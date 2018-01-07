@@ -1,16 +1,18 @@
-commit b979e35230042bfeadd5f4eddf66232f29e4bff4
-Author: Marek Vasut <marex@denx.de>
-Date:   Thu Nov 9 11:50:13 2017 +0100
+From b979e35230042bfeadd5f4eddf66232f29e4bff4 Mon Sep 17 00:00:00 2001
+From: Marek Vasut <marex@denx.de>
+Date: Thu, 9 Nov 2017 11:50:13 +0100
+Subject: [PATCH 1/2] ARM: imx6: Adjust DDR DRAM settings on DHCOM i.MX6 PDK
 
-    ARM: imx6: Adjust DDR DRAM settings on DHCOM i.MX6 PDK
-    
-    The board uses T-topology for the four x16 DRAM chips, so remove
-    the write-leveling from the SPL as that is only usefly on fly-by
-    topology and can be harmful on T-topology. Also update the DRAM
-    timing with values from calibration on multiple boards.
-    
-    Signed-off-by: Marek Vasut <marex@denx.de>
-    Cc: Stefano Babic <sbabic@denx.de>
+The board uses T-topology for the four x16 DRAM chips, so remove
+the write-leveling from the SPL as that is only usefly on fly-by
+topology and can be harmful on T-topology. Also update the DRAM
+timing with values from calibration on multiple boards.
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Stefano Babic <sbabic@denx.de>
+---
+ board/dhelectronics/dh_imx6/dh_imx6_spl.c | 40 +++++++++++++++----------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/board/dhelectronics/dh_imx6/dh_imx6_spl.c b/board/dhelectronics/dh_imx6/dh_imx6_spl.c
 index e22ff5c8c6..bb98f39f02 100644
@@ -92,3 +94,6 @@ index e22ff5c8c6..bb98f39f02 100644
  	mmdc_do_dqs_calibration(&dhcom_ddr_info);
  
  	/* Clear the BSS. */
+-- 
+2.11.0
+

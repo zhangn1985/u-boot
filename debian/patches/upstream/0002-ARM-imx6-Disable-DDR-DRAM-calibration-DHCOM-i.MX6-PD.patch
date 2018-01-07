@@ -1,7 +1,7 @@
-From 10e8989152a667adb09f4a1beb2e070fe44a642e Mon Sep 17 00:00:00 2001
+From a637fe6f27fd4c19ef9f43a5f871c244581422ac Mon Sep 17 00:00:00 2001
 From: Marek Vasut <marex@denx.de>
-Date: Mon, 11 Dec 2017 15:59:53 +0100
-Subject: [PATCH] ARM: imx6: Disable DDR DRAM calibration DHCOM i.MX6 PDK
+Date: Mon, 11 Dec 2017 16:19:33 +0100
+Subject: [PATCH 2/2] ARM: imx6: Disable DDR DRAM calibration DHCOM i.MX6 PDK
 
 The DDR DRAM calibration doesn't work on T-topology sometimes, so disable it.
 

@@ -31,8 +31,7 @@ firefly/fdtfile
 
 test-imagetools-test-fixes
 
-upstream/0001-ARM-imx6-Adjust-DDR-DRAM-settings-on-DHCOM-i.MX6-PDK.patch
-
 olinuxino/0001-sunxi-Fix-A20-OLinuXino-MICRO-LAN8710-support.patch
 
-dh_imx6/0001-ARM-imx6-Disable-DDR-DRAM-calibration-DHCOM-i.MX6-PD.patch
+upstream/0001-ARM-imx6-Adjust-DDR-DRAM-settings-on-DHCOM-i.MX6-PDK.patch
+upstream/0002-ARM-imx6-Disable-DDR-DRAM-calibration-DHCOM-i.MX6-PD.patch
