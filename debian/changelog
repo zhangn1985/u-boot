@@ -1,3 +1,14 @@
+u-boot (2017.11+dfsg1-3) unstable; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * Add patch submitted upstream to fix ethernet on Olimex
+    A20-Olinuxino-Micro Rev. J (Closes: #864562).
+
+  [ Marek Vasut ]
+  * Disable DDR calibration on DH iMX6 (Closes: #884442).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sun, 07 Jan 2018 14:19:18 -0800
+
 u-boot (2017.11+dfsg1-2) unstable; urgency=medium
 
   [ Vagrant Cascadian ]
