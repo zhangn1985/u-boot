@@ -30,8 +30,3 @@ odroid-xu3/877074-u-boot-exynos-Default-environment-for-Odr.patch
 firefly/fdtfile
 
 test-imagetools-test-fixes
-
-olinuxino/0001-sunxi-Fix-A20-OLinuXino-MICRO-LAN8710-support.patch
-
-upstream/0001-ARM-imx6-Adjust-DDR-DRAM-settings-on-DHCOM-i.MX6-PDK.patch
-upstream/0002-ARM-imx6-Disable-DDR-DRAM-calibration-DHCOM-i.MX6-PD.patch

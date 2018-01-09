@@ -6,9 +6,9 @@ Index: u-boot/include/configs/sandbox.h
 ===================================================================
 --- u-boot.orig/include/configs/sandbox.h
 +++ u-boot/include/configs/sandbox.h
-@@ -127,6 +127,9 @@
- 
- #define CONFIG_BOOTCOMMAND ""
+@@ -74,6 +74,9 @@
+ 	func(HOST, host, 1) \
+ 	func(HOST, host, 0)
  
 +#ifndef CONFIG_SANDBOX
 +#define CONFIG_SANDBOX 1

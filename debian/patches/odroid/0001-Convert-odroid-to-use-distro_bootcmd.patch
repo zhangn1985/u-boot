@@ -16,7 +16,7 @@ Index: u-boot/include/configs/odroid.h
  /* Console configuration */
  
 -#define CONFIG_BOOTCOMMAND		"run autoboot"
--#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC1,115200n8\0"
+-#define CONFIG_DEFAULT_CONSOLE		"ttySAC1,115200n8"
 +#define CONFIG_DEFAULT_CONSOLE		"ttySAC1,115200n8\0"
  
  #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR \
