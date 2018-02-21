@@ -1,6 +1,6 @@
 Description: Add support for cubox i4x4
  This patch adds a config setting to support the ram on the cubox i4x4. There
- is no runtime detection so seperate builds are needed for the i4 and i4x4.
+ is no runtime detection so separate builds are needed for the i4 and i4x4.
  
  A new defconfig is also added to turn on the new option so the debian build
  system can use it.
