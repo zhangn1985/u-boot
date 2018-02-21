@@ -1,3 +1,17 @@
+u-boot (2018.01+dfsg1-2) unstable; urgency=medium
+
+  * Update to use https copyright format URL.
+  * debian/rules: Remove "dh --parallel", default in debhelper compat 11.
+  * debian/patches:
+    - Remove patch for IGEP board that was never applied.
+    - Fix typo in mx6cubox-i4x4 patch description.
+    - Add description to no-force-cross-compile-powerpc patch.
+    - Add a description for the omap5_distro_bootcmd patch.
+    - Remove patch for hurd support, as no packages are built on that
+      hurd.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 20 Feb 2018 16:49:33 -0800
+
 u-boot (2018.01+dfsg1-1) experimental; urgency=medium
 
   * New upstream release.
