@@ -21,7 +21,7 @@ comma := ,
 LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_auto_build: TOOLSDIR := debian/build/tools
 override_dh_auto_build:
