@@ -3,7 +3,6 @@ mipsel-native-endianness.diff
 no-force-CROSS_COMPILE-powerpc.diff
 tools-generic-builds.patch
 Makefile-add-kwb-target-to-all.patch
-hurd.diff
 
 udoo/udoo_quad-support.patch
 udoo/udoo-standardized-variables
