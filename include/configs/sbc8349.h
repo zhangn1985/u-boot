@@ -21,9 +21,6 @@
 #define CONFIG_E300		1	/* E300 Family */
 #define CONFIG_MPC834x		1	/* MPC834x family */
 #define CONFIG_MPC8349		1	/* MPC8349 specific */
-#define CONFIG_SBC8349		1	/* WRS SBC8349 board specific */
-
-#define	CONFIG_SYS_TEXT_BASE	0xFF800000
 
 /* Don't enable PCI2 on sbc834x - it doesn't exist physically. */
 #undef CONFIG_MPC83XX_PCI2		/* support for 2nd PCI controller */

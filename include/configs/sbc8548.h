@@ -36,21 +36,12 @@
 /*
  * High Level Configuration Options
  */
-#define CONFIG_SBC8548		1	/* SBC8548 board specific */
 
 /*
  * If you want to boot from the SODIMM flash, instead of the soldered
  * on flash, set this, and change JP12, SW2:8 accordingly.
  */
 #undef CONFIG_SYS_ALT_BOOT
-
-#ifndef CONFIG_SYS_TEXT_BASE
-#ifdef CONFIG_SYS_ALT_BOOT
-#define CONFIG_SYS_TEXT_BASE	0xfff00000
-#else
-#define CONFIG_SYS_TEXT_BASE	0xfffa0000
-#endif
-#endif
 
 #undef CONFIG_RIO
 

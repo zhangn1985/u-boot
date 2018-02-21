@@ -41,10 +41,6 @@
 /* support deep sleep */
 #define CONFIG_DEEP_SLEEP
 
-#ifndef CONFIG_SYS_TEXT_BASE
-#define CONFIG_SYS_TEXT_BASE	0xeff40000
-#endif
-
 #ifndef CONFIG_RESET_VECTOR_ADDRESS
 #define CONFIG_RESET_VECTOR_ADDRESS	0xeffffffc
 #endif
@@ -531,7 +527,6 @@ unsigned long get_board_ddr_clk(void);
 
 /* Qman/Bman */
 #ifndef CONFIG_NOBQFMAN
-#define CONFIG_SYS_DPAA_QBMAN		/* Support Q/Bman */
 #define CONFIG_SYS_BMAN_NUM_PORTALS	10
 #define CONFIG_SYS_BMAN_MEM_BASE	0xf4000000
 #define CONFIG_SYS_BMAN_MEM_PHYS	0xff4000000ull

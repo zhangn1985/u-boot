@@ -15,9 +15,7 @@
 #include <environment/ti/dfu.h>
 #include <linux/sizes.h>
 
-#ifdef CONFIG_SPL_BUILD
 #define CONFIG_IODELAY_RECALIBRATION
-#endif
 
 #define CONFIG_NR_DRAM_BANKS		2
 
@@ -92,7 +90,6 @@
 /* USB xHCI HOST */
 #define CONFIG_USB_XHCI_OMAP
 
-#define CONFIG_OMAP_USB_PHY
 #define CONFIG_OMAP_USB3PHY1_HOST
 
 /* SATA */

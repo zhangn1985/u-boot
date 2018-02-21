@@ -35,7 +35,6 @@
  * program. Since the linker has to swallow that define, we must use a pure
  * hex number here!
  */
-#define CONFIG_SYS_TEXT_BASE		0x23000000
 
 /* ARM asynchronous clock */
 #define CONFIG_SYS_AT91_SLOW_CLOCK	32768		/* slow clock xtal */
@@ -196,7 +195,6 @@
 #endif
 
 /* Defines for SPL */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE		0x0
 #define CONFIG_SPL_MAX_SIZE		(SZ_4K)
 

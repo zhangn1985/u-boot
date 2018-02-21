@@ -8,8 +8,6 @@
 #ifndef __M53EVK_CONFIG_H__
 #define __M53EVK_CONFIG_H__
 
-#define CONFIG_MXC_GPIO
-
 #include <asm/arch/imx-regs.h>
 
 #define CONFIG_REVISION_TAG
@@ -38,8 +36,6 @@
 	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
 #define CONFIG_SYS_INIT_SP_ADDR \
 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
-
-#define CONFIG_SYS_TEXT_BASE		0x71000000
 
 /*
  * U-Boot general configurations
@@ -177,7 +173,6 @@
 /*
  * NAND SPL
  */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TARGET		"u-boot-with-nand-spl.imx"
 #define CONFIG_SPL_TEXT_BASE		0x70008000
 #define CONFIG_SPL_PAD_TO		0x8000

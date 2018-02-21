@@ -23,8 +23,6 @@
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + 2 * 1024 * 1024)
 
-#define CONFIG_MXC_GPIO
-
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		NFC_BASE_ADDR_AXI
 #define CONFIG_MXC_NAND_REGS_BASE	NFC_BASE_ADDR_AXI
@@ -61,7 +59,6 @@
 #define CONFIG_ETHPRIME		"smc911x"
 
 #define CONFIG_LOADADDR		0x72000000	/* loadaddr env var */
-#define CONFIG_SYS_TEXT_BASE    0x77800000
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"script=boot.scr\0" \

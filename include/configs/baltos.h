@@ -39,8 +39,6 @@
 #define CONFIG_MTD_DEVICE
 
 /* I2C configuration */
-#undef CONFIG_SYS_OMAP24_I2C_SPEED
-#define CONFIG_SYS_OMAP24_I2C_SPEED 1000
 
 #ifdef CONFIG_NAND
 #define CONFIG_SYS_NAND_U_BOOT_OFFS	0x00080000
@@ -233,7 +231,6 @@
 /* SPL */
 #ifndef CONFIG_NOR_BOOT
 /* Bootcount using the RTC block */
-#define CONFIG_BOOTCOUNT_LIMIT
 #define CONFIG_BOOTCOUNT_AM33XX
 
 /* USB gadget RNDIS */
@@ -272,8 +269,6 @@
  * add mass storage support and for gadget we add both RNDIS ethernet
  * and DFU.
  */
-#define CONFIG_USB_MUSB_DSPS
-#define CONFIG_USB_MUSB_PIO_ONLY
 #define CONFIG_USB_MUSB_DISABLE_BULK_COMBINE_SPLIT
 #define CONFIG_AM335X_USB0
 #define CONFIG_AM335X_USB0_MODE	MUSB_HOST

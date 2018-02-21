@@ -18,7 +18,6 @@
  * High Level Configuration Options
  * (easy to change)
  */
-#define CONFIG_M54418TWR	/* M54418TWR board */
 
 #define CONFIG_MCFUART
 #define CONFIG_SYS_UART_PORT		(0)
@@ -155,7 +154,6 @@
 #define CONFIG_SYS_IMMR		CONFIG_SYS_MBAR
 
 /* DSPI and Serial Flash */
-#define CONFIG_CF_SPI
 #define CONFIG_CF_DSPI
 #define CONFIG_SERIAL_FLASH
 #define CONFIG_HARD_SPI

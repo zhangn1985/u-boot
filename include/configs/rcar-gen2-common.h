@@ -11,11 +11,6 @@
 
 #include <asm/arch/rmobile.h>
 
-/* Support File sytems */
-#define CONFIG_SUPPORT_VFAT
-#define CONFIG_FS_EXT4
-#define CONFIG_EXT4_WRITE
-
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_INITRD_TAG
@@ -26,10 +21,12 @@
 #define CONFIG_ARCH_CPU_INIT
 
 #define CONFIG_TMU_TIMER
+#ifndef CONFIG_PINCTRL_PFC
 #define CONFIG_SH_GPIO_PFC
+#endif
 
 /* console */
-
+#define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_LONGHELP
 #define CONFIG_SYS_PBSIZE		256
 #define CONFIG_SYS_BAUDRATE_TABLE	{ 38400, 115200 }

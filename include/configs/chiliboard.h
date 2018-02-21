@@ -123,7 +123,6 @@
 
 /* SPL */
 /* Bootcount using the RTC block */
-#define CONFIG_BOOTCOUNT_LIMIT
 #define CONFIG_BOOTCOUNT_AM33XX
 #define CONFIG_SYS_BOOTCOUNT_BE
 
@@ -152,9 +151,7 @@
 /* NAND: SPL related configs */
 
 /* USB configuration */
-#define CONFIG_USB_MUSB_DSPS
 #define CONFIG_ARCH_MISC_INIT
-#define CONFIG_USB_MUSB_PIO_ONLY
 #define CONFIG_USB_MUSB_DISABLE_BULK_COMBINE_SPLIT
 #define CONFIG_AM335X_USB1
 #define CONFIG_AM335X_USB1_MODE MUSB_HOST

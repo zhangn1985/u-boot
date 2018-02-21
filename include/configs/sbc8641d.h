@@ -21,11 +21,8 @@
 #define __CONFIG_H
 
 /* High Level Configuration Options */
-#define CONFIG_SBC8641D		1	/* SBC8641D board specific */
 #define CONFIG_MP		1	/* support multiple processors */
 #define CONFIG_LINUX_RESET_VEC  0x100   /* Reset vector used by Linux */
-
-#define	CONFIG_SYS_TEXT_BASE	0xfff00000
 
 #ifdef RUN_DIAG
 #define CONFIG_SYS_DIAG_ADDR        0xff800000

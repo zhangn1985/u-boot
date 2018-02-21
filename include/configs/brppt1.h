@@ -22,7 +22,6 @@
 
 /* Bootcount using the RTC block */
 #define CONFIG_SYS_BOOTCOUNT_ADDR	0x44E3E000
-#define CONFIG_BOOTCOUNT_LIMIT
 #define CONFIG_BOOTCOUNT_AM33XX
 
 /* memory */
@@ -210,8 +209,6 @@ MMCARGS
 #endif /* CONFIG_NAND */
 
 /* USB configuration */
-#define CONFIG_USB_MUSB_DSPS
-#define CONFIG_USB_MUSB_PIO_ONLY
 #define CONFIG_USB_MUSB_DISABLE_BULK_COMBINE_SPLIT
 #define CONFIG_AM335X_USB0
 #define CONFIG_AM335X_USB0_MODE	MUSB_HOST
@@ -245,13 +242,5 @@ MMCARGS
 #else
 #error "no storage for Environment defined!"
 #endif
-/*
- * Common filesystems support.  When we have removable storage we
- * enabled a number of useful commands and support.
- */
-#if defined(CONFIG_MMC) || defined(CONFIG_USB_STORAGE)
-#define CONFIG_FS_EXT4
-#define CONFIG_EXT4_WRITE
-#endif /* CONFIG_MMC, ... */
 
 #endif	/* ! __CONFIG_BRPPT1_H__ */

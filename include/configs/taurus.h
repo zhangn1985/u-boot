@@ -33,8 +33,6 @@
  * hex number here!
  */
 
-#define CONFIG_SYS_TEXT_BASE		0x21000000
-
 /* ARM asynchronous clock */
 #define CONFIG_SYS_AT91_SLOW_CLOCK	32768		/* slow clock xtal */
 #define CONFIG_SYS_AT91_MAIN_CLOCK	18432000	/* main clock xtal */
@@ -154,7 +152,6 @@
 	ROUND(3 * CONFIG_ENV_SIZE + SZ_4M, 0x1000)
 
 /* Defines for SPL */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE		0x0
 #define CONFIG_SPL_MAX_SIZE		(31 * SZ_512)
 #define	CONFIG_SPL_STACK		(ATMEL_BASE_SRAM1 + SZ_16K)

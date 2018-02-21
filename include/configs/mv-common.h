@@ -25,9 +25,6 @@
 /*
  * Custom CONFIG_SYS_TEXT_BASE can be done in <board>.h
  */
-#ifndef CONFIG_SYS_TEXT_BASE
-#define	CONFIG_SYS_TEXT_BASE	0x00600000
-#endif /* CONFIG_SYS_TEXT_BASE */
 
 /* additions for new ARM relocation support */
 #define CONFIG_SYS_SDRAM_BASE	0x00000000
@@ -114,13 +111,6 @@
  */
 #ifdef CONFIG_CMD_SF
 #endif
-
-/*
- * Common USB/EHCI configuration
- */
-#if defined(CONFIG_CMD_USB) && !defined(CONFIG_DM)
-#define CONFIG_SUPPORT_VFAT
-#endif /* CONFIG_CMD_USB */
 
 /*
  * File system

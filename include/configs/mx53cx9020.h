@@ -24,7 +24,6 @@
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(10 * 1024 * 1024)
 
-#define CONFIG_MXC_GPIO
 #define CONFIG_REVISION_TAG
 
 #define CONFIG_MXC_UART_BASE UART2_BASE
@@ -58,7 +57,6 @@
 #define CONFIG_SUPPORT_RAW_INITRD
 
 #define CONFIG_LOADADDR		0x70010000	/* loadaddr env var */
-#define CONFIG_SYS_TEXT_BASE    0x77800000
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"fdt_addr_r=0x71ff0000\0" \

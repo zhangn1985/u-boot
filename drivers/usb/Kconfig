@@ -51,9 +51,13 @@ source "drivers/usb/host/Kconfig"
 
 source "drivers/usb/dwc3/Kconfig"
 
+source "drivers/usb/musb/Kconfig"
+
 source "drivers/usb/musb-new/Kconfig"
 
 source "drivers/usb/emul/Kconfig"
+
+source "drivers/usb/phy/Kconfig"
 
 source "drivers/usb/ulpi/Kconfig"
 

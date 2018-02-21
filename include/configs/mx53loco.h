@@ -23,7 +23,6 @@
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(10 * 1024 * 1024)
 
-#define CONFIG_MXC_GPIO
 #define CONFIG_REVISION_TAG
 
 #define CONFIG_MXC_UART
@@ -74,7 +73,6 @@
 #define CONFIG_ETHPRIME		"FEC0"
 
 #define CONFIG_LOADADDR		0x72000000	/* loadaddr env var */
-#define CONFIG_SYS_TEXT_BASE    0x77800000
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"script=boot.scr\0" \

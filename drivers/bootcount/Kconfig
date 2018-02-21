@@ -11,6 +11,18 @@ config BOOTCOUNT
 	  number of times the board has booted on a number of different
 	  persistent storage mediums.
 
+config BOOTCOUNT_LIMIT
+	bool "Enable support for checking boot count limit"
+	help
+	  Enable checking for exceeding the boot count limit.
+	  More information: http://www.denx.de/wiki/DULG/UBootBootCountLimit
+
+config SYS_BOOTCOUNT_SINGLEWORD
+	bool "Use single word to pack boot count and magic value"
+	help
+	  This option enables packing boot count magic value and boot count
+	  into single word (32 bits).
+
 if BOOTCOUNT
 
 config BOOTCOUNT_EXT

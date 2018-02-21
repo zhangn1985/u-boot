@@ -25,8 +25,6 @@
 
 #define CONFIG_LMB
 
-#define CONFIG_FS_EXT4
-#define CONFIG_EXT4_WRITE
 #define CONFIG_HOST_MAX_DEVICES 4
 
 /*
@@ -60,7 +58,6 @@
 /* Size of our emulated memory */
 #define CONFIG_SYS_SDRAM_BASE		0
 #define CONFIG_SYS_SDRAM_SIZE		(128 << 20)
-#define CONFIG_SYS_TEXT_BASE		0
 #define CONFIG_SYS_MONITOR_BASE	0
 #define CONFIG_NR_DRAM_BANKS		1
 
@@ -147,10 +144,6 @@
 #define CONFIG_SYS_SCSI_MAX_LUN		4
 
 #define CONFIG_SYS_SATA_MAX_DEVICE	2
-
-#define CONFIG_SYSTEMACE
-#define CONFIG_SYS_SYSTEMACE_WIDTH	16
-#define CONFIG_SYS_SYSTEMACE_BASE	0
 
 #define CONFIG_MISC_INIT_F
 

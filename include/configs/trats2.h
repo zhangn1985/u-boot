@@ -31,8 +31,6 @@
 #define CONFIG_SYS_MEMTEST_END		(CONFIG_SYS_SDRAM_BASE + 0x5E00000)
 #define CONFIG_SYS_LOAD_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x3E00000)
 
-#define CONFIG_SYS_TEXT_BASE		0x43e00000
-
 /* select serial console configuration */
 #define CONFIG_SERIAL2
 
@@ -153,7 +151,6 @@
 
 /* Security subsystem - enable hw_rand() */
 #define CONFIG_EXYNOS_ACE_SHA
-#define CONFIG_LIB_HW_RAND
 
 /* Common misc for Samsung */
 #define CONFIG_MISC_COMMON

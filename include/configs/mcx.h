@@ -22,7 +22,6 @@
  * Leave it at 0x80008000 to allow booting new u-boot.bin with X-loader
  * and older u-boot.bin with the new U-Boot SPL.
  */
-#define CONFIG_SYS_TEXT_BASE		0x80008000
 
 /* Clock Defines */
 #define V_OSCK			26000000	/* Clock output from T2 */
@@ -79,8 +78,6 @@
 #define CONFIG_MTD_DEVICE
 
 #define CONFIG_SYS_I2C
-#define CONFIG_SYS_OMAP24_I2C_SPEED	100000
-#define CONFIG_SYS_OMAP24_I2C_SLAVE	1
 
 /* RTC */
 #define CONFIG_RTC_DS1337
@@ -259,7 +256,6 @@
 					 GENERATED_GBL_DATA_SIZE)
 
 /* Defines for SPL */
-#define CONFIG_SPL_FRAMEWORK
 
 #define CONFIG_SPL_NAND_BASE
 #define CONFIG_SPL_NAND_DRIVERS

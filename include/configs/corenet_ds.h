@@ -48,10 +48,6 @@
 #define CONFIG_SYS_BOOK3E_HV		/* Category E.HV supported */
 #define CONFIG_MP			/* support multiple processors */
 
-#ifndef CONFIG_SYS_TEXT_BASE
-#define CONFIG_SYS_TEXT_BASE	0xeff40000
-#endif
-
 #ifndef CONFIG_RESET_VECTOR_ADDRESS
 #define CONFIG_RESET_VECTOR_ADDRESS	0xeffffffc
 #endif
@@ -453,7 +449,6 @@
 #define CONFIG_SYS_PCIE4_IO_SIZE	0x00010000	/* 64k */
 
 /* Qman/Bman */
-#define CONFIG_SYS_DPAA_QBMAN		/* Support Q/Bman */
 #define CONFIG_SYS_BMAN_NUM_PORTALS	10
 #define CONFIG_SYS_BMAN_MEM_BASE	0xf4000000
 #ifdef CONFIG_PHYS_64BIT

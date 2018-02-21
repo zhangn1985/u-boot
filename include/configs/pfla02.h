@@ -41,7 +41,6 @@
 #define CONFIG_FEC_MXC_PHYADDR		3
 
 /* SPI Flash */
-#define CONFIG_MXC_SPI
 #define CONFIG_SF_DEFAULT_BUS		2
 #define CONFIG_SF_DEFAULT_CS		0
 #define CONFIG_SF_DEFAULT_SPEED		20000000
@@ -57,7 +56,6 @@
 #define CONFIG_CMD_NAND
 /* Enable NAND support */
 #define CONFIG_CMD_NAND_TRIMFFS
-#define CONFIG_NAND_MXS
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		0x40000000
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
@@ -65,9 +63,6 @@
 #endif
 
 /* DMA stuff, needed for GPMI/MXS NAND support */
-#define CONFIG_APBH_DMA
-#define CONFIG_APBH_DMA_BURST
-#define CONFIG_APBH_DMA_BURST8
 
 /* Filesystem support */
 #define CONFIG_MTD_PARTITIONS

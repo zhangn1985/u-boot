@@ -47,7 +47,6 @@
 #define CONFIG_SYS_MALLOC_LEN		(4 * SZ_1M)
 
 /* Bootcounter */
-#define CONFIG_BOOTCOUNT_LIMIT
 #define CONFIG_SYS_BOOTCOUNT_ADDR	IRAM_BASE_ADDR
 #define CONFIG_SYS_BOOTCOUNT_BE
 
@@ -63,9 +62,6 @@
 #ifdef CONFIG_CMD_FUSE
 #define CONFIG_MXC_OCOTP
 #endif
-
-/* GPIO */
-#define CONFIG_MXC_GPIO
 
 /* I2C Configs */
 #define CONFIG_SYS_I2C
@@ -92,7 +88,6 @@
 
 /* SPI Flash Configs */
 #ifdef CONFIG_CMD_SF
-#define CONFIG_MXC_SPI
 #define CONFIG_SF_DEFAULT_BUS		0
 #define CONFIG_SF_DEFAULT_CS		0
 #define CONFIG_SF_DEFAULT_SPEED		25000000
@@ -116,8 +111,6 @@
 
 /* USB Gadget (DFU, UMS) */
 #if defined(CONFIG_CMD_DFU) || defined(CONFIG_CMD_USB_MASS_STORAGE)
-#define CONFIG_USB_FUNCTION_MASS_STORAGE
-
 #define CONFIG_SYS_DFU_DATA_BUF_SIZE	(16 * 1024 * 1024)
 #define DFU_DEFAULT_POLL_TIMEOUT	300
 
@@ -135,7 +128,6 @@
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
 
-#define CONFIG_SYS_TEXT_BASE		0x17800000
 #define CONFIG_LOADADDR			0x12000000
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 

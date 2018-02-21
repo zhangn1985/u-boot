@@ -158,8 +158,6 @@
 #define CONFIG_ENV_SIZE			CONFIG_ENV_SECT_SIZE
 #endif
 
-#define CONFIG_NAND_MXS
-
 /* NAND stuff */
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		0x40000000
@@ -172,9 +170,6 @@
 #define CONFIG_MTD_DEVICE	/* needed for mtdparts commands */
 
 /* DMA stuff, needed for GPMI/MXS NAND support */
-#define CONFIG_APBH_DMA
-#define CONFIG_APBH_DMA_BURST
-#define CONFIG_APBH_DMA_BURST8
 
 /* USB Configs */
 #define CONFIG_EHCI_HCD_INIT_AFTER_RESET
@@ -186,8 +181,6 @@
 #define CONFIG_IMX_THERMAL
 
 #define CONFIG_USBD_HS
-
-#define CONFIG_USB_FUNCTION_MASS_STORAGE
 
 /* USB Device Firmware Update support */
 #define CONFIG_SYS_DFU_DATA_BUF_SIZE	SZ_16M

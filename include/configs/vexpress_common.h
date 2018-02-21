@@ -30,7 +30,6 @@
 #define V2M_SERIAL_BUS_PCI	(V2M_PA_CS7 + V2M_PERIPH_OFFSET(2))
 
 #define V2M_BASE		0x60000000
-#define CONFIG_SYS_TEXT_BASE	0x60800000
 #elif defined(CONFIG_VEXPRESS_EXTENDED_MEMORY_MAP)
 /* CS register bases for the extended memory map. */
 #define V2M_PA_CS0		0x08000000
@@ -45,7 +44,6 @@
 #define V2M_SERIAL_BUS_PCI	(V2M_PA_CS7 + V2M_PERIPH_OFFSET(3))
 
 #define V2M_BASE		0x80000000
-#define CONFIG_SYS_TEXT_BASE	0x80800000
 #endif
 
 /*
@@ -133,7 +131,6 @@
 #define CONFIG_SYS_TIMER_COUNTS_DOWN
 
 /* PL011 Serial Configuration */
-#define CONFIG_PL011_SERIAL
 #define CONFIG_PL011_CLOCK		24000000
 #define CONFIG_PL01x_PORTS		{(void *)CONFIG_SYS_SERIAL0, \
 					 (void *)CONFIG_SYS_SERIAL1}

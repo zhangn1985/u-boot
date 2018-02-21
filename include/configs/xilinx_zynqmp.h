@@ -76,9 +76,12 @@
 
 #ifdef CONFIG_NAND_ARASAN
 # define CONFIG_SYS_MAX_NAND_DEVICE	1
-# define CONFIG_SYS_NAND_SELF_INIT
 # define CONFIG_SYS_NAND_ONFI_DETECTION
 # define CONFIG_MTD_DEVICE
+#endif
+
+#if defined(CONFIG_SPL_BUILD)
+#define CONFIG_ZYNQMP_PSU_INIT_ENABLED
 #endif
 
 /* Miscellaneous configurable options */
@@ -88,7 +91,6 @@
 #define CONFIG_SYS_DFU_DATA_BUF_SIZE	0x1800000
 #define DFU_DEFAULT_POLL_TIMEOUT	300
 #define CONFIG_USB_CABLE_CHECK
-#define CONFIG_USB_FUNCTION_THOR
 #define CONFIG_THOR_RESET_OFF
 #define DFU_ALT_INFO_RAM \
 	"dfu_ram_info=" \
@@ -133,11 +135,6 @@
 #if defined(CONFIG_ZYNQ_GEM)
 # define CONFIG_MII
 # define CONFIG_SYS_FAULT_ECHO_LINK_DOWN
-# define CONFIG_PHY_MARVELL
-# define CONFIG_PHY_NATSEMI
-# define CONFIG_PHY_TI
-# define CONFIG_PHY_VITESSE
-# define CONFIG_PHY_REALTEK
 # define PHY_ANEG_TIMEOUT       20000
 #endif
 
@@ -231,8 +228,6 @@
 /* Just random location in OCM */
 #define CONFIG_SPL_BSS_START_ADDR	0x0
 #define CONFIG_SPL_BSS_MAX_SIZE		0x80000
-
-#define CONFIG_SPL_FRAMEWORK
 
 #if defined(CONFIG_SPL_SPI_FLASH_SUPPORT)
 # define CONFIG_SPL_SPI_LOAD

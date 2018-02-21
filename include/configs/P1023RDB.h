@@ -10,10 +10,6 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#ifndef CONFIG_SYS_TEXT_BASE
-#define CONFIG_SYS_TEXT_BASE	0xeff40000
-#endif
-
 #ifndef CONFIG_SYS_MONITOR_BASE
 #define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_TEXT_BASE	/* start of monitor */
 #endif
@@ -270,7 +266,6 @@ extern unsigned long get_clock_freq(void);
 #define CONFIG_LOADADDR		1000000
 
 /* Qman/Bman */
-#define CONFIG_SYS_DPAA_QBMAN		/* support Q/Bman */
 #define CONFIG_SYS_QMAN_MEM_BASE	0xff000000
 #define CONFIG_SYS_QMAN_MEM_PHYS	CONFIG_SYS_QMAN_MEM_BASE
 #define CONFIG_SYS_QMAN_MEM_SIZE	0x00200000

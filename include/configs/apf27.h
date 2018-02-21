@@ -68,8 +68,6 @@
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE	\
 		+ PHYS_SDRAM_1_SIZE - 0x0100000)
 
-#define CONFIG_SYS_TEXT_BASE		0xA0000800
-
 /*
  * FLASH organization
  */
@@ -170,11 +168,6 @@
 #define CONFIG_MXC_UART_BASE		UART1_BASE
 
 /*
- * GPIO
- */
-#define CONFIG_MXC_GPIO
-
-/*
  * NOR
  */
 
@@ -204,7 +197,6 @@
  */
 #define CONFIG_MTD_DEVICE
 #define CONFIG_MTD_PARTITIONS
-#define CONFIG_SUPPORT_VFAT
 
 /*
  * Ethernet (on SOC imx FEC)
@@ -216,11 +208,7 @@
 /*
  * FPGA
  */
-#ifndef CONFIG_SPL_BUILD
-#define CONFIG_FPGA
-#endif
 #define CONFIG_FPGA_COUNT		1
-#define CONFIG_FPGA_XILINX
 #define CONFIG_FPGA_SPARTAN3
 #define CONFIG_SYS_FPGA_WAIT		250 /* 250 ms */
 #define CONFIG_SYS_FPGA_PROG_FEEDBACK

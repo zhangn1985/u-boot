@@ -24,7 +24,6 @@
 /* Physical Memory Map */
 
 /* CONFIG_SYS_TEXT_BASE needs to align with where ATF loads bl33.bin */
-#define CONFIG_SYS_TEXT_BASE		0x35000000
 
 #define CONFIG_NR_DRAM_BANKS		6
 #define PHYS_SDRAM_1			0x00000000
@@ -50,9 +49,6 @@
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + SZ_8M)
 
-/* Serial port PL010/PL011 through the device model */
-#define CONFIG_PL01X_SERIAL
-
 #ifdef CONFIG_CMD_USB
 #define CONFIG_USB_DWC2_REG_ADDR 0xF72C0000
 /*#define CONFIG_DWC2_DFLT_SPEED_FULL*/
@@ -65,8 +61,6 @@
 
 /* SD/MMC configuration */
 #define CONFIG_BOUNCE_BUFFER
-
-#define CONFIG_FS_EXT4
 
 /* Command line configuration */
 

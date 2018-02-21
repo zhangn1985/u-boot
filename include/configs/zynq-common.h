@@ -1,6 +1,6 @@
 /*
  * (C) Copyright 2012 Michal Simek <monstr@monstr.eu>
- * (C) Copyright 2013 Xilinx, Inc.
+ * (C) Copyright 2013 - 2018 Xilinx, Inc.
  *
  * Common configuration options for all Zynq boards.
  *
@@ -38,9 +38,6 @@
 #if defined(CONFIG_ZYNQ_GEM)
 # define CONFIG_MII
 # define CONFIG_SYS_FAULT_ECHO_LINK_DOWN
-# define CONFIG_PHY_MARVELL
-# define CONFIG_PHY_REALTEK
-# define CONFIG_PHY_XILINX
 # define CONFIG_BOOTP_BOOTPATH
 # define CONFIG_BOOTP_GATEWAY
 # define CONFIG_BOOTP_HOSTNAME
@@ -91,7 +88,6 @@
 # define DFU_DEFAULT_POLL_TIMEOUT	300
 # define CONFIG_USB_CABLE_CHECK
 # define CONFIG_THOR_RESET_OFF
-# define CONFIG_USB_FUNCTION_THOR
 # define DFU_ALT_INFO_RAM \
 	"dfu_ram_info=" \
 	"set dfu_alt_info " \
@@ -122,10 +118,6 @@
 
 #if !defined(DFU_ALT_INFO)
 # define DFU_ALT_INFO
-#endif
-
-#if defined(CONFIG_MMC_SDHCI_ZYNQ) || defined(CONFIG_ZYNQ_USB)
-# define CONFIG_SUPPORT_VFAT
 #endif
 
 #if defined(CONFIG_ZYNQ_I2C0) || defined(CONFIG_ZYNQ_I2C1)
@@ -164,7 +156,6 @@
 #define CONFIG_PREBOOT
 
 /* Boot configuration */
-#define CONFIG_BOOTCOMMAND		"run $modeboot || run distro_bootcmd"
 #define CONFIG_SYS_LOAD_ADDR		0 /* default? */
 
 /* Distro boot enablement */
@@ -302,7 +293,6 @@
 /* Commands */
 
 /* SPL part */
-#define CONFIG_SPL_FRAMEWORK
 
 /* MMC support */
 #ifdef CONFIG_MMC_SDHCI_ZYNQ

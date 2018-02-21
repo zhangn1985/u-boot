@@ -9,8 +9,6 @@
 
 #include <asm/hardware.h>
 
-#define CONFIG_SYS_TEXT_BASE            0x23f00000
-
 /* ARM asynchronous clock */
 #define CONFIG_SYS_AT91_SLOW_CLOCK      32768
 #define CONFIG_SYS_AT91_MAIN_CLOCK      12000000	/* from 12 MHz crystal */
@@ -115,7 +113,6 @@
 #define CONFIG_SYS_MALLOC_LEN       (2 * 1024 * 1024)
 
 /* SPL */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE        0x300000
 #define CONFIG_SPL_MAX_SIZE         0x10000
 #define CONFIG_SPL_BSS_START_ADDR   0x20000000

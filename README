@@ -143,6 +143,7 @@ Directory Hierarchy:
   /nios2		Files generic to Altera NIOS2 architecture
   /openrisc		Files generic to OpenRISC architecture
   /powerpc		Files generic to PowerPC architecture
+  /riscv		Files generic to RISC-V architecture
   /sandbox		Files generic to HW-independent "sandbox"
   /sh			Files generic to SH architecture
   /x86			Files generic to x86 architecture
@@ -713,11 +714,6 @@ The following options need to be configured:
 		RAM and NFS.
 
 - Bootcount:
-		CONFIG_BOOTCOUNT_LIMIT
-		Implements a mechanism for detecting a repeating reboot
-		cycle, see:
-		http://www.denx.de/wiki/view/DULG/UBootBootCountLimit
-
 		CONFIG_BOOTCOUNT_ENV
 		If no softreset save registers are found on the hardware
 		"bootcount" is stored in the environment. To prevent a
@@ -2000,11 +1996,6 @@ The following options need to be configured:
 		SPI EEPROM, also an instance works with Crystal A/D and
 		D/As on the SACSng board)
 
-		CONFIG_SH_SPI
-
-		Enables the driver for SPI controller on SuperH. Currently
-		only SH7757 is supported.
-
 		CONFIG_SOFT_SPI
 
 		Enables a software (bit-bang) SPI driver rather than
@@ -2022,11 +2013,6 @@ The following options need to be configured:
 		must define a list of chip-select function pointers.
 		Currently supported on some MPC8xxx processors.	 For an
 		example, see include/configs/mpc8349emds.h.
-
-		CONFIG_MXC_SPI
-
-		Enables the driver for the SPI controllers on i.MX and MXC
-		SoCs. Currently i.MX31/35/51 are supported.
 
 		CONFIG_SYS_SPI_MXC_WAIT
 		Timeout for waiting until spi transfer completed.
@@ -2310,18 +2296,6 @@ The following options need to be configured:
 		CONFIG_SF_DEFAULT_MODE 		(see include/spi.h)
 		CONFIG_SF_DEFAULT_SPEED		in Hz
 
-		CONFIG_SYSTEMACE
-
-		Adding this option adds support for Xilinx SystemACE
-		chips attached via some sort of local bus. The address
-		of the chip must also be defined in the
-		CONFIG_SYS_SYSTEMACE_BASE macro. For example:
-
-		#define CONFIG_SYSTEMACE
-		#define CONFIG_SYS_SYSTEMACE_BASE 0xf0000000
-
-		When SystemACE support is added, the "ace" device type
-		becomes available to the fat commands, i.e. fatls.
 
 - TFTP Fixed UDP Port:
 		CONFIG_TFTP_PORT
@@ -2344,11 +2318,6 @@ The following options need to be configured:
 		but sometimes that is not allowed.
 
 - bootcount support:
-		CONFIG_BOOTCOUNT_LIMIT
-
-		This enables the bootcounter support, see:
-		http://www.denx.de/wiki/DULG/UBootBootCountLimit
-
 		CONFIG_AT91SAM9XE
 		enable special bootcounter support on at91sam9xe based boards.
 		CONFIG_SOC_DA8XX
@@ -2724,11 +2693,6 @@ FIT uImage format:
 
 		CONFIG_SYS_SPL_MALLOC_SIZE
 		The size of the malloc pool used in SPL.
-
-		CONFIG_SPL_FRAMEWORK
-		Enable the SPL framework under common/.  This framework
-		supports MMC, NAND and YMODEM loading of U-Boot and NAND
-		NAND loading of the Linux Kernel.
 
 		CONFIG_SPL_OS_BOOT
 		Enable booting directly to an OS from SPL.
@@ -3510,7 +3474,7 @@ Low Level (hardware related) configuration options:
 		globally (CONFIG_CMD_MEMORY).
 
 - CONFIG_SKIP_LOWLEVEL_INIT
-		[ARM, NDS32, MIPS only] If this variable is defined, then certain
+		[ARM, NDS32, MIPS, RISC-V only] If this variable is defined, then certain
 		low level initializations (like setting up the memory
 		controller) are omitted and/or U-Boot does not
 		relocate itself into RAM.
@@ -3718,6 +3682,11 @@ this behavior and build U-Boot to some external directory:
 Note that the command line "O=" setting overrides the KBUILD_OUTPUT environment
 variable.
 
+User specific CPPFLAGS, AFLAGS and CFLAGS can be passed to the compiler by
+setting the according environment variables KCPPFLAGS, KAFLAGS and KCFLAGS.
+For example to treat all compiler warnings as errors:
+
+	make KCFLAGS=-Werror
 
 Please be aware that the Makefiles assume you are using GNU make, so
 for instance on NetBSD you might need to use "gmake" instead of
@@ -4963,6 +4932,22 @@ On NDS32, the following registers are used:
 
 NOTE: DECLARE_GLOBAL_DATA_PTR must be used with file-global scope,
 or current versions of GCC may "optimize" the code too much.
+
+On RISC-V, the following registers are used:
+
+	x0: hard-wired zero (zero)
+	x1: return address (ra)
+	x2:	stack pointer (sp)
+	x3:	global pointer (gp)
+	x4:	thread pointer (tp)
+	x5:	link register (t0)
+	x8:	frame pointer (fp)
+	x10-x11:	arguments/return values (a0-1)
+	x12-x17:	arguments (a2-7)
+	x28-31:	 temporaries (t3-6)
+	pc:	program counter (pc)
+
+    ==> U-Boot will use gp to hold a pointer to the global data
 
 Memory Management:
 ------------------

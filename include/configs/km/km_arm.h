@@ -26,7 +26,6 @@
 #define CONFIG_MARVELL
 #define CONFIG_FEROCEON_88FR131		/* CPU Core subversion */
 #define CONFIG_KW88F6281		/* SOC Name */
-#define CONFIG_MACH_KM_KIRKWOOD		/* Machine type */
 
 #define CONFIG_MACH_TYPE	MACH_TYPE_KM_KIRKWOOD
 
@@ -51,7 +50,6 @@
 
 #include "asm/arch/config.h"
 
-#define CONFIG_SYS_TEXT_BASE	0x07d00000	/* code address before reloc */
 #define CONFIG_SYS_MEMTEST_START 0x00400000	/* 4M */
 #define CONFIG_SYS_MEMTEST_END	0x007fffff	/*(_8M -1) */
 #define CONFIG_SYS_LOAD_ADDR	0x00800000	/* default load adr- 8M */

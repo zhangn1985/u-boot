@@ -38,7 +38,6 @@
  * order to allow for BCH8 to fit in.
  */
 #undef CONFIG_SPL_TEXT_BASE
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE		0x40200000
 
 #define CONFIG_MISC_INIT_R		/* misc_init_r dumps the die id */
@@ -49,17 +48,8 @@
 
 /* Hardware drivers */
 
-#define CONFIG_USB_OMAP3
-
 /* I2C */
 #define CONFIG_SYS_I2C_EEPROM_ADDR	0x50	/* EEPROM AT24C64      */
-
-/* USB */
-#define CONFIG_USB_MUSB_OMAP2PLUS
-#define CONFIG_USB_MUSB_PIO_ONLY
-
-/* TWL4030 */
-#define CONFIG_TWL4030_USB
 
 /* Board NAND Info. */
 #ifdef CONFIG_NAND

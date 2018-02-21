@@ -18,7 +18,6 @@
 #define CONFIG_SYS_LOWMEM_BASE		MEM_BASE
 
 /* Link Definitions */
-#define CONFIG_SYS_TEXT_BASE		0x00500000
 #define CONFIG_SYS_INIT_SP_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x7fff0)
 
 /* SMP Spin Table Definitions */
@@ -35,7 +34,6 @@
 
 /* PL011 Serial Configuration */
 
-#define CONFIG_PL01X_SERIAL
 #define CONFIG_PL011_CLOCK		24000000
 #define CONFIG_CONS_INDEX		1
 
@@ -78,7 +76,6 @@
 #define CONFIG_CMDLINE_EDITING		1
 #define CONFIG_SYS_MAXARGS		64		/* max command args */
 #define CONFIG_NO_RELOCATION		1
-#define CONFIG_LIB_RAND
 #define PLL_REF_CLK			50000000	/* 50 MHz */
 #define NS_PER_REF_CLK_TICK		(1000000000/PLL_REF_CLK)
 

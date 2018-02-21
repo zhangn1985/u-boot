@@ -92,14 +92,17 @@ T:	git git://git.denx.de/u-boot-atmel.git
 F:	arch/arm/mach-at91/
 
 ARM BROADCOM BCM283X
-#M:	Stephen Warren <swarren@wwwdotorg.org>
-S:	Orphaned (Since 2017-07)
+M:	Alexander Graf <agraf@suse.de>
+S:	Maintained
 F:	arch/arm/mach-bcm283x/
 F:	drivers/gpio/bcm2835_gpio.c
 F:	drivers/mmc/bcm2835_sdhci.c
+F:	drivers/mmc/bcm2835_sdhost.c
 F:	drivers/serial/serial_bcm283x_mu.c
+F:	drivers/serial/serial_bcm283x_pl011.c
 F:	drivers/video/bcm2835.c
 F:	include/dm/platform_data/serial_bcm283x_mu.h
+F:	drivers/pinctrl/broadcom/
 
 ARM FREESCALE IMX
 M:	Stefano Babic <sbabic@denx.de>
@@ -202,7 +205,7 @@ F:	arch/arm/include/asm/arch-sti*/
 
 ARM SUNXI
 M:	Jagan Teki <jagan@openedev.com>
-M:	Maxime Ripard <maxime.ripard@free-electrons.com>
+M:	Maxime Ripard <maxime.ripard@bootlin.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-sunxi.git
 F:	arch/arm/cpu/armv7/sunxi/
@@ -286,10 +289,15 @@ EFI PAYLOAD
 M:	Alexander Graf <agraf@suse.de>
 S:	Maintained
 T:	git git://github.com/agraf/u-boot.git
+F:	doc/README.efi
+F:	doc/README.iscsi
 F:	include/efi*
-F:	lib/efi*
+F:	include/pe.h
+F:	include/asm-generic/pe.h
+F:	lib/efi*/
 F:	test/py/tests/test_efi*
 F:	cmd/bootefi.c
+F:	tools/file2include.c
 
 FLATTENED DEVICE TREE
 M:	Simon Glass <sjg@chromium.org>
@@ -423,6 +431,13 @@ S:	Orphaned (Since 2017-01)
 T:	git git://git.denx.de/u-boot-onenand.git
 F:	drivers/mtd/onenand/
 
+RISC-V
+M:	Rick Chen <rick@andestech.com>
+S:	Maintained
+T:	git git://git.denx.de/u-boot-riscv.git
+F:	arch/riscv/
+F:	tools/prelink-riscv.c
+
 SANDBOX
 M:	Simon Glass <sjg@chromium.org>
 S:	Maintained
@@ -487,6 +502,13 @@ M:	Bin Meng <bmeng.cn@gmail.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-usb.git topic-xhci
 F:	drivers/usb/host/xhci*
+
+ROCKUSB
+M:	Eddie Cai <eddie.cai.linux@gmail.com>
+S:	Maintained
+F:	drivers/usb/gadget/f_rockusb.c
+F:	cmd/rockusb.c
+F:	doc/README.rockusb
 
 VIDEO
 M:	Anatolij Gustschin <agust@denx.de>

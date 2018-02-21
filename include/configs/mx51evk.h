@@ -14,7 +14,6 @@
  /* High Level Configuration Options */
 
 #define CONFIG_SYS_FSL_CLK
-#define CONFIG_SYS_TEXT_BASE	0x97800000
 
 #include <asm/arch/imx-regs.h>
 
@@ -36,13 +35,6 @@
 
 #define CONFIG_MXC_UART
 #define CONFIG_MXC_UART_BASE	UART1_BASE
-#define CONFIG_MXC_GPIO
-
-/*
- * SPI Configs
- * */
-
-#define CONFIG_MXC_SPI
 
 /* PMIC Controller */
 #define CONFIG_POWER

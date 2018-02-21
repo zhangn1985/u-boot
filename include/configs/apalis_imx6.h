@@ -97,12 +97,10 @@
 #define CONFIG_USBD_HS
 
 #define CONFIG_USB_GADGET_MASS_STORAGE
-#define CONFIG_USB_FUNCTION_MASS_STORAGE
 /* USB DFU */
 #define CONFIG_DFU_MMC
 
 /* Miscellaneous commands */
-#define CONFIG_MXC_GPIO
 
 /* Framebuffer and LCD */
 #define CONFIG_VIDEO_IPUV3
@@ -135,7 +133,6 @@
 #define CONFIG_SERVERIP			192.168.10.1
 
 #define CONFIG_LOADADDR			0x12000000
-#define CONFIG_SYS_TEXT_BASE		0x17800000
 
 #ifdef CONFIG_CMD_SATA
 #define CONFIG_DRIVE_SATA "sata "

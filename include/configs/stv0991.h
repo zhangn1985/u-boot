@@ -25,9 +25,6 @@
 	(PHYS_SDRAM_1_SIZE - CONFIG_ENV_SIZE)
 #define CONFIG_SYS_MALLOC_LEN			(CONFIG_ENV_SIZE + 16 * 1024)
 
-/* serial port (PL011) configuration */
-#define CONFIG_PL01X_SERIAL
-
 /* user interface */
 #define CONFIG_SYS_CBSIZE			1024
 
@@ -38,7 +35,6 @@
 #define CONFIG_SYS_INIT_SP_OFFSET		\
 	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
 /* U-Boot Load Address */
-#define CONFIG_SYS_TEXT_BASE			0x00010000
 #define CONFIG_SYS_INIT_SP_ADDR			\
 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
 
@@ -63,9 +59,7 @@
 + * QSPI support
 + */
 #ifdef CONFIG_OF_CONTROL		/* QSPI is controlled via DT */
-#define CONFIG_CQSPI_DECODER		0
 #define CONFIG_CQSPI_REF_CLK		((30/4)/2)*1000*1000
-#define CONFIG_BOUNCE_BUFFER
 
 #endif
 

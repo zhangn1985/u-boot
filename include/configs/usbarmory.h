@@ -12,7 +12,6 @@
 #define __CONFIG_H
 
 #define CONFIG_SYS_FSL_CLK
-#define CONFIG_MXC_GPIO
 
 #include <asm/arch/imx-regs.h>
 
@@ -53,7 +52,6 @@
 
 /* U-Boot memory offsets */
 #define CONFIG_LOADADDR		0x72000000
-#define CONFIG_SYS_TEXT_BASE	0x77800000
 #define CONFIG_SYS_LOAD_ADDR	CONFIG_LOADADDR
 
 /* Linux boot */

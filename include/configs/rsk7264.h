@@ -12,7 +12,6 @@
 #define __RSK7264_H
 
 #define CONFIG_CPU_SH7264	1
-#define CONFIG_RSK7264		1
 
 #define CONFIG_DISPLAY_BOARDINFO
 
@@ -26,7 +25,6 @@
 
 /* Memory */
 /* u-boot relocated to top 256KB of ram */
-#define CONFIG_SYS_TEXT_BASE		0x0CFC0000
 #define CONFIG_SYS_SDRAM_BASE		0x0C000000
 #define CONFIG_SYS_SDRAM_SIZE		(64 * 1024 * 1024)
 

@@ -29,7 +29,6 @@
 
 #define CONFIG_MISC_INIT_R
 #define CONFIG_BOARD_LATE_INIT
-#define CONFIG_MXC_GPIO
 #define CONFIG_REVISION_TAG
 
 #define CONFIG_MXC_UART
@@ -89,7 +88,6 @@
 #define CONFIG_ETHPRIME		"FEC0"
 
 #define CONFIG_LOADADDR		0x72000000	/* loadaddr env var */
-#define CONFIG_SYS_TEXT_BASE    0x77800000
 
 #define PPD_CONFIG_NFS \
 	"nfsserver=192.168.252.95\0" \
@@ -233,8 +231,6 @@
 				}
 
 #define CONFIG_BCH
-
-#define CONFIG_BOOTCOUNT_LIMIT
 
 /* Backlight Control */
 #define CONFIG_PWM_IMX

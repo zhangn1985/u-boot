@@ -78,7 +78,6 @@
  * As for the SPL, we must avoid the first 4 KiB as well, but we load the
  * IVT and CST to 0x8000, so we don't need to waste the subsequent 4 KiB.
  */
-#define CONFIG_SYS_TEXT_BASE		0x40002000
 #define CONFIG_SPL_TEXT_BASE		0x00001000
 
 /* U-Boot general configuration */
@@ -99,7 +98,6 @@
  */
 
 /* APBH DMA */
-#define CONFIG_APBH_DMA
 
 /* GPIO */
 #define CONFIG_MXS_GPIO
@@ -108,7 +106,6 @@
  * DUART Serial Driver.
  * Conflicts with AUART driver which can be set by board.
  */
-#define CONFIG_PL011_SERIAL
 #define CONFIG_PL011_CLOCK		24000000
 #define CONFIG_PL01x_PORTS		{ (void *)MXS_UARTDBG_BASE }
 #define CONFIG_CONS_INDEX		0
@@ -137,7 +134,6 @@
 
 /* NAND */
 #ifdef CONFIG_CMD_NAND
-#define CONFIG_NAND_MXS
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		0x60000000
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
@@ -151,7 +147,6 @@
 /* SPI */
 #ifdef CONFIG_CMD_SPI
 #define CONFIG_HARD_SPI
-#define CONFIG_MXS_SPI
 #define CONFIG_SPI_HALF_DUPLEX
 #endif
 
