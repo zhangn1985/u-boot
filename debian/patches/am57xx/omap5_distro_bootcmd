@@ -34,27 +34,3 @@ Index: u-boot/include/configs/ti_omap5_common.h
  
  /*
   * SPL related defines.  The Public RAM memory map the ROM defines the
-Index: u-boot/configs/am57xx_evm_defconfig
-===================================================================
---- u-boot.orig/configs/am57xx_evm_defconfig
-+++ u-boot/configs/am57xx_evm_defconfig
-@@ -9,6 +9,7 @@ CONFIG_SPL_SPI_FLASH_SUPPORT=y
- CONFIG_SPL_SPI_SUPPORT=y
- CONFIG_ARMV7_LPAE=y
- CONFIG_DEFAULT_DEVICE_TREE="am572x-idk"
-+CONFIG_DISTRO_DEFAULTS=y
- CONFIG_SPL_LOAD_FIT=y
- CONFIG_OF_BOARD_SETUP=y
- CONFIG_USE_BOOTARGS=y
-Index: u-boot/configs/dra7xx_evm_defconfig
-===================================================================
---- u-boot.orig/configs/dra7xx_evm_defconfig
-+++ u-boot/configs/dra7xx_evm_defconfig
-@@ -9,6 +9,7 @@ CONFIG_SPL_SPI_FLASH_SUPPORT=y
- CONFIG_SPL_SPI_SUPPORT=y
- CONFIG_ARMV7_LPAE=y
- CONFIG_DEFAULT_DEVICE_TREE="dra7-evm"
-+CONFIG_DISTRO_DEFAULTS=y
- CONFIG_SPL_LOAD_FIT=y
- CONFIG_OF_BOARD_SETUP=y
- CONFIG_USE_BOOTARGS=y
