@@ -5,10 +5,12 @@
 # the package for the architecture needed.
 u-boot-rockchip [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/firefly-rk3288/uboot.elf
 u-boot-rockchip [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/firefly-rk3399/uboot.elf
+u-boot-rockchip [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/puma-rk3399/uboot.elf
 
 # These bootloaders need to be statically linked.
 u-boot-rockchip [armhf]: statically-linked-binary usr/lib/u-boot/firefly-rk3288/uboot.elf
 u-boot-rockchip [arm64]: statically-linked-binary usr/lib/u-boot/firefly-rk3399/uboot.elf
+u-boot-rockchip [arm64]: statically-linked-binary usr/lib/u-boot/puma-rk3399/uboot.elf
 
 u-boot-rockchip: description-synopsis-starts-with-article
 
