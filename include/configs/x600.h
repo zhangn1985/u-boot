@@ -85,7 +85,6 @@
 #define CONFIG_SYS_I2C_RTC_ADDR	0x68
 
 /* FPGA config options */
-#define CONFIG_FPGA_SPARTAN3
 #define CONFIG_FPGA_COUNT	1
 
 /* USB EHCI options */
@@ -114,14 +113,7 @@
 #define CONFIG_SYS_MEMTEST_START		0x00800000
 #define CONFIG_SYS_MEMTEST_END			0x04000000
 #define CONFIG_SYS_MALLOC_LEN			(8 << 20)
-#define CONFIG_SYS_LONGHELP
-#define CONFIG_CMDLINE_EDITING
-#define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_LOAD_ADDR			0x00800000
-
-/* Use last 2 lwords in internal SRAM for bootcounter */
-#define CONFIG_SYS_BOOTCOUNT_ADDR		(CONFIG_SRAM_BASE + \
-						 CONFIG_SRAM_SIZE)
 
 #define CONFIG_HOSTNAME				x600
 #define CONFIG_UBI_PART				ubi0

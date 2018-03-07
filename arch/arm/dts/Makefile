@@ -177,6 +177,7 @@ dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
 	socfpga_cyclone5_is1.dtb			\
 	socfpga_cyclone5_mcvevk.dtb			\
 	socfpga_cyclone5_socdk.dtb			\
+	socfpga_cyclone5_dbm_soc1.dtb			\
 	socfpga_cyclone5_de0_nano_soc.dtb			\
 	socfpga_cyclone5_de1_soc.dtb			\
 	socfpga_cyclone5_de10_nano.dtb			\
@@ -396,7 +397,6 @@ dtb-$(CONFIG_MX6) += imx6ull-14x14-evk.dtb \
 	imx6sx-sdb.dtb \
 	imx6ul-geam-kit.dtb \
 	imx6ul-isiot-emmc.dtb \
-	imx6ul-isiot-mmc.dtb \
 	imx6ul-isiot-nand.dtb \
 	imx6ul-opos6uldev.dtb
 
@@ -410,6 +410,7 @@ dtb-$(CONFIG_RCAR_GEN3) += \
 	r8a7795-salvator-x.dtb \
 	r8a7796-m3ulcb.dtb \
 	r8a7796-salvator-x.dtb \
+	r8a77965-salvator-x.dtb \
 	r8a77970-eagle.dtb \
 	r8a77995-draak.dtb
 

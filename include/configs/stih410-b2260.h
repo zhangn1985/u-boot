@@ -17,12 +17,9 @@
 
 #define CONFIG_SYS_HZ_CLOCK		1000000000	/* 1 GHz */
 
-#include <config_distro_defaults.h>
 /* Environment */
 
 #define CONFIG_LOADADDR			CONFIG_SYS_LOAD_ADDR
-
-#define CONFIG_ENV_VARS_UBOOT_CONFIG
 
 #define BOOT_TARGET_DEVICES(func) \
 	func(MMC, mmc, 0) \
@@ -45,7 +42,6 @@
 
 /* Extra Commands */
 #define CONFIG_CMD_ASKENV
-#define CONFIG_SYS_LONGHELP
 
 #define CONFIG_SETUP_MEMORY_TAGS
 
@@ -73,9 +69,5 @@
 #define CONFIG_USB_ETHER_SMSC95XX
 
 /* NET Configs */
-#define CONFIG_BOOTP_SUBNETMASK
-#define CONFIG_BOOTP_GATEWAY
-#define CONFIG_BOOTP_HOSTNAME
-#define CONFIG_BOOTP_BOOTPATH
 
 #endif /* __CONFIG_H */

@@ -47,14 +47,11 @@
 /*
  * U-Boot general configurations
  */
-#define CONFIG_SYS_LONGHELP
 #define CONFIG_SYS_CBSIZE	1024		/* Console I/O buffer size */
 						/* Print buffer size */
 #define CONFIG_SYS_MAXARGS	32		/* Max number of command args */
 #define CONFIG_SYS_BARGSIZE	CONFIG_SYS_CBSIZE
 						/* Boot argument buffer size */
-#define CONFIG_AUTO_COMPLETE			/* Command auto complete */
-#define CONFIG_CMDLINE_EDITING			/* Command history etc */
 
 #ifndef CONFIG_SYS_HOSTNAME
 #define CONFIG_SYS_HOSTNAME	CONFIG_SYS_BOARD
@@ -291,7 +288,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 
 /* Extra Environment */
 #ifndef CONFIG_SPL_BUILD
-#include <config_distro_defaults.h>
 
 #ifdef CONFIG_CMD_DHCP
 #define BOOT_TARGET_DEVICES_DHCP(func) func(DHCP, dhcp, na)

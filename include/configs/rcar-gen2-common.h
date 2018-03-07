@@ -14,7 +14,10 @@
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_INITRD_TAG
-#define CONFIG_CMDLINE_EDITING
+
+#ifdef CONFIG_SPL
+#define CONFIG_SPL_TARGET	"spl/u-boot-spl.srec"
+#endif
 
 #undef	CONFIG_SHOW_BOOT_PROGRESS
 
@@ -26,8 +29,6 @@
 #endif
 
 /* console */
-#define CONFIG_AUTO_COMPLETE
-#define CONFIG_SYS_LONGHELP
 #define CONFIG_SYS_PBSIZE		256
 #define CONFIG_SYS_BAUDRATE_TABLE	{ 38400, 115200 }
 

@@ -11,7 +11,6 @@
 
 #include <asm/arch/imx-regs.h>
 
-#include <config_distro_defaults.h>
 #include "mx6_common.h"
 
 /*
@@ -30,16 +29,12 @@
 #define CONFIG_SPL_TARGET		"u-boot-with-spl.imx"
 
 /* Miscellaneous configurable options */
-#define CONFIG_SYS_LONGHELP
-#define CONFIG_AUTO_COMPLETE
-#define CONFIG_CMDLINE_EDITING
 
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_INITRD_TAG
 #define CONFIG_REVISION_TAG
 
-#define CONFIG_SUPPORT_RAW_INITRD	/* bootz raw initrd support */
 #define CONFIG_BOUNCE_BUFFER
 #define CONFIG_BZIP2
 
@@ -47,7 +42,6 @@
 #define CONFIG_SYS_MALLOC_LEN		(4 * SZ_1M)
 
 /* Bootcounter */
-#define CONFIG_SYS_BOOTCOUNT_ADDR	IRAM_BASE_ADDR
 #define CONFIG_SYS_BOOTCOUNT_BE
 
 /* FEC ethernet */

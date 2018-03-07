@@ -7,8 +7,6 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#include <config_distro_defaults.h>
-
 #define CONFIG_SYS_DCACHE_OFF
 
 #define CONFIG_SYS_BOOTMAPSZ		(16 << 20)
@@ -27,7 +25,6 @@
 #define CONFIG_CONS_INDEX		0
 
 #define CONFIG_SYS_BOOTCOUNT_LE		/* Use little-endian accessors */
-#define CONFIG_SYS_BOOTCOUNT_ADDR	0xfff3cf0c
 
 #define CONFIG_MISC_INIT_R
 #define CONFIG_SCSI_AHCI_PLAT

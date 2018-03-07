@@ -87,10 +87,6 @@
  * Console
  */
 
-#define CONFIG_AUTO_COMPLETE
-
-#define CONFIG_SYS_LONGHELP
-
 #define CONFIG_SYS_CBSIZE	512
 
 /*
@@ -167,6 +163,5 @@
  */
 
 #include <config_defaults.h>
-#include <config_distro_defaults.h>
 
 #endif

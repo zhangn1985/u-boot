@@ -23,6 +23,29 @@ config HUSH_PARSER
 	  If disabled, you get the old, much simpler behaviour with a somewhat
 	  smaller memory footprint.
 
+config CMDLINE_EDITING
+	bool "Enable command line editing"
+	depends on CMDLINE
+	default y
+	help
+	  Enable editing and History functions for interactive command line
+	  input operations
+
+config AUTO_COMPLETE
+	bool "Enable auto complete using TAB"
+	depends on CMDLINE
+	default y
+	help
+	  Enable auto completion of commands using TAB.
+
+config SYS_LONGHELP
+	bool "Enable long help messages"
+	depends on CMDLINE
+	default y if CMDLINE
+	help
+	  Defined when you want long help messages included
+	  Do not set this option when short of memory.
+
 config SYS_PROMPT
 	string "Shell prompt"
 	default "=> "
@@ -588,7 +611,7 @@ config CMD_DEMO
 
 config CMD_DFU
 	bool "dfu"
-	select USB_FUNCTION_DFU
+	select DFU
 	help
 	  Enables the command "dfu" which is used to have U-Boot create a DFU
 	  class device via USB. This command requires that the "dfu_alt_info"
@@ -989,9 +1012,10 @@ endmenu
 
 menu "Network commands"
 
+if NET
+
 config CMD_NET
 	bool "bootp, tftpboot"
-        select NET
 	default y
 	help
 	  Network commands.
@@ -1015,11 +1039,13 @@ config CMD_RARP
 
 config CMD_DHCP
 	bool "dhcp"
+	depends on CMD_NET
 	help
 	  Boot image via network using DHCP/TFTP protocol
 
 config CMD_PXE
 	bool "pxe"
+	depends on CMD_NET
 	select MENU
 	help
 	  Boot image via network using PXE protocol
@@ -1067,6 +1093,8 @@ config CMD_ETHSW
 	  by the vsc9953 Ethernet driver at present. Sub-commands allow
 	  operations such as enabling / disabling a port and
 	  viewing/maintaining the filtering database (FDB)
+
+endif
 
 endmenu
 
