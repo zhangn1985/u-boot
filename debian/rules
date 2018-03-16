@@ -31,7 +31,7 @@ override_dh_auto_build:
 		case $$platform in \
 			mx6cuboxi4x4) \
 				cp configs/mx6cuboxi_defconfig configs/mx6cuboxi4x4_defconfig;\
-				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4;\
+				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4_defconfig ;\
 				targets="$$targets" ;\
 				maketargets="$$targets" ;\
 				;; \
