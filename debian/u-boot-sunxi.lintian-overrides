@@ -28,6 +28,7 @@ u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/Sinovoip_BPI_M3/uboot.elf
 u-boot-sunxi [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/a64-olinuxino/uboot.elf
 u-boot-sunxi [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/pine64_plus/uboot.elf
+u-boot-sunxi [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/pinebook/uboot.elf
 
 # These bootloaders need to be statically linked.
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A10-OLinuXino-Lime/uboot.elf
@@ -55,6 +56,7 @@ u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/orangepi_zero/uboo
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/Sinovoip_BPI_M3/uboot.elf
 u-boot-sunxi [arm64]: statically-linked-binary usr/lib/u-boot/a64-olinuxino/uboot.elf
 u-boot-sunxi [arm64]: statically-linked-binary usr/lib/u-boot/pine64_plus/uboot.elf
+u-boot-sunxi [arm64]: statically-linked-binary usr/lib/u-boot/pinebook/uboot.elf
 
 u-boot-sunxi: description-synopsis-starts-with-article
 
