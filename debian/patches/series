@@ -29,3 +29,5 @@ odroid-xu3/877074-u-boot-exynos-Default-environment-for-Odr.patch
 firefly/fdtfile
 
 test-imagetools-test-fixes
+
+odroid-c2/0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch
