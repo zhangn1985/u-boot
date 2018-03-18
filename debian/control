@@ -115,6 +115,7 @@ Package: u-boot-sunxi
 Architecture: armhf arm64
 Multi-Arch: same
 Depends: ${misc:Depends}
+Recommends: atf-allwinner [arm64]
 Breaks: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Replaces: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Description: A boot loader for sunxi systems
