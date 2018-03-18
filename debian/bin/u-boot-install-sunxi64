@@ -3,7 +3,7 @@ set -e
 
 TARGET=${TARGET:-"/usr/lib/u-boot/pine64_plus"}
 BL31=${BL31:-"/usr/lib/atf/sun50iw1p1/bl31.bin"}
-FIT_GENERATOR=${FIT_GENERATOR:-"mksunxi_fit_atf.sh"}
+FIT_GENERATOR=${FIT_GENERATOR:-"mksunxi_fit_atf"}
 
 case "$1" in
     -f|--force)
