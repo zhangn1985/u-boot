@@ -53,7 +53,7 @@ if [ -z "$FORCE" ]; then
     fi
 fi
 
-cp -p $TARGET/*.dtb $TARGET/*.bin . \
+cp -p $TARGET/*.dtb $TARGET/*.bin .
 BL31=$BL31 \
     $FIT_GENERATOR *.dtb > u-boot.its
 mkimage -f u-boot.its u-boot.itb
