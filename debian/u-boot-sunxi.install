@@ -1,2 +1,6 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets sunxi "board/sunxi/README.sunxi64 board/sunxi/mksunxi_fit_atf.sh"
+debian/bin/u-boot-install-targets sunxi "board/sunxi/README.sunxi64"
+echo board/sunxi/mksunxi_fit_atf.sh /usr/bin/
+
+echo debian/bin/u-boot-install-sunxi64 /usr/bin/
+echo debian/manpages/u-boot-install-sunxi64.8 /usr/share/man/man8/
