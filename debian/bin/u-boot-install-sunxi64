@@ -20,7 +20,7 @@ if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
     exit 1
 fi
 
-if [ ! -w "$DEV" ]; then
+if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
     echo >&2 "$0: device/image ($DEV) must be writable"
     exit 1
 fi
@@ -30,7 +30,7 @@ trap 'rm -rf "$DIR"' 0
 # Build tools get confused by paths, thus let's copy all the pieces into
 # one dir.
 
-if [ ! -w "$DEV" ]; then
+if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
     echo >&2 "$0: device/image ($DEV) not accessible via abs path?!?"
     exit 1
 fi
