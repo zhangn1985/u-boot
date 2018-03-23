@@ -123,3 +123,16 @@ Index: u-boot/include/configs/odroid.h
  
  /* GPT */
  
+Index: u-boot/configs/odroid_defconfig
+===================================================================
+--- u-boot.orig/configs/odroid_defconfig
++++ u-boot/configs/odroid_defconfig
+@@ -9,7 +9,7 @@ CONFIG_DISTRO_DEFAULTS=y
+ CONFIG_FIT=y
+ CONFIG_FIT_VERBOSE=y
+ CONFIG_USE_BOOTARGS=y
+-CONFIG_BOOTARGS="Please use defined boot"
++# CONFIG_BOOTARGS is not set
+ # CONFIG_USE_BOOTCOMMAND is not set
+ CONFIG_SYS_CONSOLE_IS_IN_ENV=y
+ CONFIG_SYS_CONSOLE_INFO_QUIET=y
