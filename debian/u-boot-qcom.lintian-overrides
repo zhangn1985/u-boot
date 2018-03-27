@@ -4,9 +4,11 @@
 # targets could be built on multiple architectures, but could instead install
 # the package for the architecture needed.
 u-boot-qcom [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/dragonboard410c/uboot.elf
+u-boot-qcom [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/dragonboard820c/uboot.elf
 
 # These bootloaders need to be statically linked.
 u-boot-qcom [arm64]: statically-linked-binary usr/lib/u-boot/dragonboard410c/uboot.elf
+u-boot-qcom [arm64]: statically-linked-binary usr/lib/u-boot/dragonboard820c/uboot.elf
 
 u-boot-qcom: description-synopsis-starts-with-article
 
