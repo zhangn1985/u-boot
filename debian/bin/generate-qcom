@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -x
+set -e
+builddir="$1"
+platform="$2"
+subarch="$3"
+
+case $platform in
+    dragonboard820c)
+		pagesize=4096
+		base=0x80000000
+		;;
+    dragonboard410c)
+		pagesize=2048
+		base=0x80000000
+		;;
+	*)
+		echo "unknown platform ${platform}"
+		exit 1
+		;;
+esac
+touch ${builddir}/rd
+skales-dtbtool -o "${builddir}/dt.img" "${builddir}/arch/arm/dts"
+skales-mkbootimg --kernel "${builddir}/u-boot-dtb.bin" \
+	--output="${builddir}/u-boot.img" --dt="${builddir}/dt.img" \
+	--pagesize "${pagesize}" --base "${base}" \
+	--ramdisk="${builddir}/rd" --cmdline=""
+
+echo "${builddir}/u-boot.img" "/usr/lib/u-boot/${platform}/" \
+	>> "debian/build/targets.${subarch}"
+
