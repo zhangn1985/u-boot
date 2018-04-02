@@ -1,3 +1,16 @@
+u-boot (2018.03+dfsg1-2) unstable; urgency=medium
+
+  [ Riku Voipio ]
+  * u-boot-qcom: Add dragonboard 820c build (Closes: #894212).
+
+  [ Vagrant Cascadian ]
+  * u-boot-install-sunxi64: Ignore device write checks when FORCE is set.
+  * u-boot-exynos: Update odroid patch to support distro_bootcmd, dropping
+    support for legacy boot.
+  * Add back uboot.elf, used to install jetson-tx1 (Closes: #893908).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sun, 01 Apr 2018 18:20:06 -0700
+
 u-boot (2018.03+dfsg1-1) unstable; urgency=medium
 
   * New upstream release.
