@@ -72,6 +72,7 @@ override_dh_auto_build:
 	# Load dummy config
 	echo CONFIG_SYS_TEXT_BASE=0 > configs/tools_defconfig
 	$(MAKE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
+	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
 	$(MAKE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \

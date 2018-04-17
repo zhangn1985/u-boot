@@ -5,6 +5,9 @@ for tool in dumpimage mkimage mkenvimage mksunxiboot kwboot env/fw_printenv ; do
     echo ${builddir}/tools/${tool} /usr/bin/
 done
 
+# install config
+echo ${builddir}/config /usr/share/doc/u-boot-tools/
+
 echo doc/mkimage.1 /usr/share/man/man1/
 echo doc/kwboot.1 /usr/share/man/man1/
 
