@@ -16,6 +16,7 @@ Build-Depends:
  python:any [armhf arm64],
  skales:native [arm64],
  swig [armhf arm64],
+ lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
 Standards-Version: 4.1.3
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Browser: https://salsa.debian.org/debian/u-boot
