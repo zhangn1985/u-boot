@@ -40,6 +40,12 @@ override_dh_auto_build:
 				maketargets="all" ;\
 				;; \
 		esac; \
+		case $$subarch in \
+			-) subpackage="u-boot" ;\
+				;; \
+			*) subpackage="u-boot-$$subarch" ;\
+				;; \
+		esac;\
 		mkdir -p $$builddir; \
 		$(MAKE) O=$$builddir $${platform}_defconfig; \
 		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
@@ -56,8 +62,8 @@ override_dh_auto_build:
 				>> debian/build/targets.$$subarch; \
 			echo $$platform >> debian/build/platforms.$$subarch; \
 		done ; \
-		cp $$builddir/.config $$builddir/config; \
-		echo $$builddir/config /usr/lib/u-boot/$$platform/ \
+		cp $$builddir/.config $$builddir/config.$$platform; \
+		echo $$builddir/config.$$platform /usr/share/doc/$$subpackage/configs/ \
 			>> debian/build/targets.$$subarch; \
 	    case $${subarch} in \
 		rockchip) \
