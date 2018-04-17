@@ -189,6 +189,9 @@ arm64  rockchip        firefly-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin sp
 # Vagrant Cascadian <vagrant@debian.org>
 arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb
 
+# Vagrant Cascadian <vagrant@debian.org>
+arm64	  mvebu		mvebu_espressobin-88f3720	u-boot.bin arch/arm/dts/armada-3720-espressobin.dtb
+
 avr32	-		hammerhead	u-boot.img
 
 mips	-		qemu_mips	u-boot.bin
