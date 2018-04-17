@@ -29,7 +29,6 @@
 #define IOMUXC_BASE_ADDR		IOMUXC1_RBASE
 
 #define CONFIG_BOUNCE_BUFFER
-#define CONFIG_FSL_ESDHC
 #define CONFIG_FSL_USDHC
 #define CONFIG_SUPPORT_EMMC_BOOT /* eMMC specific */
 
@@ -65,7 +64,6 @@
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
-#define CONFIG_CONS_INDEX		1
 #define CONFIG_BAUDRATE			115200
 
 #define CONFIG_SYS_CACHELINE_SIZE      64
@@ -86,7 +84,6 @@
 
 #define CONFIG_LOADADDR             0x60800000
 
-#define CONFIG_CMD_MEMTEST
 #define CONFIG_SYS_MEMTEST_END      0x9E000000
 
 #define CONFIG_EXTRA_ENV_SETTINGS \

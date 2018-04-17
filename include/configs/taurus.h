@@ -118,13 +118,11 @@
 
 /* SPI EEPROM */
 #define CONFIG_SPI
-#define CONFIG_ATMEL_SPI
 #define TAURUS_SPI_MASK (1 << 4)
 #define TAURUS_SPI_CS_PIN	AT91_PIN_PA3
 
 #if defined(CONFIG_SPL_BUILD)
 /* SPL related */
-#define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x20000
 
 #define CONFIG_SF_DEFAULT_BUS 0

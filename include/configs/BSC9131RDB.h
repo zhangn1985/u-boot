@@ -45,7 +45,6 @@
 
 /* High Level Configuration Options */
 
-#define CONFIG_TSEC_ENET
 #define CONFIG_ENV_OVERWRITE
 
 #define CONFIG_DDR_CLK_FREQ	66666666 /* DDRCLK on 9131 RDB */
@@ -204,7 +203,6 @@ extern unsigned long get_sdram_size(void);
 #define CONFIG_SYS_MALLOC_LEN		(1024 * 1024)	/* Reserved for malloc*/
 
 /* Serial Port */
-#define CONFIG_CONS_INDEX	1
 #undef	CONFIG_SERIAL_SOFTWARE_FIFO
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
@@ -326,7 +324,7 @@ extern unsigned long get_sdram_size(void);
 #define CONFIG_HAS_ETH0
 #endif
 
-#define CONFIG_HOSTNAME		BSC9131rdb
+#define CONFIG_HOSTNAME		"BSC9131rdb"
 #define CONFIG_ROOTPATH		"/opt/nfsroot"
 #define CONFIG_BOOTFILE		"uImage"
 #define CONFIG_UBOOTPATH	"u-boot.bin" /* U-Boot image on TFTP server */

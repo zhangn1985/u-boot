@@ -162,7 +162,6 @@
  */
 #define CONFIG_TSEC1
 #define CONFIG_TSEC2
-#define CONFIG_TSEC_ENET
 #define CONFIG_HARD_SPI
 
 /*
@@ -315,7 +314,6 @@
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX		1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
 
@@ -428,7 +426,7 @@
 #define CONFIG_ENV_SIZE_REDUND	(CONFIG_ENV_SIZE)
 
 #define CONFIG_NETDEV			eth1
-#define CONFIG_HOSTNAME		ids8313
+#define CONFIG_HOSTNAME		"ids8313"
 #define CONFIG_ROOTPATH		"/opt/eldk-4.2/ppc_6xx"
 #define CONFIG_BOOTFILE		"ids8313/uImage"
 #define CONFIG_UBOOTPATH		"ids8313/u-boot.bin"

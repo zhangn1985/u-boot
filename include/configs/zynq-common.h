@@ -162,7 +162,7 @@
 #define BOOT_TARGET_DEVICES_USB(func)
 #endif
 
-#if defined(CONFIG_CMD_PXE)
+#if defined(CONFIG_CMD_PXE) && defined(CONFIG_CMD_DHCP)
 #define BOOT_TARGET_DEVICES_PXE(func) func(PXE, pxe, na)
 #else
 #define BOOT_TARGET_DEVICES_PXE(func)
@@ -298,7 +298,6 @@
 
 /* qspi mode is working fine */
 #ifdef CONFIG_ZYNQ_QSPI
-#define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x100000
 #define CONFIG_SYS_SPI_ARGS_OFFS	0x200000
 #define CONFIG_SYS_SPI_ARGS_SIZE	0x80000

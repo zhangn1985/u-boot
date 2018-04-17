@@ -50,13 +50,11 @@
  */
 #define CONFIG_MXC_UART
 #define CONFIG_MXC_UART_BASE		UART2_BASE
-#define CONFIG_CONS_INDEX		1
 
 /*
  * MMC Driver
  */
 #ifdef CONFIG_CMD_MMC
-#define CONFIG_FSL_ESDHC
 #define CONFIG_SYS_FSL_ESDHC_ADDR	0
 #define CONFIG_SYS_FSL_ESDHC_NUM	1
 #endif
@@ -186,7 +184,7 @@
  * Extra Environments
  */
 #define CONFIG_PREBOOT		"run try_bootscript"
-#define CONFIG_HOSTNAME		m53evk
+#define CONFIG_HOSTNAME		"m53evk"
 
 #define CONFIG_EXTRA_ENV_SETTINGS					\
 	"consdev=ttymxc1\0"						\

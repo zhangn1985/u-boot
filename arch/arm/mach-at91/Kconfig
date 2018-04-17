@@ -85,6 +85,7 @@ config TARGET_GURNARD
 	select BOARD_LATE_INIT
 	select DM
 	select DM_SERIAL
+	select DM_SPI
 	select DM_GPIO
 	select DM_ETH
 
@@ -199,6 +200,8 @@ config TARGET_MA5D4EVK
 	bool "Aries MA5D4EVK Evaluation Kit"
 	select SAMA5D4
 	select SUPPORT_SPL
+	select DM
+	select DM_SPI
 
 config TARGET_MEESC
 	bool "Support meesc"
@@ -219,6 +222,7 @@ config TARGET_TAURUS
 	select SUPPORT_SPL
 	select DM
 	select DM_SERIAL
+	select DM_SPI
 	select DM_GPIO
 	select DM_ETH
 
@@ -235,6 +239,8 @@ config TARGET_VINCO
 	bool "Support VINCO"
 	select SAMA5D4
 	select SUPPORT_SPL
+	select DM
+	select DM_SPI
 
 config TARGET_WB45N
 	bool "Support Laird WB45N"

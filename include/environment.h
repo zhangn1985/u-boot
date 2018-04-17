@@ -314,6 +314,15 @@ int env_load(void);
  */
 int env_save(void);
 
+/**
+ * env_fix_drivers() - Updates envdriver as per relocation
+ */
+void env_fix_drivers(void);
+
+void eth_parse_enetaddr(const char *addr, uint8_t *enetaddr);
+int eth_env_get_enetaddr(const char *name, uint8_t *enetaddr);
+int eth_env_set_enetaddr(const char *name, const uint8_t *enetaddr);
+
 #endif /* DO_DEPS_ONLY */
 
 #endif /* _ENVIRONMENT_H_ */

@@ -16,7 +16,6 @@
  */
 #define CONFIG_SYS_BOARD_NAME	"XPedite5370"
 #define CONFIG_SYS_FORM_3U_VPX	1
-#define CONFIG_BOARD_EARLY_INIT_R	/* Call board_pre_init */
 
 #define CONFIG_PCI_SCAN_SHOW	1	/* show pci devices on startup */
 #define CONFIG_PCIE1		1	/* PCIE controller 1 */
@@ -72,7 +71,6 @@ extern unsigned long get_board_ddr_clk(unsigned long dummy);
 /*
  * Diagnostics
  */
-#define CONFIG_SYS_ALT_MEMTEST
 #define CONFIG_SYS_MEMTEST_START	0x10000000
 #define CONFIG_SYS_MEMTEST_END		0x20000000
 #define CONFIG_POST			(CONFIG_SYS_POST_MEMORY | \
@@ -187,7 +185,6 @@ extern unsigned long get_board_ddr_clk(unsigned long dummy);
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX		1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
 #define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)
@@ -299,7 +296,6 @@ extern unsigned long get_board_ddr_clk(unsigned long dummy);
 /*
  * Networking options
  */
-#define CONFIG_TSEC_ENET		/* tsec ethernet support */
 #define CONFIG_TSEC_TBI
 #define CONFIG_MII		1	/* MII PHY management */
 #define CONFIG_MII_DEFAULT_TSEC	1	/* Allow unregistered phys */

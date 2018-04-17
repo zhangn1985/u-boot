@@ -28,7 +28,6 @@
 
 #define CONFIG_PCI_INDIRECT_BRIDGE
 #define CONFIG_SYS_PCI_64BIT	1	/* enable 64-bit PCI resources */
-#define CONFIG_TSEC_ENET		/* tsec ethernet support */
 #undef CONFIG_ETHER_ON_FCC             /* cpm FCC ethernet support */
 #define CONFIG_ENV_OVERWRITE
 #define CONFIG_RESET_PHY_R	1	/* Call reset_phy() */
@@ -205,7 +204,6 @@
 /* Serial Port */
 #define CONFIG_CONS_ON_SCC	/* define if console on SCC */
 #undef  CONFIG_CONS_NONE	/* define if console on something else */
-#define CONFIG_CONS_INDEX       1  /* which serial channel for console */
 
 #define CONFIG_SYS_BAUDRATE_TABLE  \
 	{300, 600, 1200, 2400, 4800, 9600, 19200, 38400,115200}
@@ -378,7 +376,7 @@
 
 #define CONFIG_IPADDR    192.168.1.253
 
-#define CONFIG_HOSTNAME		unknown
+#define CONFIG_HOSTNAME		"unknown"
 #define CONFIG_ROOTPATH		"/nfsroot"
 #define CONFIG_BOOTFILE		"your.uImage"
 

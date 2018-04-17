@@ -87,7 +87,6 @@
 #define CONFIG_SYS_NS16550_COM4		0x481a6000
 
 #define CONFIG_SERIAL1                  1
-#define CONFIG_CONS_INDEX               1
 
 /* I2C Configuration */
 #define CONFIG_I2C
@@ -104,7 +103,6 @@
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME	"u-boot.img"
 
-#define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x20000
 
 #define CONFIG_SPL_NAND_BASE
@@ -193,7 +191,6 @@
 # define CONFIG_ENV_SECT_SIZE		(4 << 10) /* 4 KB sectors */
 #endif /* SPI support */
 
-#define CONFIG_DRIVER_TI_CPSW
 #define CONFIG_MII
 #define CONFIG_BOOTP_DEFAULT
 #define CONFIG_BOOTP_DNS2

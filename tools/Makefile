@@ -7,6 +7,7 @@
 
 # Enable all the config-independent tools
 ifneq ($(HOST_TOOLS_ALL),)
+CONFIG_KIRKWOOD = y
 CONFIG_LCD_LOGO = y
 CONFIG_CMD_LOADS = y
 CONFIG_CMD_NET = y
@@ -103,6 +104,7 @@ dumpimage-mkimage-objs := aisimage.o \
 			pblimage.o \
 			pbl_crc32.o \
 			vybridimage.o \
+			stm32image.o \
 			$(ROCKCHIP_OBS) \
 			socfpgaimage.o \
 			lib/sha1.o \

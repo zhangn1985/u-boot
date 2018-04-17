@@ -15,8 +15,6 @@
 
 #include "at91-sama5_common.h"
 
-#define CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
-
 /*
  * This needs to be defined for the OHCI code to work but it is defined as
  * ATMEL_ID_UHPHS in the CPU specific header files.
@@ -104,7 +102,6 @@
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME	"u-boot.img"
 
 #elif CONFIG_SPI_BOOT
-#define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x10000
 
 #elif CONFIG_NAND_BOOT

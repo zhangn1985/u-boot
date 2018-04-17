@@ -27,7 +27,6 @@
 
 #define CONFIG_BOARDNAME "uCP1020-64EE512-0U1-XR-T1"
 
-#define CONFIG_TSEC_ENET
 #define CONFIG_TSEC1
 #define CONFIG_TSEC3
 #define CONFIG_HAS_ETH0
@@ -46,8 +45,6 @@
 
 #define CONFIG_SYS_L2_SIZE	(256 << 10)
 
-#define CONFIG_LAST_STAGE_INIT
-
 #endif
 
 #if defined(CONFIG_TARGET_UCP1020)
@@ -57,7 +54,6 @@
 
 #define CONFIG_BOARDNAME_LOCAL "uCP1020-64EEE512-OU1-XR"
 
-#define CONFIG_TSEC_ENET
 #define CONFIG_TSEC1
 #define CONFIG_TSEC2
 #define CONFIG_TSEC3
@@ -80,8 +76,6 @@
 #define CONFIG_SYS_REDUNDAND_ENVIRONMENT
 
 #define CONFIG_SYS_L2_SIZE	(256 << 10)
-
-#define CONFIG_LAST_STAGE_INIT
 
 #endif
 
@@ -237,8 +231,6 @@
 #define CONFIG_SYS_FLASH_EMPTY_INFO
 #define CONFIG_SYS_FLASH_USE_BUFFER_WRITE
 
-#define CONFIG_BOARD_EARLY_INIT_R	/* call board_early_init_r function */
-
 #define CONFIG_SYS_INIT_RAM_LOCK
 #define CONFIG_SYS_INIT_RAM_ADDR	0xffd00000 /* stack in RAM */
 /* Initial L1 address */
@@ -274,7 +266,6 @@
  * open - index 2
  * shorted - index 1
  */
-#define CONFIG_CONS_INDEX		1
 #undef CONFIG_SERIAL_SOFTWARE_FIFO
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
@@ -419,7 +410,6 @@
 #undef CONFIG_WATCHDOG			/* watchdog disabled */
 
 #ifdef CONFIG_MMC
-#define CONFIG_FSL_ESDHC
 #define CONFIG_SYS_FSL_ESDHC_ADDR	CONFIG_SYS_MPC85xx_ESDHC_ADDR
 #define CONFIG_MMC_SPI
 #endif
@@ -479,7 +469,7 @@
 
 #endif
 
-#define CONFIG_HOSTNAME		UCP1020
+#define CONFIG_HOSTNAME		"UCP1020"
 #define CONFIG_ROOTPATH		"/opt/nfsroot"
 #define CONFIG_BOOTFILE		"uImage"
 #define CONFIG_UBOOTPATH	u-boot.bin /* U-Boot image on TFTP server */

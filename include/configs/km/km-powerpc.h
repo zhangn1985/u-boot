@@ -9,8 +9,6 @@
 #define __CONFIG_KEYMILE_POWERPC_H
 
 /* Do boardspecific init for all boards */
-#define CONFIG_BOARD_EARLY_INIT_R
-#define CONFIG_LAST_STAGE_INIT
 
 #define CONFIG_JFFS2_CMDLINE
 
@@ -67,7 +65,7 @@
 #define CONFIG_KM_DEF_BOOT_ARGS_CPU		""
 
 #define CONFIG_KM_DEF_ENV_CPU						\
-	"u-boot="__stringify(CONFIG_HOSTNAME) "/u-boot.bin\0"		\
+	"u-boot="CONFIG_HOSTNAME "/u-boot.bin\0"		\
 	"update="							\
 		"protect off " __stringify(BOOTFLASH_START) " +${filesize} && "\
 		"erase " __stringify(BOOTFLASH_START) "  +${filesize} && "\

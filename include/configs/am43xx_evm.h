@@ -62,8 +62,6 @@
 /* Always 64 KiB env size */
 #define CONFIG_ENV_SIZE			(64 << 10)
 
-#define CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
-
 /* Clock Defines */
 #define V_OSCK				24000000  /* Clock output from T2 */
 #define V_SCLK				(V_OSCK)
@@ -221,7 +219,6 @@
 #define CONFIG_NET_RETRY_COUNT		10
 #endif
 
-#define CONFIG_DRIVER_TI_CPSW
 #define PHY_ANEG_TIMEOUT	8000 /* PHY needs longer aneg time at 1G */
 
 #define CONFIG_SYS_RX_ETH_BUFFER	64

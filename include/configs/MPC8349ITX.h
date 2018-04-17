@@ -68,7 +68,6 @@
 
 #define CONFIG_RTC_DS1337
 #define CONFIG_SYS_I2C
-#define CONFIG_TSEC_ENET		/* TSEC Ethernet support */
 
 /*
  * Device configurations
@@ -340,7 +339,6 @@ boards, we say we have two, but don't display a message if we find only one. */
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX	1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
 #define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)

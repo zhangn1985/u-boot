@@ -92,7 +92,6 @@
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX		1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
 #define CONFIG_SYS_NS16550_CLK		get_serial_clock()
@@ -118,7 +117,6 @@
  * MMC
  */
 #define CONFIG_CMD_MMC
-#define CONFIG_FSL_ESDHC
 
 /* SATA */
 #define CONFIG_SCSI_AHCI_PLAT
@@ -154,7 +152,6 @@
 /*
  * eTSEC
  */
-#define CONFIG_TSEC_ENET
 
 #ifdef CONFIG_TSEC_ENET
 #define CONFIG_MII

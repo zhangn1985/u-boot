@@ -17,8 +17,6 @@
  */
 #define CONFIG_SHOW_BOOT_PROGRESS
 #define CONFIG_PHYSMEM
-#define CONFIG_DISPLAY_BOARDINFO_LATE
-#define CONFIG_LAST_STAGE_INIT
 #define CONFIG_NR_DRAM_BANKS		8
 
 #define CONFIG_LMB
@@ -112,7 +110,7 @@
 
 /* Default environment */
 #define CONFIG_ROOTPATH		"/opt/nfsroot"
-#define CONFIG_HOSTNAME		x86
+#define CONFIG_HOSTNAME		"x86"
 #define CONFIG_BOOTFILE		"bzImage"
 #define CONFIG_LOADADDR		0x1000000
 #define CONFIG_RAMDISK_ADDR	0x4000000

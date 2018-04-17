@@ -42,7 +42,7 @@
 #define CONFIG_BOOTP_BOOTFILESIZE
 #define CONFIG_BOOTP_DNS2
 
-#define CONFIG_HOSTNAME	CONFIG_BOARD_NAME
+#define CONFIG_HOSTNAME	"apf27"
 #define CONFIG_ROOTPATH	"/tftpboot/" __stringify(CONFIG_BOARD_NAME) "-root"
 
 /*
@@ -155,7 +155,6 @@
  * Serial Driver
  */
 #define CONFIG_MXC_UART
-#define CONFIG_CONS_INDEX		1
 #define CONFIG_MXC_UART_BASE		UART1_BASE
 
 /*

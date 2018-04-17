@@ -22,7 +22,6 @@
 /*
  * On-board devices
  */
-#define CONFIG_TSEC_ENET		/* TSEC Ethernet support */
 #define CONFIG_VSC7385_ENET
 
 /*
@@ -322,7 +321,6 @@
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX	1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
 #define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)
@@ -474,7 +472,6 @@
 #undef CONFIG_WATCHDOG		/* watchdog disabled */
 
 #ifdef CONFIG_MMC
-#define CONFIG_FSL_ESDHC
 #define CONFIG_FSL_ESDHC_PIN_MUX
 #define CONFIG_SYS_FSL_ESDHC_ADDR	CONFIG_SYS_MPC83xx_ESDHC_ADDR
 #endif
@@ -625,7 +622,7 @@
 
 #define CONFIG_NETDEV		"eth1"
 
-#define CONFIG_HOSTNAME		mpc837x_rdb
+#define CONFIG_HOSTNAME		"mpc837x_rdb"
 #define CONFIG_ROOTPATH		"/nfsroot"
 #define CONFIG_RAMDISKFILE	"rootfs.ext2.gz.uboot"
 #define CONFIG_BOOTFILE		"uImage"

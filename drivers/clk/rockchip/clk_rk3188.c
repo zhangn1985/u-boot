@@ -123,7 +123,7 @@ static int rkclk_configure_ddr(struct rk3188_cru *cru, struct rk3188_grf *grf,
 			       unsigned int hz, bool has_bwadj)
 {
 	static const struct pll_div dpll_cfg[] = {
-		{.nf = 25, .nr = 2, .no = 1},
+		{.nf = 75, .nr = 1, .no = 6},
 		{.nf = 400, .nr = 9, .no = 2},
 		{.nf = 500, .nr = 9, .no = 2},
 		{.nf = 100, .nr = 3, .no = 1},
@@ -541,7 +541,7 @@ static int rk3188_clk_ofdata_to_platdata(struct udevice *dev)
 #if !CONFIG_IS_ENABLED(OF_PLATDATA)
 	struct rk3188_clk_priv *priv = dev_get_priv(dev);
 
-	priv->cru = (struct rk3188_cru *)devfdt_get_addr(dev);
+	priv->cru = dev_read_addr_ptr(dev);
 #endif
 
 	return 0;

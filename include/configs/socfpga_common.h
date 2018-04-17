@@ -12,7 +12,6 @@
 /*
  * High level configuration
  */
-#define CONFIG_DISPLAY_BOARDINFO_LATE
 #define CONFIG_CLOCKS
 
 #define CONFIG_SYS_BOOTMAPSZ		(64 * 1024 * 1024)
@@ -192,7 +191,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 #define CONFIG_SYS_NS16550_COM1        SOCFPGA_UART1_ADDRESS
 #define CONFIG_SYS_NS16550_CLK		50000000
 #endif
-#define CONFIG_CONS_INDEX		1
 
 /*
  * USB
@@ -271,7 +269,6 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 
 /* SPL QSPI boot support */
 #ifdef CONFIG_SPL_SPI_SUPPORT
-#define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x40000
 #endif
 
@@ -295,7 +292,7 @@ unsigned int cm_get_qspi_controller_clk_hz(void);
 #define BOOT_TARGET_DEVICES_DHCP(func)
 #endif
 
-#ifdef CONFIG_CMD_PXE
+#if defined(CONFIG_CMD_PXE) && defined(CONFIG_CMD_DHCP)
 #define BOOT_TARGET_DEVICES_PXE(func) func(PXE, pxe, na)
 #else
 #define BOOT_TARGET_DEVICES_PXE(func)

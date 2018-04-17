@@ -304,7 +304,6 @@
 /*
  * Serial Port
  */
-#define CONFIG_CONS_INDEX     1
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE    1
 #define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)
@@ -395,7 +394,6 @@
 /*
  * TSEC configuration
  */
-#define CONFIG_TSEC_ENET	/* TSEC ethernet support */
 
 #if defined(CONFIG_TSEC_ENET)
 
@@ -687,7 +685,7 @@
 #define CONFIG_HAS_ETH0
 #endif
 
-#define CONFIG_HOSTNAME		mpc8349emds
+#define CONFIG_HOSTNAME		"mpc8349emds"
 #define CONFIG_ROOTPATH		"/nfsroot/rootfs"
 #define CONFIG_BOOTFILE		"uImage"
 

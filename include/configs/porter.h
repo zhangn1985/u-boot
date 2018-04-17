@@ -54,10 +54,13 @@
 	"initrd_high=0xffffffff\0"
 
 /* SPL support */
-#define CONFIG_SPL_TEXT_BASE		0xe6304000
+#define CONFIG_SPL_TEXT_BASE		0xe6300000
 #define CONFIG_SPL_STACK		0xe6340000
-#define CONFIG_SPL_MAX_SIZE		0x40000
-#define CONFIG_SPL_SPI_LOAD
+#define CONFIG_SPL_MAX_SIZE		0x4000
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x140000
+#ifdef CONFIG_SPL_BUILD
+#define CONFIG_CONS_SCIF0
+#define CONFIG_SH_SCIF_CLK_FREQ		65000000
+#endif
 
 #endif /* __PORTER_H */

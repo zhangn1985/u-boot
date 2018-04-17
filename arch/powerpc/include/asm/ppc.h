@@ -13,8 +13,8 @@
 
 #ifndef __ASSEMBLY__
 
-#if defined(CONFIG_8xx)
-#include <asm/8xx_immap.h>
+#if defined(CONFIG_MPC8xx)
+#include <asm/immap_8xx.h>
 #endif
 #ifdef CONFIG_MPC86xx
 #include <mpc86xx.h>
@@ -40,14 +40,11 @@
 
 #include <asm/processor.h>
 
-#if defined(CONFIG_8xx)
-static inline uint get_immr(uint mask)
+static inline uint get_immr(void)
 {
-	uint immr = mfspr(SPRN_IMMR);
-
-	return mask ? (immr & mask) : immr;
+	return mfspr(SPRN_IMMR);
 }
-#endif
+
 static inline uint get_pvr(void)
 {
 	return mfspr(PVR);

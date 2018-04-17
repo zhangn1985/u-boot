@@ -25,7 +25,6 @@
 #if !defined(CONFIG_SPL_BUILD)
 #define CONFIG_SKIP_LOWLEVEL_INIT
 #endif
-#define CONFIG_BOARD_EARLY_INIT_R
 
 /* generate LPC32XX-specific SPL image */
 #define CONFIG_LPC32XX_SPL
@@ -56,7 +55,6 @@
 
 #define CONFIG_PHY_SMSC
 #define CONFIG_LPC32XX_ETH
-#define CONFIG_PHY_ADDR 0
 #define CONFIG_SYS_FAULT_ECHO_LINK_DOWN
 /* FIXME: remove "Waiting for PHY auto negotiation to complete..." message */
 

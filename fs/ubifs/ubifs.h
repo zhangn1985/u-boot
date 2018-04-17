@@ -611,16 +611,20 @@ static inline ino_t parent_ino(struct dentry *dentry)
 /* misc.h */
 #define mutex_lock_nested(...)
 #define mutex_unlock_nested(...)
-#define mutex_is_locked(...)	0
+#define mutex_is_locked(...)	1
 #endif
 
 /* Version of this UBIFS implementation */
 #define UBIFS_VERSION 1
 
 /* Normal UBIFS messages */
+#ifdef CONFIG_UBIFS_SILENCE_MSG
+#define ubifs_msg(c, fmt, ...)
+#else
 #define ubifs_msg(c, fmt, ...)                                      \
 	pr_notice("UBIFS (ubi%d:%d): " fmt "\n",                    \
 		  (c)->vi.ubi_num, (c)->vi.vol_id, ##__VA_ARGS__)
+#endif
 /* UBIFS error messages */
 #ifndef __UBOOT__
 #define ubifs_err(c, fmt, ...)                                      \
