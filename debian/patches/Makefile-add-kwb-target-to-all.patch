@@ -4,8 +4,8 @@ Index: u-boot/Makefile
 ===================================================================
 --- u-boot.orig/Makefile
 +++ u-boot/Makefile
-@@ -769,6 +769,7 @@ else
- ALL-$(CONFIG_SPL_FRAMEWORK) += u-boot.img
+@@ -799,6 +799,7 @@ ALL-$(CONFIG_SPL_FRAMEWORK) += u-boot.im
+ endif
  endif
  ALL-$(CONFIG_TPL) += tpl/u-boot-tpl.bin
 +ALL-$(CONFIG_KIRKWOOD) += u-boot.kwb
