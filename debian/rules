@@ -56,7 +56,10 @@ override_dh_auto_build:
 				>> debian/build/targets.$$subarch; \
 			echo $$platform >> debian/build/platforms.$$subarch; \
 		done ; \
-	        case $${subarch} in \
+		cp $$builddir/.config $$builddir/config; \
+		echo $$builddir/config /usr/lib/u-boot/$$platform/ \
+			>> debian/build/targets.$$subarch; \
+	    case $${subarch} in \
 		rockchip) \
 			debian/bin/generate-rksd $$builddir $$platform $$subarch; \
 			;; \
