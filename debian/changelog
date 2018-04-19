@@ -1,3 +1,9 @@
+u-boot (2018.05~rc2+dfsg-2) experimental; urgency=medium
+
+  * [arm64] Add u-boot-mvebu, and enable the espressobin target.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Thu, 19 Apr 2018 15:10:58 -0700
+
 u-boot (2018.05~rc2+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
