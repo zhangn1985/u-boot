@@ -31,3 +31,5 @@ firefly/fdtfile
 test-imagetools-test-fixes
 
 odroid-c2/0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch
+
+reproducible/set-time-and-umask-on-spl-fit-files

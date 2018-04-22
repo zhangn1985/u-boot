@@ -1,0 +1,24 @@
+When building compressed (lzop, gzip) multi-dtb fit images, the
+compression tool may embed the time or umask in the image.
+
+Work around this by manually setting the time of the source file using
+SOURCE_DATE_EPOCH and a hard-coded 0600 umask.
+
+With gzip, this could be accomplished by using -n/--no-name, but lzop
+has no current workaround:
+
+  https://bugs.debian.org/896520
+
+Index: u-boot/scripts/Makefile.spl
+===================================================================
+--- u-boot.orig/scripts/Makefile.spl
++++ u-boot/scripts/Makefile.spl
+@@ -389,6 +389,8 @@ MKIMAGEFLAGS_$(SPL_BIN).multidtb.fit = -
+ 
+ $(obj)/$(SPL_BIN).multidtb.fit: /dev/null $(SHRUNK_ARCH_DTB) FORCE
+ 	$(call if_changed,mkimage)
++	touch -d @$(SOURCE_DATE_EPOCH) $(obj)/$(SPL_BIN).multidtb.fit
++	chmod 0600 $(obj)/$(SPL_BIN).multidtb.fit
+ 
+ $(obj)/$(SPL_BIN).multidtb.fit.gz: $(obj)/$(SPL_BIN).multidtb.fit
+ 	@gzip -kf9 $< > $@
