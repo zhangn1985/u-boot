@@ -68,17 +68,13 @@ config CC_COVERAGE
 
 config DISTRO_DEFAULTS
 	bool "Select defaults suitable for booting general purpose Linux distributions"
-	default y if ARCH_SUNXI || TEGRA
-	default y if ARCH_LS2080A
-	default y if ARCH_MESON
-	default y if ARCH_ROCKCHIP
-	default n
 	imply USE_BOOTCOMMAND
 	select CMD_BOOTZ if ARM && !ARM64
 	select CMD_BOOTI if ARM64
 	select CMD_DHCP if CMD_NET
 	select CMD_PING if CMD_NET
 	select CMD_PXE if NET
+	select CMD_ENV_EXISTS
 	select CMD_EXT2
 	select CMD_EXT4
 	select CMD_FAT
@@ -360,6 +356,16 @@ config SPL_FIT_GENERATOR
 endif # SPL
 
 endif # FIT
+
+config IMAGE_FORMAT_LEGACY
+	bool "Enable support for the legacy image format"
+	default y if !FIT_SIGNATURE
+	help
+	  This option enables the legacy image format. It is enabled by
+	  default for backward compatibility, unless FIT_SIGNATURE is
+	  set where it is disabled so that unsigned images cannot be
+	  loaded. If a board needs the legacy image format support in this
+	  case, enable it here.
 
 config OF_BOARD_SETUP
 	bool "Set up board-specific details in device tree before boot"

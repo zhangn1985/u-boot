@@ -162,13 +162,13 @@ int main(int argc, char **argv)
 		txt_fd = STDIN_FILENO;
 
 		do {
-			filebuf = realloc(filebuf, readlen);
+			filebuf = realloc(filebuf, filesize + readlen);
 			if (!filebuf) {
 				fprintf(stderr, "Can't realloc memory for the input file buffer\n");
 				return EXIT_FAILURE;
 			}
 			readbytes = read(txt_fd, filebuf + filesize, readlen);
-			if (errno) {
+			if (readbytes < 0) {
 				fprintf(stderr, "Error while reading stdin: %s\n",
 						strerror(errno));
 				return EXIT_FAILURE;

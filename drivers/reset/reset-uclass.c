@@ -10,8 +10,6 @@
 #include <reset.h>
 #include <reset-uclass.h>
 
-DECLARE_GLOBAL_DATA_PTR;
-
 static inline struct reset_ops *reset_dev_ops(struct udevice *dev)
 {
 	return (struct reset_ops *)dev->driver->ops;
@@ -88,8 +86,8 @@ int reset_get_bulk(struct udevice *dev, struct reset_ctl_bulk *bulk)
 	bulk->count = 0;
 
 	count = dev_count_phandle_with_args(dev, "resets", "#reset-cells");
-	if (!count)
-		return 0;
+	if (count < 1)
+		return count;
 
 	bulk->resets = devm_kcalloc(dev, count, sizeof(struct reset_ctl),
 				    GFP_KERNEL);

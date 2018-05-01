@@ -19,8 +19,6 @@
 #include <linux/usb/dwc3.h>
 #include <linux/usb/otg.h>
 
-DECLARE_GLOBAL_DATA_PTR;
-
 struct xhci_dwc3_platdata {
 	struct phy *usb_phys;
 	int num_phys;
@@ -113,16 +111,21 @@ void dwc3_set_fladj(struct dwc3 *dwc3_reg, u32 val)
 }
 
 #ifdef CONFIG_DM_USB
-static int xhci_dwc3_setup_phy(struct udevice *dev, int count)
+static int xhci_dwc3_setup_phy(struct udevice *dev)
 {
 	struct xhci_dwc3_platdata *plat = dev_get_platdata(dev);
-	int i, ret;
+	int i, ret, count;
 
-	if (!count)
+	/* Return if no phy declared */
+	if (!dev_read_prop(dev, "phys", NULL))
 		return 0;
 
+	count = dev_count_phandle_with_args(dev, "phys", "#phy-cells");
+	if (count <= 0)
+		return count;
+
 	plat->usb_phys = devm_kcalloc(dev, count, sizeof(struct phy),
-					GFP_KERNEL);
+				      GFP_KERNEL);
 	if (!plat->usb_phys)
 		return -ENOMEM;
 
@@ -136,7 +139,7 @@ static int xhci_dwc3_setup_phy(struct udevice *dev, int count)
 
 		++plat->num_phys;
 	}
-	
+
 	for (i = 0; i < plat->num_phys; i++) {
 		ret = generic_phy_init(&plat->usb_phys[i]);
 		if (ret) {
@@ -145,7 +148,7 @@ static int xhci_dwc3_setup_phy(struct udevice *dev, int count)
 			goto phys_init_err;
 		}
 	}
-	
+
 	for (i = 0; i < plat->num_phys; i++) {
 		ret = generic_phy_power_on(&plat->usb_phys[i]);
 		if (ret) {
@@ -156,7 +159,6 @@ static int xhci_dwc3_setup_phy(struct udevice *dev, int count)
 	}
 
 	return 0;
-
 
 phys_poweron_err:
 	for (; i >= 0; i--)
@@ -187,7 +189,7 @@ static int xhci_dwc3_shutdown_phy(struct udevice *dev)
 		ret |= generic_phy_exit(&plat->usb_phys[i]);
 		if (ret) {
 			pr_err("Can't shutdown USB PHY%d for %s\n",
-				i, dev->name);
+			       i, dev->name);
 		}
 	}
 
@@ -206,8 +208,7 @@ static int xhci_dwc3_probe(struct udevice *dev)
 	hcor = (struct xhci_hcor *)((uintptr_t)hccr +
 			HC_LENGTH(xhci_readl(&(hccr)->cr_capbase)));
 
-	ret = xhci_dwc3_setup_phy(dev, dev_count_phandle_with_args(
-						dev, "phys", "#phy-cells"));
+	ret = xhci_dwc3_setup_phy(dev);
 	if (ret)
 		return ret;
 

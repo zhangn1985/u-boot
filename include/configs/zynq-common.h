@@ -127,7 +127,9 @@
 #endif
 
 /* Total Size of Environment Sector */
-#define CONFIG_ENV_SIZE			(128 << 10)
+#ifndef CONFIG_ENV_SIZE
+# define CONFIG_ENV_SIZE			(128 << 10)
+#endif
 
 /* Allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -135,7 +137,9 @@
 /* Environment */
 #ifndef CONFIG_ENV_IS_NOWHERE
 # define CONFIG_ENV_SECT_SIZE		CONFIG_ENV_SIZE
-# define CONFIG_ENV_OFFSET		0xE0000
+# ifndef CONFIG_ENV_OFFSET
+#  define CONFIG_ENV_OFFSET		0xE0000
+# endif
 #endif
 
 /* enable preboot to be loaded before CONFIG_BOOTDELAY */
@@ -258,9 +262,6 @@
 					CONFIG_SYS_INIT_RAM_SIZE - \
 					GENERATED_GBL_DATA_SIZE)
 
-
-/* FIT support */
-#define CONFIG_IMAGE_FORMAT_LEGACY /* enable also legacy image format */
 
 /* Extend size of kernel image for uncompression */
 #define CONFIG_SYS_BOOTM_LEN	(60 * 1024 * 1024)

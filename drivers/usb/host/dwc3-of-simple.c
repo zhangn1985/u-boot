@@ -17,8 +17,6 @@
 #include <reset.h>
 #include <clk.h>
 
-DECLARE_GLOBAL_DATA_PTR;
-
 struct dwc3_of_simple {
 	struct clk_bulk		clks;
 	struct reset_ctl_bulk	resets;
@@ -50,7 +48,7 @@ static int dwc3_of_simple_clk_init(struct udevice *dev,
 	int ret;
 
 	ret = clk_get_bulk(dev, &simple->clks);
-	if (ret == -ENOTSUPP)
+	if (ret == -ENOSYS)
 		return 0;
 	if (ret)
 		return ret;
@@ -95,6 +93,7 @@ static int dwc3_of_simple_remove(struct udevice *dev)
 
 static const struct udevice_id dwc3_of_simple_ids[] = {
 	{ .compatible = "amlogic,meson-gxl-dwc3" },
+	{ .compatible = "ti,dwc3" },
 	{ }
 };
 
