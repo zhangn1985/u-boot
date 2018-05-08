@@ -5,9 +5,9 @@ Index: u-boot/arch/powerpc/config.mk
 ===================================================================
 --- u-boot.orig/arch/powerpc/config.mk
 +++ u-boot/arch/powerpc/config.mk
-@@ -5,10 +5,6 @@
- # SPDX-License-Identifier:	GPL-2.0+
- #
+@@ -3,10 +3,6 @@
+ # (C) Copyright 2000-2010
+ # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
  
 -ifeq ($(CROSS_COMPILE),)
 -CROSS_COMPILE := ppc_8xx-

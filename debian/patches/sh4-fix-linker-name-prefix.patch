@@ -17,10 +17,12 @@ Forwarded: (not yet)
 Reviewed-By: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 Last-Update: 2014-12-10
 
---- u-boot-2014.10+dfsg1.orig/arch/sh/config.mk
-+++ u-boot-2014.10+dfsg1/arch/sh/config.mk
-@@ -6,7 +6,7 @@
- #
+Index: u-boot/arch/sh/config.mk
+===================================================================
+--- u-boot.orig/arch/sh/config.mk
++++ u-boot/arch/sh/config.mk
+@@ -4,7 +4,7 @@
+ # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
  
  ifeq ($(CROSS_COMPILE),)
 -CROSS_COMPILE := sh4-linux-
