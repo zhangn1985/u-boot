@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
  * board/renesas/stout/stout.c
  *     This file is Stout board support.
@@ -5,8 +6,6 @@
  * Copyright (C) 2015 Renesas Electronics Europe GmbH
  * Copyright (C) 2015 Renesas Electronics Corporation
  * Copyright (C) 2015 Cogent Embedded, Inc.
- *
- * SPDX-License-Identifier: GPL-2.0
  */
 
 #include <common.h>
@@ -124,10 +123,6 @@ int board_phy_config(struct phy_device *phydev)
 
 	return 0;
 }
-
-const struct rmobile_sysinfo sysinfo = {
-	CONFIG_ARCH_RMOBILE_BOARD_STRING
-};
 
 enum env_location env_get_location(enum env_operation op, int prio)
 {

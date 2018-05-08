@@ -1,11 +1,10 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
  * board/renesas/lager/lager.c
  *     This file is lager board support.
  *
  * Copyright (C) 2013 Renesas Electronics Corporation
  * Copyright (C) 2013 Nobuhiro Iwamatsu <nobuhiro.iwamatsu.yj@renesas.com>
- *
- * SPDX-License-Identifier: GPL-2.0
  */
 
 #include <common.h>
@@ -121,10 +120,6 @@ int board_phy_config(struct phy_device *phydev)
 
 	return 0;
 }
-
-const struct rmobile_sysinfo sysinfo = {
-	CONFIG_ARCH_RMOBILE_BOARD_STRING
-};
 
 void reset_cpu(ulong addr)
 {

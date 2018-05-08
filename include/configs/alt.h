@@ -1,17 +1,13 @@
+/* SPDX-License-Identifier: GPL-2.0 */
 /*
  * include/configs/alt.h
  *     This file is alt board configuration.
  *
  * Copyright (C) 2014 Renesas Electronics Corporation
- *
- * SPDX-License-Identifier: GPL-2.0
  */
 
 #ifndef __ALT_H
 #define __ALT_H
-
-#undef DEBUG
-#define CONFIG_ARCH_RMOBILE_BOARD_STRING "Alt"
 
 #include "rcar-gen2-common.h"
 

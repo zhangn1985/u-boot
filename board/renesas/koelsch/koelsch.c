@@ -1,9 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
  * board/renesas/koelsch/koelsch.c
  *
  * Copyright (C) 2013 Renesas Electronics Corporation
- *
- * SPDX-License-Identifier: GPL-2.0
  *
  */
 
@@ -112,10 +111,6 @@ int board_phy_config(struct phy_device *phydev)
 
 	return 0;
 }
-
-const struct rmobile_sysinfo sysinfo = {
-	CONFIG_ARCH_RMOBILE_BOARD_STRING
-};
 
 void reset_cpu(ulong addr)
 {

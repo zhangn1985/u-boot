@@ -1,10 +1,9 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright 2008, Freescale Semiconductor, Inc
  * Andy Fleming
  *
  * Based vaguely on the Linux code
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <config.h>
@@ -1689,7 +1688,7 @@ static int sd_select_mode_and_width(struct mmc *mmc, uint card_caps)
 
 #if CONFIG_IS_ENABLED(MMC_WRITE)
 				err = sd_read_ssr(mmc);
-				if (!err)
+				if (err)
 					pr_warn("unable to read ssr\n");
 #endif
 				if (!err)

@@ -1,16 +1,12 @@
+/* SPDX-License-Identifier: GPL-2.0 */
 /*
  * include/configs/gose.h
  *
  * Copyright (C) 2014 Renesas Electronics Corporation
- *
- * SPDX-License-Identifier: GPL-2.0
  */
 
 #ifndef __GOSE_H
 #define __GOSE_H
-
-#undef DEBUG
-#define CONFIG_ARCH_RMOBILE_BOARD_STRING "Gose"
 
 #include "rcar-gen2-common.h"
 

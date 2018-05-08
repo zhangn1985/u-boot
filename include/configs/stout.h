@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GPL-2.0 */
 /*
  * include/configs/stout.h
  *     This file is Stout board configuration.
@@ -5,15 +6,10 @@
  * Copyright (C) 2015 Renesas Electronics Europe GmbH
  * Copyright (C) 2015 Renesas Electronics Corporation
  * Copyright (C) 2015 Cogent Embedded, Inc.
- *
- * SPDX-License-Identifier: GPL-2.0
  */
 
 #ifndef __STOUT_H
 #define __STOUT_H
-
-#undef DEBUG
-#define CONFIG_ARCH_RMOBILE_BOARD_STRING "Stout"
 
 #include "rcar-gen2-common.h"
 
