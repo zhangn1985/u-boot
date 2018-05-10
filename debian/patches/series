@@ -29,3 +29,5 @@ odroid-xu3/877074-u-boot-exynos-Default-environment-for-Odr.patch
 test-imagetools-test-fixes
 
 reproducible/set-time-and-umask-on-spl-fit-files
+
+sheevaplug/sys_thumb_build
