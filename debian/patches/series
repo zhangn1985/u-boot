@@ -31,3 +31,5 @@ test-imagetools-test-fixes
 reproducible/set-time-and-umask-on-spl-fit-files
 
 sheevaplug/sys_thumb_build
+
+rockchip/0001-rockchip-set-SYS_NS16550_MEM32-for-all-SoCs.patch

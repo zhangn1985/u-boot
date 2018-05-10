@@ -1,0 +1,39 @@
+https://patchwork.ozlabs.org/patch/910119/
+From 6dace55c75f54a555788f0b3715750566db70354 Mon Sep 17 00:00:00 2001
+From: Jonathan Gray <jsg@jsg.id.au>
+Date: Tue, 8 May 2018 20:43:01 +1000
+Subject: [PATCH] rockchip: set SYS_NS16550_MEM32 for all SoCs
+
+Add back part of patch send out as
+'rockchip: enable SYS_NS16550 for all SoCs by default' that seems to have
+gotten lost when it got merged to set SYS_NS16550_MEM32.
+
+Allows serial output to work on tinker-rk3288 again after
+c3c0331db1fb7b1f4ff41e144fc04353b37c785c.
+
+Signed-off-by: Kever Yang <kever.yang@rock-chips.com>
+Signed-off-by: Jonathan Gray <jsg@jsg.id.au>
+Cc: Philipp Tomsich <philipp.tomsich@theobroma-systems.com>
+Reviewed-by: Philipp Tomsich <philipp.tomsich@theobroma-systems.com>
+Acked-by: Philipp Tomsich <philipp.tomsich@theobroma-systems.com>
+Tested-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
+---
+ include/configs/rockchip-common.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/configs/rockchip-common.h b/include/configs/rockchip-common.h
+index dee82ca99d..68e1105a4b 100644
+--- a/include/configs/rockchip-common.h
++++ b/include/configs/rockchip-common.h
+@@ -7,6 +7,8 @@
+ #define _ROCKCHIP_COMMON_H_
+ #include <linux/sizes.h>
+ 
++#define CONFIG_SYS_NS16550_MEM32
++
+ #ifndef CONFIG_SPL_BUILD
+ 
+ /* First try to boot from SD (index 0), then eMMC (index 1) */
+-- 
+2.11.0
+
