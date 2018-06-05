@@ -5,9 +5,11 @@ Maintainer: Vagrant Cascadian <vagrant@debian.org>
 Uploaders: Loïc Minier <lool@debian.org>, Clint Adams <clint@debian.org>
 Build-Depends:
  bc,
+ bison,
  debhelper (>= 11),
  device-tree-compiler,
  dpkg-dev (>= 1.17.14),
+ flex,
  libfdt-dev:native [arm64],
  libc6:arm64 [arm64] <cross>,
  libc6:armhf [armhf] <cross>,
