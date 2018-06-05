@@ -23,12 +23,6 @@ am57xx/omap5_distro_bootcmd
 
 odroid/0001-Convert-odroid-to-use-distro_bootcmd.patch
 
-odroid-xu3/bootdelay
-
 test-imagetools-test-fixes
 
-reproducible/set-time-and-umask-on-spl-fit-files
-
 sheevaplug/sys_thumb_build
-
-rockchip/0001-rockchip-set-SYS_NS16550_MEM32-for-all-SoCs.patch
