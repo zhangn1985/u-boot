@@ -1,0 +1,28 @@
+From 29b6925da8183f8d39e2e03b767dd639e1340a94 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Tue, 5 Jun 2018 13:06:03 -0700
+Subject: [PATCH 2/4] arm: odroid: Increase default env size in preparation for
+ distro_bootcmd.
+
+Adding distro_bootcmd support bumps the default environment size over
+4500. Increase to 16384 to allow for room to grow in the future.
+---
+ include/configs/odroid.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/odroid.h b/include/configs/odroid.h
+index b7b75c0dc0..c795ee8c74 100644
+--- a/include/configs/odroid.h
++++ b/include/configs/odroid.h
+@@ -50,7 +50,7 @@
+ #define CONFIG_SYS_MONITOR_BASE	0x00000000
+ 
+ #define CONFIG_SYS_MMC_ENV_DEV		CONFIG_MMC_DEFAULT_DEV
+-#define CONFIG_ENV_SIZE			4096
++#define CONFIG_ENV_SIZE			16384
+ #define CONFIG_ENV_OFFSET		(SZ_1K * 1280) /* 1.25 MiB offset */
+ #define CONFIG_ENV_OVERWRITE
+ 
+-- 
+2.11.0
+

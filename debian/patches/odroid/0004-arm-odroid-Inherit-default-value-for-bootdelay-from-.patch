@@ -1,0 +1,56 @@
+From 305ac43eca4f9dd53fd2767f4e2cc40cbb1b31b2 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Tue, 5 Jun 2018 13:25:16 -0700
+Subject: [PATCH 4/4] arm: odroid: Inherit default value for bootdelay from
+ distro_bootcmd.
+
+The default value with distro_bootcmd is 2 seconds, which is
+reasonably fast, and provides a consistent experience across platforms
+supporting distro_bootcmd.
+
+The current bootdelay value of 0 seconds is a bit challenging to
+interrupt when desired.
+
+Series-to: u-boot
+Series-cc: Lukasz Majewski <lukma@denx.de>, Tom Rini <trini@konsulko.com>, Marek Vasut <marex@denx.de>
+Cover-letter:
+arm: odroid: Convert to distro_bootcmd.
+
+Switch odroid platform to use distro_bootcmd, adjusting to use
+standardized environment variable names, and use the default
+bootdelay.
+
+The additional environment variables from distro_bootcmd requires
+increasing the default environment size, which would break backwards
+compatibility with saved environments. At Marek's suggestion, I've
+bumped it well over the size needed (~4.5k vs. 16k) to give room for
+future growth.
+
+Variations on these patches have been in use in Debian's u-boot
+packages since 2016.
+
+A variation of this patch series was originally submitted to u-boot
+over a year ago, and resent a few times since, with little to no
+response.
+
+Thanks for considering!
+END
+---
+ include/configs/odroid.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/include/configs/odroid.h b/include/configs/odroid.h
+index e6224ba2f1..8f2c53ff72 100644
+--- a/include/configs/odroid.h
++++ b/include/configs/odroid.h
+@@ -164,7 +164,6 @@
+ 	"mmcbootpart=1\0" \
+ 	"mmcrootdev=0\0" \
+ 	"mmcrootpart=2\0" \
+-	"bootdelay=0\0" \
+ 	"dfu_alt_system="CONFIG_DFU_ALT \
+ 	"dfu_alt_info=Please reset the board\0" \
+ 	"consoleon=set console console=ttySAC1,115200n8; save; reset\0" \
+-- 
+2.11.0
+
