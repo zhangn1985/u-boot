@@ -29,3 +29,5 @@ odroid/0004-arm-odroid-Inherit-default-value-for-bootdelay-from-.patch
 test-imagetools-test-fixes
 
 sheevaplug/sys_thumb_build
+
+rockchip-default-fdt/0001-rockchip-utilize-CONFIG_DEFAULT_FDT_FILE.patch
