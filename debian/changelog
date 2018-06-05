@@ -1,3 +1,15 @@
+u-boot (2018.07~rc1+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * Remove patches applied in 2018.07-rc1.
+  * Refresh sheevaplug/sys_thumb_build patch.
+  * Add Build-Depends on bison and flex.
+  * Update patch series for odroid distro_bootcmd support.
+  * Add patch submitted upstream to consistently set default fdtfile value
+    on rockchip systems.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 05 Jun 2018 15:07:35 -0700
+
 u-boot (2018.05+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
