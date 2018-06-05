@@ -14,7 +14,6 @@
 #include <asm/io.h>
 #include <linux/compiler.h>
 #include <serial.h>
-#include <asm/arch/hardware.h>
 
 #define ZYNQ_UART_SR_TXEMPTY	(1 << 3) /* TX FIFO empty */
 #define ZYNQ_UART_SR_TXACTIVE	(1 << 11)  /* TX active */
@@ -176,7 +175,9 @@ static int zynq_serial_ofdata_to_platdata(struct udevice *dev)
 {
 	struct zynq_uart_priv *priv = dev_get_priv(dev);
 
-	priv->regs = (struct uart_zynq *)devfdt_get_addr(dev);
+	priv->regs = (struct uart_zynq *)dev_read_addr(dev);
+	if (IS_ERR(priv->regs))
+		return PTR_ERR(priv->regs);
 
 	return 0;
 }
