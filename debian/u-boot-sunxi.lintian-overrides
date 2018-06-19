@@ -8,6 +8,7 @@ u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/A20-Olimex-SOM-EVB/uboot.elf
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/A20-OLinuXino-Lime/uboot.elf
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/A20-OLinuXino-Lime2/uboot.elf
+u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/A20-OLinuXino-Lime2-eMMC/uboot.elf
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/A20-OLinuXino_MICRO/uboot.elf
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/Bananapi/uboot.elf
 u-boot-sunxi [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/Bananapro/uboot.elf
@@ -32,6 +33,7 @@ u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A10s-OLinuXino-M/u
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A20-Olimex-SOM-EVB/uboot.elf
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A20-OLinuXino-Lime/uboot.elf
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A20-OLinuXino-Lime2/uboot.elf
+u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A20-OLinuXino-Lime2-eMMC/uboot.elf
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/A20-OLinuXino_MICRO/uboot.elf
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/Bananapi/uboot.elf
 u-boot-sunxi [armhf]: statically-linked-binary usr/lib/u-boot/Bananapro/uboot.elf
