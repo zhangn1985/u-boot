@@ -91,6 +91,7 @@ dtb-$(CONFIG_ARCH_MVEBU) +=			\
 	armada-375-db.dtb			\
 	armada-388-clearfog.dtb			\
 	armada-388-gp.dtb			\
+	armada-388-helios4.dtb			\
 	armada-385-amc.dtb			\
 	armada-7040-db.dtb			\
 	armada-7040-db-nand.dtb			\
@@ -146,7 +147,8 @@ dtb-$(CONFIG_ARCH_ZYNQ) += \
 	zynq-zturn.dtb \
 	zynq-zybo.dtb
 dtb-$(CONFIG_ARCH_ZYNQMP) += \
-	zynqmp-mini-emmc.dtb			\
+	zynqmp-mini-emmc0.dtb			\
+	zynqmp-mini-emmc1.dtb			\
 	zynqmp-mini-nand.dtb			\
 	zynqmp-zcu100-revC.dtb			\
 	zynqmp-zcu102-revA.dtb			\
@@ -228,7 +230,8 @@ dtb-$(CONFIG_FSL_LSCH2) += fsl-ls1043a-qds-duart.dtb \
 	fsl-ls1012a-qds.dtb \
 	fsl-ls1012a-rdb.dtb \
 	fsl-ls1012a-2g5rdb.dtb \
-	fsl-ls1012a-frdm.dtb
+	fsl-ls1012a-frdm.dtb \
+	fsl-ls1012a-frwy.dtb
 
 dtb-$(CONFIG_TARGET_DRAGONBOARD410C) += dragonboard410c.dtb
 dtb-$(CONFIG_TARGET_DRAGONBOARD820C) += dragonboard820c.dtb
