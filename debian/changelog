@@ -1,3 +1,12 @@
+u-boot (2018.07~rc2+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate:
+    - Fixes USB on Pine64+.
+  * [armhf] u-boot-sunxi: Enable A20-OLinuXino-Lime2-eMMC.
+    (Closes: #901666). Thanks to Andreas B. Mundt.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Wed, 20 Jun 2018 23:47:25 -0700
+
 u-boot (2018.07~rc1+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
