@@ -28,18 +28,8 @@ override_dh_auto_build:
 	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
-		case $$platform in \
-			mx6cuboxi4x4) \
-				cp configs/mx6cuboxi_defconfig configs/mx6cuboxi4x4_defconfig;\
-				echo CONFIG_I4X4_RAM=y >> configs/mx6cuboxi4x4_defconfig ;\
-				targets="$$targets" ;\
-				maketargets="$$targets" ;\
-				;; \
-			*) \
-				targets="$$targets uboot.elf" ;\
-				maketargets="all" ;\
-				;; \
-		esac; \
+			targets="$$targets uboot.elf" ;\
+			maketargets="all" ;\
 		case $$subarch in \
 			-) subpackage="u-boot" ;\
 				;; \
@@ -104,7 +94,7 @@ endif
 
 override_dh_clean:
 	rm -rf debian/build/
-	rm -f configs/mx6cuboxi4x4_defconfig configs/tools_defconfig
+	rm -f configs/tools_defconfig
 	dh_clean
 
 override_dh_gencontrol:
