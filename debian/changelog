@@ -1,3 +1,14 @@
+u-boot (2018.07+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+  * u-boot-imx: Remove mx6cuboxi4x4 target, as ram is now properly
+    detected with mx6cuboxi.
+  * debian/watch: Add repack and compression=xz options.
+  * debian/rules: Remove get-orig-source target.
+  * debian/control: Update Standards-Version to 4.1.5.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 09 Jul 2018 13:34:06 -0700
+
 u-boot (2018.07~rc2+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate:
