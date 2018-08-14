@@ -19,13 +19,4 @@ ensure-config-sandbox-for-make-env.patch
 
 am57xx/omap5_distro_bootcmd
 
-odroid/0001-arm-odroid-Use-standard-environment-variable-names-k.patch
-odroid/0002-arm-odroid-Increase-default-env-size-in-preparation-.patch
-odroid/0003-arm-odroid-Enable-distro_bootcmd-support.patch
-odroid/0004-arm-odroid-Inherit-default-value-for-bootdelay-from-.patch
-
 test-imagetools-test-fixes
-
-sheevaplug/sys_thumb_build
-
-rockchip-default-fdt/0001-rockchip-utilize-CONFIG_DEFAULT_FDT_FILE.patch
