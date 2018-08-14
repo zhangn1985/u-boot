@@ -14,6 +14,13 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
   DEB_UBOOT_FLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 endif
 
+# Enable verbose build by default, disable when terse is specified.
+ifneq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
+VERBOSE=0
+else
+VERBOSE=1
+endif
+
 # the upstream build passes LDFLAGS directly to ld instead of calling gcc for
 # linking; so instead of passing -Wl,foo in LDFLAGS as in automake builds, one
 # should set LDFLAGS to foo directly
@@ -37,8 +44,8 @@ override_dh_auto_build:
 				;; \
 		esac;\
 		mkdir -p $$builddir; \
-		$(MAKE) O=$$builddir $${platform}_defconfig; \
-		$(MAKE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
+		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
+		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
 		case "$$targets" in \
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
@@ -67,15 +74,15 @@ override_dh_auto_build:
 
 	# Load dummy config
 	echo CONFIG_SYS_TEXT_BASE=0 > configs/tools_defconfig
-	$(MAKE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
+	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
-	$(MAKE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
+	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		CROSS_BUILD_TOOLS=$(cross_build_tools) \
 		NO_SDL=1 \
 	    tools-only
-	$(MAKE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
+	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		NO_SDL=1 \
 	    envtools
