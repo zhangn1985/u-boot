@@ -166,6 +166,9 @@ armhf	sunxi		orangepi_plus	u-boot-sunxi-with-spl.bin
 # Mateusz Łukasik <mati75@linuxmint.pl>, Orange PI Zero
 armhf	sunxi		orangepi_zero	u-boot-sunxi-with-spl.bin
 
+# Bernhard <bewoern1@gmail.com>
+armhf	sunxi		Sinovoip_BPI_M3	u-boot-sunxi-with-spl.bin
+
 # Ian Campbell <ijc@debian.org>
 armhf	tegra		jetson-tk1	u-boot-tegra.bin
 
