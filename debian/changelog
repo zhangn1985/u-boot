@@ -1,3 +1,15 @@
+u-boot (2018.09+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Remove patches applied upstream.
+  * Refresh udoo quad support patch.
+  * Increase verbosity of make unless DEB_BUILD_OPTIONS=terse.
+  * Update Standards-Version to 4.2.1.
+  * [armhf] u-boot-sunxi: Enable Sinovoip Banana Pi M3 (Closes: #905922).
+    Thanks to Bernhard.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 10 Sep 2018 23:59:21 -0700
+
 u-boot (2018.07+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
