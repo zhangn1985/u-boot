@@ -64,6 +64,16 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			*) subpackage="u-boot-$$subarch" ;\
 				;; \
 		esac;\
+		case $$arch in \
+			all:armhf) export CROSS_COMPILE=arm-linux-gnueabihf- ;;\
+			all:arm64) export CROSS_COMPILE=aarch64-linux-gnu- ;;\
+			all:mips) export CROSS_COMPILE=mips-linux-gnu- ;;\
+			all:mipsel) export CROSS_COMPILE=mipsel-linux-gnu- ;;\
+			all:mips64el) export CROSS_COMPILE=mips64el-linux-gnuabi64- ;;\
+			all:i386) export CROSS_COMPILE= ;;\
+			all:amd64) export CROSS_COMPILE= ;;\
+			*) ;; \
+		esac;\
 		mkdir -p $$builddir; \
 		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
 		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \

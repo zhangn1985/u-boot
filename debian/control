@@ -19,6 +19,16 @@ Build-Depends:
  skales:native [arm64],
  swig [armhf arm64],
  lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
+Build-Depends-Indep:
+# For u-boot-qemu targets
+ gcc-arm-linux-gnueabihf,
+ gcc-aarch64-linux-gnu,
+ gcc-mips-linux-gnu,
+ gcc-mips64el-linux-gnuabi64,
+ gcc-mipsel-linux-gnu,
+ libpython-dev,
+ python,
+ swig,
 Standards-Version: 4.3.0
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Browser: https://salsa.debian.org/debian/u-boot
@@ -66,6 +76,19 @@ Description: A boot loader for imx systems
  NIOS, and Microblaze.
  .
  This package includes boot loaders for various imx platforms.
+ ${uboot:platforms}
+
+Package: u-boot-qemu
+Architecture: all
+Depends: ${misc:Depends}
+Description: A boot loader for qemu
+ Das U-Boot is a cross-platform bootloader for embedded systems,
+ used as the default boot loader by several board vendors.  It is
+ intended to be easy to port and to debug, and runs on many
+ supported architectures, including PPC, ARM, MIPS, x86, m68k,
+ NIOS, and Microblaze.
+ .
+ This package includes boot loaders for qemu/kvm.
  ${uboot:platforms}
 
 Package: u-boot-qcom
