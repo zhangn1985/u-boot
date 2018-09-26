@@ -39,11 +39,13 @@ configs/am335x_boneblack_defconfig:
 		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
 
 override_dh_auto_build: TOOLSDIR := debian/build/tools
+override_dh_auto_build: TARGETARCH := $(DEB_HOST_ARCH)
 override_dh_auto_build: build-targets build-tools
 
 build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
-	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
-	    | while read subarch platform targets; do \
+	echo run build-targets for $(TARGETARCH)
+	set -e; grep ^$(TARGETARCH)[^a-z0-9] debian/targets \
+	    | while read arch subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
 		case $$platform in \
 			novena-rawsd) targets="$$targets" ;\
