@@ -64,7 +64,7 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 		case "$$targets" in \
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
-				$(CROSS_COMPILE)strip --remove-section=.comment \
+				$${CROSS_COMPILE}strip --remove-section=.comment \
 					--remove-section=.note \
 					$$builddir/uboot.elf; \
 				;; \
