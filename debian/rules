@@ -39,7 +39,9 @@ configs/am335x_boneblack_defconfig:
 		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
 
 override_dh_auto_build: TOOLSDIR := debian/build/tools
-override_dh_auto_build: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
+override_dh_auto_build: build-targets build-tools
+
+build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
@@ -86,6 +88,7 @@ override_dh_auto_build: configs/novena-rawsd_defconfig configs/am335x_boneblack_
 	        esac; \
 	done
 
+build-tools:
 	# Load dummy config
 	echo CONFIG_SYS_TEXT_BASE=0 > configs/tools_defconfig
 	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
