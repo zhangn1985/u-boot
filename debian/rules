@@ -38,9 +38,13 @@ configs/am335x_boneblack_defconfig:
 	sed -e 's,CONFIG_OF_LIST=.*,CONFIG_OF_LIST="am335x-evm am335x-boneblack",g' \
 		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
 
-override_dh_auto_build: TOOLSDIR := debian/build/tools
-override_dh_auto_build: TARGETARCH := $(DEB_HOST_ARCH)
-override_dh_auto_build: build-targets build-tools
+override_dh_auto_build-arch: TOOLSDIR := debian/build/tools
+override_dh_auto_build-arch: TARGETARCH := $(DEB_HOST_ARCH)
+override_dh_auto_build-arch: build-targets build-tools 
+
+override_dh_auto_build-indep: TOOLSDIR := debian/build/tools
+override_dh_auto_build-indep: TARGETARCH := all
+override_dh_auto_build-indep: build-targets
 
 build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	echo run build-targets for $(TARGETARCH)
