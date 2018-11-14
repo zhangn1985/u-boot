@@ -17,3 +17,12 @@ ensure-config-sandbox-for-make-env.patch
 am57xx/omap5_distro_bootcmd
 
 test-imagetools-test-fixes
+
+# Patches to enable Pinebook support from sunxi maintainer tree:
+# git://git.denx.de/u-boot-sunxi.git
+pinebook/0003-sunxi-A64-Update-.dts-.dtsi-files.patch
+pinebook/0004-sunxi-A64-Re-add-syscon-to-DT-node.patch
+pinebook/0007-mmc-sunxi-add-support-for-automatic-delay-calibratio.patch
+pinebook/0008-dm-video-bridge-don-t-fail-to-activate-bridge-if-res.patch
+pinebook/0009-sun50i-A64-add-support-for-R_I2C-controller.patch
+pinebook/0010-sunxi-DT-add-support-for-Pinebook.patch
