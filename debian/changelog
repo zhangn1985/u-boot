@@ -1,3 +1,17 @@
+u-boot (2018.11+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * [armhf] u-boot-imx: Drop udoo patches, full support for distro_bootcmd
+    is enabled upstream.
+  * [armhf] u-boot-rockchip: Drop firefly-rk3288 target (Closes: #898520).
+  * [arm64] u-boot-sunxi: Enable a64-olinuxino target (Closes: #881564).
+    Thanks to Rodrigo Exterckötter Tjäder.
+  * Add Pinebook support patches from sunxi maintainer tree.
+  * [arm64] u-boot-sunxi: Add pinebook target.
+  * [armel] Drop openrd targets, which FTBFS and are orphaned upstream.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Wed, 14 Nov 2018 13:32:35 -0800
+
 u-boot (2018.09+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
