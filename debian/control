@@ -26,6 +26,7 @@ Build-Depends-Indep:
  gcc-mips-linux-gnu,
  gcc-mips64el-linux-gnuabi64,
  gcc-mipsel-linux-gnu,
+ gcc-riscv64-linux-gnu,
  libpython-dev,
  python,
  swig,
