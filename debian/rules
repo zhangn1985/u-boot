@@ -135,6 +135,11 @@ ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	fi
 endif
 
+override_dh_strip:
+	# dh_strip tries to strip the cross compiled qemu images, which doesn't
+	# work
+	dh_strip -X qemu
+
 override_dh_clean:
 	rm -rf debian/build/
 	rm -f configs/tools_defconfig
