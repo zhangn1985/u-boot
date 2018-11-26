@@ -1,6 +1,15 @@
 #!/bin/sh
 set -e
 
+dtmodel="/sys/firmware/devicetree/base/model"
+if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
+	case $(cat "${dtmodel}") in
+		Pinebook) TARGET="/usr/lib/u-boot/pinebook" ;;
+		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
+		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
+	esac
+fi
+
 TARGET=${TARGET:-"/usr/lib/u-boot/pine64_plus"}
 BL31=${BL31:-"/usr/lib/atf/sun50iw1p1/bl31.bin"}
 FIT_GENERATOR=${FIT_GENERATOR:-"mksunxi_fit_atf"}
