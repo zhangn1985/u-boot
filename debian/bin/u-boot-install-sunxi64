@@ -10,6 +10,11 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 	esac
 fi
 
+atf="/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin"
+if [ -z "$BL31" ] && [ -f "${atf}" ]; then
+	BL31="${atf}"
+fi
+
 TARGET=${TARGET:-"/usr/lib/u-boot/pine64_plus"}
 BL31=${BL31:-"/usr/lib/atf/sun50iw1p1/bl31.bin"}
 FIT_GENERATOR=${FIT_GENERATOR:-"mksunxi_fit_atf"}
