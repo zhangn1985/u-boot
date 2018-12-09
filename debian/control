@@ -41,6 +41,7 @@ Package: u-boot-amlogic
 Architecture: arm64
 Multi-Arch: same
 Depends: ${misc:Depends}
+Recommends: arm-trusted-firmware [arm64]
 Description: A boot loader for amlogic systems
  Das U-Boot is a cross-platform bootloader for embedded systems,
  used as the default boot loader by several board vendors.  It is
