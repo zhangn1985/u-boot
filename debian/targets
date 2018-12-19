@@ -75,6 +75,10 @@ armhf	omap		omap3_pandora	u-boot.bin
 # Robert Nelson <robertcnelson@gmail.com>
 armhf	omap		omap4_panda	u-boot.img MLO
 
+# Emilio Pozuelo Monfort <pochu@debian.org>
+# Sjoerd Simons <sjoerd@debian.org>
+armhf	rockchip	firefly-rk3288		u-boot.bin spl/u-boot-spl.bin
+
 # Vagrant Cascadian <vagrant@debian.org>, Raspberry PI 2B
 armhf	rpi		rpi_2		u-boot.bin
 
