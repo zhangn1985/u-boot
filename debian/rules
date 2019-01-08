@@ -50,6 +50,7 @@ override_dh_auto_build:
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
 				$(CROSS_COMPILE)strip --remove-section=.comment \
+					--remove-section=.note \
 					$$builddir/uboot.elf; \
 				;; \
 		esac; \
@@ -86,12 +87,12 @@ override_dh_auto_build:
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		NO_SDL=1 \
 	    envtools
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/env/fw_printenv
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/mkimage
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/mkenvimage
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/kwboot
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/mksunxiboot
-	$(CROSS_COMPILE)strip --remove-section=.comment $(TOOLSDIR)/tools/dumpimage
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/env/fw_printenv
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mkimage
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mkenvimage
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/kwboot
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mksunxiboot
+	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/dumpimage
 
 override_dh_auto_test:
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
