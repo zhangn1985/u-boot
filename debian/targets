@@ -38,7 +38,7 @@ armhf	imx		mx6cuboxi	u-boot.img SPL
 # Hector Oron <zumbi@debian.org>
 armhf	imx		nitrogen6q	u-boot.imx
 
-# Tony Mancill <tmancill@debian.org> 
+# Vagrant Cascadian <vagrant@debian.org>
 armhf	imx		novena		u-boot.img SPL
 
 # Michael Fladischer <michael@fladi.at>
