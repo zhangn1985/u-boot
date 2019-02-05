@@ -71,10 +71,16 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			all:mipsel) export CROSS_COMPILE=mipsel-linux-gnu- ;;\
 			all:mips64el) export CROSS_COMPILE=mips64el-linux-gnuabi64- ;;\
 			all:riscv64) export CROSS_COMPILE=riscv64-linux-gnu- ;;\
-			all:i386) export CROSS_COMPILE= ;;\
-			all:amd64) export CROSS_COMPILE= ;;\
+			all:i386) export CROSS_COMPILE=i686-linux-gnu- ;;\
+			all:amd64) export CROSS_COMPILE=x86_64-linux-gnu- ;;\
 			*) ;; \
 		esac;\
+		if [ "$(TARGETARCH)" = all ]; then \
+			if ! $${CROSS_COMPILE}gcc --version; then \
+				echo "WARNING: no cross compiler, skipping: $$platform" ; \
+				continue ; \
+			fi ; \
+		fi ; \
 		mkdir -p $$builddir; \
 		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
 		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
