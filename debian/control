@@ -14,22 +14,21 @@ Build-Depends:
  libc6:arm64 [arm64] <cross>,
  libc6:armhf [armhf] <cross>,
  libc6:armel [armel] <cross>,
- libpython-dev:native [armhf arm64],
- python:any [armhf arm64],
+ libpython-dev:native [linux-any],
+ python:any [linux-any],
  skales:native [arm64],
- swig [armhf arm64],
+ swig [linux-any],
  lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
 Build-Depends-Indep:
 # For u-boot-qemu targets
- gcc-arm-linux-gnueabihf,
- gcc-aarch64-linux-gnu,
- gcc-mips-linux-gnu,
- gcc-mips64el-linux-gnuabi64,
- gcc-mipsel-linux-gnu,
- gcc-riscv64-linux-gnu,
- libpython-dev,
- python,
- swig,
+ gcc-i686-linux-gnu [amd64 arm64],
+ gcc-arm-linux-gnueabihf [amd64 arm64 i386],
+ gcc-aarch64-linux-gnu [amd64 i386],
+ gcc-mips-linux-gnu [amd64 i386],
+ gcc-mips64el-linux-gnuabi64 [amd64 i386],
+ gcc-mipsel-linux-gnu [amd64 i386],
+ gcc-riscv64-linux-gnu [amd64 i386],
+ gcc-x86-64-linux-gnu [arm64 i386],
 Standards-Version: 4.3.0
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Browser: https://salsa.debian.org/debian/u-boot
