@@ -18,8 +18,8 @@ awk '/^[a-z0-9]/{print $2}' ${target_file} | sort -u | while read subarch ; do
 EOF
 
     sed -n "/^[a-z0-9].*[[:space:]]$subarch[[:space:]]/p" ${target_file} | while read arch subarch2 platform targets ; do
-        echo "${package} [${arch}]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/${platform}/uboot.elf"
-    done >> ${overrides}
+        echo "${package} binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/*/uboot.elf"
+    done | LC_ALL=C sort -u >> ${overrides}
 
     cat >>${overrides}<<EOF
 
@@ -27,8 +27,17 @@ EOF
 EOF
 
     sed -n "/^[a-z0-9].*[[:space:]]$subarch[[:space:]]/p" ${target_file} | while read arch subarch2 platform targets ; do
-        echo "${package} [${arch}]: statically-linked-binary usr/lib/u-boot/${platform}/uboot.elf"
-    done >> ${overrides}
+        echo "${package} binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf"
+    done | LC_ALL=C sort -u >> ${overrides}
+
+    cat >>${overrides}<<EOF
+
+# These are bootloader binaries, and have no external dependency information
+EOF
+
+    sed -n "/^[a-z0-9].*[[:space:]]$subarch[[:space:]]/p" ${target_file} | while read arch subarch2 platform targets ; do
+        echo "${package} binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf"
+    done | LC_ALL=C sort -u >> ${overrides}
 
     cat >>${overrides}<<EOF
 
