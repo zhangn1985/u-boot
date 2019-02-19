@@ -1,0 +1,209 @@
+From 82987dbf64ab031482eee52267e2fb1edce52531 Mon Sep 17 00:00:00 2001
+From: Dongjin Kim <tobetter@gmail.com>
+Date: Sat, 28 Oct 2017 00:22:27 -0400
+Subject: [PATCH] arm: config: fix default console only to specify the device
+
+This reverts commit 767edf0f6b3eaa0303f3fd6afdc14ddce0aca70c and restores
+commit 232ed3ca534708527a9515c7c41bc3542949525c.
+
+Debian's flash-kernel expect the console variable to just contain the device,
+because it will set the bootargs to "console=${console}". So revert adding
+"console=" to the console parameter, but also adjust the shipped bootscripts
+for exynos boards to cope with it.
+
+Bug-Debian: https://bugs.debian.org/920116
+Signed-off-by: Benjamin Drung <bdrung@debian.org>
+---
+ board/samsung/common/bootscripts/autoboot.cmd | 2 +-
+ board/samsung/common/bootscripts/bootzimg.cmd | 4 ++--
+ board/samsung/common/dfu_sample_env.txt       | 4 ++--
+ include/configs/odroid.h                      | 4 ++--
+ include/configs/odroid_xu3.h                  | 4 ++--
+ include/configs/s5p_goni.h                    | 4 ++--
+ include/configs/s5pc210_universal.h           | 4 ++--
+ include/configs/trats.h                       | 4 ++--
+ include/configs/trats2.h                      | 4 ++--
+ 9 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/board/samsung/common/bootscripts/autoboot.cmd b/board/samsung/common/bootscripts/autoboot.cmd
+index 11c724c4e09..e0c691e6656 100644
+--- a/board/samsung/common/bootscripts/autoboot.cmd
++++ b/board/samsung/common/bootscripts/autoboot.cmd
+@@ -12,7 +12,7 @@ setenv initrdaddr  "42000000"
+ setenv loaddtb     "load mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}"
+ setenv loadinitrd  "load mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"
+ setenv loadkernel  "load mmc ${mmcbootdev}:${mmcbootpart} '${kerneladdr}' '${kernelname}'"
+-setenv kernel_args "setenv bootargs ${console} root=/dev/mmcblk${mmcrootdev}p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}"
++setenv kernel_args "setenv bootargs console=${console} root=/dev/mmcblk${mmcrootdev}p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}"
+ 
+ #### Routine: check_dtb - check that target.dtb exists on boot partition
+ setenv check_dtb "
+diff --git a/board/samsung/common/bootscripts/bootzimg.cmd b/board/samsung/common/bootscripts/bootzimg.cmd
+index 2fb4c163a73..ea4bec47646 100644
+--- a/board/samsung/common/bootscripts/bootzimg.cmd
++++ b/board/samsung/common/bootscripts/bootzimg.cmd
+@@ -1,5 +1,5 @@
+ setenv kernelname zImage;
+-setenv boot_kernel "setenv bootargs \"${console} root=/dev/mmcblk${mmcrootdev}p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}\";
++setenv boot_kernel "setenv bootargs \"console=${console} root=/dev/mmcblk${mmcrootdev}p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}\";
+ load mmc ${mmcbootdev}:${mmcbootpart} 0x40007FC0 '${kernelname}';
+ if load mmc ${mmcbootdev}:${mmcbootpart} 40800000 ${fdtfile}; then
+ 	bootz 0x40007FC0 - 40800000;
+@@ -7,4 +7,4 @@ else
+ 	echo Warning! Booting without DTB: '${fdtfile}'!;
+ 	bootz 0x40007FC0 -;
+ fi;"
+-run boot_kernel;
+\ No newline at end of file
++run boot_kernel;
+diff --git a/board/samsung/common/dfu_sample_env.txt b/board/samsung/common/dfu_sample_env.txt
+index d6ee8a228a8..cbd788ec670 100644
+--- a/board/samsung/common/dfu_sample_env.txt
++++ b/board/samsung/common/dfu_sample_env.txt
+@@ -1,9 +1,9 @@
+-mmcboot=setenv bootargs root=/dev/mmcblk${mmcdev}p${mmcrootpart} ${rootfstype} rootwait ${console}; run loaduimage; bootm 0x40007FC0
++mmcboot=setenv bootargs root=/dev/mmcblk${mmcdev}p${mmcrootpart} ${rootfstype} rootwait console=${console}; run loaduimage; bootm 0x40007FC0
+ rootfstype=ext4
+ loaduimage=ext4load mmc ${mmcdev}:${mmcbootpart} 0x40007FC0 uImage
+ mmcdev=0
+ mmcbootpart=2
+ mmcrootpart=5
+-console=console=ttySAC2,115200n8
++console=ttySAC2,115200n8
+ bootcmd=run mmcboot
+ dfu_alt_info=u-boot mmc 80 800;params.bin mmc 0x38 0x8;uImage ext4 0 2
+diff --git a/include/configs/odroid.h b/include/configs/odroid.h
+index c3520bb15f4..ad77242e380 100644
+--- a/include/configs/odroid.h
++++ b/include/configs/odroid.h
+@@ -40,7 +40,7 @@
+ /* Console configuration */
+ 
+ #define CONFIG_BOOTCOMMAND		"run distro_bootcmd ; run autoboot"
+-#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC1,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE		"ttySAC1,115200n8"
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR \
+ 					- GENERATED_GBL_DATA_SIZE)
+@@ -157,7 +157,7 @@
+ 		"elif test -e mmc 0 uImage; then; " \
+ 			"run boot_uimg;" \
+ 		"fi;\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0" \
+ 	"mmcbootdev=0\0" \
+ 	"mmcbootpart=1\0" \
+ 	"mmcrootdev=0\0" \
+diff --git a/include/configs/odroid_xu3.h b/include/configs/odroid_xu3.h
+index 0337c264752..b44f58ed150 100644
+--- a/include/configs/odroid_xu3.h
++++ b/include/configs/odroid_xu3.h
+@@ -30,7 +30,7 @@
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR        (CONFIG_SYS_LOAD_ADDR - 0x1000000)
+ 
+-#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC2,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE		"ttySAC2,115200n8"
+ 
+ /* USB */
+ #define CONFIG_USB_EHCI_EXYNOS
+@@ -100,7 +100,7 @@
+ 	MEM_LAYOUT_ENV_SETTINGS \
+ 	BOOTENV \
+ 	"rootfstype=ext4\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0"\
+ 	"fdtfile=exynos5422-odroidxu3.dtb\0" \
+ 	"boardname=odroidxu3\0" \
+ 	"mmcbootdev=0\0" \
+diff --git a/include/configs/s5p_goni.h b/include/configs/s5p_goni.h
+index ff634d91dd4..87ddc20a528 100644
+--- a/include/configs/s5p_goni.h
++++ b/include/configs/s5p_goni.h
+@@ -87,7 +87,7 @@
+ 
+ #define CONFIG_BOOTCOMMAND	"run mmcboot"
+ 
+-#define CONFIG_DEFAULT_CONSOLE	"console=ttySAC2,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE	"ttySAC2,115200n8"
+ 
+ #define CONFIG_RAMDISK_BOOT	"root=/dev/ram0 rw rootfstype=ext4" \
+ 		" ${console} ${meminfo}"
+@@ -134,7 +134,7 @@
+ 	"bootchart=set opts init=/sbin/bootchartd; run bootcmd\0" \
+ 	"verify=n\0" \
+ 	"rootfstype=ext4\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0"\
+ 	"meminfo=mem=80M mem=256M@0x40000000 mem=128M@0x50000000\0" \
+ 	"loaduimage=ext4load mmc ${mmcdev}:${mmcbootpart} 0x30007FC0 uImage\0" \
+ 	"mmcdev=0\0" \
+diff --git a/include/configs/s5pc210_universal.h b/include/configs/s5pc210_universal.h
+index 832032da185..999bdd1676f 100644
+--- a/include/configs/s5pc210_universal.h
++++ b/include/configs/s5pc210_universal.h
+@@ -27,7 +27,7 @@
+ /* Console configuration */
+ 
+ #define CONFIG_BOOTCOMMAND		"run mmcboot"
+-#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC1,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE		"ttySAC1,115200n8"
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR \
+ 					- GENERATED_GBL_DATA_SIZE)
+@@ -108,7 +108,7 @@
+ 	"mmcoops=mmc read 0 0x40000000 0x40 8; md 0x40000000 0x400\0" \
+ 	"verify=n\0" \
+ 	"rootfstype=ext4\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0" \
+ 	"mtdparts=" CONFIG_MTDPARTS_DEFAULT \
+ 	"mbrparts=" MBRPARTS_DEFAULT \
+ 	"meminfo=crashkernel=32M@0x50000000\0" \
+diff --git a/include/configs/trats.h b/include/configs/trats.h
+index af8e8ce3b6c..223fce49a71 100644
+--- a/include/configs/trats.h
++++ b/include/configs/trats.h
+@@ -36,7 +36,7 @@
+ #define CONFIG_MACH_TYPE		MACH_TYPE_TRATS
+ 
+ #define CONFIG_BOOTCOMMAND		"run autoboot"
+-#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC2,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE		"ttySAC2,115200n8"
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR \
+ 					- GENERATED_GBL_DATA_SIZE)
+@@ -120,7 +120,7 @@
+ 	"mmcoops=mmc read 0 0x40000000 0x40 8; md 0x40000000 0x400\0" \
+ 	"verify=n\0" \
+ 	"rootfstype=ext4\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0" \
+ 	"meminfo=crashkernel=32M@0x50000000\0" \
+ 	"nfsroot=/nfsroot/arm\0" \
+ 	"bootblock=" CONFIG_BOOTBLOCK "\0" \
+diff --git a/include/configs/trats2.h b/include/configs/trats2.h
+index 9c6b2bbc8d6..f1e4cbad30d 100644
+--- a/include/configs/trats2.h
++++ b/include/configs/trats2.h
+@@ -34,7 +34,7 @@
+ /* Console configuration */
+ 
+ #define CONFIG_BOOTCOMMAND		"run autoboot"
+-#define CONFIG_DEFAULT_CONSOLE		"console=ttySAC2,115200n8\0"
++#define CONFIG_DEFAULT_CONSOLE		"ttySAC2,115200n8"
+ 
+ #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR \
+ 					- GENERATED_GBL_DATA_SIZE)
+@@ -103,7 +103,7 @@
+ 	"boottrace=setenv opts initcall_debug; run bootcmd\0" \
+ 	"verify=n\0" \
+ 	"rootfstype=ext4\0" \
+-	"console=" CONFIG_DEFAULT_CONSOLE \
++	"console=" CONFIG_DEFAULT_CONSOLE "\0" \
+ 	"kernelname=uImage\0" \
+ 	"loaduimage=ext4load mmc ${mmcdev}:${mmcbootpart} 0x40007FC0 " \
+ 		"${kernelname}\0" \
+-- 
+2.19.1
+
