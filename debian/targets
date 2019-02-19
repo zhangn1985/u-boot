@@ -10,6 +10,8 @@ armel	-		guruplug	u-boot.kwb
 
 # Vagrant Cascadian <vagrant@debian.org>, rpi B 256M
 armel	rpi		rpi		u-boot.bin
+# Romain Perier <romain.perier@gmail.com>, rpi zero w
+armel	rpi		rpi_0_w		u-boot.bin
 
 # drEagle <drEagle@doukki.net>
 # Rick Thomas <rbthomas@rcthomas.org>
