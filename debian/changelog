@@ -1,3 +1,19 @@
+u-boot (2019.01+dfsg-2) unstable; urgency=medium
+
+  [ Frédéric Danis ]
+  * Enable libretech-cc target in u-boot-amlogic (Closes: #920947).
+
+  [ Vagrant Cascadian ]
+  * debian/patches: Add patch from upstream to unmount ext4 filesystems
+    preventing a memory leak.
+  * Add patch to fix console setting on exynos platforms.  Thanks to
+    Dongjin Kim and Benjamin Drung.  (Closes: #920116).
+  * Use wildcards for lintian overrides.
+  * Update tester for p2371-2180 (Jetson-TX1).
+  * Update tester for novena.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 19 Feb 2019 01:09:37 -0800
+
 u-boot (2019.01+dfsg-1) unstable; urgency=medium
 
   * New upstream release (Closes: #918940).
