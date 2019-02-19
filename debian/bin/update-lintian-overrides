@@ -43,8 +43,6 @@ EOF
 
 ${package}: description-synopsis-starts-with-article
 
-# Synopsys is the name of a company, not a misspelling.
-${package}: spelling-error-in-copyright Synopsys Synopsis
 EOF
 done
 
