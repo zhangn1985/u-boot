@@ -45,3 +45,20 @@ ${package}: description-synopsis-starts-with-article
 
 EOF
 done
+
+package=u-boot-qemu
+overrides=debian/${package}.lintian-overrides
+cat >>${overrides}<<EOF
+
+# These are binary firmware blobs
+EOF
+
+sed -n "/^all:.*[[:space:]]qemu[[:space:]]/p" ${target_file} | while read arch subarch2 platform targets ; do
+        echo "${package} binary: arch-independent-package-contains-binary-or-object usr/lib/u-boot/*/uboot.elf"
+done | LC_ALL=C sort -u >> ${overrides}
+
+package=u-boot-tools
+cat >debian/${package}.lintian-overrides<<EOF
+# Synopsys is the name of a company, not a misspelling.
+${package}: spelling-error-in-copyright Synopsys Synopsis
+EOF
