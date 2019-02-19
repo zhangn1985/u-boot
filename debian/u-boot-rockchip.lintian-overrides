@@ -3,16 +3,13 @@
 # target is only installed on a single architecture. In theory, some
 # targets could be built on multiple architectures, but could instead install
 # the package for the architecture needed.
-u-boot-rockchip [armhf]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/firefly-rk3288/uboot.elf
-u-boot-rockchip [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/firefly-rk3399/uboot.elf
-u-boot-rockchip [arm64]: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/puma-rk3399/uboot.elf
+u-boot-rockchip binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/*/uboot.elf
 
 # These bootloaders need to be statically linked.
-u-boot-rockchip [armhf]: statically-linked-binary usr/lib/u-boot/firefly-rk3288/uboot.elf
-u-boot-rockchip [arm64]: statically-linked-binary usr/lib/u-boot/firefly-rk3399/uboot.elf
-u-boot-rockchip [arm64]: statically-linked-binary usr/lib/u-boot/puma-rk3399/uboot.elf
+u-boot-rockchip binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
+
+# These are bootloader binaries, and have no external dependency information
+u-boot-rockchip binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
 
 u-boot-rockchip: description-synopsis-starts-with-article
 
-# Synopsys is the name of a company, not a misspelling.
-u-boot-rockchip: spelling-error-in-copyright Synopsys Synopsis
