@@ -16,3 +16,5 @@ ensure-config-sandbox-for-make-env.patch
 am57xx/omap5_distro_bootcmd
 
 test-imagetools-test-fixes
+
+upstream/fs-ext4-Unmount-FS-in-do_fs_type.patch

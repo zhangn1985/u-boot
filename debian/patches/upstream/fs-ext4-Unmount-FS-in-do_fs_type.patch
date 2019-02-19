@@ -1,0 +1,42 @@
+From e531c6731b697fc524b54697caebf235a4a69e8d Mon Sep 17 00:00:00 2001
+From: Marek Vasut <marek.vasut+renesas@gmail.com>
+Date: Wed, 6 Feb 2019 13:19:29 +0100
+Subject: [PATCH] fs: ext4: Unmount FS in do_fs_type()
+
+Unlike other generic FS accessors, fs_get_info() does not call fs_close()
+at the end of it's operation. Thus, using fs_get_info() in do_fs_type()
+without calling fs_close() causes potential memory leak by creating new
+filesystem structures on each call of do_fs_type().
+
+The test case to trigger this problem is as follows. It is required to
+have ext4 filesystem on the first partition of the SDMMC device, since
+ext4 requires stateful mount and causes memory allocation.
+=> while true ; do mmc rescan ; fstype mmc 1 ; done
+Eventually, the mounting of ext4 will fail due to malloc failures
+and the filesystem will not be correctly detected.
+
+This patch fixes the problem by adding the missing fs_close().
+
+Signed-off-by: Marek Vasut <marek.vasut+renesas@gmail.com>
+Cc: Simon Glass <sjg@chromium.org>
+Cc: Tom Rini <trini@konsulko.com>
+---
+ fs/fs.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/fs.c b/fs/fs.c
+index 0e9c2f1062..c5c35ebf5f 100644
+--- a/fs/fs.c
++++ b/fs/fs.c
+@@ -801,6 +801,8 @@ int do_fs_type(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+ 	else
+ 		printf("%s\n", info->name);
+ 
++	fs_close();
++
+ 	return CMD_RET_SUCCESS;
+ }
+ 
+-- 
+2.20.1
+
