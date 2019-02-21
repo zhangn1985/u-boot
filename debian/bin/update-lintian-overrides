@@ -45,9 +45,3 @@ ${package}: description-synopsis-starts-with-article
 
 EOF
 done
-
-package=u-boot-tools
-cat >debian/${package}.lintian-overrides<<EOF
-# Synopsys is the name of a company, not a misspelling.
-${package}: spelling-error-in-copyright Synopsys Synopsis
-EOF
