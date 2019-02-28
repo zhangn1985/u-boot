@@ -42,6 +42,7 @@ armhf	imx		nitrogen6q	u-boot.imx
 
 # Vagrant Cascadian <vagrant@debian.org>
 armhf	imx		novena		u-boot.img SPL
+armhf	imx		novena-rawsd SPL
 
 # Michael Fladischer <michael@fladi.at>
 armhf	imx		udoo		u-boot.img SPL

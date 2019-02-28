@@ -30,12 +30,21 @@ LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 %:
 	dh $@
 
+configs/novena-rawsd_defconfig:
+	sed -e 's,CONFIG_SPL_FAT_SUPPORT=y,# CONFIG_SPL_FAT_SUPPORT is not set,' \
+		configs/novena_defconfig > configs/novena-rawsd_defconfig
+
 override_dh_auto_build: TOOLSDIR := debian/build/tools
-override_dh_auto_build:
+override_dh_auto_build: configs/novena-rawsd_defconfig
 	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
-			targets="$$targets uboot.elf" ;\
+		case $$platform in \
+			novena-rawsd) targets="$$targets" ;\
+				;; \
+			*) targets="$$targets uboot.elf" ;\
+				;; \
+		esac;\
 			maketargets="all" ;\
 		case $$subarch in \
 			-) subpackage="u-boot" ;\
@@ -103,6 +112,7 @@ endif
 override_dh_clean:
 	rm -rf debian/build/
 	rm -f configs/tools_defconfig
+	rm -f configs/novena-rawsd_defconfig
 	dh_clean
 
 override_dh_gencontrol:
