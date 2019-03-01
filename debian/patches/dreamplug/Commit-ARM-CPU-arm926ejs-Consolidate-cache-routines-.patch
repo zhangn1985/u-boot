@@ -1,0 +1,66 @@
+From 655659a4d8505402e08510e827608fc19f58ac19 Mon Sep 17 00:00:00 2001
+From: Leigh Brown <leigh@solinno.co.uk>
+Date: Wed, 27 Feb 2019 11:32:16 +0000
+Subject: [PATCH] Commit "ARM: CPU: arm926ejs: Consolidate cache routines to
+ common file" breaks u-boot on Dreamplug
+
+Hello,
+
+Vagrant Cascadian asked for people to test the version of u-boot packaged
+for Debian Buster.  I tested u-boot on my Dreamplug and found it was not
+working correctly.  I raised a bug for Debian[1] but I have also tested
+with the mainline version of u-boot and found the same issues.
+
+The first issue is that the following commit caused u-boot to no longer
+be able to access usb storage on the Dreamplug:
+
+commit 93b283d49f933f95f3a6f40762936f454ac655a8
+Author: Adam Ford <aford173@gmail.com>
+Date:   Thu Aug 16 13:23:11 2018 -0500
+
+    ARM: CPU: arm926ejs: Consolidate cache routines to common file
+
+    Four different boards had different options for enabling cache
+    that were virtually all the same.  This consolidates these
+    common functions into arch/arm/cpu/arm926ejs/cache.c
+
+    This also has the positive side-effect of enabling cache on
+    the Davinci (da850) boards.
+
+    Signed-off-by: Adam Ford <aford173@gmail.com>
+    [trini: Add mach-at91 to the list of consolidations]
+    Signed-off-by: Tom Rini <trini@konsulko.com>
+
+I don't have much knowledge of ARM caching, but the following patch makes
+it work again on my Dreamplug.
+---
+ arch/arm/mach-kirkwood/cpu.c | 1 -
+ include/configs/dreamplug.h  | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/mach-kirkwood/cpu.c b/arch/arm/mach-kirkwood/cpu.c
+index d54de53f31..8a065d73ae 100644
+--- a/arch/arm/mach-kirkwood/cpu.c
++++ b/arch/arm/mach-kirkwood/cpu.c
+@@ -291,7 +291,6 @@ int arch_misc_init(void)
+ 	temp |= (1 << 22);
+ 	writefr_extra_feature_reg(temp);
+ 
+-	icache_enable();
+ 	/* Change reset vector to address 0x0 */
+ 	temp = get_cr();
+ 	set_cr(temp & ~CR_V);
+diff --git a/include/configs/dreamplug.h b/include/configs/dreamplug.h
+index f4d717213c..6348935c68 100644
+--- a/include/configs/dreamplug.h
++++ b/include/configs/dreamplug.h
+@@ -79,4 +79,6 @@
+ #define CONFIG_SYS_ATA_IDE0_OFFSET	MV_SATA_PORT0_OFFSET
+ #endif /*CONFIG_MVSATA_IDE*/
+ 
++#define CONFIG_SYS_DCACHE_OFF
++
+ #endif /* _CONFIG_DREAMPLUG_H */
+-- 
+2.20.1
+
