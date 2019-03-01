@@ -1,0 +1,27 @@
+From abccccf77af19599ce03317a13f70910087d817e Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Thu, 28 Feb 2019 19:53:43 -0800
+Subject: [PATCH] Fix spelling of download.
+
+Signed-off-by: Vagrant Cascadian <vagrant@debian.org>
+---
+
+ cmd/thordown.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmd/thordown.c b/cmd/thordown.c
+index ce3660d174..19ae6721d1 100644
+--- a/cmd/thordown.c
++++ b/cmd/thordown.c
+@@ -65,7 +65,7 @@ done:
+ U_BOOT_CMD(thordown, CONFIG_SYS_MAXARGS, 1, do_thor_down,
+ 	   "TIZEN \"THOR\" downloader",
+ 	   "<USB_controller> <interface> <dev>\n"
+-	   "  - device software upgrade via LTHOR TIZEN dowload\n"
++	   "  - device software upgrade via LTHOR TIZEN download\n"
+ 	   "    program via <USB_controller> on device <dev>,\n"
+ 	   "	attached to interface <interface>\n"
+ );
+-- 
+2.11.0
+
