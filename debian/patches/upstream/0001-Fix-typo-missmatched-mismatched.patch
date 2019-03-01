@@ -1,0 +1,27 @@
+From bb5835bc018dc8d7cc4d7abf0ef0521be5093985 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Tue, 8 Jan 2019 13:10:23 -0800
+Subject: [PATCH] Fix typo: missmatched -> mismatched.
+
+Signed-off-by: Vagrant Cascadian <vagrant@debian.org>
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+---
+ tools/imx8image.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/imx8image.c b/tools/imx8image.c
+index 0d856b9d94..435f308b99 100644
+--- a/tools/imx8image.c
++++ b/tools/imx8image.c
+@@ -674,7 +674,7 @@ static int get_container_image_start_pos(image_t *image_stack, uint32_t align)
+ 			fclose(fd);
+ 
+ 			if (header.tag != IVT_HEADER_TAG_B0) {
+-				fprintf(stderr, "header tag missmatched \n");
++				fprintf(stderr, "header tag mismatched \n");
+ 				exit(EXIT_FAILURE);
+ 			} else {
+ 				file_off +=
+-- 
+2.11.0
+

@@ -18,6 +18,7 @@ am57xx/omap5_distro_bootcmd
 test-imagetools-test-fixes
 
 upstream/fs-ext4-Unmount-FS-in-do_fs_type.patch
+upstream/0001-Fix-typo-missmatched-mismatched.patch
 
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
