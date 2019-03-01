@@ -1,9 +1,19 @@
-u-boot (2019.01+dfsg-3) UNRELEASED; urgency=medium
+u-boot (2019.01+dfsg-3) unstable; urgency=medium
 
   [ Romain Perier ]
-  * [armel] Add Raspberry Pi Zero W to debian/targets
+  * [armel] u-boot-rpi: Add Raspberry Pi Zero W.
 
- -- Romain Perier <romain.perier@gmail.com>  Tue, 19 Feb 2019 16:50:06 +0100
+  [ Vagrant Cascadian ]
+  * [armhf] u-boot-sunxi: Add bananapi_m2_berry target.
+    (Closes: #923443) Thanks to Lucas Nussbaum.
+  * [armhf] u-boot-imx: Add novena-rawsd target.
+  * Add patches to fix SPI and USB on Dreamplug (Closes: #923379).
+    Thanks to Leigh Brown and Chris Packham.
+  * u-boot-tools: Remove Synopsys lintian override.
+  * Add patch to fix spelling of "mismatched".
+  * Add patch to fix spelling of "download".
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Thu, 28 Feb 2019 20:42:31 -0800
 
 u-boot (2019.01+dfsg-2) unstable; urgency=medium
 
