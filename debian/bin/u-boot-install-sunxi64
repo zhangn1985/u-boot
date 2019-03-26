@@ -7,6 +7,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		Pinebook) TARGET="/usr/lib/u-boot/pinebook" ;;
 		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
 		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
+		"Olimex A64 Teres-I") TARGET="/usr/lib/u-boot/teres_i/" ;;
 	esac
 fi
 
