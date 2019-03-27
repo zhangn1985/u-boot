@@ -11,9 +11,9 @@ Build-Depends:
  dpkg-dev (>= 1.17.14),
  flex,
  libfdt-dev:native [arm64],
- libc6:arm64 [arm64] <cross>,
- libc6:armhf [armhf] <cross>,
- libc6:armel [armel] <cross>,
+ libc6:arm64 [arm64] <cross !pkg.uboot.notools>,
+ libc6:armhf [armhf] <cross !pkg.uboot.notools>,
+ libc6:armel [armel] <cross !pkg.uboot.notools>,
  libpython-dev:native [linux-any],
  python:any [linux-any],
  skales:native [arm64],
@@ -217,6 +217,7 @@ Description: A boot loader for Raspberry PI systems
 
 Package: u-boot-tools
 Architecture: linux-any
+Build-Profiles: <!pkg.uboot.notools>
 Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: device-tree-compiler
