@@ -37,6 +37,9 @@ armhf	imx		mx53loco	u-boot.imx
 # Rick Thomas <rbthomas@pobox.com>, Cubox-i4x4, Cubox-i4PRO
 armhf	imx		mx6cuboxi	u-boot.img SPL
 
+# Martyn Welch <martyn.welch@collabora.com>
+armhf	imx		mx6qsabrelite	u-boot.imx
+
 # Hector Oron <zumbi@debian.org>
 armhf	imx		nitrogen6q	u-boot.imx
 
