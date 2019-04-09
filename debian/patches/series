@@ -17,12 +17,7 @@ am57xx/omap5_distro_bootcmd
 
 test-imagetools-test-fixes
 
-upstream/fs-ext4-Unmount-FS-in-do_fs_type.patch
-upstream/0001-Fix-typo-missmatched-mismatched.patch
-
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
-exynos/0002-Fix-spelling-of-download.patch
 
 # Patches to fix https://bugs.debian.org/923379
-dreamplug/ARM-kirkwood-add-spi0-alias-for-dreamplug.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
