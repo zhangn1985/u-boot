@@ -1,3 +1,19 @@
+u-boot (2019.04+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Remove patches applied upstream:
+    - dreamplug/ARM-kirkwood-add-spi0-alias-for-dreamplug.patch
+    - exynos/0002-Fix-spelling-of-download.patch
+    - upstream/0001-Fix-typo-missmatched-mismatched.patch
+    - upstream/fs-ext4-Unmount-FS-in-do_fs_type.patch
+  * Refresh patches:
+    - test-imagetools-test-fixes
+    - exynos/0001-arm-config-fix-default-console-only-to-specify-the-d
+  * Add patch reverting changes to mkimage, which breaks compatibility
+    with FIT images used in the wild, and breaks the test suite.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 08 Apr 2019 23:35:43 -0700
+
 u-boot (2019.01+dfsg-4) unstable; urgency=medium
 
   [ Martyn Welch ]
