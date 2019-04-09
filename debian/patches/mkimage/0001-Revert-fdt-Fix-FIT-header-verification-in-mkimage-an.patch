@@ -1,0 +1,164 @@
+From d2e08db1547db0e17f1883189664a574ea33ac22 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Sun, 7 Apr 2019 14:10:36 -0700
+Subject: [PATCH] Revert "fdt: Fix FIT header verification in mkimage and
+ conduct same checks as bootm"
+
+This reverts commit d32aa3cae44e618048ff7f378577d44f9b6d6dcc.
+
+This breaks the "list_image" test in tests/image/test-imagetools.sh,
+where mkimage and dumpimage are expected to have the same output:
+
+  Listing image contents...
+  # debian/build/tools/tools/mkimage -l linux.itb
+  debian/build/tools/tools/mkimage: verify_header failed for Default Image support with exit code -9
+
+The same verify_header failed message occurs also with some real-world
+.itb files, such as that used on the pinebook. So it's not just the
+tests that need to be updated.
+
+live well,
+  vagrant
+
+Series-to: u-boot
+---
+ tools/fit_common.c |  5 +----
+ tools/fit_common.h |  8 --------
+ tools/imagetool.c  | 34 +---------------------------------
+ tools/imagetool.h  | 19 -------------------
+ tools/mkimage.c    |  2 +-
+ 5 files changed, 3 insertions(+), 65 deletions(-)
+
+diff --git a/tools/fit_common.c b/tools/fit_common.c
+index 9506390214..d96085eaad 100644
+--- a/tools/fit_common.c
++++ b/tools/fit_common.c
+@@ -26,10 +26,7 @@
+ int fit_verify_header(unsigned char *ptr, int image_size,
+ 			struct image_tool_params *params)
+ {
+-	if (fdt_check_header(ptr) != EXIT_SUCCESS || !fit_check_format(ptr))
+-		return EXIT_FAILURE;
+-
+-	return EXIT_SUCCESS;
++	return fdt_check_header(ptr);
+ }
+ 
+ int fit_check_image_types(uint8_t type)
+diff --git a/tools/fit_common.h b/tools/fit_common.h
+index 9e09624f64..71e792e3c4 100644
+--- a/tools/fit_common.h
++++ b/tools/fit_common.h
+@@ -10,14 +10,6 @@
+ #include "mkimage.h"
+ #include <image.h>
+ 
+-/**
+- * Verify the format of FIT header pointed to by ptr
+- *
+- * @ptr: image header to be verified
+- * @image_size: size of while image
+- * @params: mkimage parameters
+- * @return 0 if OK, -1 on error
+- */
+ int fit_verify_header(unsigned char *ptr, int image_size,
+ 			struct image_tool_params *params);
+ 
+diff --git a/tools/imagetool.c b/tools/imagetool.c
+index ba1f64aa37..b3e628f612 100644
+--- a/tools/imagetool.c
++++ b/tools/imagetool.c
+@@ -46,7 +46,7 @@ int imagetool_verify_print_header(
+ 
+ 			if (retval == 0) {
+ 				/*
+-				 * Print the image information if verify is
++				 * Print the image information  if verify is
+ 				 * successful
+ 				 */
+ 				if ((*curr)->print_header) {
+@@ -65,38 +65,6 @@ int imagetool_verify_print_header(
+ 	return retval;
+ }
+ 
+-int imagetool_verify_print_header_by_type(
+-	void *ptr,
+-	struct stat *sbuf,
+-	struct image_type_params *tparams,
+-	struct image_tool_params *params)
+-{
+-	int retval;
+-
+-	retval = tparams->verify_header((unsigned char *)ptr, sbuf->st_size,
+-			params);
+-
+-	if (retval == 0) {
+-		/*
+-		 * Print the image information if verify is successful
+-		 */
+-		if (tparams->print_header) {
+-			if (!params->quiet)
+-				tparams->print_header(ptr);
+-		} else {
+-			fprintf(stderr,
+-				"%s: print_header undefined for %s\n",
+-				params->cmdname, tparams->name);
+-		}
+-	} else {
+-		fprintf(stderr,
+-			"%s: verify_header failed for %s with exit code %d\n",
+-			params->cmdname, tparams->name, retval);
+-	}
+-
+-	return retval;
+-}
+-
+ int imagetool_save_subimage(
+ 	const char *file_name,
+ 	ulong file_data,
+diff --git a/tools/imagetool.h b/tools/imagetool.h
+index 2689a4004a..71471420f9 100644
+--- a/tools/imagetool.h
++++ b/tools/imagetool.h
+@@ -179,25 +179,6 @@ int imagetool_verify_print_header(
+ 	struct image_type_params *tparams,
+ 	struct image_tool_params *params);
+ 
+-/*
+- * imagetool_verify_print_header_by_type() - verifies the image header
+- *
+- * Verify the image_header for the image type given by tparams.
+- * If verification is successful, this prints the respective header.
+- * @ptr: pointer the the image header
+- * @sbuf: stat information about the file pointed to by ptr
+- * @tparams: image type parameters
+- * @params: mkimage parameters
+- *
+- * @return 0 on success, negative if input image format does not match with
+- * the given image type
+- */
+-int imagetool_verify_print_header_by_type(
+-	void *ptr,
+-	struct stat *sbuf,
+-	struct image_type_params *tparams,
+-	struct image_tool_params *params);
+-
+ /**
+  * imagetool_save_subimage - store data into a file
+  * @file_name: name of the destination file
+diff --git a/tools/mkimage.c b/tools/mkimage.c
+index 2899adff81..ea5ed542ab 100644
+--- a/tools/mkimage.c
++++ b/tools/mkimage.c
+@@ -409,7 +409,7 @@ int main(int argc, char **argv)
+ 		 * Print the image information for matched image type
+ 		 * Returns the error code if not matched
+ 		 */
+-		retval = imagetool_verify_print_header_by_type(ptr, &sbuf,
++		retval = imagetool_verify_print_header(ptr, &sbuf,
+ 				tparams, &params);
+ 
+ 		(void) munmap((void *)ptr, sbuf.st_size);
+-- 
+2.20.1
+
