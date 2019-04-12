@@ -113,6 +113,8 @@ override_dh_clean:
 	rm -rf debian/build/
 	rm -f configs/tools_defconfig
 	rm -f configs/novena-rawsd_defconfig
+	# Created when running test-imagetools test suite
+	rm -f linux.itb linux.its
 	dh_clean
 
 override_dh_gencontrol:
