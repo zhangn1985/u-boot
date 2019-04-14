@@ -26,3 +26,5 @@ exynos/0002-Fix-spelling-of-download.patch
 # Patches to fix https://bugs.debian.org/923379
 dreamplug/ARM-kirkwood-add-spi0-alias-for-dreamplug.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
+
+sunxi/sun50i_i2c_init.patch
