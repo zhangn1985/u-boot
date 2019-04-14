@@ -28,3 +28,4 @@ dreamplug/ARM-kirkwood-add-spi0-alias-for-dreamplug.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
 sunxi/sun50i_i2c_init.patch
+sunxi/teres-i.patch
