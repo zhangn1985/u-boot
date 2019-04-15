@@ -34,8 +34,12 @@ configs/novena-rawsd_defconfig:
 	sed -e 's,CONFIG_SPL_FAT_SUPPORT=y,# CONFIG_SPL_FAT_SUPPORT is not set,' \
 		configs/novena_defconfig > configs/novena-rawsd_defconfig
 
+configs/am335x_boneblack_defconfig:
+	sed -e 's,CONFIG_OF_LIST=.*,CONFIG_OF_LIST="am335x-evm am335x-boneblack",g' \
+		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
+
 override_dh_auto_build: TOOLSDIR := debian/build/tools
-override_dh_auto_build: configs/novena-rawsd_defconfig
+override_dh_auto_build: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	set -e; sed -n 's/^$(DEB_HOST_ARCH)[[:space:]]\+//p' debian/targets \
 	    | while read subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
@@ -113,7 +117,7 @@ override_dh_clean:
 	rm -rf debian/build/
 	rm -f configs/tools_defconfig
 	rm -f configs/novena-rawsd_defconfig
-	# Created when running test-imagetools test suite
+	rm -f configs/am335x_boneblack_defconfig
 	rm -f linux.itb linux.its
 	dh_clean
 

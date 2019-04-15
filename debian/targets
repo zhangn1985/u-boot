@@ -59,6 +59,7 @@ armhf	imx		wandboard	u-boot.img SPL
 
 # Vagrant Cascadian <vagrant@debian.org>
 # Andrew M.A. Cater <amacater@galactic.demon.co.uk>
+armhf	omap		am335x_boneblack u-boot.img MLO
 armhf	omap		am335x_evm u-boot.img MLO
 
 # Vagrant Cascadian <vagrant@debian.org>
