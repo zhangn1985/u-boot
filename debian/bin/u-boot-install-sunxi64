@@ -8,6 +8,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
 		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
 		"Olimex A64 Teres-I") TARGET="/usr/lib/u-boot/teres_i/" ;;
+		"OrangePi Zero Plus2") TARGET="/usr/lib/u-boot/orangepi_zero_plus2/" ;;
 	esac
 fi
 
