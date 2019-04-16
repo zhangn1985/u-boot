@@ -201,6 +201,9 @@ arm64	rpi		rpi_3		u-boot.bin
 # Rodrigo Exterckötter Tjäder <rodrigo@tjader.xyz>
 arm64	sunxi		a64-olinuxino	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-olinuxino.dtb
 
+# Frederic Danis <frederic.danis@collabora.com>
+arm64	sunxi		orangepi_zero_plus2	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h5-orangepi-zero-plus2.dtb
+
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	sunxi		pine64_plus	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-pine64-plus.dtb arch/arm/dts/sun50i-a64-pine64.dtb
 
