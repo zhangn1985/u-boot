@@ -1,3 +1,30 @@
+u-boot (2019.04+dfsg-2) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * Add targeted patch fixing mkimage header verification. Drop patch
+    reverting mkimage changes.
+  * [armhf] u-boot-omap: Replace am335x_boneblack with am335x_evm, and
+    update README.Debian accordingly regarding changed partitioning
+    requirements.
+  * [armhf] u-boot-omap: Simpfy the instructions in README for specifying an
+    offset.
+  * debian/rules: Remove linux.itb and linux.its in clean target. Thanks
+    to Jonas Smedegaard.
+
+  [ Jonas Smedegaard ]
+  * Add patch by Vasily Khoruzhick to support Olimex Teres-I DIY laptop.
+  * Enable teres_i target in u-boot-sunxi (Closes: #926040).
+
+  [ Vagrant Cascadian ]
+  * Create an am335x_boneblack defconfig by adapting am335x_evm and
+    removing the extra device trees. This is needed to keep size small
+    enough to fit in a standard 1MB partition offset.
+
+  [ Frédéric Danis ]
+  * Enable orangepi_zero_plus2 target in u-boot-sunxi (Closes: #927224).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 16 Apr 2019 15:46:00 -0700
+
 u-boot (2019.04+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
