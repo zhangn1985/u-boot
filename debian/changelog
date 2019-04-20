@@ -1,3 +1,15 @@
+u-boot (2019.01+dfsg-5) unstable; urgency=medium
+
+  [ Jonas Smedegaard ]
+  * Add patch cherry-picked upstream to add i2c initialization for sun50i.
+  * Add patch by Vasily Khoruzhick to support Olimex Teres-I DIY laptop.
+  * Enable teres_i target in u-boot-sunxi (Closes: #926040).
+
+  [ Frédéric Danis ]
+  * Enable orangepi_zero_plus2 target in u-boot-sunxi (Closes: #927224).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 19 Apr 2019 16:43:08 -0700
+
 u-boot (2019.01+dfsg-4) unstable; urgency=medium
 
   [ Martyn Welch ]
