@@ -29,14 +29,6 @@
 #define CONFIG_SPL_I2C_MUX
 #define CONFIG_SYS_I2C_MVTWSI
 
-/* Watchdog support */
-#if !defined(CONFIG_SPL_BUILD) && defined(CONFIG_WDT_ORION)
-# define CONFIG_WATCHDOG
-#endif
-
-/* SPI NOR flash default params, used by sf commands */
-#define CONFIG_SPI_FLASH_SPANSION
-
 /*
  * SDIO/MMC Card Configuration
  */
@@ -73,7 +65,6 @@
 
 /* Defines for SPL */
 #define CONFIG_SPL_SIZE			(140 << 10)
-#define CONFIG_SPL_TEXT_BASE		0x40000030
 #define CONFIG_SPL_MAX_SIZE		(CONFIG_SPL_SIZE - 0x0030)
 
 #define CONFIG_SPL_BSS_START_ADDR	(0x40000000 + CONFIG_SPL_SIZE)

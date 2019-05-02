@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0+
 
 VERSION = 2019
-PATCHLEVEL = 04
+PATCHLEVEL = 07
 SUBLEVEL =
-EXTRAVERSION =
+EXTRAVERSION = -rc1
 NAME =
 
 # *DOCUMENTATION*
@@ -945,11 +945,22 @@ ifneq ($(CONFIG_DM_USB)$(CONFIG_OF_CONTROL)$(CONFIG_BLK),yyy)
 	@echo >&2 "===================================================="
 endif
 endif
-ifeq ($(CONFIG_LIBATA)$(CONFIG_MVSATA_IDE),y)
-ifneq ($(CONFIG_DM_SCSI),y)
+ifeq ($(CONFIG_MVSATA_IDE),y)
 	@echo >&2 "===================== WARNING ======================"
-	@echo >&2 "This board does not use CONFIG_DM_SCSI. Please update"
-	@echo >&2 "the storage controller to use CONFIG_DM_SCSI before the v2019.07 release."
+	@echo >&2 "This board does use CONFIG_MVSATA_IDE which is not"
+	@echo >&2 "ported to driver-model (DM) yet. Please update the storage"
+	@echo >&2 "controller driver to use CONFIG_AHCI before the v2019.07"
+	@echo >&2 "release."
+	@echo >&2 "Failure to update by the deadline may result in board removal."
+	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "===================================================="
+endif
+ifeq ($(CONFIG_LIBATA),y)
+ifneq ($(CONFIG_AHCI),y)
+	@echo >&2 "===================== WARNING ======================"
+	@echo >&2 "This board does use CONFIG_LIBATA but has CONFIG_AHCI not"
+	@echo >&2 "enabled. Please update the storage controller driver to use"
+	@echo >&2 "CONFIG_AHCI before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
 	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
 	@echo >&2 "===================================================="
@@ -1020,6 +1031,20 @@ quiet_cmd_copy = COPY    $@
 
 ifeq ($(CONFIG_MULTI_DTB_FIT),y)
 
+ifeq ($(CONFIG_MULTI_DTB_FIT_LZO),y)
+FINAL_DTB_CONTAINER = fit-dtb.blob.lzo
+else ifeq ($(CONFIG_MULTI_DTB_FIT_GZIP),y)
+FINAL_DTB_CONTAINER = fit-dtb.blob.gz
+else
+FINAL_DTB_CONTAINER = fit-dtb.blob
+endif
+
+fit-dtb.blob.gz: fit-dtb.blob
+	@gzip -kf9 $< > $@
+
+fit-dtb.blob.lzo: fit-dtb.blob
+	@lzop -f9 $< > $@
+
 fit-dtb.blob: dts/dt.dtb FORCE
 	$(call if_changed,mkimage)
 
@@ -1027,8 +1052,13 @@ MKIMAGEFLAGS_fit-dtb.blob = -f auto -A $(ARCH) -T firmware -C none -O u-boot \
 	-a 0 -e 0 -E \
 	$(patsubst %,-b arch/$(ARCH)/dts/%.dtb,$(subst ",,$(CONFIG_OF_LIST))) -d /dev/null
 
-u-boot-fit-dtb.bin: u-boot-nodtb.bin fit-dtb.blob
+ifneq ($(EXT_DTB),)
+u-boot-fit-dtb.bin: u-boot-nodtb.bin $(EXT_DTB)
+		$(call if_changed,cat)
+else
+u-boot-fit-dtb.bin: u-boot-nodtb.bin $(FINAL_DTB_CONTAINER)
 	$(call if_changed,cat)
+endif
 
 u-boot.bin: u-boot-fit-dtb.bin FORCE
 	$(call if_changed,copy)
@@ -1232,9 +1262,11 @@ else
 SPL_PAYLOAD := u-boot.bin
 endif
 
+SPL_IMAGE := $(CONFIG_SPL_IMAGE:"%"=%)
+
 OBJCOPYFLAGS_u-boot-with-spl.bin = -I binary -O binary \
 				   --pad-to=$(CONFIG_SPL_PAD_TO)
-u-boot-with-spl.bin: spl/u-boot-spl.bin $(SPL_PAYLOAD) FORCE
+u-boot-with-spl.bin: $(SPL_IMAGE) $(SPL_PAYLOAD) FORCE
 	$(call if_changed,pad_cat)
 
 ifeq ($(CONFIG_ARCH_LPC32XX)$(CONFIG_SPL),yy)
@@ -1944,6 +1976,13 @@ endif
 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1)   \
 	$(build)=$(build-dir) $(@:.ko=.o)
 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost
+
+quiet_cmd_genenv = GENENV $@
+cmd_genenv = $(OBJCOPY) --dump-section .rodata.default_environment=$@ env/common.o; \
+	sed --in-place -e 's/\x00/\x0A/g' $@
+
+u-boot-initial-env: u-boot.bin
+	$(call if_changed,genenv)
 
 # Consistency checks
 # ---------------------------------------------------------------------------

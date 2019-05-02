@@ -839,6 +839,8 @@ config ARCH_SOCFPGA
 	imply DM_SPI
 	imply DM_SPI_FLASH
 	imply FAT_WRITE
+	imply SPL
+	imply SPL_DM
 	imply SPL_LIBDISK_SUPPORT
 	imply SPL_MMC_SUPPORT
 	imply SYS_MMCSD_RAW_MODE_U_BOOT_USE_PARTITION
@@ -857,6 +859,8 @@ config ARCH_SUNXI
 	select DM_ETH
 	select DM_GPIO
 	select DM_KEYBOARD
+	select DM_MMC if MMC
+	select DM_SCSI if SCSI
 	select DM_SERIAL
 	select DM_USB if DISTRO_DEFAULTS
 	select OF_BOARD_SETUP
@@ -1403,11 +1407,15 @@ config ARCH_STM32MP
 	select SYSRESET
 	select SYS_THUMB_BUILD
 	imply CMD_DM
+	imply CMD_POWEROFF
+	imply ENV_VARS_UBOOT_RUNTIME_CONFIG
 	help
 	  Support for STM32MP SoC family developed by STMicroelectronics,
 	  MPUs based on ARM cortex A core
-	  U-BOOT is running in DDR and SPL support is the unsecure First Stage
-	  BootLoader (FSBL)
+	  U-BOOT is running in DDR, loaded by the First Stage BootLoader (FSBL).
+	  FSBL can be TF-A: Trusted Firmware for Cortex A, for trusted boot
+	  chain.
+	  SPL is the unsecure FSBL for the basic boot chain.
 
 config ARCH_ROCKCHIP
 	bool "Support Rockchip SoCs"
@@ -1456,13 +1464,28 @@ endchoice
 
 config TI_SECURE_DEVICE
 	bool "HS Device Type Support"
-	depends on ARCH_KEYSTONE || ARCH_OMAP2PLUS
+	depends on ARCH_KEYSTONE || ARCH_OMAP2PLUS || ARCH_K3
 	help
 	  If a high secure (HS) device type is being used, this config
 	  must be set. This option impacts various aspects of the
 	  build system (to create signed boot images that can be
 	  authenticated) and the code. See the doc/README.ti-secure
 	  file for further details.
+
+if AM43XX || AM33XX || OMAP54XX || ARCH_KEYSTONE
+config ISW_ENTRY_ADDR
+	hex "Address in memory or XIP address of bootloader entry point"
+	default 0x402F4000 if AM43XX
+	default 0x402F0400 if AM33XX
+	default 0x40301350 if OMAP54XX
+	help
+	  After any reset, the boot ROM searches the boot media for a valid
+	  boot image. For non-XIP devices, the ROM then copies the image into
+	  internal memory. For all boot modes, after the ROM processes the
+	  boot image it eventually computes the entry point address depending
+	  on the device type (secure/non-secure), boot media (xip/non-xip) and
+	  image headers.
+endif
 
 source "arch/arm/mach-aspeed/Kconfig"
 
@@ -1563,6 +1586,7 @@ source "arch/arm/cpu/armv8/Kconfig"
 source "arch/arm/mach-imx/Kconfig"
 
 source "board/bosch/shc/Kconfig"
+source "board/bosch/guardian/Kconfig"
 source "board/CarMediaLab/flea3/Kconfig"
 source "board/Marvell/aspenite/Kconfig"
 source "board/Marvell/gplugd/Kconfig"

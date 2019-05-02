@@ -74,14 +74,23 @@ L:	uboot-snps-arc@synopsys.com
 F:	doc/device-tree-bindings/gpio/snps,creg-gpio.txt
 F:	drivers/gpio/hsdk-creg-gpio.c
 
+ARC SYNOPSYS DW MMC EXTENSIONS
+M:	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+S:	Maintained
+L:	uboot-snps-arc@synopsys.com
+F:	doc/device-tree-bindings/mmc/snps,dw-mmc.txt
+F:	drivers/mmc/snps_dw_mmc.c
+
 ARM
 M:	Albert Aribaud <albert.u.boot@aribaud.net>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-arm.git
 F:	arch/arm/
+F:	cmd/arm/
 
 ARM ALTERA SOCFPGA
 M:	Marek Vasut <marex@denx.de>
+M:	Simon Goldschmidt <simon.k.r.goldschmidt@gmail.com>
 S:	Maintainted
 T:	git git://git.denx.de/u-boot-socfpga.git
 F:	arch/arm/mach-socfpga/
@@ -93,7 +102,7 @@ L:	u-boot-amlogic@groups.io
 T:	git git://git.denx.de/u-boot-amlogic.git
 F:	arch/arm/mach-meson/
 F:	arch/arm/include/asm/arch-meson/
-F:	drivers/clk/clk_meson*
+F:	drivers/clk/meson/
 F:	drivers/serial/serial_meson.c
 F:	drivers/reset/reset-meson.c
 F:	drivers/i2c/meson_i2c.c
@@ -295,7 +304,9 @@ F:	drivers/misc/stm32mp_fuse.c
 F:	drivers/mmc/stm32_sdmmc2.c
 F:	drivers/phy/phy-stm32-usbphyc.c
 F:	drivers/pinctrl/pinctrl_stm32.c
+F:	drivers/power/pmic/stpmic1.c
 F:	drivers/power/regulator/stm32-vrefbuf.c
+F:	drivers/power/regulator/stpmic1.c
 F:	drivers/ram/stm32mp1/
 F:	drivers/misc/stm32_rcc.c
 F:	drivers/reset/stm32-reset.c
@@ -308,7 +319,7 @@ F:	arch/arm/cpu/armv7/stv0991/
 F:	arch/arm/include/asm/arch-stv0991/
 
 ARM SUNXI
-M:	Jagan Teki <jagan@openedev.com>
+M:	Jagan Teki <jagan@amarulasolutions.com>
 M:	Maxime Ripard <maxime.ripard@bootlin.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-sunxi.git
@@ -668,6 +679,7 @@ M:	Rick Chen <rick@andestech.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-riscv.git
 F:	arch/riscv/
+F:	cmd/riscv/
 F:	tools/prelink-riscv.c
 
 ROCKUSB
@@ -689,14 +701,14 @@ T:	git git://git.denx.de/u-boot-sh.git
 F:	arch/sh/
 
 SPI
-M:	Jagan Teki <jagan@openedev.com>
+M:	Jagan Teki <jagan@amarulasolutions.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-spi.git
 F:	drivers/spi/
 F:	include/spi*
 
 SPI-NOR
-M:	Jagan Teki <jagan@openedev.com>
+M:	Jagan Teki <jagan@amarulasolutions.com>
 M:	Vignesh R <vigneshr@ti.com>
 S:	Maintained
 F:	drivers/mtd/spi/
@@ -721,6 +733,8 @@ S:	Supported
 F:	arch/arm/mach-omap2/omap5/sec_entry_cpu1.S
 F:	arch/arm/mach-omap2/sec-common.c
 F:	arch/arm/mach-omap2/config_secure.mk
+F:	arch/arm/mach-k3/security.c
+F:	arch/arm/mach-k3/config_secure.mk
 F:	configs/am335x_hs_evm_defconfig
 F:	configs/am335x_hs_evm_uart_defconfig
 F:	configs/am43xx_hs_evm_defconfig
@@ -732,6 +746,8 @@ F:	configs/k2hk_hs_evm_defconfig
 F:	configs/k2e_hs_evm_defconfig
 F:	configs/k2g_hs_evm_defconfig
 F:	configs/k2l_hs_evm_defconfig
+F:	configs/am65x_hs_evm_r5_defconfig
+F:	configs/am65x_hs_evm_a53_defconfig
 
 TQ GROUP
 #M:	Martin Krause <martin.krause@tq-systems.de>
@@ -779,6 +795,7 @@ M:	Bin Meng <bmeng.cn@gmail.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-x86.git
 F:	arch/x86/
+F:	cmd/x86/
 
 XTENSA
 M:	Max Filippov <jcmvbkbc@gmail.com>
