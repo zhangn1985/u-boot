@@ -38,29 +38,14 @@ it work again on my Dreamplug.
  include/configs/dreamplug.h  | 2 ++
  2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-kirkwood/cpu.c b/arch/arm/mach-kirkwood/cpu.c
-index d54de53f31..8a065d73ae 100644
---- a/arch/arm/mach-kirkwood/cpu.c
-+++ b/arch/arm/mach-kirkwood/cpu.c
-@@ -291,7 +291,6 @@ int arch_misc_init(void)
- 	temp |= (1 << 22);
- 	writefr_extra_feature_reg(temp);
- 
--	icache_enable();
- 	/* Change reset vector to address 0x0 */
- 	temp = get_cr();
- 	set_cr(temp & ~CR_V);
-diff --git a/include/configs/dreamplug.h b/include/configs/dreamplug.h
-index f4d717213c..6348935c68 100644
---- a/include/configs/dreamplug.h
-+++ b/include/configs/dreamplug.h
-@@ -79,4 +79,6 @@
+Index: u-boot/include/configs/dreamplug.h
+===================================================================
+--- u-boot.orig/include/configs/dreamplug.h
++++ u-boot/include/configs/dreamplug.h
+@@ -73,4 +73,6 @@
  #define CONFIG_SYS_ATA_IDE0_OFFSET	MV_SATA_PORT0_OFFSET
  #endif /*CONFIG_MVSATA_IDE*/
  
 +#define CONFIG_SYS_DCACHE_OFF
 +
  #endif /* _CONFIG_DREAMPLUG_H */
--- 
-2.20.1
-
