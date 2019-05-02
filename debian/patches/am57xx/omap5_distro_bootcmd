@@ -5,8 +5,8 @@ Index: u-boot/include/configs/ti_omap5_common.h
 --- u-boot.orig/include/configs/ti_omap5_common.h
 +++ u-boot/include/configs/ti_omap5_common.h
 @@ -58,6 +58,21 @@
- #include <environment/ti/boot.h>
  #include <environment/ti/mmc.h>
+ #include <environment/ti/nand.h>
  
 +#define BOOT_TARGET_DEVICES(func) \
 +	func(MMC, mmc, 0) \
@@ -26,10 +26,10 @@ Index: u-boot/include/configs/ti_omap5_common.h
  #define CONFIG_EXTRA_ENV_SETTINGS \
  	DEFAULT_LINUX_BOOT_ENV \
  	DEFAULT_MMC_TI_ARGS \
-@@ -66,6 +81,7 @@
- 	DEFAULT_FDT_TI_ARGS \
+@@ -67,6 +82,7 @@
  	DFUARGS \
  	NETARGS \
+ 	NANDARGS \
 +	BOOTENV \
  
  /*
