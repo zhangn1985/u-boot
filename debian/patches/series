@@ -22,6 +22,4 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 # Patches to fix https://bugs.debian.org/923379
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
-mkimage/0001-fdt-Fix-mkimage-list-to-try-every-header-type.patch
-
 sunxi/teres-i.patch
