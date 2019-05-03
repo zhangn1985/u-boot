@@ -1,3 +1,36 @@
+u-boot (2019.07~rc1+dfsg-1) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * Refresh omap5_distro_bootcmd patch.
+  * Refresh dreamplug cache patch, partially applied upstream.
+  * Remove mkimage patch, applied upstream.
+  * u-boot-amlogic: Updated location of documentation for odroid-c2 and
+    nanopi-k2.
+
+  [ Ivo De Decker ]
+  * Don't run tests if mkimage isn't available
+  * Add separate rules targets to build targets and tools
+  * Use CROSS_COMPILE shell variable instead of makefile variable
+  * Define TARGETARCH variable
+  * Add separate targets for build-arch and build-indep
+  * Add u-boot-qemu package for qemu/kvm (Closes: #907573).
+  * Add preliminary readme for u-boot-qemu
+  * Add qemu_riscv64 target
+  * Don't strip qemu images
+
+  [ Vagrant Cascadian ]
+  * Build-Depends-Indep: Add cross-compilers for amd64, armhf and i386
+    when building on arm64.
+  * Build-Depends: Switch libpython-dev:native, python:any, swig to
+    [linux-any], remove from Build-Depends-Indep.
+  * debian/rules: Allow building arch:all on any architecture, but skip
+    targets missing a cross-compiler.
+  * [mips] Drop qemu_mips from u-boot:mips, depending on u-boot-qemu.
+  * Add lintian overrides for u-boot-qemu.
+  * u-boot-qemu: Add qemu-riscv64_smode target.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 03 May 2019 16:58:13 -0700
+
 u-boot (2019.04+dfsg-2) experimental; urgency=medium
 
   [ Vagrant Cascadian ]
