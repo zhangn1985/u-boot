@@ -23,3 +23,5 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
 sunxi/teres-i.patch
+
+booti/riscv64.patch
