@@ -1,0 +1,18 @@
+Index: u-boot/configs/qemu-riscv64_defconfig
+===================================================================
+--- u-boot.orig/configs/qemu-riscv64_defconfig
++++ u-boot/configs/qemu-riscv64_defconfig
+@@ -8,3 +8,4 @@ CONFIG_DISPLAY_CPUINFO=y
+ CONFIG_DISPLAY_BOARDINFO=y
+ # CONFIG_CMD_MII is not set
+ CONFIG_OF_PRIOR_STAGE=y
++CONFIG_SUPPORT_RAW_INITRD=y
+Index: u-boot/configs/qemu-riscv64_smode_defconfig
+===================================================================
+--- u-boot.orig/configs/qemu-riscv64_smode_defconfig
++++ u-boot/configs/qemu-riscv64_smode_defconfig
+@@ -9,3 +9,4 @@ CONFIG_DISPLAY_CPUINFO=y
+ CONFIG_DISPLAY_BOARDINFO=y
+ # CONFIG_CMD_MII is not set
+ CONFIG_OF_PRIOR_STAGE=y
++CONFIG_SUPPORT_RAW_INITRD=y
