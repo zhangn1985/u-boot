@@ -1,0 +1,15 @@
+
+# There are no file conflicts across architectures for u-boot, as each
+# target is only installed on a single architecture. In theory, some
+# targets could be built on multiple architectures, but could instead install
+# the package for the architecture needed.
+u-boot-sifive binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot/*/uboot.elf
+
+# These bootloaders need to be statically linked.
+u-boot-sifive binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
+
+# These are bootloader binaries, and have no external dependency information
+u-boot-sifive binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
+
+u-boot-sifive: description-synopsis-starts-with-article
+
