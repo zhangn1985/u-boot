@@ -31,7 +31,7 @@ LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 	dh $@
 
 configs/novena-rawsd_defconfig:
-	sed -e 's,CONFIG_SPL_FAT_SUPPORT=y,# CONFIG_SPL_FAT_SUPPORT is not set,' \
+	sed -e 's,CONFIG_SPL_FS_FAT=y,# CONFIG_SPL_FS_FAT is not set,' \
 		configs/novena_defconfig > configs/novena-rawsd_defconfig
 
 configs/am335x_boneblack_defconfig:
