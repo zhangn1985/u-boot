@@ -22,14 +22,14 @@ Build-Depends:
  lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
 Build-Depends-Indep:
 # For u-boot-qemu targets
- gcc-i686-linux-gnu [amd64 arm64],
- gcc-arm-linux-gnueabihf [amd64 arm64 i386],
- gcc-aarch64-linux-gnu [amd64 i386],
- gcc-mips-linux-gnu [amd64 i386],
- gcc-mips64el-linux-gnuabi64 [amd64 i386],
- gcc-mipsel-linux-gnu [amd64 i386],
- gcc-riscv64-linux-gnu [amd64 i386],
- gcc-x86-64-linux-gnu [arm64 i386],
+ gcc-i686-linux-gnu [!i386],
+ gcc-arm-linux-gnueabihf [!armhf],
+ gcc-aarch64-linux-gnu [!arm64],
+ gcc-mips-linux-gnu [!mips],
+ gcc-mips64el-linux-gnuabi64 [!mips64el],
+ gcc-mipsel-linux-gnu [!mipsel],
+ gcc-riscv64-linux-gnu [!riscv64],
+ gcc-x86-64-linux-gnu [!amd64],
 Standards-Version: 4.3.0
 Homepage: http://www.denx.de/wiki/U-Boot/
 Vcs-Browser: https://salsa.debian.org/debian/u-boot
