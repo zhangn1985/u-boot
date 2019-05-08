@@ -1,3 +1,12 @@
+u-boot (2019.07~rc1+dfsg-3) experimental; urgency=medium
+
+  * debian/rules: Fail when cross-compiler for an arch:all build is not
+    available.
+  * debian/control: Use architecture negation to not require cross
+    compiler on native architecture in Build-Depends-Indep.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Wed, 08 May 2019 01:34:45 -0700
+
 u-boot (2019.07~rc1+dfsg-2) experimental; urgency=medium
 
   * Update novena-rawsd config: SPL_FAT_SUPPORT -> SPL_FS_FAT.
