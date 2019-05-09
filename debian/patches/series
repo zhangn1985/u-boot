@@ -26,3 +26,4 @@ sunxi/teres-i.patch
 
 booti/riscv64.patch
 qemu-riscv64/qemu-riscv64-raw-initrd.patch
+qemu-riscv64/riscv-qemu-riscv.h-define-CONFIG_PREBOOT-enables-ext.patch
