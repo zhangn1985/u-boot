@@ -1,3 +1,20 @@
+u-boot (2019.01+dfsg-6) unstable; urgency=medium
+
+  [ Domenico Andreoli ]
+  * Enable support for NanoPi NEO 2 in u-boot-sunxi (Closes: #928612).
+
+  [ Jonas Smedegaard ]
+  * Sync sunxi teres-i patch with mainline u-boot, enabling USB
+    support (Closes: #928815).
+
+  [ Vagrant Cascadian ]
+  * Apply patch from upstream fixing buffer overflow with ext4 filesystems
+    (CVE-2019-11059, Closes: #928800).
+  * Apply patch from upstream fixing randomly generated
+    UUIDs. (CVE-2019-11690, Closes: #928557).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sat, 11 May 2019 18:20:19 -0700
+
 u-boot (2019.01+dfsg-5) unstable; urgency=medium
 
   [ Jonas Smedegaard ]
