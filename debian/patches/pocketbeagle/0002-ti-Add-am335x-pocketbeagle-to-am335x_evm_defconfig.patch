@@ -1,0 +1,29 @@
+From 88471ca344570cf3b31026174044bccb45689119 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Mon, 29 Apr 2019 16:12:30 -0700
+Subject: [PATCH 2/2] ti: Add am335x-pocketbeagle to am335x_evm_defconfig.
+
+Add am335x-pocketbeagle to CONFIG_OF_LIST in am335x_evm_defconfig.
+
+Signed-off-by: Vagrant Cascadian <vagrant@debian.org>
+Reviewed-by: Tom Rini <trini@konsulko.com>
+---
+ configs/am335x_evm_defconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configs/am335x_evm_defconfig b/configs/am335x_evm_defconfig
+index 105ff01d14..967ee82bca 100644
+--- a/configs/am335x_evm_defconfig
++++ b/configs/am335x_evm_defconfig
+@@ -31,7 +31,7 @@ CONFIG_MTDPARTS_DEFAULT="mtdparts=nand.0:128k(NAND.SPL),128k(NAND.SPL.backup1),1
+ # CONFIG_SPL_EFI_PARTITION is not set
+ CONFIG_OF_CONTROL=y
+ CONFIG_DEFAULT_DEVICE_TREE="am335x-evm"
+-CONFIG_OF_LIST="am335x-evm am335x-bone am335x-boneblack am335x-evmsk am335x-bonegreen am335x-icev2"
++CONFIG_OF_LIST="am335x-evm am335x-bone am335x-boneblack am335x-evmsk am335x-bonegreen am335x-icev2 am335x-pocketbeagle"
+ CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG=y
+ CONFIG_SPL_ENV_IS_NOWHERE=y
+ CONFIG_BOOTCOUNT_LIMIT=y
+-- 
+2.20.1
+
