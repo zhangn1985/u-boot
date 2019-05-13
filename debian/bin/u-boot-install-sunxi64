@@ -6,6 +6,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 	case $(cat "${dtmodel}") in
 		Pinebook) TARGET="/usr/lib/u-boot/pinebook" ;;
 		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
+		"Pine64 LTS") TARGET="/usr/lib/u-boot/pine64-lts" ;;
 		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
 		"Olimex A64 Teres-I") TARGET="/usr/lib/u-boot/teres_i/" ;;
 		"OrangePi Zero Plus2") TARGET="/usr/lib/u-boot/orangepi_zero_plus2/" ;;
