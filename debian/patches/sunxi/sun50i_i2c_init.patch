@@ -1,0 +1,71 @@
+Description: add i2c initialization for sun50i
+ To use TWI0/1/2 the user can select CONFIG_I2C#_ENABLE.
+ However even the controller is enabled, the mux for the pins
+ are not set.
+ .
+ This patch follows the existing mux method. Since the pads are
+ different, separate check is added for each i2c.
+ .
+ Tested with A64-SOM204 board.
+Author: Stefan Mavrodiev <stefan@olimex.com>
+Tested-by: Jonas Smedegaard <dr@jones.dk>
+Origin: https://git.denx.de/?p=u-boot.git;a=commit;h=da1ae59
+Last-Update: 2019-04-14
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/arch/arm/include/asm/arch-sunxi/gpio.h
++++ b/arch/arm/include/asm/arch-sunxi/gpio.h
+@@ -176,6 +176,7 @@
+ 
+ #define SUN5I_GPE_SDC2		3
+ #define SUN8I_GPE_TWI2		3
++#define SUN50I_GPE_TWI2		3
+ 
+ #define SUNXI_GPF_SDC0		2
+ #define SUNXI_GPF_UART0		4
+@@ -193,8 +194,10 @@
+ #define SUN4I_GPH_SDC1		5
+ #define SUN6I_GPH_TWI0		2
+ #define SUN8I_GPH_TWI0		2
++#define SUN50I_GPH_TWI0		2
+ #define SUN6I_GPH_TWI1		2
+ #define SUN8I_GPH_TWI1		2
++#define SUN50I_GPH_TWI1		2
+ #define SUN6I_GPH_TWI2		2
+ #define SUN6I_GPH_UART0		2
+ #define SUN9I_GPH_UART0		2
+--- a/board/sunxi/board.c
++++ b/board/sunxi/board.c
+@@ -98,6 +98,10 @@
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(2), SUN8I_GPH_TWI0);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(3), SUN8I_GPH_TWI0);
+ 	clock_twi_onoff(0, 1);
++#elif defined(CONFIG_MACH_SUN50I)
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(0), SUN50I_GPH_TWI0);
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(1), SUN50I_GPH_TWI0);
++	clock_twi_onoff(0, 1);
+ #endif
+ #endif
+ 
+@@ -120,6 +124,10 @@
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(4), SUN8I_GPH_TWI1);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(5), SUN8I_GPH_TWI1);
+ 	clock_twi_onoff(1, 1);
++#elif defined(CONFIG_MACH_SUN50I)
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(2), SUN50I_GPH_TWI1);
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(3), SUN50I_GPH_TWI1);
++	clock_twi_onoff(1, 1);
+ #endif
+ #endif
+ 
+@@ -142,6 +150,10 @@
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPE(12), SUN8I_GPE_TWI2);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPE(13), SUN8I_GPE_TWI2);
+ 	clock_twi_onoff(2, 1);
++#elif defined(CONFIG_MACH_SUN50I)
++	sunxi_gpio_set_cfgpin(SUNXI_GPE(14), SUN50I_GPE_TWI2);
++	sunxi_gpio_set_cfgpin(SUNXI_GPE(15), SUN50I_GPE_TWI2);
++	clock_twi_onoff(2, 1);
+ #endif
+ #endif
+ 

@@ -17,6 +17,8 @@ am57xx/omap5_distro_bootcmd
 
 test-imagetools-test-fixes
 
+upstream/lib-uuid-Fix-unseeded-PRNG-on-RANDOM_UUID-y.patch
+
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
 # Patches to fix https://bugs.debian.org/923379
