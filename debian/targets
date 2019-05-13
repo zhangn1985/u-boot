@@ -210,6 +210,9 @@ arm64	sunxi		orangepi_zero_plus2	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin a
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	sunxi		pine64_plus	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-pine64-plus.dtb arch/arm/dts/sun50i-a64-pine64.dtb
 
+# Sunil Mohan Adapa <sunil@medhas.org>
+arm64	sunxi		pine64-lts	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-pine64-lts.dtb arch/arm/dts/sun50i-a64-pine64.dtb
+
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	sunxi		pinebook	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-pinebook.dtb
 
