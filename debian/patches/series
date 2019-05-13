@@ -31,3 +31,6 @@ dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
 sunxi/sun50i_i2c_init.patch
 sunxi/teres-i.patch
+
+pocketbeagle/0001-ti-Add-device-tree-for-am335x-pocketbeagle.patch
+pocketbeagle/0002-ti-Add-am335x-pocketbeagle-to-am335x_evm_defconfig.patch
