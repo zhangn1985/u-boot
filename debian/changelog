@@ -1,3 +1,11 @@
+u-boot (2019.07~rc1+dfsg-4) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * u-boot-qemu: qemu-riscv64: Patch to support loading FDT in extlinux.
+  * Add patches to enable PocketBeagle support to am335x_evm target.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sun, 12 May 2019 20:38:27 -0700
+
 u-boot (2019.07~rc1+dfsg-3) experimental; urgency=medium
 
   * debian/rules: Fail when cross-compiler for an arch:all build is not
