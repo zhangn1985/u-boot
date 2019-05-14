@@ -1,3 +1,15 @@
+u-boot (2019.01+dfsg-7) unstable; urgency=medium
+
+  [ Sunil Mohan Adapa ]
+  * Enable pine64-lts target in u-boot-sunxi (Closes: #928947).
+
+  [ Vagrant Cascadian ]
+  * u-boot-omap: Enable am335x_evm target.
+  * Add patches to enable PocketBeagle in am335x_evm target.
+  * u-boot-omap: Fix instructions for installing beaglebone black.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 13 May 2019 19:07:44 -0700
+
 u-boot (2019.01+dfsg-6) unstable; urgency=medium
 
   [ Domenico Andreoli ]
