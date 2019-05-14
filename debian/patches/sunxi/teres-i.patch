@@ -14,7 +14,7 @@ Last-Update: 2019-05-11
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -415,7 +415,8 @@
+@@ -492,7 +492,8 @@
  	sun50i-a64-pine64-plus.dtb \
  	sun50i-a64-pine64.dtb \
  	sun50i-a64-pinebook.dtb \
@@ -299,7 +299,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +};
 --- /dev/null
 +++ b/configs/teres_i_defconfig
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,23 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SUNXI=y
 +CONFIG_SPL=y
@@ -309,6 +309,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +CONFIG_MMC_SUNXI_SLOT_EXTRA=2
 +CONFIG_USB1_VBUS_PIN="PL7"
 +CONFIG_I2C0_ENABLE=y
++CONFIG_SPL_TEXT_BASE=0x10060
 +# CONFIG_CMD_FLASH is not set
 +# CONFIG_SPL_DOS_PARTITION is not set
 +# CONFIG_SPL_EFI_PARTITION is not set
