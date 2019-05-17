@@ -17,18 +17,9 @@ am57xx/omap5_distro_bootcmd
 
 test-imagetools-test-fixes
 
-upstream/lib-uuid-Fix-unseeded-PRNG-on-RANDOM_UUID-y.patch
-
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
 # Patches to fix https://bugs.debian.org/923379
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
-sunxi/teres-i.patch
-
-booti/riscv64.patch
 qemu-riscv64/qemu-riscv64-raw-initrd.patch
-qemu-riscv64/riscv-qemu-riscv.h-define-CONFIG_PREBOOT-enables-ext.patch
-
-pocketbeagle/0001-ti-Add-device-tree-for-am335x-pocketbeagle.patch
-pocketbeagle/0002-ti-Add-am335x-pocketbeagle-to-am335x_evm_defconfig.patch
