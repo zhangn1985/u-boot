@@ -1,3 +1,28 @@
+u-boot (2019.07~rc2+dfsg-1) UNRELEASED; urgency=medium
+
+  * New upstream release candidate:
+    (CVE-2019-11059, Closes: #928800)
+    (CVE-2019-11690, Closes: #928557)
+
+  [ Sunil Mohan Adapa ]
+  * Enable pine64-lts target in u-boot-sunxi (Closes: #928947).
+
+  [ Domenico Andreoli ]
+  * Enable support for NanoPi NEO 2 in u-boot-sunxi (Closes: #928612).
+
+  [ Vagrant Cascadian ]
+  * u-boot-omap: Fix installation instructions for various beagleboard.org
+    boards.
+  * Remove patches applied upstream:
+    - upstream/lib-uuid-Fix-unseeded-PRNG-on-RANDOM_UUID-y
+    - sunxi/teres-i
+    - booti/riscv64
+    - qemu-riscv64/riscv-qemu-riscv.h-define-CONFIG_PREBOOT-enables-ext
+    - pocketbeagle/0001-ti-Add-device-tree-for-am335x-pocketbeagle
+    - pocketbeagle/0002-ti-Add-am335x-pocketbeagle-to-am335x_evm_defconfig
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Thu, 16 May 2019 21:10:53 -0700
+
 u-boot (2019.07~rc1+dfsg-4) experimental; urgency=medium
 
   [ Vagrant Cascadian ]
