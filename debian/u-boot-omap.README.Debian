@@ -2,19 +2,17 @@
 
 At this point, you must install U-Boot to flash yourself.
 
-The BeagleBone Black (am335x_evm) can be flashed to microSD or eMMC
-directly, but requires a partition start sector of 8192 (default is
-usually 2048) if you intend to use the first partition for anything:
+The BeagleBone Black (am335x_boneblack) can be flashed to microSD or eMMC
+directly:
 
  dd conv=fsync,notrunc seek=256 if=/usr/lib/u-boot/am335x_evm/MLO of=/dev/mmcblkX
  dd conv=fsync,notrunc seek=768 if=/usr/lib/u-boot/am335x_evm/u-boot.img of=/dev/mmcblkX
 
-Alternately, you can install the MLO as above, and create a small FAT
-partition, and copy the u-boot.img to that partition:
-
- dd conv=fsync,notrunc seek=256 if=/usr/lib/u-boot/am335x_evm/MLO of=/dev/mmcblkX
- mount /dev/mmcblkXp1 /mnt
- cp -vb /usr/lib/u-boot/am335x_evm/u-boot.img /mnt/
+The am335x_evm supports multiple targets (BeagleBone, BeagleBone
+Black, BeagleBone Green, PocketBeagle) and can be installed to the
+same offsets, but the first partition should start at 4MB (sector
+8192) rather than the typical 1MB (sector 2048), as it is large enough
+to overlap with the start of the partition.
 
 On OpenPandora:
 
@@ -24,3 +22,5 @@ On OpenPandora:
 == U-Boot environment tools ==
 
 fw_printenv / fw_setenv read /etc/fw_env.config for configuration.
+
+ -- Vagrant Cascadian <vagrant@debian.org>, Thu, 16 May 2019 20:57:30 -0700
