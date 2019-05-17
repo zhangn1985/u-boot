@@ -68,7 +68,6 @@ struct fdt_region;
 #   define IMAGE_ENABLE_SHA1	1
 #  endif
 # else
-#  define CONFIG_CRC32		/* FIT images need CRC32 support */
 #  define IMAGE_ENABLE_CRC32	1
 #  define IMAGE_ENABLE_MD5	1
 #  define IMAGE_ENABLE_SHA1	1
@@ -1047,6 +1046,10 @@ int fit_check_format(const void *fit);
 
 int fit_conf_find_compat(const void *fit, const void *fdt);
 int fit_conf_get_node(const void *fit, const char *conf_uname);
+int fit_conf_get_prop_node_count(const void *fit, int noffset,
+		const char *prop_name);
+int fit_conf_get_prop_node_index(const void *fit, int noffset,
+		const char *prop_name, int index);
 
 /**
  * fit_conf_get_prop_node() - Get node refered to by a configuration
@@ -1072,18 +1075,18 @@ int calculate_hash(const void *data, int data_len, const char *algo,
  * At present we only support signing on the host, and verification on the
  * device
  */
-#if defined(CONFIG_FIT_SIGNATURE)
-# ifdef USE_HOSTCC
+#if defined(USE_HOSTCC)
+# if defined(CONFIG_FIT_SIGNATURE)
 #  define IMAGE_ENABLE_SIGN	1
 #  define IMAGE_ENABLE_VERIFY	1
-# include  <openssl/evp.h>
-#else
+#  include <openssl/evp.h>
+# else
 #  define IMAGE_ENABLE_SIGN	0
-#  define IMAGE_ENABLE_VERIFY	1
+#  define IMAGE_ENABLE_VERIFY	0
 # endif
 #else
 # define IMAGE_ENABLE_SIGN	0
-# define IMAGE_ENABLE_VERIFY	0
+# define IMAGE_ENABLE_VERIFY	CONFIG_IS_ENABLED(FIT_SIGNATURE)
 #endif
 
 #ifdef USE_HOSTCC

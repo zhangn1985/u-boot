@@ -22,10 +22,12 @@ alias bmeng          Bin Meng <bmeng.cn@gmail.com>
 alias danielschwierzeck Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 alias dinh           Dinh Nguyen <dinguyen@kernel.org>
 alias hs             Heiko Schocher <hs@denx.de>
+alias freenix        Peng Fan <peng.fan@nxp.com>
 alias iwamatsu       Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
 alias jaehoon        Jaehoon Chung <jh80.chung@samsung.com>
 alias jagan          Jagan Teki <jagan@amarulasolutions.com>
 alias jhersh         Joe Hershberger <joe.hershberger@ni.com>
+alias kevery         Kever Yang <kever.yang@rock-chips.com>
 alias lukma          Lukasz Majewski <lukma@denx.de>
 alias macpaul        Macpaul Lin <macpaul@andestech.com>
 alias marex          Marek Vasut <marex@denx.de>
@@ -70,7 +72,7 @@ alias tegra2         tegra
 alias ti             uboot, trini
 alias uniphier       uboot, masahiro
 alias zynq           uboot, monstr
-alias rockchip       uboot, sjg, Kever Yang <kever.yang@rock-chips.com>, ptomsich
+alias rockchip       uboot, sjg, kevery, ptomsich
 
 alias m68k           uboot, alisonwang, angelo_ts
 alias coldfire       m68k
@@ -110,7 +112,7 @@ alias kerneldoc      uboot, marex
 alias fdt            uboot, sjg
 alias i2c            uboot, hs
 alias kconfig        uboot, masahiro
-alias mmc            uboot, jaehoon
+alias mmc            uboot, freenix
 alias nand           uboot
 alias net            uboot, jhersh
 alias phy            uboot, jhersh

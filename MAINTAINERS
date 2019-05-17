@@ -239,6 +239,7 @@ F:	arch/arm/mach-rmobile/
 ARM ROCKCHIP
 M:	Simon Glass <sjg@chromium.org>
 M:	Philipp Tomsich <philipp.tomsich@theobroma-systems.com>
+M:	Kever Yang <kever.yang@rock-chips.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-rockchip.git
 F:	arch/arm/include/asm/arch-rockchip/
@@ -475,6 +476,7 @@ F:	doc/README.uefi
 F:	doc/README.iscsi
 F:	Documentation/efi.rst
 F:	include/capitalization.h
+F:	include/charset.h
 F:	include/cp1250.h
 F:	include/cp437.h
 F:	include/efi*
@@ -577,6 +579,7 @@ F:	configs/mscc*
 F:	drivers/gpio/mscc_sgpio.c
 F:	drivers/spi/mscc_bb_spi.c
 F:	include/configs/vcoreiii.h
+F:	include/dt-bindings/mscc/
 F:	drivers/pinctrl/mscc/
 F:	drivers/net/mscc_eswitch/
 
@@ -586,7 +589,7 @@ S:	Maintained
 F:	arch/mips/mach-jz47xx/
 
 MMC
-M:	Jaehoon Chung <jh80.chung@samsung.com>
+M:	Peng Fan <peng.fan@nxp.com>
 S:	Maintained
 T:	git git://git.denx.de/u-boot-mmc.git
 F:	drivers/mmc/

@@ -46,8 +46,6 @@
 #define CONFIG_SYS_FSL_ESDHC_ADDR	0
 #define CONFIG_SYS_FSL_USDHC_NUM	3
 
-#define CONFIG_SUPPORT_EMMC_BOOT	/* eMMC specific */
-
 /*
  * SATA Configs
  */
@@ -138,12 +136,12 @@
 
 #define MEM_LAYOUT_ENV_SETTINGS \
 	"bootm_size=0x20000000\0" \
-	"fdt_addr_r=0x12000000\0" \
+	"fdt_addr_r=0x12100000\0" \
 	"fdt_high=0xffffffff\0" \
 	"initrd_high=0xffffffff\0" \
 	"kernel_addr_r=0x11000000\0" \
 	"pxefile_addr_r=0x17100000\0" \
-	"ramdisk_addr_r=0x12100000\0" \
+	"ramdisk_addr_r=0x12200000\0" \
 	"scriptaddr=0x17000000\0"
 
 #define NFS_BOOTCMD \

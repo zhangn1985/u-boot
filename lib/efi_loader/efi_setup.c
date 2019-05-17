@@ -6,11 +6,21 @@
  */
 
 #include <common.h>
+#include <bootm.h>
 #include <efi_loader.h>
 
 #define OBJ_LIST_NOT_INITIALIZED 1
 
 static efi_status_t efi_obj_list_initialized = OBJ_LIST_NOT_INITIALIZED;
+
+/*
+ * Allow unaligned memory access.
+ *
+ * This routine is overridden by architectures providing this feature.
+ */
+void __weak allow_unaligned(void)
+{
+}
 
 /**
  * efi_init_platform_lang() - define supported languages
@@ -79,14 +89,31 @@ out:
  */
 efi_status_t efi_init_obj_list(void)
 {
+	u64 os_indications_supported = 0; /* None */
 	efi_status_t ret = EFI_SUCCESS;
 
 	/* Initialize once only */
 	if (efi_obj_list_initialized != OBJ_LIST_NOT_INITIALIZED)
 		return efi_obj_list_initialized;
 
+	/* Allow unaligned memory access */
+	allow_unaligned();
+
+	/* On ARM switch from EL3 or secure mode to EL2 or non-secure mode */
+	switch_to_non_secure_mode();
+
 	/* Define supported languages */
 	ret = efi_init_platform_lang();
+	if (ret != EFI_SUCCESS)
+		goto out;
+
+	/* Indicate supported features */
+	ret = EFI_CALL(efi_set_variable(L"OsIndicationsSupported",
+					&efi_global_variable_guid,
+					EFI_VARIABLE_BOOTSERVICE_ACCESS |
+					EFI_VARIABLE_RUNTIME_ACCESS,
+					sizeof(os_indications_supported),
+					&os_indications_supported));
 	if (ret != EFI_SUCCESS)
 		goto out;
 

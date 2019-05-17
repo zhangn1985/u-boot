@@ -6,7 +6,6 @@
  */
 
 #include <common.h>
-#include <bootm.h>
 #include <charset.h>
 #include <command.h>
 #include <dm.h>
@@ -17,24 +16,13 @@
 #include <linux/libfdt_env.h>
 #include <mapmem.h>
 #include <memalign.h>
-#include <asm/global_data.h>
 #include <asm-generic/sections.h>
-#include <asm-generic/unaligned.h>
 #include <linux/linkage.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
 static struct efi_device_path *bootefi_image_path;
 static struct efi_device_path *bootefi_device_path;
-
-/*
- * Allow unaligned memory access.
- *
- * This routine is overridden by architectures providing this feature.
- */
-void __weak allow_unaligned(void)
-{
-}
 
 /*
  * Set the load options of an image from an environment variable.
@@ -208,11 +196,16 @@ static void *get_config_table(const efi_guid_t *guid)
 
 /**
  * efi_install_fdt() - install fdt passed by a command argument
+ *
+ * If fdt_opt is available, the device tree located at that memory address will
+ * will be installed as configuration table, otherwise the device tree located
+ * at the address indicated by environment variable fdtcontroladdr will be used.
+ *
+ * On architectures (x86) using ACPI tables device trees shall not be installed
+ * as configuration table.
+ *
  * @fdt_opt:	pointer to argument
  * Return:	status code
- *
- * If specified, fdt will be installed as configuration table,
- * otherwise no fdt will be passed.
  */
 static efi_status_t efi_install_fdt(const char *fdt_opt)
 {
@@ -297,18 +290,21 @@ static efi_status_t efi_install_fdt(const char *fdt_opt)
 static efi_status_t do_bootefi_exec(efi_handle_t handle)
 {
 	efi_status_t ret;
+	efi_uintn_t exit_data_size = 0;
+	u16 *exit_data = NULL;
 
 	/* Transfer environment variable as load options */
 	ret = set_load_options(handle, "bootargs");
 	if (ret != EFI_SUCCESS)
 		return ret;
 
-	/* we don't support much: */
-	env_set("efi_8be4df61-93ca-11d2-aa0d-00e098032b8c_OsIndicationsSupported",
-		"{ro,boot}(blob)0000000000000000");
-
 	/* Call our payload! */
-	ret = EFI_CALL(efi_start_image(handle, NULL, NULL));
+	ret = EFI_CALL(efi_start_image(handle, &exit_data_size, &exit_data));
+	printf("## Application terminated, r = %lu\n", ret & ~EFI_ERROR_MASK);
+	if (ret && exit_data) {
+		printf("## %ls\n", exit_data);
+		efi_free_pool(exit_data);
+	}
 
 	efi_restore_gd();
 
@@ -323,36 +319,14 @@ static efi_status_t do_bootefi_exec(efi_handle_t handle)
 }
 
 /**
- * do_efibootmgr() - execute EFI Boot Manager
+ * do_efibootmgr() - execute EFI boot manager
  *
- * @fdt_opt:	string of fdt start address
  * Return:	status code
- *
- * Execute EFI Boot Manager
  */
-static int do_efibootmgr(const char *fdt_opt)
+static int do_efibootmgr(void)
 {
 	efi_handle_t handle;
 	efi_status_t ret;
-
-	/* Allow unaligned memory access */
-	allow_unaligned();
-
-	switch_to_non_secure_mode();
-
-	/* Initialize EFI drivers */
-	ret = efi_init_obj_list();
-	if (ret != EFI_SUCCESS) {
-		printf("Error: Cannot initialize UEFI sub-system, r = %lu\n",
-		       ret & ~EFI_ERROR_MASK);
-		return CMD_RET_FAILURE;
-	}
-
-	ret = efi_install_fdt(fdt_opt);
-	if (ret == EFI_INVALID_PARAMETER)
-		return CMD_RET_USAGE;
-	else if (ret != EFI_SUCCESS)
-		return CMD_RET_FAILURE;
 
 	ret = efi_bootmgr_load(&handle);
 	if (ret != EFI_SUCCESS) {
@@ -361,7 +335,6 @@ static int do_efibootmgr(const char *fdt_opt)
 	}
 
 	ret = do_bootefi_exec(handle);
-	printf("## Application terminated, r = %lu\n", ret & ~EFI_ERROR_MASK);
 
 	if (ret != EFI_SUCCESS)
 		return CMD_RET_FAILURE;
@@ -370,16 +343,15 @@ static int do_efibootmgr(const char *fdt_opt)
 }
 
 /*
- * do_bootefi_image() - execute EFI binary from command line
+ * do_bootefi_image() - execute EFI binary
+ *
+ * Set up memory image for the binary to be loaded, prepare device path, and
+ * then call do_bootefi_exec() to execute it.
  *
  * @image_opt:	string of image start address
- * @fdt_opt:	string of fdt start address
  * Return:	status code
- *
- * Set up memory image for the binary to be loaded, prepare
- * device path and then call do_bootefi_exec() to execute it.
  */
-static int do_bootefi_image(const char *image_opt, const char *fdt_opt)
+static int do_bootefi_image(const char *image_opt)
 {
 	void *image_buf;
 	struct efi_device_path *device_path, *image_path;
@@ -388,25 +360,6 @@ static int do_bootefi_image(const char *image_opt, const char *fdt_opt)
 	const char *size_str;
 	efi_handle_t mem_handle = NULL, handle;
 	efi_status_t ret;
-
-	/* Allow unaligned memory access */
-	allow_unaligned();
-
-	switch_to_non_secure_mode();
-
-	/* Initialize EFI drivers */
-	ret = efi_init_obj_list();
-	if (ret != EFI_SUCCESS) {
-		printf("Error: Cannot initialize UEFI sub-system, r = %lu\n",
-		       ret & ~EFI_ERROR_MASK);
-		return CMD_RET_FAILURE;
-	}
-
-	ret = efi_install_fdt(fdt_opt);
-	if (ret == EFI_INVALID_PARAMETER)
-		return CMD_RET_USAGE;
-	else if (ret != EFI_SUCCESS)
-		return CMD_RET_FAILURE;
 
 #ifdef CONFIG_CMD_BOOTEFI_HELLO
 	if (!strcmp(image_opt, "hello")) {
@@ -476,7 +429,6 @@ static int do_bootefi_image(const char *image_opt, const char *fdt_opt)
 		goto out;
 
 	ret = do_bootefi_exec(handle);
-	printf("## Application terminated, r = %lu\n", ret & ~EFI_ERROR_MASK);
 
 out:
 	if (mem_handle)
@@ -568,37 +520,15 @@ static void bootefi_run_finish(struct efi_loaded_image_obj *image_obj,
 }
 
 /**
- * do_efi_selftest() - execute EFI Selftest
+ * do_efi_selftest() - execute EFI selftest
  *
- * @fdt_opt:	string of fdt start address
  * Return:	status code
- *
- * Execute EFI Selftest
  */
-static int do_efi_selftest(const char *fdt_opt)
+static int do_efi_selftest(void)
 {
 	struct efi_loaded_image_obj *image_obj;
 	struct efi_loaded_image *loaded_image_info;
 	efi_status_t ret;
-
-	/* Allow unaligned memory access */
-	allow_unaligned();
-
-	switch_to_non_secure_mode();
-
-	/* Initialize EFI drivers */
-	ret = efi_init_obj_list();
-	if (ret != EFI_SUCCESS) {
-		printf("Error: Cannot initialize UEFI sub-system, r = %lu\n",
-		       ret & ~EFI_ERROR_MASK);
-		return CMD_RET_FAILURE;
-	}
-
-	ret = efi_install_fdt(fdt_opt);
-	if (ret == EFI_INVALID_PARAMETER)
-		return CMD_RET_USAGE;
-	else if (ret != EFI_SUCCESS)
-		return CMD_RET_FAILURE;
 
 	ret = bootefi_test_prepare(&image_obj, &loaded_image_info,
 				   "\\selftest", "efi_selftest");
@@ -613,20 +543,44 @@ static int do_efi_selftest(const char *fdt_opt)
 }
 #endif /* CONFIG_CMD_BOOTEFI_SELFTEST */
 
-/* Interpreter command to boot an arbitrary EFI image from memory */
+/**
+ * do_bootefi() - execute `bootefi` command
+ *
+ * @cmdtp:	table entry describing command
+ * @flag:	bitmap indicating how the command was invoked
+ * @argc:	number of arguments
+ * @argv:	command line arguments
+ * Return:	status code
+ */
 static int do_bootefi(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
+	efi_status_t ret;
+
 	if (argc < 2)
 		return CMD_RET_USAGE;
 
+	/* Initialize EFI drivers */
+	ret = efi_init_obj_list();
+	if (ret != EFI_SUCCESS) {
+		printf("Error: Cannot initialize UEFI sub-system, r = %lu\n",
+		       ret & ~EFI_ERROR_MASK);
+		return CMD_RET_FAILURE;
+	}
+
+	ret = efi_install_fdt(argc > 2 ? argv[2] : NULL);
+	if (ret == EFI_INVALID_PARAMETER)
+		return CMD_RET_USAGE;
+	else if (ret != EFI_SUCCESS)
+		return CMD_RET_FAILURE;
+
 	if (!strcmp(argv[1], "bootmgr"))
-		return do_efibootmgr(argc > 2 ? argv[2] : NULL);
+		return do_efibootmgr();
 #ifdef CONFIG_CMD_BOOTEFI_SELFTEST
 	else if (!strcmp(argv[1], "selftest"))
-		return do_efi_selftest(argc > 2 ? argv[2] : NULL);
+		return do_efi_selftest();
 #endif
 
-	return do_bootefi_image(argv[1], argc > 2 ? argv[2] : NULL);
+	return do_bootefi_image(argv[1]);
 }
 
 #ifdef CONFIG_SYS_LONGHELP
