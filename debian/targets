@@ -229,8 +229,6 @@ riscv64	sifive	sifive_fu540	u-boot.bin
 
 sh4	-		r2dplus		u-boot.bin
 
-sh4	-		sh7785lcr_32bit	u-boot.bin
-
 all:amd64	qemu	qemu-x86_64	u-boot.bin
 all:armhf	qemu	qemu_arm	u-boot.bin
 all:arm64	qemu	qemu_arm64	u-boot.bin
