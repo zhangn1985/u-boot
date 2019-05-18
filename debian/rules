@@ -110,9 +110,11 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	done
 
 build-tools:
-	# Load dummy config
-	echo CONFIG_SYS_TEXT_BASE=0 > configs/tools_defconfig
-	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools_defconfig
+	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
+	# Disable fit signatures, which requires OpenSSL which triggers
+	# licensing incompatibilities with the GPL:
+	# https://people.gnome.org/~markmc/openssl-and-the-gpl.html
+	sed -i -e '/CONFIG_FIT_SIGNATURE/d' $(TOOLSDIR)/.config
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
 	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
@@ -146,7 +148,6 @@ override_dh_strip:
 
 override_dh_clean:
 	rm -rf debian/build/
-	rm -f configs/tools_defconfig
 	rm -f configs/novena-rawsd_defconfig
 	rm -f configs/am335x_boneblack_defconfig
 	rm -f linux.itb linux.its
