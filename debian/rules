@@ -114,7 +114,7 @@ build-tools:
 	# Disable fit signatures, which requires OpenSSL which triggers
 	# licensing incompatibilities with the GPL:
 	# https://people.gnome.org/~markmc/openssl-and-the-gpl.html
-	sed -i -e '/CONFIG_FIT_SIGNATURE/d' $(TOOLSDIR)/.config
+	sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $(TOOLSDIR)/.config
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
 	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
