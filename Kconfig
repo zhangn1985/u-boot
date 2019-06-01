@@ -147,7 +147,7 @@ config SYS_MALLOC_F_LEN
 
 config SYS_MALLOC_LEN
 	hex "Define memory for Dynamic allocation"
-	depends on ARCH_ZYNQ || ARCH_VERSAL
+	depends on ARCH_ZYNQ || ARCH_VERSAL || ARCH_STM32MP
 	help
 	  This defines memory to be allocated for Dynamic allocation
 	  TODO: Use for other architectures
@@ -155,6 +155,7 @@ config SYS_MALLOC_LEN
 config SPL_SYS_MALLOC_F_LEN
 	hex "Size of malloc() pool in SPL before relocation"
 	depends on SYS_MALLOC_F
+	default 0x2800 if RCAR_GEN3
 	default SYS_MALLOC_F_LEN
 	help
 	  Before relocation, memory is very limited on many platforms. Still,
@@ -278,7 +279,7 @@ config FIT
 if FIT
 
 config FIT_EXTERNAL_OFFSET
-	hex "Text Base"
+	hex "FIT external data offset"
 	default 0x0
 	help
 	  This specifies a data offset in fit image.
@@ -512,7 +513,7 @@ config SYS_TEXT_BASE
 
 
 config SYS_CLK_FREQ
-	depends on ARC || ARCH_SUNXI
+	depends on ARC || ARCH_SUNXI || MPC83xx
 	int "CPU clock frequency"
 	help
 	  TODO: Move CONFIG_SYS_CLK_FREQ for all the architecture

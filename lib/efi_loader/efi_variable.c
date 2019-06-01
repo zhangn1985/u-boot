@@ -202,8 +202,10 @@ efi_status_t EFIAPI efi_get_variable(u16 *variable_name,
 		len /= 2;
 		*data_size = len;
 
-		if (in_size < len)
-			return EFI_EXIT(EFI_BUFFER_TOO_SMALL);
+		if (in_size < len) {
+			ret = EFI_BUFFER_TOO_SMALL;
+			goto out;
+		}
 
 		if (!data)
 			return EFI_EXIT(EFI_INVALID_PARAMETER);
@@ -217,8 +219,10 @@ efi_status_t EFIAPI efi_get_variable(u16 *variable_name,
 
 		*data_size = len;
 
-		if (in_size < len)
-			return EFI_EXIT(EFI_BUFFER_TOO_SMALL);
+		if (in_size < len) {
+			ret = EFI_BUFFER_TOO_SMALL;
+			goto out;
+		}
 
 		if (!data)
 			return EFI_EXIT(EFI_INVALID_PARAMETER);
@@ -232,10 +236,11 @@ efi_status_t EFIAPI efi_get_variable(u16 *variable_name,
 		return EFI_EXIT(EFI_DEVICE_ERROR);
 	}
 
+out:
 	if (attributes)
 		*attributes = attr & EFI_VARIABLE_MASK;
 
-	return EFI_EXIT(EFI_SUCCESS);
+	return EFI_EXIT(ret);
 }
 
 static char *efi_variables_list;
@@ -422,7 +427,9 @@ efi_status_t EFIAPI efi_set_variable(u16 *variable_name,
 	EFI_ENTRY("\"%ls\" %pUl %x %zu %p", variable_name, vendor, attributes,
 		  data_size, data);
 
-	if (!variable_name || !vendor) {
+	/* TODO: implement APPEND_WRITE */
+	if (!variable_name || !vendor ||
+	    (attributes & EFI_VARIABLE_APPEND_WRITE)) {
 		ret = EFI_INVALID_PARAMETER;
 		goto out;
 	}
@@ -444,10 +451,19 @@ efi_status_t EFIAPI efi_set_variable(u16 *variable_name,
 	if (val) {
 		parse_attr(val, &attr);
 
+		/* We should not free val */
+		val = NULL;
 		if (attr & READ_ONLY) {
-			/* We should not free val */
-			val = NULL;
 			ret = EFI_WRITE_PROTECTED;
+			goto out;
+		}
+
+		/*
+		 * attributes won't be changed
+		 * TODO: take care of APPEND_WRITE once supported
+		 */
+		if (attr != attributes) {
+			ret = EFI_INVALID_PARAMETER;
 			goto out;
 		}
 	}

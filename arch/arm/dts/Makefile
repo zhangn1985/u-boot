@@ -296,6 +296,7 @@ dtb-$(CONFIG_THUNDERX) += thunderx-88xx.dtb
 dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
 	socfpga_arria5_socdk.dtb			\
 	socfpga_arria10_socdk_sdmmc.dtb			\
+	socfpga_cyclone5_mcvevk.dtb			\
 	socfpga_cyclone5_is1.dtb			\
 	socfpga_cyclone5_socdk.dtb			\
 	socfpga_cyclone5_dbm_soc1.dtb			\
@@ -328,6 +329,8 @@ dtb-$(CONFIG_FSL_LSCH3) += fsl-ls2080a-qds.dtb \
 	fsl-ls2088a-rdb-qspi.dtb \
 	fsl-ls1088a-rdb.dtb \
 	fsl-ls1088a-qds.dtb \
+	fsl-ls1028a-rdb.dtb \
+	fsl-ls1028a-qds.dtb \
 	fsl-lx2160a-rdb.dtb \
 	fsl-lx2160a-qds.dtb
 dtb-$(CONFIG_FSL_LSCH2) += fsl-ls1043a-qds-duart.dtb \

@@ -634,8 +634,6 @@ The following options need to be configured:
 		the defaults discussed just above.
 
 - Cache Configuration:
-		CONFIG_SYS_ICACHE_OFF - Do not enable instruction cache in U-Boot
-		CONFIG_SYS_DCACHE_OFF - Do not enable data cache in U-Boot
 		CONFIG_SYS_L2CACHE_OFF- Do not enable L2 cache in U-Boot
 
 - Cache Configuration for ARM:
@@ -3296,12 +3294,12 @@ within that device.
 
 - CONFIG_SYS_FMAN_FW_ADDR
 	The address in the storage device where the FMAN microcode is located.  The
-	meaning of this address depends on which CONFIG_SYS_QE_FW_IN_xxx macro
+	meaning of this address depends on which CONFIG_SYS_QE_FMAN_FW_IN_xxx macro
 	is also specified.
 
 - CONFIG_SYS_QE_FW_ADDR
 	The address in the storage device where the QE microcode is located.  The
-	meaning of this address depends on which CONFIG_SYS_QE_FW_IN_xxx macro
+	meaning of this address depends on which CONFIG_SYS_QE_FMAN_FW_IN_xxx macro
 	is also specified.
 
 - CONFIG_SYS_QE_FMAN_FW_LENGTH
