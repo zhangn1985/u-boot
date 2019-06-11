@@ -1,3 +1,11 @@
+u-boot (2019.07~rc4+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * [sh4] Remove sh7785lcr_32bit, dropped upstream.
+  * debian/rules: Explicitly mark fit signature support as unset.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 11 Jun 2019 16:13:47 -0700
+
 u-boot (2019.07~rc2+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate:
