@@ -204,6 +204,9 @@ arm64	sunxi		a64-olinuxino	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/ar
 # Domenico Andreoli <cavok@debian.org>
 arm64	sunxi		nanopi_neo2	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h5-nanopi-neo2.dtb
 
+# Steev Klimaszewski <steev@kali.org>
+arm64	sunxi		nanopi_neo_plus2	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h5-nanopi-neo-plus2.dtb
+
 # Frederic Danis <frederic.danis@collabora.com>
 arm64	sunxi		orangepi_zero_plus2	u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h5-orangepi-zero-plus2.dtb
 

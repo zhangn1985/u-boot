@@ -11,6 +11,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		"Olimex A64 Teres-I") TARGET="/usr/lib/u-boot/teres_i/" ;;
 		"OrangePi Zero Plus2") TARGET="/usr/lib/u-boot/orangepi_zero_plus2/" ;;
 		"FriendlyARM NanoPi NEO 2") TARGET="/usr/lib/u-boot/nanopi_neo2/" ;;
+		"FriendlyARM NanoPi NEO Plus2") TARGET="/usr/lib/u-boot/nanopi_neo_plus2/" ;;
 	esac
 fi
 
