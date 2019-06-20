@@ -157,6 +157,9 @@ armhf	sunxi		Mini-X	u-boot-sunxi-with-spl.bin
 # Paul Tagliamonte <paultag@debian.org>
 armhf	sunxi		nanopi_neo	u-boot-sunxi-with-spl.bin
 
+# Philip Hands <phil@hands.com>
+armhf	sunxi		nanopi_neo_air	u-boot-sunxi-with-spl.bin
+
 # Vagrant Cascadian <vagrant@debian.org>, Orange PI Plus2
 armhf	sunxi		orangepi_plus	u-boot-sunxi-with-spl.bin
 
