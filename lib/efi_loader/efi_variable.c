@@ -148,7 +148,7 @@ static const char *parse_attr(const char *str, u32 *attrp)
 }
 
 /**
- * efi_efi_get_variable() - retrieve value of a UEFI variable
+ * efi_get_variable() - retrieve value of a UEFI variable
  *
  * This function implements the GetVariable runtime service.
  *
@@ -404,7 +404,7 @@ efi_status_t EFIAPI efi_get_next_variable_name(efi_uintn_t *variable_name_size,
 }
 
 /**
- * efi_efi_set_variable() - set value of a UEFI variable
+ * efi_set_variable() - set value of a UEFI variable
  *
  * This function implements the SetVariable runtime service.
  *
@@ -430,7 +430,9 @@ efi_status_t EFIAPI efi_set_variable(u16 *variable_name,
 		  data_size, data);
 
 	/* TODO: implement APPEND_WRITE */
-	if (!variable_name || !vendor ||
+	if (!variable_name || !*variable_name || !vendor ||
+	    ((attributes & EFI_VARIABLE_RUNTIME_ACCESS) &&
+	     !(attributes & EFI_VARIABLE_BOOTSERVICE_ACCESS)) ||
 	    (attributes & EFI_VARIABLE_APPEND_WRITE)) {
 		ret = EFI_INVALID_PARAMETER;
 		goto out;

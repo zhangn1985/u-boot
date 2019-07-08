@@ -213,6 +213,21 @@ struct efi_capsule_header {
 	u32 capsule_image_size;
 };
 
+#define EFI_RT_SUPPORTED_GET_TIME			0x0001
+#define EFI_RT_SUPPORTED_SET_TIME			0x0002
+#define EFI_RT_SUPPORTED_GET_WAKEUP_TIME		0x0004
+#define EFI_RT_SUPPORTED_SET_WAKEUP_TIME		0x0008
+#define EFI_RT_SUPPORTED_GET_VARIABLE			0x0010
+#define EFI_RT_SUPPORTED_GET_NEXT_VARIABLE_NAME		0x0020
+#define EFI_RT_SUPPORTED_SET_VARIABLE			0x0040
+#define EFI_RT_SUPPORTED_SET_VIRTUAL_ADDRESS_MAP	0x0080
+#define EFI_RT_SUPPORTED_CONVERT_POINTER		0x0100
+#define EFI_RT_SUPPORTED_GET_NEXT_HIGH_MONOTONIC_COUNT	0x0200
+#define EFI_RT_SUPPORTED_RESET_SYSTEM			0x0400
+#define EFI_RT_SUPPORTED_UPDATE_CAPSULE			0x0800
+#define EFI_RT_SUPPORTED_QUERY_CAPSULE_CAPABILITIES	0x1000
+#define EFI_RT_SUPPORTED_QUERY_VARIABLE_INFO		0x2000
+
 struct efi_runtime_services {
 	struct efi_table_hdr hdr;
 	efi_status_t (EFIAPI *get_time)(struct efi_time *time,
@@ -227,7 +242,8 @@ struct efi_runtime_services {
 			unsigned long descriptor_size,
 			uint32_t descriptor_version,
 			struct efi_mem_desc *virtmap);
-	efi_status_t (*convert_pointer)(unsigned long dbg, void **address);
+	efi_status_t (EFIAPI *convert_pointer)(
+			efi_uintn_t debug_disposition, void **address);
 	efi_status_t (EFIAPI *get_variable)(u16 *variable_name,
 					    const efi_guid_t *vendor,
 					    u32 *attributes,
@@ -562,7 +578,9 @@ struct simple_text_output_mode {
 #define EFI_ATTR_BG(attr)        (((attr) >> 4) & 0x7)
 
 struct efi_simple_text_output_protocol {
-	void *reset;
+	efi_status_t (EFIAPI *reset)(
+			struct efi_simple_text_output_protocol *this,
+			char extended_verification);
 	efi_status_t (EFIAPI *output_string)(
 			struct efi_simple_text_output_protocol *this,
 			const efi_string_t str);
