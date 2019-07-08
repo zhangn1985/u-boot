@@ -1,3 +1,13 @@
+u-boot (2019.07+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Add support for nanopi_neo_plus2. Thanks to Steev Klimaszewski.
+  * Add support for nanopi_neo_air (Closes: #930013). Thanks to Philip
+    Hands and Domenico Andreoli.
+  * debian/control: [arm64] Add python-pyelftools to Build-Depends.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 08 Jul 2019 16:41:40 -0700
+
 u-boot (2019.07~rc4+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
