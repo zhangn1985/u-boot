@@ -5,11 +5,12 @@
  *  Copyright (c) 2017 Rob Clark
  */
 
+#include <env.h>
 #include <malloc.h>
 #include <charset.h>
 #include <efi_loader.h>
 #include <hexdump.h>
-#include <environment.h>
+#include <env_internal.h>
 #include <search.h>
 #include <uuid.h>
 
@@ -263,8 +264,8 @@ static char *efi_cur_variable;
  * is the size of variable name including NULL.
  *
  * Return:		EFI_SUCCESS if parsing is OK, EFI_NOT_FOUND when
-			the entire variable list has been returned,
-			otherwise non-zero status code
+ *			the entire variable list has been returned,
+ *			otherwise non-zero status code
  */
 static efi_status_t parse_uboot_variable(char *variable,
 					 efi_uintn_t *variable_name_size,
@@ -315,6 +316,7 @@ static efi_status_t parse_uboot_variable(char *variable,
 
 /**
  * efi_get_next_variable_name() - enumerate the current variable names
+ *
  * @variable_name_size:	size of variable_name buffer in byte
  * @variable_name:	name of uefi variable's name in u16
  * @vendor:		vendor's guid
@@ -322,8 +324,7 @@ static efi_status_t parse_uboot_variable(char *variable,
  * This function implements the GetNextVariableName service.
  *
  * See the Unified Extensible Firmware Interface (UEFI) specification for
- * details: http://wiki.phoenix.com/wiki/index.php/
- *		EFI_RUNTIME_SERVICES#GetNextVariableName.28.29
+ * details.
  *
  * Return: status code
  */
@@ -519,4 +520,104 @@ out:
 	free(val);
 
 	return EFI_EXIT(ret);
+}
+
+/**
+ * efi_query_variable_info() - get information about EFI variables
+ *
+ * This function implements the QueryVariableInfo() runtime service.
+ *
+ * See the Unified Extensible Firmware Interface (UEFI) specification for
+ * details.
+ *
+ * @attributes:				bitmask to select variables to be
+ *					queried
+ * @maximum_variable_storage_size:	maximum size of storage area for the
+ *					selected variable types
+ * @remaining_variable_storage_size:	remaining size of storage are for the
+ *					selected variable types
+ * @maximum_variable_size:		maximum size of a variable of the
+ *					selected type
+ * Returns:				status code
+ */
+efi_status_t __efi_runtime EFIAPI efi_query_variable_info(
+			u32 attributes,
+			u64 *maximum_variable_storage_size,
+			u64 *remaining_variable_storage_size,
+			u64 *maximum_variable_size)
+{
+	return EFI_UNSUPPORTED;
+}
+
+/**
+ * efi_get_variable_runtime() - runtime implementation of GetVariable()
+ *
+ * @variable_name:	name of the variable
+ * @vendor:		vendor GUID
+ * @attributes:		attributes of the variable
+ * @data_size:		size of the buffer to which the variable value is copied
+ * @data:		buffer to which the variable value is copied
+ * Return:		status code
+ */
+static efi_status_t __efi_runtime EFIAPI
+efi_get_variable_runtime(u16 *variable_name, const efi_guid_t *vendor,
+			 u32 *attributes, efi_uintn_t *data_size, void *data)
+{
+	return EFI_UNSUPPORTED;
+}
+
+/**
+ * efi_get_next_variable_name_runtime() - runtime implementation of
+ *					  GetNextVariable()
+ *
+ * @variable_name_size:	size of variable_name buffer in byte
+ * @variable_name:	name of uefi variable's name in u16
+ * @vendor:		vendor's guid
+ * Return: status code
+ */
+static efi_status_t __efi_runtime EFIAPI
+efi_get_next_variable_name_runtime(efi_uintn_t *variable_name_size,
+				   u16 *variable_name, const efi_guid_t *vendor)
+{
+	return EFI_UNSUPPORTED;
+}
+
+/**
+ * efi_set_variable_runtime() - runtime implementation of SetVariable()
+ *
+ * @variable_name:	name of the variable
+ * @vendor:		vendor GUID
+ * @attributes:		attributes of the variable
+ * @data_size:		size of the buffer with the variable value
+ * @data:		buffer with the variable value
+ * Return:		status code
+ */
+static efi_status_t __efi_runtime EFIAPI
+efi_set_variable_runtime(u16 *variable_name, const efi_guid_t *vendor,
+			 u32 attributes, efi_uintn_t data_size,
+			 const void *data)
+{
+	return EFI_UNSUPPORTED;
+}
+
+/**
+ * efi_variables_boot_exit_notify() - notify ExitBootServices() is called
+ */
+void efi_variables_boot_exit_notify(void)
+{
+	efi_runtime_services.get_variable = efi_get_variable_runtime;
+	efi_runtime_services.get_next_variable_name =
+				efi_get_next_variable_name_runtime;
+	efi_runtime_services.set_variable = efi_set_variable_runtime;
+	efi_update_table_header_crc32(&efi_runtime_services.hdr);
+}
+
+/**
+ * efi_init_variables() - initialize variable services
+ *
+ * Return:	status code
+ */
+efi_status_t efi_init_variables(void)
+{
+	return EFI_SUCCESS;
 }
