@@ -196,6 +196,9 @@ arm64	qcom		dragonboard820c	u-boot.bin
 arm64  rockchip        firefly-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-firefly.dtb
 
 # Vagrant Cascadian <vagrant@debian.org>
+arm64  rockchip        rock64-rk3328  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin tpl/u-boot-tpl.bin arch/arm/dts/rk3328-rock64.dtb
+
+# Vagrant Cascadian <vagrant@debian.org>
 arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb
 
 # Ryan Finnie <ryan@finnie.org>
