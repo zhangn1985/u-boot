@@ -6,13 +6,13 @@ Index: u-boot/include/configs/sandbox.h
 ===================================================================
 --- u-boot.orig/include/configs/sandbox.h
 +++ u-boot/include/configs/sandbox.h
-@@ -74,6 +74,9 @@
- 	func(HOST, host, 1) \
- 	func(HOST, host, 0)
- 
+@@ -66,6 +66,9 @@
+ #ifdef __ASSEMBLY__
+ #define BOOTENV
+ #else
 +#ifndef CONFIG_SANDBOX
 +#define CONFIG_SANDBOX 1
 +#endif
  #include <config_distro_bootcmd.h>
+ #endif
  
- #define CONFIG_KEEP_SERVERADDR
