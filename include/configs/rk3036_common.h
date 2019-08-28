@@ -8,7 +8,6 @@
 #include <asm/arch-rockchip/hardware.h>
 #include "rockchip-common.h"
 
-#define CONFIG_SYS_MALLOC_LEN		(32 << 20)
 #define CONFIG_SYS_CBSIZE		1024
 #define CONFIG_SKIP_LOWLEVEL_INIT
 
@@ -28,15 +27,8 @@
 #define SDRAM_BANK_SIZE			(512UL << 20UL)
 #define SDRAM_MAX_SIZE                  (CONFIG_NR_DRAM_BANKS * SDRAM_BANK_SIZE)
 
-#define CONFIG_SPI_FLASH_GIGADEVICE
-
 #ifndef CONFIG_SPL_BUILD
-/* usb otg */
 
-/* usb mass storage */
-#define CONFIG_CMD_USB_MASS_STORAGE
-
-/* usb host */
 #define ENV_MEM_LAYOUT_SETTINGS \
 	"scriptaddr=0x60000000\0" \
 	"pxefile_addr_r=0x60100000\0" \
