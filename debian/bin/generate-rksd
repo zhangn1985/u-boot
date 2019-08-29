@@ -28,7 +28,7 @@ if grep ^CONFIG_SPL_ROCKCHIP_BACK_TO_BROM=y ${builddir}/.config ; then
    echo ${builddir}/u-boot.rksd /usr/lib/u-boot/${platform}/ \
        >> debian/build/targets.${subarch}
 elif grep ^CONFIG_TPL_ROCKCHIP_BACK_TO_BROM=y ${builddir}/.config ; then
-   cat ${builddir}/u-boot-tpl.rksd ${builddir}/u-boot-spl.bin > ${builddir}/u-boot-tpl-spl.rksd
+   cat ${builddir}/u-boot-tpl.rksd ${builddir}/spl/u-boot-spl.bin > ${builddir}/u-boot-tpl-spl.rksd
    echo ${builddir}/u-boot-tpl-spl.rksd /usr/lib/u-boot/${platform}/ \
        >> debian/build/targets.${subarch}
 fi
