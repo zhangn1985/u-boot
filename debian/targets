@@ -242,7 +242,6 @@ all:amd64	qemu	qemu-x86_64	u-boot.bin
 all:armhf	qemu	qemu_arm	u-boot.bin
 all:arm64	qemu	qemu_arm64	u-boot.bin
 all:i386	qemu	qemu-x86	u-boot.bin
-all:mips	qemu	qemu_mips	u-boot.bin
 all:mipsel	qemu	qemu_mipsel	u-boot.bin
 all:mips64el qemu	qemu_mips64el	u-boot.bin
 all:riscv64	qemu	qemu-riscv64	u-boot.bin

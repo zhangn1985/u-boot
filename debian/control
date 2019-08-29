@@ -25,7 +25,6 @@ Build-Depends-Indep:
  gcc-i686-linux-gnu [!i386],
  gcc-arm-linux-gnueabihf [!armhf],
  gcc-aarch64-linux-gnu [!arm64],
- gcc-mips-linux-gnu [!mips],
  gcc-mips64el-linux-gnuabi64 [!mips64el],
  gcc-mipsel-linux-gnu [!mipsel],
  gcc-riscv64-linux-gnu [!riscv64],
