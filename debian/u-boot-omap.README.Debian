@@ -18,9 +18,4 @@ On OpenPandora:
 
  modprobe nand_omap2 mtdblock
  dd conv=fsync,notrunc if=/usr/lib/u-boot/omap3_pandora/u-boot.bin of=/dev/mtdblock1
-
-== U-Boot environment tools ==
-
-fw_printenv / fw_setenv read /etc/fw_env.config for configuration.
-
  -- Vagrant Cascadian <vagrant@debian.org>, Thu, 16 May 2019 20:57:30 -0700
