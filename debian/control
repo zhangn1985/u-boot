@@ -142,7 +142,7 @@ Package: u-boot-sunxi
 Architecture: armhf arm64
 Multi-Arch: same
 Depends: ${misc:Depends}
-Recommends: arm-trusted-firmware [arm64], u-boot-tools [arm64], libubootenv-tool
+Recommends: arm-trusted-firmware [arm64], u-boot-tools [arm64]
 Breaks: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Replaces: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Description: A boot loader for sunxi systems
@@ -234,7 +234,8 @@ Architecture: linux-any
 Build-Profiles: <!pkg.uboot.notools>
 Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: device-tree-compiler
+Recommends: device-tree-compiler,
+ libubootenv-tool,
 Breaks: uboot-envtools (<< 20081215-3~),
         uboot-mkimage (<= 0.4build1),
         u-boot (<< 2010.12-2)
