@@ -142,7 +142,7 @@ Package: u-boot-sunxi
 Architecture: armhf arm64
 Multi-Arch: same
 Depends: ${misc:Depends}
-Recommends: arm-trusted-firmware [arm64], u-boot-tools [arm64]
+Recommends: arm-trusted-firmware [arm64], u-boot-tools [arm64], libubootenv-tool
 Breaks: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Replaces: u-boot (<< 2014.10~rc2+dfsg1-2~)
 Description: A boot loader for sunxi systems
@@ -242,5 +242,4 @@ Replaces: uboot-envtools (<< 20081215-3~),
           u-boot (<< 2010.12-2)
 Description: companion tools for Das U-Boot bootloader
  This package includes the mkimage program, which allows generation of U-Boot
- images in various formats, and the fw_printenv and fw_setenv programs to read
- and modify U-Boot's environment.
+ images in various formats.
