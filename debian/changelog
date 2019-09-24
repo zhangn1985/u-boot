@@ -1,3 +1,30 @@
+u-boot (2019.10~rc4+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * u-boot-rockchip: Add rock64-rk3328 target.
+  * u-boot-rockchip: Install rockchip_make_fit_atf and Recommend python3.
+  * generate-rksd: Add support for rk3328 and TPL images.
+  * debian/patches:
+    - Update ensure-config-sandbox-for-make-env.
+    - Update qemu-riscv64-raw-initrd for.
+    - Add description and forwarded links for qemu-riscv64-raw-initrd.
+  * u-boot-qemu: Drop support for qemu_mips, qemu_mipsel and
+    qemu_mips64el as the cross compilers are no longer available.
+  * u-boot-tools:
+    - Remove fw_printenv and fw_setenv and Recommend libubootenv-tool.
+      (Closes: #939598)
+    - Update package description.
+  * README.Debian: Drop references to fw_setenv and fw_printenv.
+  * debian/control:
+    - [arm64] Drop Build-Depends on python-pyelftools; no longer needed
+      for fit image creation.
+    - Update Standards-Version to 4.4.0, no changes needed.
+    - Update to debhelper-compat 12.
+  * debian/copyright: Drop stanza and license for pcmcia; code was
+    removed.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 24 Sep 2019 01:03:23 -0700
+
 u-boot (2019.07+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
