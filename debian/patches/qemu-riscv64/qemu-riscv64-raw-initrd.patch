@@ -1,3 +1,10 @@
+Description: This allows booting an initrd without headers generated
+ by mkimage, which is generally needed when using distro_bootcmd with
+ extlinux-style boot menus.
+Forwarded: https://patchwork.ozlabs.org/patch/1132130/
+ https://lists.denx.de/pipermail/u-boot/2019-July/376577.html
+Author: Vagrant Cascadian <vagrant@debian.org>
+
 Index: u-boot/configs/qemu-riscv64_defconfig
 ===================================================================
 --- u-boot.orig/configs/qemu-riscv64_defconfig
