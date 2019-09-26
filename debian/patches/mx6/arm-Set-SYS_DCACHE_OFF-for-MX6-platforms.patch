@@ -1,0 +1,24 @@
+From 135d406f48c32ea68c2e9887bfd949d877740b55 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Thu, 26 Sep 2019 10:16:12 -0700
+Subject: [PATCH] arm: Set SYS_DCACHE_OFF for MX6 platforms.
+
+---
+ arch/arm/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 3b0e315061..713ebcfe46 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -820,6 +820,7 @@ config ARCH_MX7
+ config ARCH_MX6
+ 	bool "Freescale MX6"
+ 	select CPU_V7A
++	select SYS_DCACHE_OFF
+ 	select SYS_FSL_HAS_SEC if SECURE_BOOT
+ 	select SYS_FSL_SEC_COMPAT_4
+ 	select SYS_FSL_SEC_LE
+-- 
+2.20.1
+
