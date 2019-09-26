@@ -23,3 +23,4 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
 qemu-riscv64/qemu-riscv64-raw-initrd.patch
+riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
