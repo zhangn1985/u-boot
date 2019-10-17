@@ -23,6 +23,7 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
+riscv64/riscv64-increase-stack-size.patch
 
 mx6/arm-Set-SYS_DCACHE_OFF-for-MX6-platforms.patch
 mx6/Revert-spl-imx6-Let-spl_boot_device-return-USDHC1-or.patch
