@@ -1,3 +1,19 @@
+u-boot (2019.10+dfsg-1) experimental; urgency=medium
+
+  * u-boot-sifive: Install new fu540 documentation.
+  * debian/patches:
+    - Add qemu-riscv64_smode-sifive-fu540-fix-extlinux-define to fix
+      extlinux support on riscv64 targets.
+    - Drop qemu-riscv64-raw-initrd, it is redundant due to
+      DISTRO_DEFAULTS=y.
+    - Disable dcache on MX6 platforms.
+    - Add patch to revert changes to imx6 MMC boot device order.
+  * debian/control:
+    - Set Rules-Requires-Root: no.
+    - Update Standards-Version to 4.1.1, no changes needed.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Thu, 17 Oct 2019 12:23:42 -0700
+
 u-boot (2019.10~rc4+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
