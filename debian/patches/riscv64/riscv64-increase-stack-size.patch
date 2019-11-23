@@ -1,4 +1,5 @@
 http://lists.infradead.org/pipermail/linux-riscv/2019-October/007135.html
+https://patchwork.ozlabs.org/patch/1180057/
 
 --- a/arch/riscv/Kconfig
 +++ b/arch/riscv/Kconfig
