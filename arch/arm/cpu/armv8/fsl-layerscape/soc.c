@@ -8,6 +8,7 @@
 #include <env.h>
 #include <fsl_immap.h>
 #include <fsl_ifc.h>
+#include <init.h>
 #include <asm/arch/fsl_serdes.h>
 #include <asm/arch/soc.h>
 #include <asm/io.h>
@@ -844,7 +845,7 @@ int board_late_init(void)
 	 * check if gd->env_addr is default_environment; then setenv bootcmd
 	 * and mcinitcmd.
 	 */
-#if !defined(CONFIG_ENV_ADDR) || defined(ENV_IS_EMBEDDED)
+#ifdef CONFIG_SYS_RELOC_GD_ENV_ADDR
 	if (gd->env_addr == (ulong)&default_environment[0]) {
 #else
 	if (gd->env_addr + gd->reloc_off == (ulong)&default_environment[0]) {

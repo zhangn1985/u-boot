@@ -11,6 +11,7 @@
 
 #include <common.h>
 #include <env.h>
+#include <init.h>
 #include <watchdog.h>
 #include <asm/processor.h>
 #include <ioports.h>
@@ -1022,16 +1023,6 @@ void arch_preboot_os(void)
 	msr &= ~(MSR_ME|MSR_CE);
 	mtmsr(msr);
 }
-
-#if defined(CONFIG_SATA) && defined(CONFIG_FSL_SATA)
-int sata_initialize(void)
-{
-	if (is_serdes_configured(SATA1) || is_serdes_configured(SATA2))
-		return __sata_initialize();
-
-	return 1;
-}
-#endif
 
 void cpu_secondary_init_r(void)
 {
