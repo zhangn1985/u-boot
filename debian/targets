@@ -38,10 +38,10 @@ armhf	imx		mx53loco	u-boot.imx
 armhf	imx		mx6cuboxi	u-boot.img SPL
 
 # Martyn Welch <martyn.welch@collabora.com>
-armhf	imx		mx6qsabrelite	u-boot.imx
+armhf	imx		mx6qsabrelite	u-boot-dtb.imx
 
 # Hector Oron <zumbi@debian.org>
-armhf	imx		nitrogen6q	u-boot.imx
+armhf	imx		nitrogen6q	u-boot-dtb.imx
 
 # Vagrant Cascadian <vagrant@debian.org>
 armhf	imx		novena		u-boot.img SPL
