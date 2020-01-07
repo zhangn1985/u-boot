@@ -103,9 +103,6 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 		rockchip) \
 			debian/bin/generate-rksd $$builddir $$platform $$subarch; \
 			;; \
-		qcom) \
-			debian/bin/generate-qcom $$builddir $$platform $$subarch; \
-			;; \
 	        esac; \
 	done
 
