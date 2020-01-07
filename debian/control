@@ -18,7 +18,6 @@ Build-Depends:
  libpython3-dev:native [linux-any],
  python3:any [linux-any],
  python3-distutils [linux-any],
- skales:native [arm64],
  swig [linux-any],
  lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
 Build-Depends-Indep:
