@@ -12,16 +12,19 @@ case $platform_cpu in
     *3288=y) platform_cpu_type=rk3288 ;;
 esac
 
-for loader in spl tpl ; do
-    loader_image=${builddir}/${loader}/u-boot-${loader}.bin
-    if [ -f ${loader_image} ]; then
-        ${builddir}/tools/mkimage -T rksd -n ${platform_cpu_type} \
-            -d ${loader_image} \
-            ${builddir}/u-boot-${loader}.rksd
-        echo ${builddir}/u-boot-${loader}.rksd /usr/lib/u-boot/${platform}/ \
-             >> debian/build/targets.${subarch}
-    fi
-done
+if grep ^CONFIG_TPL_ROCKCHIP_BACK_TO_BROM=y ${builddir}/.config ; then
+    loader=tpl
+else
+    loader=spl
+fi
+loader_image=${builddir}/${loader}/u-boot-${loader}.bin
+if [ -f ${loader_image} ]; then
+    ${builddir}/tools/mkimage -T rksd -n ${platform_cpu_type} \
+               -d ${loader_image} \
+               ${builddir}/u-boot-${loader}.rksd
+    echo ${builddir}/u-boot-${loader}.rksd /usr/lib/u-boot/${platform}/ \
+         >> debian/build/targets.${subarch}
+fi
 
 if grep ^CONFIG_SPL_ROCKCHIP_BACK_TO_BROM=y ${builddir}/.config ; then
    cat ${builddir}/u-boot-spl.rksd ${builddir}/u-boot.bin > ${builddir}/u-boot.rksd
