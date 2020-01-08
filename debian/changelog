@@ -1,3 +1,17 @@
+u-boot (2020.01+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * debian/rules: Do not call qcom wrapper script.
+  * debian/control: Drop Build-Depends on "skales", removed from testing.
+  * u-boot-rockchip: Use python3 in rockchip_make_fit_atf.
+  * generate-rksd: Only generate SPL rksd on targets not using TPL.
+  * Add build profile pkg.uboot.subarch.* to build only subsets of
+    packages.
+  * [arm64] u-boot-rockchip: Add arm-trusted-firmware and u-boot-tools to
+    Recommends.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Wed, 08 Jan 2020 00:19:44 -0800
+
 u-boot (2020.01~rc5+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate (Closes: #941231).
