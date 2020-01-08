@@ -27,6 +27,14 @@ endif
 comma := ,
 LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 
+# limit builds to only certain subarchitectures
+# e.g. pkg.uboot.subarch.rockchip will only build rockchip targets.
+ifeq (,$(filter pkg.uboot.subarch.%,$(DEB_BUILD_PROFILES)))
+TARGETSUBARCH = .
+else
+TARGETSUBARCH = $(patsubst pkg.uboot.subarch.%,%,$(filter pkg.uboot.subarch.%,$(DEB_BUILD_PROFILES)))
+endif
+
 %:
 	dh $@
 
@@ -53,6 +61,7 @@ override_dh_auto_build-indep: build-targets
 build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	echo run build-targets for $(TARGETARCH)
 	set -e; grep ^$(TARGETARCH)[^a-z0-9] debian/targets \
+	    | grep $(TARGETSUBARCH) \
 	    | while read arch subarch platform targets; do \
 	        builddir=debian/build/$$platform; \
 		case $$platform in \
