@@ -1,0 +1,30 @@
+From 20bd202e7899d6df6a6852d96377d3694839e4e4 Mon Sep 17 00:00:00 2001
+From: Vagrant Cascadian <vagrant@debian.org>
+Date: Sat, 18 Jan 2020 03:04:38 -0800
+Subject: [PATCH] arm: Enable VIDEO_BPP32 on pinebook.
+
+Video output on the pinebook LCD screen was broken by:
+
+commit 2cc393f32fd9 ("video: make BPP and ANSI configs optional").
+
+Enable VIDEO_BPP32 which was previously enabled by default when
+DM_VIDEO was set.
+
+Series-to: u-boot
+Series-cc: Anatolij Gustschin <agust@denx.de>, Vasily Khoruzhick <anarsoul@gmail.com>
+---
+ configs/pinebook_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configs/pinebook_defconfig b/configs/pinebook_defconfig
+index 929434e25a..306a6bc6b9 100644
+--- a/configs/pinebook_defconfig
++++ b/configs/pinebook_defconfig
+@@ -22,3 +22,4 @@ CONFIG_SYS_USB_EVENT_POLL_VIA_INT_QUEUE=y
+ # CONFIG_USB_GADGET is not set
+ CONFIG_VIDEO_BRIDGE=y
+ CONFIG_VIDEO_BRIDGE_ANALOGIX_ANX6345=y
++CONFIG_VIDEO_BPP32=y
+-- 
+2.20.1
+
