@@ -48,6 +48,19 @@ pci_dev_t dm_pci_get_bdf(struct udevice *dev)
 	struct pci_child_platdata *pplat = dev_get_parent_platdata(dev);
 	struct udevice *bus = dev->parent;
 
+	/*
+	 * This error indicates that @dev is a device on an unprobed PCI bus.
+	 * The bus likely has bus=seq == -1, so the PCI_ADD_BUS() macro below
+	 * will produce a bad BDF>
+	 *
+	 * A common cause of this problem is that this function is called in the
+	 * ofdata_to_platdata() method of @dev. Accessing the PCI bus in that
+	 * method is not allowed, since it has not yet been probed. To fix this,
+	 * move that access to the probe() method of @dev instead.
+	 */
+	if (!device_active(bus))
+		log_err("PCI: Device '%s' on unprobed bus '%s'\n", dev->name,
+			bus->name);
 	return PCI_ADD_BUS(bus->seq, pplat->devfn);
 }
 
@@ -975,12 +988,15 @@ static int pci_uclass_pre_probe(struct udevice *bus)
 	hose->bus = bus;
 	hose->first_busno = bus->seq;
 	hose->last_busno = bus->seq;
+	hose->skip_auto_config_until_reloc =
+		dev_read_bool(bus, "u-boot,skip-auto-config-until-reloc");
 
 	return 0;
 }
 
 static int pci_uclass_post_probe(struct udevice *bus)
 {
+	struct pci_controller *hose = dev_get_uclass_priv(bus);
 	int ret;
 
 	debug("%s: probing bus %d\n", __func__, bus->seq);
@@ -988,11 +1004,13 @@ static int pci_uclass_post_probe(struct udevice *bus)
 	if (ret)
 		return ret;
 
-#if CONFIG_IS_ENABLED(PCI_PNP)
-	ret = pci_auto_config_devices(bus);
-	if (ret < 0)
-		return ret;
-#endif
+	if (CONFIG_IS_ENABLED(PCI_PNP) &&
+	    (!hose->skip_auto_config_until_reloc ||
+	     (gd->flags & GD_FLG_RELOC))) {
+		ret = pci_auto_config_devices(bus);
+		if (ret < 0)
+			return log_msg_ret("pci auto-config", ret);
+	}
 
 #if defined(CONFIG_X86) && defined(CONFIG_HAVE_FSP)
 	/*
@@ -1016,22 +1034,6 @@ static int pci_uclass_post_probe(struct udevice *bus)
 #endif
 
 	return 0;
-}
-
-int pci_get_devfn(struct udevice *dev)
-{
-	struct fdt_pci_addr addr;
-	int ret;
-
-	/* Extract the devfn from fdt_pci_addr */
-	ret = ofnode_read_pci_addr(dev_ofnode(dev), FDT_PCI_SPACE_CONFIG,
-				   "reg", &addr);
-	if (ret) {
-		if (ret != -ENOENT)
-			return -EINVAL;
-	}
-
-	return addr.phys_hi & 0xff00;
 }
 
 static int pci_uclass_child_post_bind(struct udevice *dev)

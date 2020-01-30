@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0+
 /*
- * Copyright 2017 NXP
+ * Copyright 2017-2019 NXP
  * Copyright 2014-2015 Freescale Semiconductor, Inc.
  * Layerscape PCIe driver
  */
@@ -312,20 +312,9 @@ static void ls_pcie_drop_msg_tlp(struct ls_pcie *pcie)
 /* Disable all bars in RC mode */
 static void ls_pcie_disable_bars(struct ls_pcie *pcie)
 {
-	u32 sriov;
-
-	sriov = in_le32(pcie->dbi + PCIE_SRIOV);
-
-	/*
-	 * TODO: For PCIe controller with SRIOV, the method to disable bars
-	 * is different and more complex, so will add later.
-	 */
-	if (PCI_EXT_CAP_ID(sriov) == PCI_EXT_CAP_ID_SRIOV)
-		return;
-
 	dbi_writel(pcie, 0, PCIE_CS2_OFFSET + PCI_BASE_ADDRESS_0);
 	dbi_writel(pcie, 0, PCIE_CS2_OFFSET + PCI_BASE_ADDRESS_1);
-	dbi_writel(pcie, 0, PCIE_CS2_OFFSET + PCI_ROM_ADDRESS1);
+	dbi_writel(pcie, 0xfffffffe, PCIE_CS2_OFFSET + PCI_ROM_ADDRESS1);
 }
 
 static void ls_pcie_setup_ctrl(struct ls_pcie *pcie)
@@ -339,6 +328,7 @@ static void ls_pcie_setup_ctrl(struct ls_pcie *pcie)
 	dbi_writel(pcie, 0, PCIE_DBI_RO_WR_EN);
 
 	ls_pcie_disable_bars(pcie);
+	pcie->stream_id_cur = 0;
 }
 
 static void ls_pcie_ep_setup_atu(struct ls_pcie *pcie)
