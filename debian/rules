@@ -90,6 +90,7 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 		esac;\
 		mkdir -p $$builddir; \
 		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
+		sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $$builddir/.config; \
 		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
 		case "$$targets" in \
 			*uboot.elf*) \
