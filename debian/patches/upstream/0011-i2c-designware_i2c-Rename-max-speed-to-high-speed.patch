@@ -1,0 +1,81 @@
+From 6db7943b92f7a4b5858b6a68f137462ed0293e09 Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:07 -0700
+Subject: [PATCH 11/32] i2c: designware_i2c: Rename 'max' speed to 'high' speed
+
+Some SoCs support a higher speed than what is currently called 'max' in
+this driver. Rename it to 'high' speed, which is the official name of the
+3.4MHz speed.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reviewed-by: Jun Chen <ptchentw@gmail.com>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+---
+ drivers/i2c/designware_i2c.c | 10 +++++-----
+ drivers/i2c/designware_i2c.h |  8 ++++----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/i2c/designware_i2c.c b/drivers/i2c/designware_i2c.c
+index 138fc72561..dd1cc0b823 100644
+--- a/drivers/i2c/designware_i2c.c
++++ b/drivers/i2c/designware_i2c.c
+@@ -62,10 +62,10 @@ static unsigned int __dw_i2c_set_bus_speed(struct i2c_regs *i2c_base,
+ 	unsigned int ena;
+ 	int i2c_spd;
+ 
+-	/* Allow max speed if there is no config, or the config allows it */
+-	if (speed >= I2C_MAX_SPEED &&
+-	    (!scl_sda_cfg || scl_sda_cfg->has_max_speed))
+-		i2c_spd = IC_SPEED_MODE_MAX;
++	/* Allow high speed if there is no config, or the config allows it */
++	if (speed >= I2C_HIGH_SPEED &&
++	    (!scl_sda_cfg || scl_sda_cfg->has_high_speed))
++		i2c_spd = IC_SPEED_MODE_HIGH;
+ 	else if (speed >= I2C_FAST_SPEED)
+ 		i2c_spd = IC_SPEED_MODE_FAST;
+ 	else
+@@ -80,7 +80,7 @@ static unsigned int __dw_i2c_set_bus_speed(struct i2c_regs *i2c_base,
+ 	cntl = (readl(&i2c_base->ic_con) & (~IC_CON_SPD_MSK));
+ 
+ 	switch (i2c_spd) {
+-	case IC_SPEED_MODE_MAX:
++	case IC_SPEED_MODE_HIGH:
+ 		cntl |= IC_CON_SPD_SS;
+ 		if (scl_sda_cfg) {
+ 			hcnt = scl_sda_cfg->fs_hcnt;
+diff --git a/drivers/i2c/designware_i2c.h b/drivers/i2c/designware_i2c.h
+index aade5c2da0..d4c1ca0cc3 100644
+--- a/drivers/i2c/designware_i2c.h
++++ b/drivers/i2c/designware_i2c.h
+@@ -138,16 +138,16 @@ struct i2c_regs {
+ /* Speed Selection */
+ #define IC_SPEED_MODE_STANDARD	1
+ #define IC_SPEED_MODE_FAST	2
+-#define IC_SPEED_MODE_MAX	3
++#define IC_SPEED_MODE_HIGH	3
+ 
+-#define I2C_MAX_SPEED		3400000
++#define I2C_HIGH_SPEED		3400000
+ #define I2C_FAST_SPEED		400000
+ #define I2C_STANDARD_SPEED	100000
+ 
+ /**
+  * struct dw_scl_sda_cfg - I2C timing configuration
+  *
+- * @has_max_speed: Support maximum speed (1Mbps)
++ * @has_high_speed: Support high speed (3.4Mbps)
+  * @ss_hcnt: Standard speed high time in ns
+  * @fs_hcnt: Fast speed high time in ns
+  * @ss_lcnt: Standard speed low time in ns
+@@ -155,7 +155,7 @@ struct i2c_regs {
+  * @sda_hold: SDA hold time
+  */
+ struct dw_scl_sda_cfg {
+-	bool has_max_speed;
++	bool has_high_speed;
+ 	u32 ss_hcnt;
+ 	u32 fs_hcnt;
+ 	u32 ss_lcnt;
+-- 
+2.20.1
+

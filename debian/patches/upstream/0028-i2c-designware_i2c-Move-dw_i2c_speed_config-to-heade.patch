@@ -1,0 +1,75 @@
+From a8d2b515f98298dc1e30d7e3ae148eeca49a97b2 Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:24 -0700
+Subject: [PATCH 28/32] i2c: designware_i2c: Move dw_i2c_speed_config to header
+
+This is used to store the speed information for a bus. We want to provide
+this to ACPI so that it can tell the kernel. Move this struct to the
+header file so it can be accessed by the ACPI i2c implementation being
+added later.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+---
+ drivers/i2c/designware_i2c.c | 17 -----------------
+ drivers/i2c/designware_i2c.h | 17 +++++++++++++++++
+ 2 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/i2c/designware_i2c.c b/drivers/i2c/designware_i2c.c
+index d9e0d81ff0..6be98ee43b 100644
+--- a/drivers/i2c/designware_i2c.c
++++ b/drivers/i2c/designware_i2c.c
+@@ -13,23 +13,6 @@
+ #include <asm/io.h>
+ #include "designware_i2c.h"
+ 
+-/**
+- * struct dw_i2c_speed_config - timings to use for a particular speed
+- *
+- * This holds calculated values to be written to the I2C controller. Each value
+- * is represented as a number of IC clock cycles.
+- *
+- * @scl_lcnt: Low count value for SCL
+- * @scl_hcnt: High count value for SCL
+- * @sda_hold: Data hold count
+- */
+-struct dw_i2c_speed_config {
+-	/* SCL high and low period count */
+-	uint scl_lcnt;
+-	uint scl_hcnt;
+-	uint sda_hold;
+-};
+-
+ #ifdef CONFIG_SYS_I2C_DW_ENABLE_STATUS_UNSUPPORTED
+ static int  dw_i2c_enable(struct i2c_regs *i2c_base, bool enable)
+ {
+diff --git a/drivers/i2c/designware_i2c.h b/drivers/i2c/designware_i2c.h
+index 3db63b5f95..2027a91add 100644
+--- a/drivers/i2c/designware_i2c.h
++++ b/drivers/i2c/designware_i2c.h
+@@ -156,6 +156,23 @@ struct dw_scl_sda_cfg {
+ 	u32 sda_hold;
+ };
+ 
++/**
++ * struct dw_i2c_speed_config - timings to use for a particular speed
++ *
++ * This holds calculated values to be written to the I2C controller. Each value
++ * is represented as a number of IC clock cycles.
++ *
++ * @scl_lcnt: Low count value for SCL
++ * @scl_hcnt: High count value for SCL
++ * @sda_hold: Data hold count
++ */
++struct dw_i2c_speed_config {
++	/* SCL high and low period count */
++	u16 scl_lcnt;
++	u16 scl_hcnt;
++	u32 sda_hold;
++};
++
+ /**
+  * struct dw_i2c - private information for the bus
+  *
+-- 
+2.20.1
+

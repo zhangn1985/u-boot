@@ -1,0 +1,57 @@
+From 65190d15efffc0c3700e59654ead4ef149981ad4 Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:08 -0700
+Subject: [PATCH 12/32] i2c: designware_i2c: Use an enum for selected speed
+ mode
+
+Group these #defines into an enum to make it easier to understand the
+relationship between them.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reviewed-by: Jun Chen <ptchentw@gmail.com>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+---
+ drivers/i2c/designware_i2c.c |  2 +-
+ drivers/i2c/designware_i2c.h | 10 +++++++---
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/i2c/designware_i2c.c b/drivers/i2c/designware_i2c.c
+index dd1cc0b823..2416ef32f9 100644
+--- a/drivers/i2c/designware_i2c.c
++++ b/drivers/i2c/designware_i2c.c
+@@ -57,10 +57,10 @@ static unsigned int __dw_i2c_set_bus_speed(struct i2c_regs *i2c_base,
+ 					   unsigned int speed,
+ 					   unsigned int bus_mhz)
+ {
++	enum i2c_speed_mode i2c_spd;
+ 	unsigned int cntl;
+ 	unsigned int hcnt, lcnt;
+ 	unsigned int ena;
+-	int i2c_spd;
+ 
+ 	/* Allow high speed if there is no config, or the config allows it */
+ 	if (speed >= I2C_HIGH_SPEED &&
+diff --git a/drivers/i2c/designware_i2c.h b/drivers/i2c/designware_i2c.h
+index d4c1ca0cc3..569cab6fd3 100644
+--- a/drivers/i2c/designware_i2c.h
++++ b/drivers/i2c/designware_i2c.h
+@@ -136,9 +136,13 @@ struct i2c_regs {
+ #define IC_STATUS_ACT		0x0001
+ 
+ /* Speed Selection */
+-#define IC_SPEED_MODE_STANDARD	1
+-#define IC_SPEED_MODE_FAST	2
+-#define IC_SPEED_MODE_HIGH	3
++enum i2c_speed_mode {
++	IC_SPEED_MODE_STANDARD,
++	IC_SPEED_MODE_FAST,
++	IC_SPEED_MODE_HIGH,
++
++	IC_SPEED_MODE_COUNT,
++};
+ 
+ #define I2C_HIGH_SPEED		3400000
+ #define I2C_FAST_SPEED		400000
+-- 
+2.20.1
+

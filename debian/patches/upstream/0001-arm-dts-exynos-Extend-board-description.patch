@@ -1,0 +1,32 @@
+From a6ee3fe19d8bdf369edbd9301eb2be283458b920 Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Wed, 15 Jan 2020 16:18:03 +0100
+Subject: [PATCH 01/32] arm: dts: exynos: Extend board description
+
+u-boot uses the same DTS for the all Odroid XU3-based boards, so list
+them in the model description to let user know that those boards are
+supported.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Lukasz Majewski <lukma@denx.de>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ arch/arm/dts/exynos5422-odroidxu3.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/exynos5422-odroidxu3.dts b/arch/arm/dts/exynos5422-odroidxu3.dts
+index 6df6be9181..256df6d6c2 100644
+--- a/arch/arm/dts/exynos5422-odroidxu3.dts
++++ b/arch/arm/dts/exynos5422-odroidxu3.dts
+@@ -10,7 +10,7 @@
+ #include "exynos54xx.dtsi"
+ 
+ / {
+-	model = "Odroid XU3 based on EXYNOS5422";
++	model = "Odroid XU3/XU4/HC1/HC2 based on Exynos5422";
+ 	compatible = "samsung,odroidxu3", "samsung,exynos5";
+ 
+ 	aliases {
+-- 
+2.20.1
+

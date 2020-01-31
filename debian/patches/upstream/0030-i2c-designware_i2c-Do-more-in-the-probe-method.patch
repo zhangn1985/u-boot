@@ -1,0 +1,57 @@
+From 2034f6c27fc91407fe8bbd36670714b77d9ef1dc Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:26 -0700
+Subject: [PATCH 30/32] i2c: designware_i2c: Do more in the probe() method
+
+Move some of the code currently in the ofdata_to_platdata() method to
+probe() so that it is not executed when generating ACPI tables.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+---
+ drivers/i2c/designware_i2c.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/i2c/designware_i2c.c b/drivers/i2c/designware_i2c.c
+index 39af25af9a..c8c5d2c331 100644
+--- a/drivers/i2c/designware_i2c.c
++++ b/drivers/i2c/designware_i2c.c
+@@ -704,6 +704,7 @@ static int designware_i2c_probe_chip(struct udevice *bus, uint chip_addr,
+ int designware_i2c_ofdata_to_platdata(struct udevice *bus)
+ {
+ 	struct dw_i2c *priv = dev_get_priv(bus);
++	int ret;
+ 
+ 	if (!priv->regs)
+ 		priv->regs = (struct i2c_regs *)devfdt_get_addr_ptr(bus);
+@@ -711,14 +712,6 @@ int designware_i2c_ofdata_to_platdata(struct udevice *bus)
+ 	dev_read_u32(bus, "i2c-scl-falling-time-ns", &priv->scl_fall_time_ns);
+ 	dev_read_u32(bus, "i2c-sda-hold-time-ns", &priv->sda_hold_time_ns);
+ 
+-	return 0;
+-}
+-
+-int designware_i2c_probe(struct udevice *bus)
+-{
+-	struct dw_i2c *priv = dev_get_priv(bus);
+-	int ret;
+-
+ 	ret = reset_get_bulk(bus, &priv->resets);
+ 	if (ret)
+ 		dev_warn(bus, "Can't get reset: %d\n", ret);
+@@ -738,6 +731,13 @@ int designware_i2c_probe(struct udevice *bus)
+ 	}
+ #endif
+ 
++	return 0;
++}
++
++int designware_i2c_probe(struct udevice *bus)
++{
++	struct dw_i2c *priv = dev_get_priv(bus);
++
+ 	return __dw_i2c_init(priv->regs, 0, 0);
+ }
+ 
+-- 
+2.20.1
+

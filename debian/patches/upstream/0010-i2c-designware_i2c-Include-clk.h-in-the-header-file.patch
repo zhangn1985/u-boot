@@ -1,0 +1,47 @@
+From afb88651a689aa0aed67c4cf439f1dc0d8803d5a Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:06 -0700
+Subject: [PATCH 10/32] i2c: designware_i2c: Include clk.h in the header file
+
+We use struct clk here so really should include this header file to avoid
+build errors. Also switch the order of clk.h in the C file to match the
+required code style.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reviewed-by: Ley Foon Tan <ley.foon.tan@intel.com>
+Reviewed-by: Jun Chen <ptchentw@gmail.com>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+---
+ drivers/i2c/designware_i2c.c | 2 +-
+ drivers/i2c/designware_i2c.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/designware_i2c.c b/drivers/i2c/designware_i2c.c
+index b8cdd1c661..138fc72561 100644
+--- a/drivers/i2c/designware_i2c.c
++++ b/drivers/i2c/designware_i2c.c
+@@ -4,8 +4,8 @@
+  * Vipin Kumar, ST Micoelectronics, vipin.kumar@st.com.
+  */
+ 
+-#include <clk.h>
+ #include <common.h>
++#include <clk.h>
+ #include <dm.h>
+ #include <i2c.h>
+ #include <pci.h>
+diff --git a/drivers/i2c/designware_i2c.h b/drivers/i2c/designware_i2c.h
+index 10fb7d7d3e..aade5c2da0 100644
+--- a/drivers/i2c/designware_i2c.h
++++ b/drivers/i2c/designware_i2c.h
+@@ -7,6 +7,7 @@
+ #ifndef __DW_I2C_H_
+ #define __DW_I2C_H_
+ 
++#include <clk.h>
+ #include <reset.h>
+ 
+ struct i2c_regs {
+-- 
+2.20.1
+

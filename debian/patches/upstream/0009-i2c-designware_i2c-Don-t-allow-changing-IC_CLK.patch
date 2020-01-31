@@ -1,0 +1,31 @@
+From 25eb0fb667dc64cb819905deccccbb36908e5bd6 Mon Sep 17 00:00:00 2001
+From: Simon Glass <sjg@chromium.org>
+Date: Thu, 23 Jan 2020 11:48:05 -0700
+Subject: [PATCH 09/32] i2c: designware_i2c: Don't allow changing IC_CLK
+
+If a different input clock is required then the correct way to do this is
+with a clock driver. Don't allow boards to override IC_CLK.
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+---
+ drivers/i2c/designware_i2c.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/i2c/designware_i2c.h b/drivers/i2c/designware_i2c.h
+index 3b407d2bed..10fb7d7d3e 100644
+--- a/drivers/i2c/designware_i2c.h
++++ b/drivers/i2c/designware_i2c.h
+@@ -59,9 +59,7 @@ struct i2c_regs {
+ 	u32 comp_type;
+ };
+ 
+-#if !defined(IC_CLK)
+ #define IC_CLK			166
+-#endif
+ #define NANO_TO_MICRO		1000
+ 
+ /* High and low times in different speed modes (in ns) */
+-- 
+2.20.1
+

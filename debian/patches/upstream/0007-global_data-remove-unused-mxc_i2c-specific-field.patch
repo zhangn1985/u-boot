@@ -1,0 +1,32 @@
+From 36608b2a843eedc8c44e56cdf2ed5d62ef5e104c Mon Sep 17 00:00:00 2001
+From: Baruch Siach <baruch@tkos.co.il>
+Date: Wed, 25 Dec 2019 17:57:06 +0200
+Subject: [PATCH 07/32] global_data: remove unused mxc_i2c specific field
+
+The srdata field is unused since commit 71204e95ce13228 ("i2c: mxc:
+refactor i2c driver and support dm").
+
+Cc: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Baruch Siach <baruch@tkos.co.il>
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+---
+ include/asm-generic/global_data.h | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/include/asm-generic/global_data.h b/include/asm-generic/global_data.h
+index 7587ba2ee5..5d027329fe 100644
+--- a/include/asm-generic/global_data.h
++++ b/include/asm-generic/global_data.h
+@@ -89,9 +89,6 @@ typedef struct global_data {
+ #endif
+ #if defined(CONFIG_SYS_I2C)
+ 	int		cur_i2c_bus;	/* current used i2c bus */
+-#endif
+-#ifdef CONFIG_SYS_I2C_MXC
+-	void *srdata[10];
+ #endif
+ 	unsigned int timebase_h;
+ 	unsigned int timebase_l;
+-- 
+2.20.1
+
