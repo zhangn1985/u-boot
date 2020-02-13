@@ -18,12 +18,6 @@ am57xx/omap5_distro_bootcmd
 test-imagetools-test-fixes
 
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
-exynos/0002-arm-exynos-Use-proper-ADC-device-name.patch
-exynos/0003-arm-exynos-Use-proper-PMIC-device-names.patch
-exynos/0004-mmc-s5p_sdhci-Read-generic-MMC-properties-from-DT.patch
-exynos/0005-arm-dts-exynos-Fix-card-detect-polarity-for-SD-card-.patch
-exynos/0006-arm-dts-exynos-Use-common-alias-for-Odroid-U3-X2-MMC.patch
-exynos/0007-arm-exynos-Read-default-MMC-device-from-XOM-7-5-pins.patch
 
 # Patches to fix https://bugs.debian.org/923379
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
@@ -31,5 +25,3 @@ dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
 pinebook/0001-arm-Enable-VIDEO_BPP32-on-pinebook.patch
-
-security/CVE-2020-8432-cmd-gpt-Address-error-cases-during-gpt-rename-more-c.patch
