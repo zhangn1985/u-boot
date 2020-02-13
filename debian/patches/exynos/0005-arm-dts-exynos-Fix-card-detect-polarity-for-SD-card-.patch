@@ -1,0 +1,33 @@
+From 1bca28a5d98a81a9d189a46347f8a92619624f94 Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Thu, 16 Jan 2020 16:25:34 +0100
+Subject: [PATCH 3/5] arm: dts: exynos: Fix card-detect polarity for SD card on
+ Odroid U3/X2
+
+Card detect line for SD-card on Odroid U3/X2 boards are active low, so
+add cd-inverted property to indicate this, as u-boot's GPIO driver doesn't
+support specifying line polarity. This restores S5P_SDHCI driver operation
+on Odroid U3/X2 boards.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ arch/arm/dts/exynos4412-odroid.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/dts/exynos4412-odroid.dts b/arch/arm/dts/exynos4412-odroid.dts
+index cc8e0dd041..e6c7222755 100644
+--- a/arch/arm/dts/exynos4412-odroid.dts
++++ b/arch/arm/dts/exynos4412-odroid.dts
+@@ -236,6 +236,7 @@
+ &sdhci2 {
+ 	samsung,bus-width = <4>;
+ 	samsung,timing = <1 2 3>;
++	cd-inverted;
+ 	cd-gpios = <&gpk2 2 0>;
+ 	status = "okay";
+ };
+-- 
+2.20.1
+

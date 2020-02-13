@@ -1,0 +1,123 @@
+From 86c88711082b9fb4da5f7eb0b80d5604c283f0c5 Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Fri, 17 Jan 2020 14:02:44 +0100
+Subject: [PATCH 5/5] arm: exynos: Read default MMC device from XOM[7:5] pins
+
+XOM pins provide information for iROM bootloader about the boot device.
+Those pins are mapped to lower bits of OP_MODE register (0x10000008),
+which is common for all Exynos SoC variants. Set the default MMC device id
+to reflect the boot device selected by XOM[7:5] pins (2 for the SD or 0 for
+the eMMC).
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ arch/arm/mach-exynos/include/mach/cpu.h |  1 +
+ board/samsung/common/board.c            | 28 +++++++++++++++++++++++++
+ configs/odroid-xu3_defconfig            |  1 +
+ configs/odroid_defconfig                |  1 +
+ 4 files changed, 31 insertions(+)
+
+diff --git a/arch/arm/mach-exynos/include/mach/cpu.h b/arch/arm/mach-exynos/include/mach/cpu.h
+index 766edeeb29..fb5fdaf3ba 100644
+--- a/arch/arm/mach-exynos/include/mach/cpu.h
++++ b/arch/arm/mach-exynos/include/mach/cpu.h
+@@ -17,6 +17,7 @@
+ 
+ #define EXYNOS4_GPIO_PART3_BASE		0x03860000
+ #define EXYNOS4_PRO_ID			0x10000000
++#define EXYNOS4_OP_MODE			0x10000008
+ #define EXYNOS4_SYSREG_BASE		0x10010000
+ #define EXYNOS4_POWER_BASE		0x10020000
+ #define EXYNOS4_SWRESET			0x10020400
+diff --git a/board/samsung/common/board.c b/board/samsung/common/board.c
+index 5d4646d14c..390060e51f 100644
+--- a/board/samsung/common/board.c
++++ b/board/samsung/common/board.c
+@@ -25,6 +25,8 @@
+ #include <asm/arch/sromc.h>
+ #include <lcd.h>
+ #include <i2c.h>
++#include <mmc.h>
++#include <stdio_dev.h>
+ #include <usb.h>
+ #include <dwc3-uboot.h>
+ #include <samsung/misc.h>
+@@ -43,6 +45,20 @@ __weak int exynos_power_init(void)
+ 	return 0;
+ }
+ 
++/**
++ * get_boot_mmc_dev() - read boot MMC device id from XOM[7:5] pins.
++ */
++static int get_boot_mmc_dev(void)
++{
++	u32 mode = readl(EXYNOS4_OP_MODE) & 0x1C;
++
++	if (mode == 0x04)
++		return 2; /* MMC2: SD */
++
++	/* MMC0: eMMC or unknown */
++	return 0;
++}
++
+ #if defined CONFIG_EXYNOS_TMU
+ /* Boot Time Thermal Analysis for SoC temperature threshold breach */
+ static void boot_temp_check(void)
+@@ -281,6 +297,8 @@ int board_late_init(void)
+ {
+ 	struct udevice *dev;
+ 	int ret;
++	int mmcbootdev = get_boot_mmc_dev();
++	char mmcbootdev_str[16];
+ 
+ 	stdio_print_current_devices();
+ 	ret = uclass_first_device_err(UCLASS_CROS_EC, &dev);
+@@ -293,6 +311,11 @@ int board_late_init(void)
+ 		panic("Cannot init cros-ec device");
+ 		return -1;
+ 	}
++
++	printf("Boot device: MMC(%u)\n", mmcbootdev);
++	sprintf(mmcbootdev_str, "%u", mmcbootdev);
++	env_set("mmcbootdev", mmcbootdev_str);
++
+ 	return 0;
+ }
+ #endif
+@@ -360,3 +383,8 @@ int board_usb_cleanup(int index, enum usb_init_type init)
+ #endif
+ 	return 0;
+ }
++
++int mmc_get_env_dev(void)
++{
++	return get_boot_mmc_dev();
++}
+diff --git a/configs/odroid-xu3_defconfig b/configs/odroid-xu3_defconfig
+index 20038d4197..2e982e1b53 100644
+--- a/configs/odroid-xu3_defconfig
++++ b/configs/odroid-xu3_defconfig
+@@ -14,6 +14,7 @@ CONFIG_FIT_BEST_MATCH=y
+ CONFIG_SILENT_CONSOLE=y
+ CONFIG_CONSOLE_MUX=y
+ CONFIG_MISC_INIT_R=y
++CONFIG_BOARD_LATE_INIT=y
+ # CONFIG_DISPLAY_BOARDINFO is not set
+ CONFIG_DISPLAY_BOARDINFO_LATE=y
+ CONFIG_BOARD_TYPES=y
+diff --git a/configs/odroid_defconfig b/configs/odroid_defconfig
+index be914e4caf..e4392e477e 100644
+--- a/configs/odroid_defconfig
++++ b/configs/odroid_defconfig
+@@ -17,6 +17,7 @@ CONFIG_BOOTARGS="Please use defined boot"
+ CONFIG_SYS_CONSOLE_IS_IN_ENV=y
+ CONFIG_SYS_CONSOLE_INFO_QUIET=y
+ CONFIG_MISC_INIT_R=y
++CONFIG_BOARD_LATE_INIT=y
+ CONFIG_BOARD_TYPES=y
+ CONFIG_SYS_PROMPT="Odroid # "
+ # CONFIG_CMD_XIMG is not set
+-- 
+2.20.1
+
