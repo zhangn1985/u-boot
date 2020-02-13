@@ -1,0 +1,43 @@
+From fa06669d0181b2c92ba86fb6c40a4cb0c196b13c Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Tue, 14 Jan 2020 15:04:20 +0100
+Subject: [PATCH] arm: exynos: Use proper ADC device name
+
+Since commit 4213609cc7 ("drivers: core: use strcmp when find device by
+name") one has to provide full name to get requested object. Fix the code
+used to detect Odroid board revision to use proper ADC device name then.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ board/samsung/common/exynos5-dt-types.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/board/samsung/common/exynos5-dt-types.c b/board/samsung/common/exynos5-dt-types.c
+index 516c32923e..d51cc4eedc 100644
+--- a/board/samsung/common/exynos5-dt-types.c
++++ b/board/samsung/common/exynos5-dt-types.c
+@@ -67,7 +67,7 @@ static int odroid_get_adc_val(unsigned int *adcval)
+ 	unsigned int adcval_prev = 0;
+ 	int ret, retries = 20;
+ 
+-	ret = adc_channel_single_shot("adc", CONFIG_ODROID_REV_AIN,
++	ret = adc_channel_single_shot("adc@12D10000", CONFIG_ODROID_REV_AIN,
+ 				      &adcval_prev);
+ 	if (ret)
+ 		return ret;
+@@ -75,8 +75,8 @@ static int odroid_get_adc_val(unsigned int *adcval)
+ 	while (retries--) {
+ 		mdelay(5);
+ 
+-		ret = adc_channel_single_shot("adc", CONFIG_ODROID_REV_AIN,
+-					      adcval);
++		ret = adc_channel_single_shot("adc@12D10000",
++					      CONFIG_ODROID_REV_AIN, adcval);
+ 		if (ret)
+ 			return ret;
+ 
+-- 
+2.20.1
+

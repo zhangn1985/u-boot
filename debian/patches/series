@@ -18,6 +18,7 @@ am57xx/omap5_distro_bootcmd
 test-imagetools-test-fixes
 
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
+exynos/arm-exynos-Use-proper-ADC-device-name.patch
 
 # Patches to fix https://bugs.debian.org/923379
 dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
