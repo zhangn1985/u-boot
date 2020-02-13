@@ -31,3 +31,5 @@ dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
 pinebook/0001-arm-Enable-VIDEO_BPP32-on-pinebook.patch
+
+security/CVE-2020-8432-cmd-gpt-Address-error-cases-during-gpt-rename-more-c.patch
