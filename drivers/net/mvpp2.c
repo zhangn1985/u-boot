@@ -17,12 +17,15 @@
 #include <cpu_func.h>
 #include <dm.h>
 #include <dm/device-internal.h>
+#include <dm/device_compat.h>
+#include <dm/devres.h>
 #include <dm/lists.h>
 #include <net.h>
 #include <netdev.h>
 #include <config.h>
 #include <malloc.h>
 #include <asm/io.h>
+#include <linux/err.h>
 #include <linux/errno.h>
 #include <phy.h>
 #include <miiphy.h>
@@ -580,7 +583,7 @@ enum mv_netc_lanes {
 /* Default number of TXQs in use */
 #define MVPP2_DEFAULT_TXQ		1
 
-/* Dfault number of RXQs in use */
+/* Default number of RXQs in use */
 #define MVPP2_DEFAULT_RXQ		1
 #define CONFIG_MV_ETH_RXQ		8	/* increment by 8 */
 

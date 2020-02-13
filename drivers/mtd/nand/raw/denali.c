@@ -7,9 +7,13 @@
 
 #include <asm/dma-mapping.h>
 #include <dm.h>
+#include <malloc.h>
 #include <nand.h>
+#include <dm/device_compat.h>
+#include <dm/devres.h>
 #include <linux/bitfield.h>
 #include <linux/dma-direction.h>
+#include <linux/err.h>
 #include <linux/errno.h>
 #include <linux/io.h>
 #include <linux/mtd/mtd.h>
@@ -1069,11 +1073,18 @@ static void denali_hw_init(struct denali_nand_info *denali)
 		denali->revision = swab16(ioread32(denali->reg + REVISION));
 
 	/*
-	 * tell driver how many bit controller will skip before writing
-	 * ECC code in OOB. This is normally used for bad block marker
+	 * Set how many bytes should be skipped before writing data in OOB.
+	 * If a platform requests a non-zero value, set it to the register.
+	 * Otherwise, read the value out, expecting it has already been set up
+	 * by firmware.
 	 */
-	denali->oob_skip_bytes = CONFIG_NAND_DENALI_SPARE_AREA_SKIP_BYTES;
-	iowrite32(denali->oob_skip_bytes, denali->reg + SPARE_AREA_SKIP_BYTES);
+	if (denali->oob_skip_bytes)
+		iowrite32(denali->oob_skip_bytes,
+			  denali->reg + SPARE_AREA_SKIP_BYTES);
+	else
+		denali->oob_skip_bytes = ioread32(denali->reg +
+						  SPARE_AREA_SKIP_BYTES);
+
 	denali_detect_max_banks(denali);
 	iowrite32(0x0F, denali->reg + RB_PIN_ENABLED);
 	iowrite32(CHIP_EN_DONT_CARE__FLAG, denali->reg + CHIP_ENABLE_DONT_CARE);
@@ -1149,7 +1160,7 @@ static int denali_ooblayout_free(struct mtd_info *mtd, int section,
 
 static const struct mtd_ooblayout_ops denali_ooblayout_ops = {
 	.ecc = denali_ooblayout_ecc,
-	.free = denali_ooblayout_free,
+	.rfree = denali_ooblayout_free,
 };
 
 static int denali_multidev_fixup(struct denali_nand_info *denali)
