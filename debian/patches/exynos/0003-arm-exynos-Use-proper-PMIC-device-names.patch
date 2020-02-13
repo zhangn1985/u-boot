@@ -1,0 +1,60 @@
+From 4b8984e969fa8e68f2fdd79c70cd4be8f1f1378c Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Thu, 16 Jan 2020 14:46:04 +0100
+Subject: [PATCH 1/5] arm: exynos: Use proper PMIC device names
+
+Since commit 4213609cc7 ("drivers: core: use strcmp when find device by
+name") one has to provide full name to get requested object. Fix the code
+used to detect enable power regulators on the supported Exynos boards to
+use proper PMIC device device name then.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+Reviewed-by: Lukasz Majewski <lukma@denx.de>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ board/samsung/common/exynos5-dt-types.c | 2 +-
+ board/samsung/common/exynos5-dt.c       | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/board/samsung/common/exynos5-dt-types.c b/board/samsung/common/exynos5-dt-types.c
+index d51cc4eedc..1413dc8978 100644
+--- a/board/samsung/common/exynos5-dt-types.c
++++ b/board/samsung/common/exynos5-dt-types.c
+@@ -129,7 +129,7 @@ static const char *odroid_get_type_str(void)
+ 	if (gd->board_type != EXYNOS5_BOARD_ODROID_XU3_REV02)
+ 		goto exit;
+ 
+-	ret = pmic_get("s2mps11", &dev);
++	ret = pmic_get("s2mps11_pmic@66", &dev);
+ 	if (ret)
+ 		goto exit;
+ 
+diff --git a/board/samsung/common/exynos5-dt.c b/board/samsung/common/exynos5-dt.c
+index 387d1b9180..eef46b0dc4 100644
+--- a/board/samsung/common/exynos5-dt.c
++++ b/board/samsung/common/exynos5-dt.c
+@@ -65,9 +65,9 @@ int exynos_power_init(void)
+ 	int ret;
+ 
+ #ifdef CONFIG_PMIC_S2MPS11
+-	ret = pmic_get("s2mps11_pmic", &dev);
++	ret = pmic_get("s2mps11_pmic@66", &dev);
+ #else
+-	ret = pmic_get("max77686", &dev);
++	ret = pmic_get("max77686_pmic@09", &dev);
+ 	if (!ret) {
+ 		/* TODO(sjg@chromium.org): Move into the clock/pmic API */
+ 		ret = pmic_clrsetbits(dev, MAX77686_REG_PMIC_32KHZ, 0,
+@@ -79,7 +79,7 @@ int exynos_power_init(void)
+ 		if (ret)
+ 			return ret;
+ 	} else {
+-		ret = pmic_get("s5m8767-pmic", &dev);
++		ret = pmic_get("s5m8767_pmic@66", &dev);
+ 		/* TODO(sjg@chromium.org): Use driver model to access clock */
+ #ifdef CONFIG_PMIC_S5M8767
+ 		if (!ret)
+-- 
+2.20.1
+

@@ -1,0 +1,47 @@
+From da63b5da61318a2ea8a84a41f2e49eb24f8a3759 Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Thu, 16 Jan 2020 16:25:35 +0100
+Subject: [PATCH 4/5] arm: dts: exynos: Use common alias for Odroid U3/X2 MMC2
+ (SD-card)
+
+Use MMC0 for eMMC and MMC2 for SD-card as other Exynos-based boards do.
+This allows to use common code to get MMC device id based on the XOM[7:5]
+pins.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+Signed-off-by: Minkyu Kang <mk7.kang@samsung.com>
+---
+ arch/arm/dts/exynos4412-odroid.dts | 2 +-
+ include/configs/odroid.h           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/dts/exynos4412-odroid.dts b/arch/arm/dts/exynos4412-odroid.dts
+index e6c7222755..ce08e8dc1e 100644
+--- a/arch/arm/dts/exynos4412-odroid.dts
++++ b/arch/arm/dts/exynos4412-odroid.dts
+@@ -17,7 +17,7 @@
+ 		serial0 = "/serial@13800000";
+ 		console = "/serial@13810000";
+ 		mmc0 = &mshc_0;
+-		mmc1 = &sdhci2;
++		mmc2 = &sdhci2;
+ 	};
+ 
+ 	serial@13810000 {
+diff --git a/include/configs/odroid.h b/include/configs/odroid.h
+index 77fca32fca..7989fb29d1 100644
+--- a/include/configs/odroid.h
++++ b/include/configs/odroid.h
+@@ -80,7 +80,7 @@
+ 	"tzsw raw 0x83f 0x138\0"
+ 
+ #define BOOT_TARGET_DEVICES(func) \
+-	func(MMC, mmc, 1) \
++	func(MMC, mmc, 2) \
+ 	func(MMC, mmc, 0)
+ 
+ #include <config_distro_bootcmd.h>
+-- 
+2.20.1
+
