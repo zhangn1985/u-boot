@@ -3,7 +3,7 @@
 VERSION = 2020
 PATCHLEVEL = 04
 SUBLEVEL =
-EXTRAVERSION = -rc3
+EXTRAVERSION = -rc4
 NAME =
 
 # *DOCUMENTATION*
@@ -903,7 +903,7 @@ ifneq ($(CONFIG_BUILD_TARGET),)
 ALL-y += $(CONFIG_BUILD_TARGET:"%"=%)
 endif
 
-ifdef CONFIG_INIT_SP_RELATIVE
+ifeq ($(CONFIG_INIT_SP_RELATIVE)$(CONFIG_OF_SEPARATE),yy)
 ALL-y += init_sp_bss_offset_check
 endif
 
@@ -1208,7 +1208,7 @@ binary_size_check: u-boot-nodtb.bin FORCE
 		fi \
 	fi
 
-ifdef CONFIG_INIT_SP_RELATIVE
+ifeq ($(CONFIG_INIT_SP_RELATIVE)$(CONFIG_OF_SEPARATE),yy)
 ifneq ($(CONFIG_SYS_MALLOC_F_LEN),)
 subtract_sys_malloc_f_len = space=$$(($${space} - $(CONFIG_SYS_MALLOC_F_LEN)))
 else
@@ -1830,7 +1830,7 @@ define filechk_defaultenv.h
 	(grep -v '^#' | \
 	 grep -v '^$$' | \
 	 tr '\n' '\0' | \
-	 sed -e 's/\\\x0/\n/g' | \
+	 sed -e 's/\\\x0\s*//g' | \
 	 xxd -i ; echo ", 0x00" ; )
 endef
 

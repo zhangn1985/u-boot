@@ -12,6 +12,7 @@
 #include <exports.h>
 #include <hexdump.h>
 #include <malloc.h>
+#include <mapmem.h>
 #include <search.h>
 #include <linux/ctype.h>
 
@@ -244,6 +245,10 @@ static const struct {
 		EFI_HII_CONFIG_ROUTING_PROTOCOL_GUID,
 	},
 	{
+		"Load File2",
+		EFI_LOAD_FILE2_PROTOCOL_GUID,
+	},
+	{
 		"Simple Network",
 		EFI_SIMPLE_NETWORK_PROTOCOL_GUID,
 	},
@@ -263,6 +268,10 @@ static const struct {
 	{
 		"SMBIOS table",
 		SMBIOS_TABLE_GUID,
+	},
+	{
+		"Runtime properties",
+		EFI_RT_PROPERTIES_TABLE_GUID,
 	},
 };
 
@@ -480,9 +489,10 @@ static int do_efi_show_memmap(cmd_tbl_t *cmdtp, int flag,
 
 		printf("%-16s %.*llx-%.*llx", type,
 		       EFI_PHYS_ADDR_WIDTH,
-		       map->physical_start,
+		       (u64)map_to_sysmem((void *)map->physical_start),
 		       EFI_PHYS_ADDR_WIDTH,
-		       map->physical_start + map->num_pages * EFI_PAGE_SIZE);
+		       (u64)map_to_sysmem((void *)map->physical_start +
+					  map->num_pages * EFI_PAGE_SIZE));
 
 		print_memory_attributes(map->attribute);
 		putc('\n');
@@ -641,7 +651,7 @@ static int do_efi_boot_rm(cmd_tbl_t *cmdtp, int flag,
 	int id, i;
 	char *endp;
 	char var_name[9];
-	u16 var_name16[9];
+	u16 var_name16[9], *p;
 	efi_status_t ret;
 
 	if (argc == 1)
@@ -654,11 +664,12 @@ static int do_efi_boot_rm(cmd_tbl_t *cmdtp, int flag,
 			return CMD_RET_FAILURE;
 
 		sprintf(var_name, "Boot%04X", id);
-		utf8_utf16_strncpy((u16 **)&var_name16, var_name, 9);
+		p = var_name16;
+		utf8_utf16_strncpy(&p, var_name, 9);
 
 		ret = EFI_CALL(RT->set_variable(var_name16, &guid, 0, 0, NULL));
 		if (ret) {
-			printf("Cannot remove Boot%04X", id);
+			printf("Cannot remove %ls\n", var_name16);
 			return CMD_RET_FAILURE;
 		}
 	}

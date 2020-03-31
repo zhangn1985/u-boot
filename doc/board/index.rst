@@ -16,4 +16,6 @@ Board-specific doc
    renesas/index
    rockchip/index
    sifive/index
+   st/index
+   toradex/index
    xilinx/index
