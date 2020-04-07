@@ -1,3 +1,11 @@
+u-boot (2020.04~rc5+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * debian/patches:
+    - Remove patch fixing video on pinebook, fixed upstream.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 07 Apr 2020 08:50:37 -0700
+
 u-boot (2020.04~rc2+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
