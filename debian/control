@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Vagrant Cascadian <vagrant@debian.org>
 Uploaders: Loïc Minier <lool@debian.org>, Clint Adams <clint@debian.org>
 Build-Depends:
+ arm-trusted-firmware [arm64],
  bc,
  bison,
  debhelper-compat (= 12),
