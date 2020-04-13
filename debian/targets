@@ -82,7 +82,7 @@ armhf	omap		omap3_pandora	u-boot.bin
 armhf	omap		omap4_panda	u-boot.img MLO
 
 # Vagrant Cascadian <vagrant@debian.org>, 2GB and 4GB variants
-armhf	rockchip	firefly-rk3288		u-boot.bin spl/u-boot-spl.bin
+armhf	rockchip	firefly-rk3288		u-boot.bin spl/u-boot-spl.bin idbloader.img
 
 # Vagrant Cascadian <vagrant@debian.org>, Raspberry PI 2B
 armhf	rpi		rpi_2		u-boot.bin
@@ -196,10 +196,10 @@ arm64	qcom		dragonboard820c	u-boot.bin
 arm64  rockchip        firefly-rk3399  /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-firefly.dtb u-boot.itb idbloader.img
 
 # Vagrant Cascadian <vagrant@debian.org>
-arm64  rockchip        rock64-rk3328  /usr/lib/arm-trusted-firmware/rk3328/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin tpl/u-boot-tpl.bin arch/arm/dts/rk3328-rock64.dtb u-boot.itb
+arm64  rockchip        rock64-rk3328  /usr/lib/arm-trusted-firmware/rk3328/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin tpl/u-boot-tpl.bin arch/arm/dts/rk3328-rock64.dtb u-boot.itb idbloader.img
 
 # Vagrant Cascadian <vagrant@debian.org>
-arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb
+arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb idbloader.img
 
 # Walter Lozano <walter.lozano@collabora.com>
 arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-rock-pi-4.dtb u-boot.itb idbloader.img
