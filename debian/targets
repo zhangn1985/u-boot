@@ -201,6 +201,9 @@ arm64  rockchip        rock64-rk3328  /usr/lib/arm-trusted-firmware/rk3328/bl31.
 # Vagrant Cascadian <vagrant@debian.org>
 arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb
 
+# Walter Lozano <walter.lozano@collabora.com>
+arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-rock-pi-4.dtb u-boot.itb
+
 # Ryan Finnie <ryan@finnie.org>
 arm64	rpi		rpi_3		u-boot.bin
 
