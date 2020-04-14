@@ -9,4 +9,10 @@ for file in debian/build/platforms.* ; do
 	sed -e 's, ,${Newline},g' \
 	-e 's,^,uboot:platforms=${Newline}Included platforms:${Newline},g' \
 	>> debian/${package}.substvars
+	case "${subarch}" in
+		rockchip|sunxi)
+			printf "uboot:Built-Using=$(dpkg-query -f '${source:Package} (= ${source:Version}) [arm64]' -W arm-trusted-firmware)\n"\
+				   >> debian/${package}.substvars
+			;;
+	esac
 done

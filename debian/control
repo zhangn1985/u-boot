@@ -143,6 +143,7 @@ Description: A boot loader for omap systems
 Package: u-boot-sunxi
 Architecture: armhf arm64
 Multi-Arch: same
+Built-Using: ${uboot:Built-Using}
 Depends: ${misc:Depends}
 Recommends: arm-trusted-firmware [arm64], u-boot-tools [arm64]
 Breaks: u-boot (<< 2014.10~rc2+dfsg1-2~)
@@ -189,6 +190,7 @@ Description: A boot loader for marvell systems
 Package: u-boot-rockchip
 Architecture: armhf arm64
 Multi-Arch: same
+Built-Using: ${uboot:Built-Using}
 Depends: ${misc:Depends}
 Recommends: python3, arm-trusted-firmware [arm64], u-boot-tools [arm64]
 Description: A boot loader for rockchip systems
