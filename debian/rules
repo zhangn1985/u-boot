@@ -113,11 +113,6 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 		cp $$builddir/.config $$builddir/config.$$platform; \
 		echo $$builddir/config.$$platform /usr/share/doc/$$subpackage/configs/ \
 			>> debian/build/targets.$$subarch; \
-	    case $${subarch} in \
-		rockchip) \
-			debian/bin/generate-rksd $$builddir $$platform $$subarch; \
-			;; \
-	        esac; \
 	done
 
 build-tools:
