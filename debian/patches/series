@@ -19,7 +19,4 @@ test-imagetools-test-fixes
 
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
-# Patches to fix https://bugs.debian.org/923379
-dreamplug/Commit-ARM-CPU-arm926ejs-Consolidate-cache-routines-.patch
-
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
