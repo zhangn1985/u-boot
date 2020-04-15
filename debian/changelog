@@ -1,3 +1,29 @@
+u-boot (2020.04+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+
+  [ Vagrant Cascadian ]
+  * Update upstream signing key.
+  * [arm64] Build arm-trusted-firmware into rockchip/sunxi systems.
+  * [arm64] u-boot-sunxi: Add a64-olinuxino-emmc target Thanks to Philip
+    Rinn. (Closes: #956394).
+
+  [ Walter Lozano ]
+  * debian/targets: Add support for rock-pi-4-rk3399
+  * debian/targets: Add target idbloader.img for rk3399 boards
+
+  [ Vagrant Cascadian ]
+  * debian/control: Add versioned Build-Depends on arm-trusted-firmware
+    for rk3399 support.
+  * debian/targets: Add idbloader.img for all rockchip platforms.
+  * u-boot-rockchip: Update README.Debian.
+  * Remove debian/bin/generate-rksd.
+  * u-boot-rockchip: firefly-rk3288: Also install u-boot.img.
+  * [arm64] u-boot-rockchip, u-boot-sunxi: Add Built-Using
+    arm-trusted-firmware.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 14 Apr 2020 17:24:39 -0700
+
 u-boot (2020.04~rc5+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
