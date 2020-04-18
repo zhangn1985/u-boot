@@ -1,0 +1,53 @@
+#!/bin/sh
+set -e
+
+dtmodel="/sys/firmware/devicetree/base/model"
+if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
+	case $(cat "${dtmodel}") in
+		Firefly-RK3288)
+			TARGET="/usr/lib/u-boot/firefly-rk3288"
+			UBOOT_IMAGE="u-boot.img"
+			;;
+		Firefly-RK3399|"Firefly-RK3399 Board")
+			TARGET="/usr/lib/u-boot/firefly-rk3399"
+			;;
+		"Pine64 Rock64")
+			TARGET="/usr/lib/u-boot/rock64-rk3328"
+			;;
+		"Pine64 RockPro64")
+			TARGET="/usr/lib/u-boot/rockpro64-rk3399"
+			;;
+		*)
+			echo >&2 "ERROR: Unknown system: ${dtmodel}"
+			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
+			exit 1
+			;;
+	esac
+fi
+
+LOADER_IMAGE=${LOADER_IMAGE:-"idbloader.img"}
+UBOOT_IMAGE=${UBOOT_IMAGE:-"u-boot.itb"}
+
+DEV="$1"
+if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
+    echo >&2 "Usage: $0 /dev/your-sd-or-mmc-or-image"
+    exit 1
+fi
+
+if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
+    echo >&2 "$0: device/image ($DEV) must be writable"
+    exit 1
+fi
+
+# FIXME/TODO: check for overwriting partitions overlapping sectors
+# 16384-24575, unless using a compatible partition layout:
+# http://opensource.rock-chips.com/wiki_Partitions
+# loader1 64-7168 idbloader.img
+# loader2 16384-24575 u-boot.itb/u-boot.img
+# trust 24576-32767
+
+echo "Writing idbloader"
+dd conv=notrunc if=${TARGET}/${LOADER_IMAGE} of="$DEV" seek=64
+echo "Writing u-boot image"
+dd conv=notrunc if=${TARGET}/${UBOOT_IMAGE} of="$DEV" seek=16384
+sync "$DEV"
