@@ -17,6 +17,9 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		"Pine64 RockPro64")
 			TARGET="/usr/lib/u-boot/rockpro64-rk3399"
 			;;
+		"Radxa ROCK Pi 4")
+			TARGET="/usr/lib/u-boot/rock-pi-4-rk3399"
+			;;
 		*)
 			echo >&2 "ERROR: Unknown system: ${dtmodel}"
 			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
