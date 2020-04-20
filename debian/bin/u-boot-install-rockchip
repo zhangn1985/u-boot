@@ -11,6 +11,9 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		Firefly-RK3399|"Firefly-RK3399 Board")
 			TARGET="/usr/lib/u-boot/firefly-rk3399"
 			;;
+		"Pine64 Pinebook Pro")
+			TARGET="/usr/lib/u-boot/pinebook-pro-rk3399"
+			;;
 		"Pine64 Rock64")
 			TARGET="/usr/lib/u-boot/rock64-rk3328"
 			;;
