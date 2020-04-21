@@ -1,3 +1,15 @@
+u-boot (2020.04+dfsg-2) unstable; urgency=medium
+
+  * debian/patches:
+    - Remove dreamplug cache patch, fixed upstream.
+    - Add patches submitted upstream to support pinebook pro.
+  * u-boot-rockchip:
+    - Add support for rockpro64-rk3399.
+    - Add support for pinebook-pro-rk3399.
+    - Add u-boot-install-rockchip helper script.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 20 Apr 2020 19:34:37 -0700
+
 u-boot (2020.04+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
