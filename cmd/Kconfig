@@ -399,6 +399,7 @@ config CMD_ABOOTIMG
 config CMD_ELF
 	bool "bootelf, bootvx"
 	default y
+	select LIB_ELF
 	help
 	  Boot an ELF/vxWorks image from the memory.
 
@@ -769,6 +770,13 @@ config CMD_LZMADEC
 	  Support decompressing an LZMA (Lempel-Ziv-Markov chain algorithm)
 	  image from memory.
 
+config CMD_UNLZ4
+	bool "unlz4"
+	default y if CMD_BOOTI
+	select LZ4
+	help
+	  Support decompressing an LZ4 image from memory region.
+
 config CMD_UNZIP
 	bool "unzip"
 	default y if CMD_BOOTI
@@ -1052,20 +1060,33 @@ config CMD_MMC
 	help
 	  MMC memory mapped support.
 
+if CMD_MMC
+
+config CMD_BKOPS_ENABLE
+	bool "mmc bkops enable"
+	depends on CMD_MMC
+	default n
+	help
+	  Enable command for setting manual background operations handshake
+	  on a eMMC device. The feature is optionally available on eMMC devices
+	  conforming to standard >= 4.41.
+
 config CMD_MMC_RPMB
 	bool "Enable support for RPMB in the mmc command"
-	depends on CMD_MMC
+	depends on SUPPORT_EMMC_RPMB
 	help
 	  Enable the commands for reading, writing and programming the
 	  key for the Replay Protection Memory Block partition in eMMC.
 
 config CMD_MMC_SWRITE
 	bool "mmc swrite"
-	depends on CMD_MMC && MMC_WRITE
+	depends on MMC_WRITE
 	select IMAGE_SPARSE
 	help
 	  Enable support for the "mmc swrite" command to write Android sparse
 	  images to eMMC.
+
+endif
 
 config CMD_MTD
 	bool "mtd"
@@ -1599,15 +1620,6 @@ config CMD_BSP
 	  option provides a way to control this. The commands that are enabled
 	  vary depending on the board.
 
-config CMD_BKOPS_ENABLE
-	bool "mmc bkops enable"
-	depends on CMD_MMC
-	default n
-	help
-	  Enable command for setting manual background operations handshake
-	  on a eMMC device. The feature is optionally available on eMMC devices
-	  conforming to standard >= 4.41.
-
 config CMD_BLOCK_CACHE
 	bool "blkcache - control and stats for block cache"
 	depends on BLOCK_CACHE
@@ -2095,7 +2107,7 @@ config CMD_BEDBUG
 	help
 	  The bedbug (emBEDded deBUGger) command provides debugging features
 	  for some PowerPC processors. For details please see the
-	  docuemntation in doc/README.beddbug
+	  documentation in doc/README.bedbug.
 
 config CMD_DIAG
 	bool "diag - Board diagnostics"
@@ -2171,6 +2183,14 @@ config CMD_UBI
 	  to use U-Boot UBI commands.
 	  It is also strongly encouraged to also enable CONFIG_MTD to get full
 	  partition support.
+
+config CMD_UBI_RENAME
+       bool "Enable rename"
+       depends on CMD_UBI
+       default n
+       help
+         Enable a "ubi" command to rename ubi volume:
+	   ubi rename <oldname> <newname>
 
 config CMD_UBIFS
 	tristate "Enable UBIFS - Unsorted block images filesystem commands"

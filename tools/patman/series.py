@@ -2,16 +2,14 @@
 # Copyright (c) 2011 The Chromium OS Authors.
 #
 
-from __future__ import print_function
-
 import itertools
 import os
 
-import get_maintainer
-import gitutil
-import settings
-import terminal
-import tools
+from patman import get_maintainer
+from patman import gitutil
+from patman import settings
+from patman import terminal
+from patman import tools
 
 # Series-xxx tags that we understand
 valid_series = ['to', 'cc', 'version', 'changes', 'prefix', 'notes', 'name',
@@ -249,8 +247,10 @@ class Series(dict):
         if cover_fname:
             cover_cc = gitutil.BuildEmailList(self.get('cover_cc', ''))
             cover_cc = [tools.FromUnicode(m) for m in cover_cc]
-            cc_list = '\0'.join([tools.ToUnicode(x)
-                                 for x in sorted(set(cover_cc + all_ccs))])
+            cover_cc = list(set(cover_cc + all_ccs))
+            if limit is not None:
+                cover_cc = cover_cc[:limit]
+            cc_list = '\0'.join([tools.ToUnicode(x) for x in sorted(cover_cc)])
             print(cover_fname, cc_list, file=fd)
 
         fd.close()

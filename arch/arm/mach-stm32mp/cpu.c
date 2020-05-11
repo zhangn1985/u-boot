@@ -61,12 +61,6 @@
 #define BOOTROM_INSTANCE_MASK	 GENMASK(31, 16)
 #define BOOTROM_INSTANCE_SHIFT	16
 
-/* BSEC OTP index */
-#define BSEC_OTP_RPN	1
-#define BSEC_OTP_SERIAL	13
-#define BSEC_OTP_PKG	16
-#define BSEC_OTP_MAC	57
-
 /* Device Part Number (RPN) = OTP_DATA1 lower 8 bits */
 #define RPN_SHIFT	0
 #define RPN_MASK	GENMASK(7, 0)
@@ -82,7 +76,7 @@
 #define PKG_MASK	GENMASK(2, 0)
 
 #if !defined(CONFIG_SPL) || defined(CONFIG_SPL_BUILD)
-#ifndef CONFIG_STM32MP1_TRUSTED
+#ifndef CONFIG_TFABOOT
 static void security_init(void)
 {
 	/* Disable the backup domain write protection */
@@ -142,7 +136,7 @@ static void security_init(void)
 	writel(BIT(0), RCC_MP_AHB5ENSETR);
 	writel(0x0, GPIOZ_SECCFGR);
 }
-#endif /* CONFIG_STM32MP1_TRUSTED */
+#endif /* CONFIG_TFABOOT */
 
 /*
  * Debug init
@@ -156,7 +150,7 @@ static void dbgmcu_init(void)
 }
 #endif /* !defined(CONFIG_SPL) || defined(CONFIG_SPL_BUILD) */
 
-#if !defined(CONFIG_STM32MP1_TRUSTED) && \
+#if !defined(CONFIG_TFABOOT) && \
 	(!defined(CONFIG_SPL) || defined(CONFIG_SPL_BUILD))
 /* get bootmode from ROM code boot context: saved in TAMP register */
 static void update_bootmode(void)
@@ -204,7 +198,7 @@ int arch_cpu_init(void)
 
 #if !defined(CONFIG_SPL) || defined(CONFIG_SPL_BUILD)
 	dbgmcu_init();
-#ifndef CONFIG_STM32MP1_TRUSTED
+#ifndef CONFIG_TFABOOT
 	security_init();
 	update_bootmode();
 #endif
@@ -220,7 +214,7 @@ int arch_cpu_init(void)
 	if ((boot_mode & TAMP_BOOT_DEVICE_MASK) == BOOT_SERIAL_UART)
 		gd->flags |= GD_FLG_SILENT | GD_FLG_DISABLE_CONSOLE;
 #if defined(CONFIG_DEBUG_UART) && \
-	!defined(CONFIG_STM32MP1_TRUSTED) && \
+	!defined(CONFIG_TFABOOT) && \
 	(!defined(CONFIG_SPL) || defined(CONFIG_SPL_BUILD))
 	else
 		debug_uart_init();
@@ -285,24 +279,41 @@ u32 get_cpu_package(void)
 	return get_otp(BSEC_OTP_PKG, PKG_SHIFT, PKG_MASK);
 }
 
-#if defined(CONFIG_DISPLAY_CPUINFO)
-int print_cpuinfo(void)
+void get_soc_name(char name[SOC_NAME_SIZE])
 {
 	char *cpu_s, *cpu_r, *pkg;
 
 	/* MPUs Part Numbers */
 	switch (get_cpu_type()) {
+	case CPU_STM32MP157Fxx:
+		cpu_s = "157F";
+		break;
+	case CPU_STM32MP157Dxx:
+		cpu_s = "157D";
+		break;
 	case CPU_STM32MP157Cxx:
 		cpu_s = "157C";
 		break;
 	case CPU_STM32MP157Axx:
 		cpu_s = "157A";
 		break;
+	case CPU_STM32MP153Fxx:
+		cpu_s = "153F";
+		break;
+	case CPU_STM32MP153Dxx:
+		cpu_s = "153D";
+		break;
 	case CPU_STM32MP153Cxx:
 		cpu_s = "153C";
 		break;
 	case CPU_STM32MP153Axx:
 		cpu_s = "153A";
+		break;
+	case CPU_STM32MP151Fxx:
+		cpu_s = "151F";
+		break;
+	case CPU_STM32MP151Dxx:
+		cpu_s = "151D";
 		break;
 	case CPU_STM32MP151Cxx:
 		cpu_s = "151C";
@@ -350,7 +361,16 @@ int print_cpuinfo(void)
 		break;
 	}
 
-	printf("CPU: STM32MP%s%s Rev.%s\n", cpu_s, pkg, cpu_r);
+	snprintf(name, SOC_NAME_SIZE, "STM32MP%s%s Rev.%s", cpu_s, pkg, cpu_r);
+}
+
+#if defined(CONFIG_DISPLAY_CPUINFO)
+int print_cpuinfo(void)
+{
+	char name[SOC_NAME_SIZE];
+
+	get_soc_name(name);
+	printf("CPU: %s\n", name);
 
 	return 0;
 }

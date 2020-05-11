@@ -762,6 +762,7 @@ config ARCH_OMAP2PLUS
 config ARCH_MESON
 	bool "Amlogic Meson"
 	imply DISTRO_DEFAULTS
+	imply DM_RNG
 	help
 	  Support for the Meson SoC family developed by Amlogic Inc.,
 	  targeted at media players and tablet computers. We currently
@@ -873,10 +874,13 @@ config ARCH_MX5
 
 config ARCH_OWL
 	bool "Actions Semi OWL SoCs"
-	select ARM64
 	select DM
 	select DM_SERIAL
+	select OWL_SERIAL
+	select CLK
+	select CLK_OWL
 	select OF_CONTROL
+	select CONFIG_SYS_RELOC_GD_ENV_ADDR
 	imply CMD_DM
 
 config ARCH_QEMU
@@ -1586,6 +1590,7 @@ config ARCH_STI
 config ARCH_STM32MP
 	bool "Support STMicroelectronics STM32MP Socs with cortex A"
 	select ARCH_MISC_INIT
+	select ARCH_SUPPORT_TFABOOT
 	select BOARD_LATE_INIT
 	select CLK
 	select DM
@@ -1868,7 +1873,6 @@ source "board/spear/spear600/Kconfig"
 source "board/spear/x600/Kconfig"
 source "board/st/stv0991/Kconfig"
 source "board/tcl/sl50/Kconfig"
-source "board/ucRobotics/bubblegum_96/Kconfig"
 source "board/birdland/bav335x/Kconfig"
 source "board/toradex/colibri_pxa270/Kconfig"
 source "board/variscite/dart_6ul/Kconfig"

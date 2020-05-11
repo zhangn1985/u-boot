@@ -25,6 +25,14 @@ It features:
  - Standard connectivity, widely inherited from the STM32 MCU family
  - Comprehensive security support
 
+Each line comes with a security option (cryptography & secure boot) and
+a Cortex-A frequency option:
+
+ - A : Cortex-A7 @ 650 MHz
+ - C : Secure Boot + HW Crypto + Cortex-A7 @ 650 MHz
+ - D : Cortex-A7 @ 800 MHz
+ - F : Secure Boot + HW Crypto + Cortex-A7 @ 800 MHz
+
 Everything is supported in Linux but U-Boot is limited to:
 
  1. UART
@@ -43,11 +51,11 @@ And the necessary drivers
 
 Currently the following boards are supported:
 
- + stm32mp157a-avenger96.dts
  + stm32mp157a-dk1.dts
  + stm32mp157c-dk2.dts
  + stm32mp157c-ed1.dts
  + stm32mp157c-ev1.dts
+ + stm32mp15xx-dhcor-avenger96.dts
 
 Boot Sequences
 --------------
@@ -145,9 +153,9 @@ the supported device trees for STM32MP15x are:
 
    + stm32mp157c-dk2
 
-+ avenger96: Avenger96 board from Arrow Electronics
++ avenger96: Avenger96 board from Arrow Electronics based on DH Elec. DHCOR SoM
 
-   + stm32mp157a-avenger96
+   + stm32mp15xx-dhcor-avenger96
 
 Build Procedure
 ---------------
@@ -229,7 +237,7 @@ Build Procedure
 
      # export KBUILD_OUTPUT=stm32mp15_basic
      # make stm32mp15_basic_defconfig
-     # make DEVICE_TREE=stm32mp157a-avenger96 all
+     # make DEVICE_TREE=stm32mp15xx-dhcor-avenger96 all
 
 6. Output files
 
@@ -416,20 +424,26 @@ For STMicroelectonics board, it is retrieved in STM32MP15x OTP :
  - OTP_58[15:0] = MAC_ADDR[47:32]
 
 To program a MAC address on virgin OTP words above, you can use the fuse command
-on bank 0 to access to internal OTP:
+on bank 0 to access to internal OTP and lock them:
 
 Prerequisite: check if a MAC address isn't yet programmed in OTP
 
-1) check OTP: their value must be equal to 0
+1) check OTP: their value must be equal to 0::
 
-   STM32MP> fuse sense 0 57 2
-   Sensing bank 0:
-   Word 0x00000039: 00000000 00000000
+    STM32MP> fuse sense 0 57 2
+    Sensing bank 0:
+    Word 0x00000039: 00000000 00000000
 
-2) check environment variable
+2) check environment variable::
 
-   STM32MP> env print ethaddr
-   ## Error: "ethaddr" not defined
+    STM32MP> env print ethaddr
+    ## Error: "ethaddr" not defined
+
+3) check lock status of fuse 57 & 58 (at 0x39, 0=unlocked, 1=locked)::
+
+    STM32MP> fuse sense 0 0x10000039 2
+    Sensing bank 0:
+       Word 0x10000039: 00000000 00000000
 
 Example to set mac address "12:34:56:78:9a:bc"
 
@@ -443,11 +457,19 @@ Example to set mac address "12:34:56:78:9a:bc"
     Sensing bank 0:
     Word 0x00000039: 78563412 0000bc9a
 
-3) next REBOOT, in the trace::
+3) Lock OTP::
+
+    STM32MP> fuse prog 0 0x10000039 1 1
+
+    STM32MP> fuse sense 0 0x10000039 2
+    Sensing bank 0:
+       Word 0x10000039: 00000001 00000001
+
+4) next REBOOT, in the trace::
 
     ### Setting environment from OTP MAC address = "12:34:56:78:9a:bc"
 
-4) check env update::
+5) check env update::
 
     STM32MP> env print ethaddr
     ethaddr=12:34:56:78:9a:bc

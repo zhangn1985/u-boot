@@ -58,6 +58,7 @@ obj-$(CONFIG_TPM_V1) += tpm-v1.o
 obj-$(CONFIG_TPM_V2) += tpm-v2.o
 endif
 
+obj-$(CONFIG_$(SPL_)ACPIGEN) += acpi/
 obj-$(CONFIG_$(SPL_)RSA) += rsa/
 obj-$(CONFIG_SHA1) += sha1.o
 obj-$(CONFIG_SHA256) += sha256.o
@@ -66,6 +67,7 @@ obj-$(CONFIG_$(SPL_)ZLIB) += zlib/
 obj-$(CONFIG_$(SPL_)ZSTD) += zstd/
 obj-$(CONFIG_$(SPL_)GZIP) += gunzip.o
 obj-$(CONFIG_$(SPL_)LZO) += lzo/
+obj-$(CONFIG_$(SPL_)LZMA) += lzma/
 obj-$(CONFIG_$(SPL_)LZ4) += lz4_wrapper.o
 
 obj-$(CONFIG_LIBAVB) += libavb/
@@ -119,15 +121,15 @@ obj-$(CONFIG_$(SPL_TPL_)STRTO) += strto.o
 else
 # Main U-Boot always uses the full printf support
 obj-y += vsprintf.o strto.o
+obj-$(CONFIG_OID_REGISTRY) += oid_registry.o
 endif
 
 obj-y += date.o
+obj-$(CONFIG_LIB_ELF) += elf.o
 
 #
 # Build a fast OID lookup registry from include/linux/oid_registry.h
 #
-obj-$(CONFIG_OID_REGISTRY) += oid_registry.o
-
 $(obj)/oid_registry.o: $(obj)/oid_registry_data.c
 
 $(obj)/oid_registry_data.c: $(srctree)/include/linux/oid_registry.h \
