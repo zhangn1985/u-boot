@@ -5,8 +5,6 @@ Makefile-add-kwb-target-to-all.patch
 
 mx53loco
 
-n900-bootz-raw-initrd.diff
-
 arndale/board-spl-rule.diff
 
 sh4-fix-linker-name-prefix.patch
