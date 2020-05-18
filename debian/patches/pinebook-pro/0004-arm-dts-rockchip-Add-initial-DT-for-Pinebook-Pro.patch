@@ -16,8 +16,8 @@ diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
 index 820ee9733a..885bf0ef58 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -125,6 +125,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3399) += \
- 	rk3399-nanopi-m4.dtb \
+@@ -129,6 +129,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3399) += \
+ 	rk3399-nanopi-m4-2gb.dtb \
  	rk3399-nanopi-neo4.dtb \
  	rk3399-orangepi.dtb \
 +	rk3399-pinebook-pro.dtb \
