@@ -13,7 +13,8 @@
 #include <malloc.h>
 #include <pe.h>
 #include <sort.h>
-#include "../lib/crypto/pkcs7_parser.h"
+#include <crypto/pkcs7_parser.h>
+#include <linux/err.h>
 
 const efi_guid_t efi_global_variable_guid = EFI_GLOBAL_VARIABLE_GUID;
 const efi_guid_t efi_guid_device_path = EFI_DEVICE_PATH_PROTOCOL_GUID;
@@ -292,12 +293,12 @@ bool efi_image_parse(void *efi, size_t len, struct efi_image_regions **regp,
 		efi_image_region_add(regs, efi, &opt->CheckSum, 0);
 		if (nt64->OptionalHeader.NumberOfRvaAndSizes <= ctidx) {
 			efi_image_region_add(regs,
-					     &opt->CheckSum + 1,
+					     &opt->Subsystem,
 					     efi + opt->SizeOfHeaders, 0);
 		} else {
 			/* Skip Certificates Table */
 			efi_image_region_add(regs,
-					     &opt->CheckSum + 1,
+					     &opt->Subsystem,
 					     &opt->DataDirectory[ctidx], 0);
 			efi_image_region_add(regs,
 					     &opt->DataDirectory[ctidx] + 1,
@@ -312,7 +313,7 @@ bool efi_image_parse(void *efi, size_t len, struct efi_image_regions **regp,
 		IMAGE_OPTIONAL_HEADER32 *opt = &nt->OptionalHeader;
 
 		efi_image_region_add(regs, efi, &opt->CheckSum, 0);
-		efi_image_region_add(regs, &opt->CheckSum + 1,
+		efi_image_region_add(regs, &opt->Subsystem,
 				     &opt->DataDirectory[ctidx], 0);
 		efi_image_region_add(regs, &opt->DataDirectory[ctidx] + 1,
 				     efi + opt->SizeOfHeaders, 0);
@@ -538,8 +539,9 @@ static bool efi_image_authenticate(void *efi, size_t efi_size)
 		}
 		msg = pkcs7_parse_message((void *)wincert + sizeof(*wincert),
 					  wincert->dwLength - sizeof(*wincert));
-		if (!msg) {
+		if (IS_ERR(msg)) {
 			debug("Parsing image's signature failed\n");
+			msg = NULL;
 			goto err;
 		}
 

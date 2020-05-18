@@ -56,8 +56,7 @@ static int spi_nor_read_reg(struct spi_nor *nor, u8 code, u8 *val, int len)
 
 	ret = spi_nor_read_write_reg(nor, &op, val);
 	if (ret < 0)
-		dev_dbg(&flash->spimem->spi->dev, "error %d reading %x\n", ret,
-			code);
+		dev_dbg(nor->dev, "error %d reading %x\n", ret, code);
 
 	return ret;
 }
@@ -325,6 +324,7 @@ static int set_4byte(struct spi_nor *nor, const struct flash_info *info,
 	case SNOR_MFR_MICRON:
 		/* Some Micron need WREN command; all will accept it */
 		need_wren = true;
+	case SNOR_MFR_ISSI:
 	case SNOR_MFR_MACRONIX:
 	case SNOR_MFR_WINBOND:
 		if (need_wren)
@@ -1246,11 +1246,8 @@ static int spi_nor_write(struct mtd_info *mtd, loff_t to, size_t len,
 		 * If page_size is a power of two, the offset can be quickly
 		 * calculated with an AND operation. On the other cases we
 		 * need to do a modulus operation (more expensive).
-		 * Power of two numbers have only one bit set and we can use
-		 * the instruction hweight32 to detect if we need to do a
-		 * modulus (do_div()) or not.
 		 */
-		if (hweight32(nor->page_size) == 1) {
+		if (is_power_of_2(nor->page_size)) {
 			page_offset = addr & (nor->page_size - 1);
 		} else {
 			u64 aux = addr;
@@ -1376,7 +1373,8 @@ static int spansion_read_cr_quad_enable(struct spi_nor *nor)
 	/* Check current Quad Enable bit value. */
 	ret = read_cr(nor);
 	if (ret < 0) {
-		dev_dbg(dev, "error while reading configuration register\n");
+		dev_dbg(nor->dev,
+			"error while reading configuration register\n");
 		return -EINVAL;
 	}
 
@@ -1388,7 +1386,7 @@ static int spansion_read_cr_quad_enable(struct spi_nor *nor)
 	/* Keep the current value of the Status Register. */
 	ret = read_sr(nor);
 	if (ret < 0) {
-		dev_dbg(dev, "error while reading status register\n");
+		dev_dbg(nor->dev, "error while reading status register\n");
 		return -EINVAL;
 	}
 	sr_cr[0] = ret;
@@ -2071,7 +2069,8 @@ static int spi_nor_parse_sfdp(struct spi_nor *nor,
 		err = spi_nor_read_sfdp(nor, sizeof(header),
 					psize, param_headers);
 		if (err < 0) {
-			dev_err(dev, "failed to read SFDP parameter headers\n");
+			dev_err(nor->dev,
+				"failed to read SFDP parameter headers\n");
 			goto exit;
 		}
 	}
@@ -2101,7 +2100,8 @@ static int spi_nor_parse_sfdp(struct spi_nor *nor,
 
 		switch (SFDP_PARAM_HEADER_ID(param_header)) {
 		case SFDP_SECTOR_MAP_ID:
-			dev_info(dev, "non-uniform erase sector maps are not supported yet.\n");
+			dev_info(nor->dev,
+				 "non-uniform erase sector maps are not supported yet.\n");
 			break;
 
 		case SFDP_SST_ID:
@@ -2113,7 +2113,8 @@ static int spi_nor_parse_sfdp(struct spi_nor *nor,
 		}
 
 		if (err) {
-			dev_warn(dev, "Failed to parse optional parameter table: %04x\n",
+			dev_warn(nor->dev,
+				 "Failed to parse optional parameter table: %04x\n",
 				 SFDP_PARAM_HEADER_ID(param_header));
 			/*
 			 * Let's not drop all information we extracted so far
@@ -2611,7 +2612,7 @@ int spi_nor_scan(struct spi_nor *nor)
 	}
 
 	if (nor->addr_width > SPI_NOR_MAX_ADDR_WIDTH) {
-		dev_dbg(dev, "address width is too large: %u\n",
+		dev_dbg(nor->dev, "address width is too large: %u\n",
 			nor->addr_width);
 		return -EINVAL;
 	}

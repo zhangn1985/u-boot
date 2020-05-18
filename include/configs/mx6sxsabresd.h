@@ -123,8 +123,6 @@
 	   "else run netboot; fi"
 
 /* Miscellaneous configurable options */
-#define CONFIG_SYS_MEMTEST_START	0x80000000
-#define CONFIG_SYS_MEMTEST_END		(CONFIG_SYS_MEMTEST_START + 0x10000)
 
 /* Physical Memory Map */
 #define PHYS_SDRAM			MMDC0_ARB_BASE_ADDR
@@ -157,8 +155,6 @@
 #define CONFIG_FEC_XCV_TYPE             RGMII
 #define CONFIG_ETHPRIME                 "FEC"
 
-#define CONFIG_PHY_ATHEROS
-
 #ifdef CONFIG_CMD_USB
 #define CONFIG_EHCI_HCD_INIT_AFTER_RESET
 #define CONFIG_MXC_USB_PORTSC  (PORT_PTS_UTMI | PORT_PTS_PTW)
@@ -174,17 +170,6 @@
 #endif
 
 #define CONFIG_IMX_THERMAL
-
-#ifdef CONFIG_FSL_QSPI
-#define CONFIG_SYS_FSL_QSPI_LE
-#define CONFIG_SYS_FSL_QSPI_AHB
-#ifdef CONFIG_MX6SX_SABRESD_REVA
-#define FSL_QSPI_FLASH_SIZE		SZ_16M
-#else
-#define FSL_QSPI_FLASH_SIZE		SZ_32M
-#endif
-#define FSL_QSPI_FLASH_NUM		2
-#endif
 
 #ifndef CONFIG_SPL_BUILD
 #ifdef CONFIG_VIDEO

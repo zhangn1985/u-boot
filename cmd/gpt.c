@@ -245,7 +245,7 @@ static void print_gpt_info(void)
 		printf("Block size %lu, name %s\n", curr->gpt_part_info.blksz,
 		       curr->gpt_part_info.name);
 		printf("Type %s, bootable %d\n", curr->gpt_part_info.type,
-		       curr->gpt_part_info.bootable);
+		       curr->gpt_part_info.bootable & PART_BOOTABLE);
 #ifdef CONFIG_PARTITION_UUIDS
 		printf("UUID %s\n", curr->gpt_part_info.uuid);
 #endif
@@ -535,7 +535,7 @@ static int set_gpt_info(struct blk_desc *dev_desc,
 
 		/* bootable */
 		if (found_key(tok, "bootable"))
-			parts[i].bootable = 1;
+			parts[i].bootable = PART_BOOTABLE;
 	}
 
 	*parts_count = p_count;
@@ -772,11 +772,9 @@ static int do_rename_gpt_parts(struct blk_desc *dev_desc, char *subcomm,
  out:
 	del_gpt_info();
 #ifdef CONFIG_RANDOM_UUID
-	if (str_disk_guid)
-		free(str_disk_guid);
+	free(str_disk_guid);
 #endif
-	if (new_partitions)
-		free(new_partitions);
+	free(new_partitions);
 	free(partitions_list);
 	return ret;
 }

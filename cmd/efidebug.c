@@ -17,7 +17,6 @@
 #include <linux/ctype.h>
 
 #define BS systab.boottime
-#define RT systab.runtime
 
 /**
  * efi_get_device_handle_info() - get information of UEFI device
@@ -69,7 +68,7 @@ static int do_efi_show_devices(cmd_tbl_t *cmdtp, int flag,
 	u16 *dev_path_text;
 	efi_status_t ret;
 
-	ret = EFI_CALL(BS->locate_handle_buffer(ALL_HANDLES, NULL, NULL,
+	ret = EFI_CALL(efi_locate_handle_buffer(ALL_HANDLES, NULL, NULL,
 						&num, &handles));
 	if (ret != EFI_SUCCESS)
 		return CMD_RET_FAILURE;
@@ -86,7 +85,7 @@ static int do_efi_show_devices(cmd_tbl_t *cmdtp, int flag,
 		}
 	}
 
-	EFI_CALL(BS->free_pool(handles));
+	efi_free_pool(handles);
 
 	return CMD_RET_SUCCESS;
 }
@@ -148,7 +147,7 @@ static int do_efi_show_drivers(cmd_tbl_t *cmdtp, int flag,
 	u16 *driver_name, *image_path_text;
 	efi_status_t ret;
 
-	ret = EFI_CALL(BS->locate_handle_buffer(
+	ret = EFI_CALL(efi_locate_handle_buffer(
 				BY_PROTOCOL, &efi_guid_driver_binding_protocol,
 				NULL, &num, &handles));
 	if (ret != EFI_SUCCESS)
@@ -170,12 +169,12 @@ static int do_efi_show_drivers(cmd_tbl_t *cmdtp, int flag,
 			else
 				printf("%p %-20ls <built-in>\n",
 				       handles[i], driver_name);
-			EFI_CALL(BS->free_pool(driver_name));
-			EFI_CALL(BS->free_pool(image_path_text));
+			efi_free_pool(driver_name);
+			efi_free_pool(image_path_text);
 		}
 	}
 
-	EFI_CALL(BS->free_pool(handles));
+	efi_free_pool(handles);
 
 	return CMD_RET_SUCCESS;
 }
@@ -321,7 +320,7 @@ static int do_efi_show_handles(cmd_tbl_t *cmdtp, int flag,
 	const char *guid_text;
 	efi_status_t ret;
 
-	ret = EFI_CALL(BS->locate_handle_buffer(ALL_HANDLES, NULL, NULL,
+	ret = EFI_CALL(efi_locate_handle_buffer(ALL_HANDLES, NULL, NULL,
 						&num, &handles));
 	if (ret != EFI_SUCCESS)
 		return CMD_RET_FAILURE;
@@ -355,7 +354,7 @@ static int do_efi_show_handles(cmd_tbl_t *cmdtp, int flag,
 		putc('\n');
 	}
 
-	EFI_CALL(BS->free_pool(handles));
+	efi_free_pool(handles);
 
 	return CMD_RET_SUCCESS;
 }
@@ -395,6 +394,7 @@ static const char * const efi_mem_type_string[] = {
 	[EFI_MMAP_IO] = "IO",
 	[EFI_MMAP_IO_PORT] = "IO PORT",
 	[EFI_PAL_CODE] = "PAL",
+	[EFI_PERSISTENT_MEMORY_TYPE] = "PERSISTENT",
 };
 
 static const struct efi_mem_attrs {
@@ -462,18 +462,17 @@ static int do_efi_show_memmap(cmd_tbl_t *cmdtp, int flag,
 	int i;
 	efi_status_t ret;
 
-	ret = EFI_CALL(BS->get_memory_map(&map_size, memmap, NULL, NULL, NULL));
+	ret = efi_get_memory_map(&map_size, memmap, NULL, NULL, NULL);
 	if (ret == EFI_BUFFER_TOO_SMALL) {
 		map_size += sizeof(struct efi_mem_desc); /* for my own */
-		ret = EFI_CALL(BS->allocate_pool(EFI_LOADER_DATA,
-						 map_size, (void *)&memmap));
+		ret = efi_allocate_pool(EFI_LOADER_DATA, map_size,
+					(void *)&memmap);
 		if (ret != EFI_SUCCESS)
 			return CMD_RET_FAILURE;
-		ret = EFI_CALL(BS->get_memory_map(&map_size, memmap,
-						  NULL, NULL, NULL));
+		ret = efi_get_memory_map(&map_size, memmap, NULL, NULL, NULL);
 	}
 	if (ret != EFI_SUCCESS) {
-		EFI_CALL(BS->free_pool(memmap));
+		efi_free_pool(memmap);
 		return CMD_RET_FAILURE;
 	}
 
@@ -481,8 +480,13 @@ static int do_efi_show_memmap(cmd_tbl_t *cmdtp, int flag,
 	       EFI_PHYS_ADDR_WIDTH - 5, spc, EFI_PHYS_ADDR_WIDTH - 3, spc);
 	printf("================ %.*s %.*s ==========\n",
 	       EFI_PHYS_ADDR_WIDTH, sep, EFI_PHYS_ADDR_WIDTH, sep);
+	/*
+	 * Coverity check: dereferencing null pointer "map."
+	 * This is a false positive as memmap will always be
+	 * populated by allocate_pool() above.
+	 */
 	for (i = 0, map = memmap; i < map_size / sizeof(*map); map++, i++) {
-		if (map->type < EFI_MAX_MEMORY_TYPE)
+		if (map->type < ARRAY_SIZE(efi_mem_type_string))
 			type = efi_mem_type_string[map->type];
 		else
 			type = "(unknown)";
@@ -500,7 +504,7 @@ static int do_efi_show_memmap(cmd_tbl_t *cmdtp, int flag,
 		putc('\n');
 	}
 
-	EFI_CALL(BS->free_pool(memmap));
+	efi_free_pool(memmap);
 
 	return CMD_RET_SUCCESS;
 }
@@ -603,7 +607,7 @@ static int do_efi_boot_add(cmd_tbl_t *cmdtp, int flag,
 				+ sizeof(struct efi_device_path); /* for END */
 
 	/* optional data */
-	if (argc < 6)
+	if (argc == 6)
 		lo.optional_data = NULL;
 	else
 		lo.optional_data = (const u8 *)argv[6];
@@ -614,7 +618,7 @@ static int do_efi_boot_add(cmd_tbl_t *cmdtp, int flag,
 		goto out;
 	}
 
-	ret = EFI_CALL(RT->set_variable(var_name16, &guid,
+	ret = EFI_CALL(efi_set_variable(var_name16, &guid,
 					EFI_VARIABLE_NON_VOLATILE |
 					EFI_VARIABLE_BOOTSERVICE_ACCESS |
 					EFI_VARIABLE_RUNTIME_ACCESS,
@@ -669,7 +673,7 @@ static int do_efi_boot_rm(cmd_tbl_t *cmdtp, int flag,
 		p = var_name16;
 		utf8_utf16_strncpy(&p, var_name, 9);
 
-		ret = EFI_CALL(RT->set_variable(var_name16, &guid, 0, 0, NULL));
+		ret = EFI_CALL(efi_set_variable(var_name16, &guid, 0, 0, NULL));
 		if (ret) {
 			printf("Cannot remove %ls\n", var_name16);
 			return CMD_RET_FAILURE;
@@ -682,13 +686,13 @@ static int do_efi_boot_rm(cmd_tbl_t *cmdtp, int flag,
 /**
  * show_efi_boot_opt_data() - dump UEFI load option
  *
- * @id:		load option number
+ * @varname16:	variable name
  * @data:	value of UEFI load option variable
  * @size:	size of the boot option
  *
  * Decode the value of UEFI load option variable and print information.
  */
-static void show_efi_boot_opt_data(int id, void *data, size_t size)
+static void show_efi_boot_opt_data(u16 *varname16, void *data, size_t size)
 {
 	struct efi_load_option lo;
 	char *label, *p;
@@ -705,8 +709,8 @@ static void show_efi_boot_opt_data(int id, void *data, size_t size)
 	p = label;
 	utf16_utf8_strncpy(&p, lo.label, label_len16);
 
-	printf("Boot%04X:\n", id);
-	printf("  attributes: %c%c%c (0x%08x)\n",
+	printf("%ls:\nattributes: %c%c%c (0x%08x)\n",
+	       varname16,
 	       /* ACTIVE */
 	       lo.attributes & LOAD_OPTION_ACTIVE ? 'A' : '-',
 	       /* FORCE RECONNECT */
@@ -730,37 +734,32 @@ static void show_efi_boot_opt_data(int id, void *data, size_t size)
 /**
  * show_efi_boot_opt() - dump UEFI load option
  *
- * @id:		Load option number
+ * @varname16:	variable name
  *
  * Dump information defined by UEFI load option.
  */
-static void show_efi_boot_opt(int id)
+static void show_efi_boot_opt(u16 *varname16)
 {
-	char var_name[9];
-	u16 var_name16[9], *p;
-	efi_guid_t guid;
-	void *data = NULL;
+	void *data;
 	efi_uintn_t size;
 	efi_status_t ret;
 
-	sprintf(var_name, "Boot%04X", id);
-	p = var_name16;
-	utf8_utf16_strncpy(&p, var_name, 9);
-	guid = efi_global_variable_guid;
-
 	size = 0;
-	ret = EFI_CALL(RT->get_variable(var_name16, &guid, NULL, &size, NULL));
+	ret = EFI_CALL(efi_get_variable(varname16, &efi_global_variable_guid,
+					NULL, &size, NULL));
 	if (ret == EFI_BUFFER_TOO_SMALL) {
 		data = malloc(size);
-		ret = EFI_CALL(RT->get_variable(var_name16, &guid, NULL, &size,
-						data));
+		if (!data) {
+			printf("ERROR: Out of memory\n");
+			return;
+		}
+		ret = EFI_CALL(efi_get_variable(varname16,
+						&efi_global_variable_guid,
+						NULL, &size, data));
+		if (ret == EFI_SUCCESS)
+			show_efi_boot_opt_data(varname16, data, size);
+		free(data);
 	}
-	if (ret == EFI_SUCCESS)
-		show_efi_boot_opt_data(id, data, size);
-	else if (ret == EFI_NOT_FOUND)
-		printf("Boot%04X: not found\n", id);
-
-	free(data);
 }
 
 static int u16_tohex(u16 c)
@@ -839,7 +838,7 @@ static int do_efi_boot_dump(cmd_tbl_t *cmdtp, int flag,
 			id = (id << 4) + digit;
 		}
 		if (i == 4 && !var_name16[8])
-			show_efi_boot_opt(id);
+			show_efi_boot_opt(var_name16);
 	}
 
 	free(var_name16);
@@ -856,8 +855,7 @@ static int do_efi_boot_dump(cmd_tbl_t *cmdtp, int flag,
  */
 static int show_efi_boot_order(void)
 {
-	efi_guid_t guid;
-	u16 *bootorder = NULL;
+	u16 *bootorder;
 	efi_uintn_t size;
 	int num, i;
 	char var_name[9];
@@ -868,20 +866,25 @@ static int show_efi_boot_order(void)
 	size_t label_len16, label_len;
 	efi_status_t ret;
 
-	guid = efi_global_variable_guid;
 	size = 0;
-	ret = EFI_CALL(RT->get_variable(L"BootOrder", &guid, NULL, &size,
-					NULL));
-	if (ret == EFI_BUFFER_TOO_SMALL) {
-		bootorder = malloc(size);
-		ret = EFI_CALL(RT->get_variable(L"BootOrder", &guid, NULL,
-						&size, bootorder));
+	ret = EFI_CALL(efi_get_variable(L"BootOrder", &efi_global_variable_guid,
+					NULL, &size, NULL));
+	if (ret != EFI_BUFFER_TOO_SMALL) {
+		if (ret == EFI_NOT_FOUND) {
+			printf("BootOrder not defined\n");
+			return CMD_RET_SUCCESS;
+		} else {
+			return CMD_RET_FAILURE;
+		}
 	}
-	if (ret == EFI_NOT_FOUND) {
-		printf("BootOrder not defined\n");
-		ret = CMD_RET_SUCCESS;
-		goto out;
-	} else if (ret != EFI_SUCCESS) {
+	bootorder = malloc(size);
+	if (!bootorder) {
+		printf("ERROR: Out of memory\n");
+		return CMD_RET_FAILURE;
+	}
+	ret = EFI_CALL(efi_get_variable(L"BootOrder", &efi_global_variable_guid,
+					NULL, &size, bootorder));
+	if (ret != EFI_SUCCESS) {
 		ret = CMD_RET_FAILURE;
 		goto out;
 	}
@@ -893,11 +896,11 @@ static int show_efi_boot_order(void)
 		utf8_utf16_strncpy(&p16, var_name, 9);
 
 		size = 0;
-		ret = EFI_CALL(RT->get_variable(var_name16, &guid, NULL, &size,
-						NULL));
+		ret = EFI_CALL(efi_get_variable(var_name16,
+						&efi_global_variable_guid, NULL,
+						&size, NULL));
 		if (ret != EFI_BUFFER_TOO_SMALL) {
-			printf("%2d: Boot%04X: (not defined)\n",
-			       i + 1, bootorder[i]);
+			printf("%2d: %s: (not defined)\n", i + 1, var_name);
 			continue;
 		}
 
@@ -906,8 +909,9 @@ static int show_efi_boot_order(void)
 			ret = CMD_RET_FAILURE;
 			goto out;
 		}
-		ret = EFI_CALL(RT->get_variable(var_name16, &guid, NULL, &size,
-						data));
+		ret = EFI_CALL(efi_get_variable(var_name16,
+						&efi_global_variable_guid, NULL,
+						&size, data));
 		if (ret != EFI_SUCCESS) {
 			free(data);
 			ret = CMD_RET_FAILURE;
@@ -926,7 +930,7 @@ static int show_efi_boot_order(void)
 		}
 		p = label;
 		utf16_utf8_strncpy(&p, lo.label, label_len16);
-		printf("%2d: Boot%04X: %s\n", i + 1, bootorder[i], label);
+		printf("%2d: %s: %s\n", i + 1, var_name, label);
 		free(label);
 
 		free(data);
@@ -966,7 +970,7 @@ static int do_efi_boot_next(cmd_tbl_t *cmdtp, int flag,
 		return CMD_RET_USAGE;
 
 	bootnext = (u16)simple_strtoul(argv[1], &endp, 16);
-	if (*endp != '\0' || bootnext > 0xffff) {
+	if (*endp) {
 		printf("invalid value: %s\n", argv[1]);
 		r = CMD_RET_FAILURE;
 		goto out;
@@ -974,7 +978,7 @@ static int do_efi_boot_next(cmd_tbl_t *cmdtp, int flag,
 
 	guid = efi_global_variable_guid;
 	size = sizeof(u16);
-	ret = EFI_CALL(RT->set_variable(L"BootNext", &guid,
+	ret = EFI_CALL(efi_set_variable(L"BootNext", &guid,
 					EFI_VARIABLE_NON_VOLATILE |
 					EFI_VARIABLE_BOOTSERVICE_ACCESS |
 					EFI_VARIABLE_RUNTIME_ACCESS,
@@ -1035,7 +1039,7 @@ static int do_efi_boot_order(cmd_tbl_t *cmdtp, int flag,
 	}
 
 	guid = efi_global_variable_guid;
-	ret = EFI_CALL(RT->set_variable(L"BootOrder", &guid,
+	ret = EFI_CALL(efi_set_variable(L"BootOrder", &guid,
 					EFI_VARIABLE_NON_VOLATILE |
 					EFI_VARIABLE_BOOTSERVICE_ACCESS |
 					EFI_VARIABLE_RUNTIME_ACCESS,

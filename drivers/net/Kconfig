@@ -57,6 +57,12 @@ config MDIO_MUX_SANDBOX
 
 	  This driver is used for testing in test/dm/mdio.c
 
+config DM_ETH_PHY
+	bool "Enable Driver Model for Ethernet Generic PHY drivers"
+	depends on DM
+	help
+	  Enable driver model for Ethernet Generic PHY .
+
 menuconfig NETDEVICES
 	bool "Network device support"
 	depends on NET
@@ -388,11 +394,13 @@ config SMC911X
 
 if SMC911X
 
+if !DM_ETH
 config SMC911X_BASE
 	hex "SMC911X Base Address"
 	help
 	  Define this to hold the physical address
 	  of the device (I/O space)
+endif #DM_ETH
 
 choice
 	prompt "SMC911X bus width"
@@ -639,5 +647,12 @@ config MVMDIO
 	  Dove, Armada 370, Armada XP, Armada 37xx and Armada7K/8K/8KP).
 
 	  This driver is used by the MVPP2 and MVNETA drivers.
+
+config FSL_LS_MDIO
+	bool "NXP Layerscape MDIO interface support"
+	depends on DM_MDIO
+	help
+	  This driver supports the MDIO bus found on the Fman 10G Ethernet MACs and
+	  on the mEMAC (which supports both Clauses 22 and 45).
 
 endif # NETDEVICES

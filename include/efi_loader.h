@@ -11,6 +11,7 @@
 #include <common.h>
 #include <part_efi.h>
 #include <efi_api.h>
+#include <image.h>
 #include <pe.h>
 
 static inline int guidcmp(const void *g1, const void *g2)
@@ -46,6 +47,13 @@ static inline void *guidcpy(void *dst, const void *src)
 
 /* Root node */
 extern efi_handle_t efi_root;
+
+/* EFI system partition */
+extern struct efi_system_partition {
+	enum if_type if_type;
+	int devnum;
+	u8 part;
+} efi_system_partition;
 
 int __efi_entry_check(void);
 int __efi_exit_check(void);
@@ -386,6 +394,8 @@ efi_status_t efi_disk_register(void);
 int efi_disk_create_partitions(efi_handle_t parent, struct blk_desc *desc,
 			       const char *if_typename, int diskid,
 			       const char *pdevname);
+/* Check if it is EFI system partition */
+bool efi_disk_is_system_part(efi_handle_t handle);
 /* Called by bootefi to make GOP (graphical) interface available */
 efi_status_t efi_gop_register(void);
 /* Called by bootefi to make the network interface available */
@@ -695,9 +705,6 @@ void efi_deserialize_load_option(struct efi_load_option *lo, u8 *data);
 unsigned long efi_serialize_load_option(struct efi_load_option *lo, u8 **data);
 efi_status_t efi_bootmgr_load(efi_handle_t *handle);
 
-#ifdef CONFIG_EFI_SECURE_BOOT
-#include <image.h>
-
 /**
  * efi_image_regions - A list of memory regions
  *
@@ -767,7 +774,6 @@ bool efi_secure_boot_enabled(void);
 
 bool efi_image_parse(void *efi, size_t len, struct efi_image_regions **regp,
 		     WIN_CERTIFICATE **auth, size_t *auth_len);
-#endif /* CONFIG_EFI_SECURE_BOOT */
 
 #else /* CONFIG_IS_ENABLED(EFI_LOADER) */
 

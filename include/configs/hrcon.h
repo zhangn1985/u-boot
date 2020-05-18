@@ -90,8 +90,6 @@
 /*
  * Memory test
  */
-#define CONFIG_SYS_MEMTEST_START	0x00001000 /* memtest region */
-#define CONFIG_SYS_MEMTEST_END		0x07f00000
 
 /*
  * The reserved memory
@@ -293,7 +291,6 @@ void fpga_control_clear(unsigned int bus, int pin);
 /*
  * Software (bit-bang) MII driver configuration
  */
-#define CONFIG_BITBANGMII		/* bit-bang MII PHY management */
 #define CONFIG_BITBANGMII_MULTI
 
 /*

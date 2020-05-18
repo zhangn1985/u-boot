@@ -22,9 +22,6 @@
 #define SYS_SDRAM_SIZE_1024		0x40000000
 #define CONFIG_CHIP_SELECTS_PER_CTRL	1
 #define CONFIG_CMD_MEMINFO
-#define CONFIG_CMD_MEMTEST
-#define CONFIG_SYS_MEMTEST_START	0x80000000
-#define CONFIG_SYS_MEMTEST_END		0x9fffffff
 
 /* ENV */
 #define CONFIG_SYS_FSL_QSPI_BASE	0x40000000
@@ -33,7 +30,8 @@
 #undef BOOT_TARGET_DEVICES
 #define BOOT_TARGET_DEVICES(func) \
 	func(MMC, mmc, 0) \
-	func(USB, usb, 0)
+	func(USB, usb, 0) \
+	func(DHCP, dhcp, na)
 #endif
 
 #undef FSL_QSPI_FLASH_SIZE
@@ -102,15 +100,6 @@
 			"env exists secureboot "	\
 			"&& esbc_validate ${scripthdraddr};"    \
 		"source ${scriptaddr}\0"	  \
-	"installer=load mmc 0:2 $load_addr "	\
-		   "/flex_installer_arm64.itb; "	\
-		   "bootm $load_addr#$BOARD\0"	\
-	"qspi_bootcmd=pfe stop; echo Trying load from qspi..;"	\
-		"sf probe && sf read $load_addr "	\
-		"$kernel_addr $kernel_size; env exists secureboot "	\
-		"&& sf read $kernelheader_addr_r $kernelheader_addr "	\
-		"$kernelheader_size && esbc_validate ${kernelheader_addr_r}; " \
-		"bootm $load_addr#$BOARD\0"	\
 	"sd_bootcmd=pfe stop; echo Trying load from sd card..;"		\
 		"mmcinfo; mmc read $load_addr "			\
 		"$kernel_addr_sd $kernel_size_sd ;"		\
@@ -129,9 +118,6 @@
 			   "env exists secureboot && esbc_halt;"
 #endif
 #define CONFIG_CMD_MEMINFO
-#define CONFIG_CMD_MEMTEST
-#define CONFIG_SYS_MEMTEST_START	0x80000000
-#define CONFIG_SYS_MEMTEST_END		0x9fffffff
 
 #include <asm/fsl_secure_boot.h>
 
