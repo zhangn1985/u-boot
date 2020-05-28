@@ -90,6 +90,10 @@ armhf	rpi		rpi_2		u-boot.bin
 # Ryan Finnie <ryan@finnie.org>
 armhf	rpi		rpi_3_32b	u-boot.bin
 
+# Lucas Nussbaum <lucas@debian.org>
+# Andreas Henriksson <andreas@fatal.se>
+armhf	rpi		rpi_4_32b	u-boot.bin
+
 # Christian Kastner <debian@kvr.at>
 armhf	sunxi		A10-OLinuXino-Lime	u-boot-sunxi-with-spl.bin
 
@@ -212,6 +216,10 @@ arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl3
 
 # Ryan Finnie <ryan@finnie.org>
 arm64	rpi		rpi_3		u-boot.bin
+
+# Lucas Nussbaum <lucas@debian.org>
+# Andreas Henriksson <andreas@fatal.se>
+arm64	rpi		rpi_4		u-boot.bin
 
 # Rodrigo Exterckötter Tjäder <rodrigo@tjader.xyz>
 arm64	sunxi		a64-olinuxino	/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-olinuxino.dtb u-boot.itb
