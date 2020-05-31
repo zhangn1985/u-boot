@@ -5,7 +5,7 @@
 
 #include <common.h>
 #include <dm.h>
-#include <dm/device_compat.h>
+#include <log.h>
 #include <dm/device-internal.h>
 #include <dm/lists.h>
 #include <dm/uclass-internal.h>
@@ -14,6 +14,7 @@
 #include <fdtdec.h>
 #include <malloc.h>
 #include <asm/gpio.h>
+#include <dm/device_compat.h>
 #include <linux/bug.h>
 #include <linux/ctype.h>
 
@@ -526,6 +527,21 @@ int dm_gpio_set_value(const struct gpio_desc *desc, int value)
 
 	if (desc->flags & GPIOD_ACTIVE_LOW)
 		value = !value;
+
+	/*
+	 * Emulate open drain by not actively driving the line high or
+	 * Emulate open source by not actively driving the line low
+	 */
+	if ((desc->flags & GPIOD_OPEN_DRAIN && value) ||
+	    (desc->flags & GPIOD_OPEN_SOURCE && !value))
+		return gpio_get_ops(desc->dev)->direction_input(desc->dev,
+								desc->offset);
+	else if (desc->flags & GPIOD_OPEN_DRAIN ||
+		 desc->flags & GPIOD_OPEN_SOURCE)
+		return gpio_get_ops(desc->dev)->direction_output(desc->dev,
+								desc->offset,
+								value);
+
 	gpio_get_ops(desc->dev)->set_value(desc->dev, desc->offset, value);
 	return 0;
 }

@@ -7,10 +7,13 @@
 #include <common.h>
 #include <dm.h>
 #include <errno.h>
+#include <log.h>
 #include <thermal.h>
 #include <dm/device-internal.h>
 #include <dm/device.h>
 #include <asm/arch/sci/sci.h>
+#include <linux/delay.h>
+#include <linux/libfdt.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -58,13 +61,15 @@ int imx_sc_thermal_get_temp(struct udevice *dev, int *temp)
 		return ret;
 
 	while (cpu_temp >= pdata->alert) {
-		printf("CPU Temperature (%dC) has beyond alert (%dC), close to critical (%dC)",
+		printf("CPU Temperature (%dC) beyond alert (%dC), close to critical (%dC)",
 		       cpu_temp, pdata->alert, pdata->critical);
 		puts(" waiting...\n");
 		mdelay(pdata->polling_delay);
 		ret = read_temperature(dev, &cpu_temp);
 		if (ret)
 			return ret;
+		if (cpu_temp >= pdata->alert && !pdata->alert)
+			break;
 	}
 
 	*temp = cpu_temp / 1000;

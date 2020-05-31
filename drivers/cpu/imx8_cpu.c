@@ -7,10 +7,12 @@
 #include <cpu.h>
 #include <dm.h>
 #include <thermal.h>
+#include <asm/system.h>
 #include <asm/arch/sci/sci.h>
 #include <asm/arch/sys_proto.h>
 #include <asm/arch-imx/cpu.h>
 #include <asm/armv8/cpu.h>
+#include <linux/bitops.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -18,6 +20,7 @@ struct cpu_imx_platdata {
 	const char *name;
 	const char *rev;
 	const char *type;
+	u32 cpu_rsrc;
 	u32 cpurev;
 	u32 freq_mhz;
 	u32 mpidr;
@@ -50,16 +53,23 @@ const char *get_imx8_rev(u32 rev)
 	}
 }
 
-const char *get_core_name(struct udevice *dev)
+static void set_core_data(struct udevice *dev)
 {
-	if (!device_is_compatible(dev, "arm,cortex-a35"))
-		return "A35";
-	else if (!device_is_compatible(dev, "arm,cortex-a53"))
-		return "A53";
-	else if (!device_is_compatible(dev, "arm,cortex-a72"))
-		return "A72";
-	else
-		return "?";
+	struct cpu_imx_platdata *plat = dev_get_platdata(dev);
+
+	if (device_is_compatible(dev, "arm,cortex-a35")) {
+		plat->cpu_rsrc = SC_R_A35;
+		plat->name = "A35";
+	} else if (device_is_compatible(dev, "arm,cortex-a53")) {
+		plat->cpu_rsrc = SC_R_A53;
+		plat->name = "A53";
+	} else if (device_is_compatible(dev, "arm,cortex-a72")) {
+		plat->cpu_rsrc = SC_R_A72;
+		plat->name = "A72";
+	} else {
+		plat->cpu_rsrc = SC_R_A53;
+		plat->name = "?";
+	}
 }
 
 #if IS_ENABLED(CONFIG_IMX_SCU_THERMAL)
@@ -67,12 +77,12 @@ static int cpu_imx_get_temp(struct cpu_imx_platdata *plat)
 {
 	struct udevice *thermal_dev;
 	int cpu_tmp, ret;
+	int idx = 1; /* use "cpu-thermal0" device */
 
-	if (!strcmp(plat->name, "A72"))
-		ret = uclass_get_device(UCLASS_THERMAL, 1, &thermal_dev);
-	else
-		ret = uclass_get_device(UCLASS_THERMAL, 0, &thermal_dev);
+	if (plat->cpu_rsrc == SC_R_A72)
+		idx = 2; /* use "cpu-thermal1" device */
 
+	ret = uclass_get_device(UCLASS_THERMAL, idx, &thermal_dev);
 	if (!ret) {
 		ret = thermal_get_temp(thermal_dev, &cpu_tmp);
 		if (ret)
@@ -180,19 +190,11 @@ static const struct udevice_id cpu_imx8_ids[] = {
 
 static ulong imx8_get_cpu_rate(struct udevice *dev)
 {
+	struct cpu_imx_platdata *plat = dev_get_platdata(dev);
 	ulong rate;
-	int ret, type;
+	int ret;
 
-	if (!device_is_compatible(dev, "arm,cortex-a35"))
-		type = SC_R_A35;
-	else if (!device_is_compatible(dev, "arm,cortex-a53"))
-		type = SC_R_A53;
-	else if (!device_is_compatible(dev, "arm,cortex-a72"))
-		type = SC_R_A72;
-	else
-		return 0;
-
-	ret = sc_pm_get_clock_rate(-1, type, SC_PM_CLK_CPU,
+	ret = sc_pm_get_clock_rate(-1, plat->cpu_rsrc, SC_PM_CLK_CPU,
 				   (sc_pm_clock_rate_t *)&rate);
 	if (ret) {
 		printf("Could not read CPU frequency: %d\n", ret);
@@ -207,9 +209,9 @@ static int imx8_cpu_probe(struct udevice *dev)
 	struct cpu_imx_platdata *plat = dev_get_platdata(dev);
 	u32 cpurev;
 
+	set_core_data(dev);
 	cpurev = get_cpu_rev();
 	plat->cpurev = cpurev;
-	plat->name = get_core_name(dev);
 	plat->rev = get_imx8_rev(cpurev & 0xFFF);
 	plat->type = get_imx8_type((cpurev & 0xFF000) >> 12);
 	plat->freq_mhz = imx8_get_cpu_rate(dev) / 1000000;

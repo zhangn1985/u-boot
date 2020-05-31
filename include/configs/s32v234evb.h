@@ -68,7 +68,6 @@
 #define CONFIG_SYS_FSL_ESDHC_ADDR	USDHC_BASE_ADDR
 #define CONFIG_SYS_FSL_ESDHC_NUM	1
 
-#define CONFIG_CMD_MMC
 /* #define CONFIG_CMD_EXT2 EXT2 Support */
 
 #if 0
@@ -144,6 +143,7 @@
 	"run distro_bootcmd"
 
 #include <config_distro_bootcmd.h>
+#include <linux/stringify.h>
 
 /* Miscellaneous configurable options */
 #define CONFIG_SYS_PROMPT		"=> "

@@ -600,13 +600,16 @@ F:	cmd/usb_*.c
 F:	common/dfu.c
 F:	common/update.c
 F:	common/usb_storage.c
+F:	doc/api/dfu.rst
 F:	drivers/dfu/
 F:	drivers/usb/gadget/
+F:	include/dfu.h
 
 DRIVER MODEL
 M:	Simon Glass <sjg@chromium.org>
 S:	Maintained
 T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-dm.git
+F:	doc/driver-model/
 F:	drivers/core/
 F:	include/dm/
 F:	test/dm/
@@ -634,6 +637,12 @@ F:	cmd/bootefi.c
 F:	cmd/efidebug.c
 F:	cmd/nvedit_efi.c
 F:	tools/file2include.c
+
+EFI VARIABLES VIA OP-TEE
+M:	Ilias Apalodimas <ilias.apalodimas@linaro.org>
+S:	Maintained
+F:	lib/efi_loader/efi_variable_tee.c
+F:	include/mm_communication.h
 
 ENVIRONMENT
 M:	Joe Hershberger <joe.hershberger@ni.com>
@@ -818,7 +827,7 @@ S:	Maintained
 F:	arch/powerpc/
 
 POWERPC MPC8XX
-M:	Christophe Leroy <christophe.leroy@c-s.fr>
+M:	Christophe Leroy <christophe.leroy@csgroup.eu>
 S:	Maintained
 T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-mpc8xx.git
 F:	arch/powerpc/cpu/mpc8xx/

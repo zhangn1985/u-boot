@@ -7,6 +7,7 @@
 #define __IMX8M_EVK_H
 
 #include <linux/sizes.h>
+#include <linux/stringify.h>
 #include <asm/arch/imx-regs.h>
 
 #define CONFIG_SPL_MAX_SIZE		(124 * 1024)
@@ -200,8 +201,6 @@
 					sizeof(CONFIG_SYS_PROMPT) + 16)
 
 #define CONFIG_IMX_BOOTAUX
-
-#define CONFIG_CMD_MMC
 
 #define CONFIG_SYS_FSL_USDHC_NUM	2
 #define CONFIG_SYS_FSL_ESDHC_ADDR       0

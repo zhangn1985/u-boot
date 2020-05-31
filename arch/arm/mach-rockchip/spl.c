@@ -7,10 +7,14 @@
 #include <debug_uart.h>
 #include <dm.h>
 #include <hang.h>
+#include <image.h>
+#include <init.h>
+#include <log.h>
 #include <ram.h>
 #include <spl.h>
 #include <asm/arch-rockchip/bootrom.h>
 #include <asm/io.h>
+#include <linux/bitops.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -49,7 +53,8 @@ u32 spl_boot_device(void)
 
 #if defined(CONFIG_TARGET_CHROMEBOOK_JERRY) || \
 		defined(CONFIG_TARGET_CHROMEBIT_MICKEY) || \
-		defined(CONFIG_TARGET_CHROMEBOOK_MINNIE)
+		defined(CONFIG_TARGET_CHROMEBOOK_MINNIE) || \
+		defined(CONFIG_TARGET_CHROMEBOOK_SPEEDY)
 	return BOOT_DEVICE_SPI;
 #endif
 	if (CONFIG_IS_ENABLED(ROCKCHIP_BACK_TO_BROM))

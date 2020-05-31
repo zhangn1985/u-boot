@@ -9,11 +9,13 @@
 
 #include <common.h>
 #include <cpu_func.h>
+#include <log.h>
 #include <asm-generic/io.h>
 #include <dm.h>
 #include <dm/device-internal.h>
 #include <dm/lists.h>
 #include <dwc3-uboot.h>
+#include <linux/bitops.h>
 #include <linux/usb/ch9.h>
 #include <linux/usb/gadget.h>
 #include <malloc.h>
@@ -420,6 +422,7 @@ static int dwc3_glue_remove(struct udevice *dev)
 
 static const struct udevice_id dwc3_glue_ids[] = {
 	{ .compatible = "xlnx,zynqmp-dwc3" },
+	{ .compatible = "xlnx,versal-dwc3" },
 	{ .compatible = "ti,keystone-dwc3"},
 	{ .compatible = "ti,dwc3", .data = (ulong)&ti_ops },
 	{ .compatible = "ti,am437x-dwc3", .data = (ulong)&ti_ops },

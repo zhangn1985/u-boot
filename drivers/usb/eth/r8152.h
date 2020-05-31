@@ -7,6 +7,7 @@
 #ifndef _RTL8152_ETH_H
 #define _RTL8152_ETH_H
 
+#include <linux/bitops.h>
 #define R8152_BASE_NAME		"r8152"
 
 #define PLA_IDR			0xc000
@@ -21,7 +22,7 @@
 #define PLA_TEREDO_CFG		0xc0bc
 #define PLA_MAR			0xcd00
 #define PLA_BACKUP		0xd000
-#define PAL_BDC_CR		0xd1a0
+#define PLA_BDC_CR		0xd1a0
 #define PLA_TEREDO_TIMER	0xd2cc
 #define PLA_REALWOW_TIMER	0xd2e8
 #define PLA_LEDSEL		0xdd90
@@ -224,7 +225,7 @@
 #define TEREDO_RS_EVENT_MASK	0x00fe
 #define OOB_TEREDO_EN		0x0001
 
-/* PAL_BDC_CR */
+/* PLA_BDC_CR */
 #define ALDPS_PROXY_MODE	0x0001
 
 /* PLA_CONFIG34 */

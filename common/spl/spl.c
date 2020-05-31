@@ -9,10 +9,13 @@
 #include <common.h>
 #include <bloblist.h>
 #include <binman_sym.h>
+#include <bootstage.h>
 #include <dm.h>
 #include <handoff.h>
 #include <hang.h>
+#include <init.h>
 #include <irq_func.h>
+#include <log.h>
 #include <serial.h>
 #include <spl.h>
 #include <asm/u-boot.h>
@@ -423,11 +426,11 @@ static int spl_common_init(bool setup_malloc)
 		}
 	}
 	if (CONFIG_IS_ENABLED(DM)) {
-		bootstage_start(BOOTSTATE_ID_ACCUM_DM_SPL,
+		bootstage_start(BOOTSTAGE_ID_ACCUM_DM_SPL,
 				spl_phase() == PHASE_TPL ? "dm tpl" : "dm_spl");
 		/* With CONFIG_SPL_OF_PLATDATA, bring in all devices */
 		ret = dm_init_and_scan(!CONFIG_IS_ENABLED(OF_PLATDATA));
-		bootstage_accum(BOOTSTATE_ID_ACCUM_DM_SPL);
+		bootstage_accum(BOOTSTAGE_ID_ACCUM_DM_SPL);
 		if (ret) {
 			debug("dm_init_and_scan() returned error %d\n", ret);
 			return ret;
@@ -574,8 +577,7 @@ void board_init_f(ulong dummy)
 		}
 	}
 
-	if (CONFIG_IS_ENABLED(SERIAL_SUPPORT))
-		preloader_console_init();
+	preloader_console_init();
 }
 #endif
 
@@ -724,13 +726,13 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
 	jump_to_image_no_args(&spl_image);
 }
 
-#ifdef CONFIG_SPL_SERIAL_SUPPORT
 /*
  * This requires UART clocks to be enabled.  In order for this to work the
  * caller must ensure that the gd pointer is valid.
  */
 void preloader_console_init(void)
 {
+#ifdef CONFIG_SPL_SERIAL_SUPPORT
 	gd->baudrate = CONFIG_BAUDRATE;
 
 	serial_init();		/* serial communications setup */
@@ -744,8 +746,8 @@ void preloader_console_init(void)
 #ifdef CONFIG_SPL_DISPLAY_PRINT
 	spl_display_print();
 #endif
-}
 #endif
+}
 
 /**
  * This function is called before the stack is changed from initial stack to

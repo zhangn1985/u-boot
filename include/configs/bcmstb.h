@@ -15,6 +15,7 @@
 
 #ifndef __ASSEMBLY__
 
+#include <linux/stringify.h>
 #include <linux/types.h>
 
 struct bcmstb_boot_parameters {
@@ -129,7 +130,6 @@ extern phys_addr_t prior_stage_fdt_address;
 #define CONFIG_CMD_ASKENV
 #define CONFIG_CMD_CACHE
 #define CONFIG_CMD_EXT2
-#define CONFIG_CMD_MMC
 
 /*
  * Flash configuration.

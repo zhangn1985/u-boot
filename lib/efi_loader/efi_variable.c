@@ -7,12 +7,15 @@
 
 #include <common.h>
 #include <efi_loader.h>
+#include <env.h>
 #include <env_internal.h>
 #include <hexdump.h>
 #include <malloc.h>
 #include <rtc.h>
 #include <search.h>
+#include <uuid.h>
 #include <crypto/pkcs7_parser.h>
+#include <linux/bitops.h>
 #include <linux/compat.h>
 #include <u-boot/crc.h>
 
@@ -882,8 +885,6 @@ static efi_status_t efi_set_variable_common(u16 *variable_name,
 	u64 time = 0;
 	u32 attr;
 	efi_status_t ret = EFI_SUCCESS;
-
-	debug("%s: set '%s'\n", __func__, native_name);
 
 	if (!variable_name || !*variable_name || !vendor ||
 	    ((attributes & EFI_VARIABLE_RUNTIME_ACCESS) &&
