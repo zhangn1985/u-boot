@@ -9,7 +9,7 @@ u-boot-amlogic binary: arch-dependent-file-not-in-arch-specific-directory usr/li
 u-boot-amlogic binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
 
 # These are bootloader binaries, and have no external dependency information
-u-boot-amlogic binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
+u-boot-amlogic binary: shared-library-lacks-prerequisites usr/lib/u-boot/*/uboot.elf
 
 u-boot-amlogic: description-synopsis-starts-with-article
 

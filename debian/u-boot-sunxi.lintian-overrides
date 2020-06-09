@@ -9,7 +9,7 @@ u-boot-sunxi binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/
 u-boot-sunxi binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
 
 # These are bootloader binaries, and have no external dependency information
-u-boot-sunxi binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
+u-boot-sunxi binary: shared-library-lacks-prerequisites usr/lib/u-boot/*/uboot.elf
 
 u-boot-sunxi: description-synopsis-starts-with-article
 

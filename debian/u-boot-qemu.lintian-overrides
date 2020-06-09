@@ -9,7 +9,7 @@ u-boot-qemu binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/u
 u-boot-qemu binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
 
 # These are bootloader binaries, and have no external dependency information
-u-boot-qemu binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
+u-boot-qemu binary: shared-library-lacks-prerequisites usr/lib/u-boot/*/uboot.elf
 
 u-boot-qemu: description-synopsis-starts-with-article
 

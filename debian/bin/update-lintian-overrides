@@ -36,7 +36,7 @@ EOF
 EOF
 
     sed -n "/^[a-z0-9].*[[:space:]]$subarch[[:space:]]/p" ${target_file} | while read arch subarch2 platform targets ; do
-        echo "${package} binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf"
+        echo "${package} binary: shared-library-lacks-prerequisites usr/lib/u-boot/*/uboot.elf"
     done | LC_ALL=C sort -u >> ${overrides}
 
     cat >>${overrides}<<EOF

@@ -9,7 +9,7 @@ u-boot binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/u-boot
 u-boot binary: statically-linked-binary usr/lib/u-boot/*/uboot.elf
 
 # These are bootloader binaries, and have no external dependency information
-u-boot binary: shared-lib-without-dependency-information usr/lib/u-boot/*/uboot.elf
+u-boot binary: shared-library-lacks-prerequisites usr/lib/u-boot/*/uboot.elf
 
 u-boot: description-synopsis-starts-with-article
 
