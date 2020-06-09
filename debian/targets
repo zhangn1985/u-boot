@@ -209,7 +209,7 @@ arm64  rockchip        rockpro64-rk3399  /usr/lib/arm-trusted-firmware/rk3399/bl
 arm64  rockchip        rock64-rk3328  /usr/lib/arm-trusted-firmware/rk3328/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin tpl/u-boot-tpl.bin arch/arm/dts/rk3328-rock64.dtb u-boot.itb idbloader.img
 
 # Vagrant Cascadian <vagrant@debian.org>
-arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-ddr1333.dtb arch/arm/dts/rk3399-puma-ddr1600.dtb arch/arm/dts/rk3399-puma-ddr1866.dtb idbloader.img
+arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-haikou.dtb idbloader.img
 
 # Walter Lozano <walter.lozano@collabora.com>
 arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-rock-pi-4.dtb u-boot.itb idbloader.img
