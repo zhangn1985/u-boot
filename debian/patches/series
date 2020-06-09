@@ -19,9 +19,4 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
-# Patches submitted upstream from:
-# https://patchwork.ozlabs.org/project/uboot/list/?series=171521&state=*
-pinebook-pro/0002-dt-bindings-input-adopt-Linux-gpio-keys-binding-cons.patch
-pinebook-pro/0004-arm-dts-rockchip-Add-initial-DT-for-Pinebook-Pro.patch
-pinebook-pro/0005-Add-initial-support-for-the-Pinebook-Pro-laptop-from.patch
 n900/bootz_and_raw_initrd.patch
