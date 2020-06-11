@@ -1,0 +1,30 @@
+#!/bin/sh
+
+$1/vim2/blx_fix.sh 	$1/vim2/bl30.bin \
+				$2/zero_tmp \
+				$2/bl30_zero.bin \
+				$1/vim2/bl301.bin \
+				$2/bl301_zero.bin \
+				$2/bl30_new.bin \
+				bl30
+
+python $1/vim2/acs_tool $1/vim2/bl2.bin $2/bl2_acs.bin $1/vim2/acs.bin 0
+
+$1/vim2/blx_fix.sh	$2/bl2_acs.bin \
+				$2/zero_tmp \
+				$2/bl2_zero.bin \
+				$1/vim2/bl21.bin \
+				$2/bl21_zero.bin \
+				$2/bl2_new.bin \
+				bl2
+
+$1/vim2/aml_encrypt_gxl --bl3enc --input $2/bl30_new.bin
+$1/vim2/aml_encrypt_gxl --bl3enc --input $1/vim2/bl31.img --output $2/bl31.img.enc
+$1/vim2/aml_encrypt_gxl --bl3enc --input $2/bl33.bin
+$1/vim2/aml_encrypt_gxl --bl2sig --input $2/bl2_new.bin --output $2/bl2.n.bin.sig
+$1/vim2/aml_encrypt_gxl --bootmk \
+					--output $2/u-boot.bin \
+					--bl2 $2/bl2.n.bin.sig \
+					--bl30 $2/bl30_new.bin.enc \
+					--bl31 $2/bl31.img.enc \
+					--bl33 $2/bl33.bin.enc

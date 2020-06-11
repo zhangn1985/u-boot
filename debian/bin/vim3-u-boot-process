@@ -1,0 +1,48 @@
+#!/bin/sh
+
+$1/vim3/blx_fix.sh $1/vim3/bl30.bin \
+			$2/zero_tmp \
+			$2/bl30_zero.bin \
+			$1/vim3/bl301.bin \
+			$2/bl301_zero.bin \
+			$2/bl30_new.bin \
+			bl30
+
+$1/vim3/blx_fix.sh $1/vim3/bl2.bin \
+			$2/zero_tmp \
+			$2/bl2_zero.bin \
+			$1/vim3/acs.bin \
+			$2/bl21_zero.bin \
+			$2/bl2_new.bin \
+			bl2
+
+$1/vim3/aml_encrypt_g12b --bl30sig --input $2/bl30_new.bin \
+				--output $2/bl30_new.bin.g12a.enc \
+				--level v3
+$1/vim3/aml_encrypt_g12b --bl3sig --input $2/bl30_new.bin.g12a.enc \
+				--output $2/bl30_new.bin.enc \
+				--level v3 --type bl30
+$1/vim3/aml_encrypt_g12b --bl3sig --input $1/vim3/bl31.img \
+				--output $2/bl31.img.enc \
+				--level v3 --type bl31
+$1/vim3/aml_encrypt_g12b --bl3sig --input $2/bl33.bin --compress lz4 \
+				--output $2/bl33.bin.enc \
+				--level v3 --type bl33 --compress lz4
+$1/vim3/aml_encrypt_g12b --bl2sig --input $2/bl2_new.bin \
+				--output $2/bl2.n.bin.sig
+$1/vim3/aml_encrypt_g12b --bootmk \
+				--output $2/u-boot.bin \
+				--bl2 $2/bl2.n.bin.sig \
+				--bl30 $2/bl30_new.bin.enc \
+				--bl31 $2/bl31.img.enc \
+				--bl33 $2/bl33.bin.enc \
+				--ddrfw1 $1/vim3/ddr4_1d.fw \
+				--ddrfw2 $1/vim3/ddr4_2d.fw \
+				--ddrfw3 $1/vim3/ddr3_1d.fw \
+				--ddrfw4 $1/vim3/piei.fw \
+				--ddrfw5 $1/vim3/lpddr4_1d.fw \
+				--ddrfw6 $1/vim3/lpddr4_2d.fw \
+				--ddrfw7 $1/vim3/diag_lpddr4.fw \
+				--ddrfw8 $1/vim3/aml_ddr.fw \
+				--ddrfw9 $1/vim3/lpddr3_1d.fw \
+				--level v3

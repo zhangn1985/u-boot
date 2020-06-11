@@ -179,6 +179,8 @@ armhf	tegra		jetson-tk1	u-boot-tegra.bin
 # Neil Armstrong <narmstrong@baylibre.com>
 arm64	amlogic		khadas-vim	u-boot.bin
 arm64	amlogic		khadas-vim2	u-boot.bin
+arm64	amlogic		khadas-vim3	u-boot.bin
+arm64	amlogic		khadas-vim3l	u-boot.bin
 
 # Frederic Danis <frederic.danis@collabora.com>
 arm64	amlogic		libretech-cc	u-boot.bin

@@ -1,0 +1,3 @@
+[submodule "debian/khadas"]
+	path = debian/khadas
+	url = https://github.com/zhangn1985/kvim-blobs
