@@ -1,3 +1,6 @@
 [submodule "debian/khadas"]
 	path = debian/khadas
 	url = https://github.com/zhangn1985/kvim-blobs
+[submodule "debian/rkbin"]
+	path = debian/rkbin
+	url = https://github.com/rockchip-linux/rkbin

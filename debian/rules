@@ -71,7 +71,7 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 		case $$platform in \
 			novena-rawsd) targets="$$targets" ;\
 				;; \
-			khadas-vim*) utmp="debian/build/utmp-$$platform" ;\
+			khadas*) utmp="debian/build/utmp-$$platform" ;\
 				;; \
 			*) targets="$$targets uboot.elf" ;\
 				;; \
@@ -130,6 +130,14 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 				mv $$builddir/u-boot.bin $$utmp/bl33.bin; \
 				debian/bin/vim3l-u-boot-process debian/khadas $$utmp; \
 				mv $$utmp/u-boot.bin $$builddir/u-boot.bin; \
+				;; \
+			khadas-edge*) \
+				mkdir -p $$utmp; \
+				mv $$builddir/u-boot.bin $$utmp/; \
+				debian/bin/edge-u-boot-process $$builddir $$utmp; \
+				cp $$utmp/u-boot.itb $$builddir/; \
+				cp $$utmp/idbloader.img $$builddir/; \
+				cp $$utmp/trust.img $$builddir/; \
 				;; \
 			*) \
 				;; \

@@ -23,6 +23,15 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		"Radxa ROCK Pi 4")
 			TARGET="/usr/lib/u-boot/rock-pi-4-rk3399"
 			;;
+		"Khadas Edge")
+			TARGET="/usr/lib/u-boot/khadas-edge-rk3399"
+			;;
+		"Khadas Edge-V")
+			TARGET="/usr/lib/u-boot/khadas-edge-v-rk3399"
+			;;
+		"Khadas Edge-Captain")
+			TARGET="/usr/lib/u-boot/khadas-edge-captain-rk3399"
+			;;
 		*)
 			echo >&2 "ERROR: Unknown system: ${dtmodel}"
 			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
@@ -33,6 +42,7 @@ fi
 
 LOADER_IMAGE=${LOADER_IMAGE:-"idbloader.img"}
 UBOOT_IMAGE=${UBOOT_IMAGE:-"u-boot.itb"}
+TRUSTY_IMAGE=${UBOOT_IMAGE:-"trust.img"}
 
 DEV="$1"
 if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
@@ -56,4 +66,7 @@ echo "Writing idbloader"
 dd conv=notrunc if=${TARGET}/${LOADER_IMAGE} of="$DEV" seek=64
 echo "Writing u-boot image"
 dd conv=notrunc if=${TARGET}/${UBOOT_IMAGE} of="$DEV" seek=16384
+if [ -a ${TARGET}/${TRUSTY_IMAGE} ]; then
+	dd if=${TARGET}/${TRUSTY_IMAGE} of="$DEV" seek=24576 conv=notrunc
+fi
 sync "$DEV"

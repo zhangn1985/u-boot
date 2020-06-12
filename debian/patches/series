@@ -18,3 +18,6 @@ test-imagetools-test-fixes
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
 n900/bootz_and_raw_initrd.patch
+khadas/0007-Edge-adjust-boot-sequence.patch
+khadas/5-clk-init.patch
+khadas/rk3399-enable-stable-mac.patch

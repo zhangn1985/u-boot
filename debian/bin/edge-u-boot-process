@@ -1,0 +1,31 @@
+#!/bin/sh
+
+RKBIN=debian/rkbin
+
+UBOOT_LOAD_ADDR=`sed -n "/CONFIG_SYS_TEXT_BASE=/s/CONFIG_SYS_TEXT_BASE=//p" $1/include/autoconf.mk|tr -d '\r'`
+
+$RKBIN/tools/loaderimage --pack --uboot $2/u-boot.bin $2/u-boot.itb ${UBOOT_LOAD_ADDR}
+
+
+mkimage -n rk3399 -T rksd -d $RKBIN/bin/rk33/rk3399_ddr_800MHz_v*.bin $2/idbloader.img
+cat $RKBIN/bin/rk33/rk3399_miniloader_v*.bin >> $2/idbloader.img
+
+BL31=$(ls $RKBIN/bin/rk33/rk3399_bl31_v*.elf)
+cat <<-EOF > $2/RK3399NOTRUST.ini
+	[VERSION]
+	MAJOR=1
+	MINOR=0
+	[BL30_OPTION]
+	SEC=0
+	[BL31_OPTION]
+	SEC=1
+	PATH=${BL31}
+	ADDR=0x00040000
+	[BL32_OPTION]
+	SEC=0
+	[BL33_OPTION]
+	SEC=0
+	[OUTPUT]
+	PATH=$2/trust.img
+EOF
+$RKBIN/tools/trust_merger --replace tools/rk_tools/ ./ $2/RK3399NOTRUST.ini
