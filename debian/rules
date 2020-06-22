@@ -111,25 +111,25 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 				mkdir -p $$utmp; \
 				mv $$builddir/u-boot.bin $$utmp/bl33.bin; \
 				debian/bin/vim-u-boot-process debian/khadas $$utmp; \
-				mv $$utmp/u-boot.bin $$builddir/u-boot.bin; \
+				cp $$utmp/u-boot.bin.sd.bin $$builddir/u-boot.bin; \
 				;; \
 			khadas-vim2) \
 				mkdir -p $$utmp; \
 				mv $$builddir/u-boot.bin $$utmp/bl33.bin; \
 				debian/bin/vim2-u-boot-process debian/khadas $$utmp; \
-				mv $$utmp/u-boot.bin $$builddir/u-boot.bin; \
+				cp $$utmp/u-boot.bin.sd.bin $$builddir/u-boot.bin; \
 				;; \
 			khadas-vim3) \
 				mkdir -p $$utmp; \
 				mv $$builddir/u-boot.bin $$utmp/bl33.bin; \
 				debian/bin/vim3-u-boot-process debian/khadas $$utmp; \
-				mv $$utmp/u-boot.bin $$builddir/u-boot.bin; \
+				cp $$utmp/u-boot.bin.sd.bin $$builddir/u-boot.bin; \
 				;; \
 			khadas-vim3l) \
 				mkdir -p $$utmp; \
 				mv $$builddir/u-boot.bin $$utmp/bl33.bin; \
 				debian/bin/vim3l-u-boot-process debian/khadas $$utmp; \
-				mv $$utmp/u-boot.bin $$builddir/u-boot.bin; \
+				cp $$utmp/u-boot.bin.sd.bin $$builddir/u-boot.bin; \
 				;; \
 			khadas-edge*) \
 				mkdir -p $$utmp; \
