@@ -75,9 +75,6 @@ armhf	omap		nokia_rx51	u-boot.bin
 # Robert Nelson <robertcnelson@gmail.com>
 armhf	omap		omap3_beagle	u-boot.img MLO
 
-# Vagrant Cascadian <vagrant@debian.org>
-armhf	omap		omap3_pandora	u-boot.bin
-
 # Robert Nelson <robertcnelson@gmail.com>
 armhf	omap		omap4_panda	u-boot.img MLO
 
