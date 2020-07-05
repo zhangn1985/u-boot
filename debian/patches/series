@@ -17,4 +17,6 @@ test-imagetools-test-fixes
 
 exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 
+riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
+
 n900/bootz_and_raw_initrd.patch
