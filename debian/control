@@ -7,7 +7,7 @@ Build-Depends:
  arm-trusted-firmware (>= 2.2-3~) [arm64],
  bc,
  bison,
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  device-tree-compiler,
  dpkg-dev (>= 1.17.14),
  flex,
