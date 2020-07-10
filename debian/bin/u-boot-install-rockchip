@@ -17,7 +17,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		"Pine64 Rock64")
 			TARGET="/usr/lib/u-boot/rock64-rk3328"
 			;;
-		"Pine64 RockPro64")
+		"Pine64 RockPro64"|"Pine64 RockPro64 v2.1"|"Pine64 RockPro64 v2.0")
 			TARGET="/usr/lib/u-boot/rockpro64-rk3399"
 			;;
 		"Radxa ROCK Pi 4")
