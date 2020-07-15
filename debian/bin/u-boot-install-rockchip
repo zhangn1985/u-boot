@@ -42,7 +42,7 @@ fi
 
 LOADER_IMAGE=${LOADER_IMAGE:-"idbloader.img"}
 UBOOT_IMAGE=${UBOOT_IMAGE:-"u-boot.itb"}
-TRUSTY_IMAGE=${UBOOT_IMAGE:-"trust.img"}
+TRUSTY_IMAGE=${TRUSTY_IMAGE:-"trust.img"}
 
 DEV="$1"
 if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
@@ -66,7 +66,7 @@ echo "Writing idbloader"
 dd conv=notrunc if=${TARGET}/${LOADER_IMAGE} of="$DEV" seek=64
 echo "Writing u-boot image"
 dd conv=notrunc if=${TARGET}/${UBOOT_IMAGE} of="$DEV" seek=16384
-if [ -a ${TARGET}/${TRUSTY_IMAGE} ]; then
+if [ -f ${TARGET}/${TRUSTY_IMAGE} ]; then
 	dd if=${TARGET}/${TRUSTY_IMAGE} of="$DEV" seek=24576 conv=notrunc
 fi
 sync "$DEV"
