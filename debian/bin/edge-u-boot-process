@@ -2,7 +2,7 @@
 
 RKBIN=debian/rkbin
 
-UBOOT_LOAD_ADDR=`sed -n "/CONFIG_SYS_TEXT_BASE=/s/CONFIG_SYS_TEXT_BASE=//p" $1/include/autoconf.mk|tr -d '\r'`
+UBOOT_LOAD_ADDR=`sed -n "/CONFIG_SYS_TEXT_BASE=/s/CONFIG_SYS_TEXT_BASE=//p" $1/.config|tr -d '\r'`
 
 $RKBIN/tools/loaderimage --pack --uboot $2/u-boot.bin $2/u-boot.itb ${UBOOT_LOAD_ADDR}
 
