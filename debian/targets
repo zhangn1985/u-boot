@@ -218,6 +218,9 @@ arm64	rpi		rpi_3		u-boot.bin
 # Andreas Henriksson <andreas@fatal.se>
 arm64	rpi		rpi_4		u-boot.bin
 
+# Denis Pynkin <denis.pynkin@collabora.com>
+arm64	rpi		rpi_arm64	u-boot.bin
+
 # Rodrigo Exterckötter Tjäder <rodrigo@tjader.xyz>
 arm64	sunxi		a64-olinuxino	/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-olinuxino.dtb u-boot.itb
 
