@@ -21,4 +21,4 @@ riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
 n900/bootz_and_raw_initrd.patch
 
-reproducible/0001-fit_image-Fix-the-introduction-of-variable-bytes.patch
+reproducible/0001-fit_image-Use-calloc-to-fix-reproducibility-issue.patch

@@ -1,8 +1,8 @@
-From 77d8681857c7f7590c8045ad42821ae0b783d064 Mon Sep 17 00:00:00 2001
+From 7a66514f64dfb302dd9e763278d2d8a86b94a050 Mon Sep 17 00:00:00 2001
 From: Fabio Estevam <festevam@gmail.com>
-Date: Sun, 26 Jul 2020 15:35:34 -0300
-Subject: [PATCH] fit_image: Fix the introduction of variable bytes
-Origin: https://patchwork.ozlabs.org/project/uboot/patch/20200726183534.31586-1-festevam@gmail.com/
+Date: Mon, 27 Jul 2020 21:03:13 -0300
+Subject: [PATCH] fit_image: Use calloc() to fix reproducibility issue
+Origin: https://patchwork.ozlabs.org/project/uboot/patch/20200728000313.31130-1-festevam@gmail.com/
 
 Vagrant Cascadian reported that mx6cuboxi target no longer builds
 reproducibility on Debian.
@@ -13,11 +13,11 @@ One example of builds mismatches:
 -00096690: 7465 6374 2d67 7069 6f73 0000            tect-gpios..
 +00096690: 7465 6374 2d67 7069 6f73 0061            tect-gpios.a
 
-The mkimage tool is incorrectly introducing variable bytes after
-"detect-gpios\0".
+This problem happens because all the buffers in fit_image.c are
+allocated via malloc(), which does not zero out the allocated buffer.
 
-Fix the introduction of these variable bytes by using calloc(1, ...)
-instead of malloc(...).
+Using calloc() fixes this unpredictable behaviour as it guarantees
+that the allocated buffer are zero initialized.
 
 Reported-by: Vagrant Cascadian <vagrant@reproducible-builds.org>
 Suggested-by: Tom Rini <trini@konsulko.com>
