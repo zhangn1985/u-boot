@@ -87,6 +87,7 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			all:mips) export CROSS_COMPILE=mips-linux-gnu- ;;\
 			all:mipsel) export CROSS_COMPILE=mipsel-linux-gnu- ;;\
 			all:mips64el) export CROSS_COMPILE=mips64el-linux-gnuabi64- ;;\
+			all:powerpc) export CROSS_COMPILE=powerpc-linux-gnu- ;;\
 			all:riscv64) export CROSS_COMPILE=riscv64-linux-gnu- ;;\
 			all:i386) export CROSS_COMPILE=i686-linux-gnu- ;;\
 			all:amd64) export CROSS_COMPILE=x86_64-linux-gnu- ;;\
