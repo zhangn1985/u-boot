@@ -1,3 +1,17 @@
+u-boot (2020.07+dfsg-2) unstable; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * u-boot-install-rockchip: Update with additional RockPro64 names from
+    linux 5.7 device-trees.
+
+  [ Denis Pynkin ]
+  * u-boot-rpi: Add rpi_arm64 target for arm64 (Closes: #966078).
+
+  [ Vagrant Cascadian ]
+  * debian/patches: Fix reproducibility of mx6cuboxi target.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 28 Aug 2020 16:35:40 -0700
+
 u-boot (2020.07+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
