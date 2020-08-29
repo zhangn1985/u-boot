@@ -122,6 +122,9 @@ armhf	sunxi		Bananapro	u-boot-sunxi-with-spl.bin
 # Lucas Nussbaum <lucas@debian.org>
 armhf   sunxi           bananapi_m2_berry u-boot-sunxi-with-spl.bin
 
+# Bernhard Wörner <bewoern1@gmail.com>
+armhf   sunxi           Bananapi_M2_Ultra u-boot-sunxi-with-spl.bin
+
 # Vagrant Cascadian <vagrant@debian.org>
 armhf	sunxi		CHIP		u-boot-sunxi-with-spl.bin
 
