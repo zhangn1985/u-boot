@@ -117,7 +117,6 @@ Files:
  include/linux/libfdt.h
  include/configs/controlcenterd.h
  include/configs/mxs.h
- include/configs/T1040QDS.h
  include/tca642x.h
  board/gdsys/p1022/tlb.c
  board/gdsys/p1022/sdhc_boot.c
