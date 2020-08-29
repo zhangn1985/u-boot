@@ -212,7 +212,7 @@ arm64  rockchip        rock64-rk3328  /usr/lib/arm-trusted-firmware/rk3328/bl31.
 arm64  rockchip        puma-rk3399  u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-puma-haikou.dtb idbloader.img
 
 # Walter Lozano <walter.lozano@collabora.com>
-arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-rock-pi-4.dtb u-boot.itb idbloader.img
+arm64  rockchip        rock-pi-4-rk3399 /usr/lib/arm-trusted-firmware/rk3399/bl31.elf u-boot.img u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin arch/arm/dts/rk3399-rock-pi-4a.dtb arch/arm/dts/rk3399-rock-pi-4b.dtb u-boot.itb idbloader.img
 
 # Ryan Finnie <ryan@finnie.org>
 arm64	rpi		rpi_3		u-boot.bin
