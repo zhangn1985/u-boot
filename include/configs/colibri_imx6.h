@@ -30,7 +30,6 @@
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(32 * 1024 * 1024)
 
-#define CONFIG_MXC_UART
 #define CONFIG_MXC_UART_BASE		UART1_BASE
 
 /* I2C Configs */
@@ -57,17 +56,11 @@
 /* Framebuffer and LCD */
 #define CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE
 #define CONFIG_VIDEO_BMP_RLE8
-#define CONFIG_SPLASH_SCREEN
-#define CONFIG_SPLASH_SCREEN_ALIGN
 #define CONFIG_BMP_16BPP
 #define CONFIG_VIDEO_LOGO
 #define CONFIG_VIDEO_BMP_LOGO
-#define CONFIG_CONSOLE_MUX
 #define CONFIG_IMX_HDMI
 #define CONFIG_IMX_VIDEO_SKIP
-
-/* allow to overwrite serial and ethaddr */
-#define CONFIG_ENV_OVERWRITE
 
 /* Command definition */
 
@@ -174,13 +167,5 @@
 	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
 #define CONFIG_SYS_INIT_SP_ADDR \
 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
-
-/* environment organization */
-
-#if defined(CONFIG_ENV_IS_IN_MMC)
-/* Environment in eMMC, before config block at the end of 1st "boot sector" */
-#define CONFIG_SYS_MMC_ENV_DEV		0
-#define CONFIG_SYS_MMC_ENV_PART		1
-#endif
 
 #endif	/* __CONFIG_H */

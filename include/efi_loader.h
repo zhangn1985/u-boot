@@ -56,6 +56,9 @@ static inline void *guidcpy(void *dst, const void *src)
 /* Root node */
 extern efi_handle_t efi_root;
 
+/* Set to EFI_SUCCESS when initialized */
+extern efi_status_t efi_obj_list_initialized;
+
 /* EFI system partition */
 extern struct efi_system_partition {
 	enum if_type if_type;
@@ -394,6 +397,9 @@ efi_status_t efi_root_node_register(void);
 efi_status_t efi_initialize_system_table(void);
 /* efi_runtime_detach() - detach unimplemented runtime functions */
 void efi_runtime_detach(void);
+/* efi_convert_pointer() - convert pointer to virtual address */
+efi_status_t EFIAPI efi_convert_pointer(efi_uintn_t debug_disposition,
+					void **address);
 /* Called by bootefi to make console interface available */
 efi_status_t efi_console_register(void);
 /* Called by bootefi to make all disk storage accessible as EFI objects */
@@ -625,6 +631,8 @@ efi_status_t efi_dp_from_name(const char *dev, const char *devnr,
 			      const char *path,
 			      struct efi_device_path **device,
 			      struct efi_device_path **file);
+ssize_t efi_dp_check_length(const struct efi_device_path *dp,
+			    const size_t maxlen);
 
 #define EFI_DP_TYPE(_dp, _type, _subtype) \
 	(((_dp)->type == DEVICE_PATH_TYPE_##_type) && \
@@ -711,7 +719,10 @@ struct efi_load_option {
 efi_status_t efi_deserialize_load_option(struct efi_load_option *lo, u8 *data,
 					 efi_uintn_t *size);
 unsigned long efi_serialize_load_option(struct efi_load_option *lo, u8 **data);
-efi_status_t efi_bootmgr_load(efi_handle_t *handle);
+efi_status_t efi_set_load_options(efi_handle_t handle,
+				  efi_uintn_t load_options_size,
+				  void *load_options);
+efi_status_t efi_bootmgr_load(efi_handle_t *handle, void **load_options);
 
 /**
  * efi_image_regions - A list of memory regions
@@ -762,14 +773,20 @@ struct efi_signature_store {
 struct x509_certificate;
 struct pkcs7_message;
 
-bool efi_signature_verify_cert(struct x509_certificate *cert,
-			       struct efi_signature_store *dbx);
-bool efi_signature_verify_signers(struct pkcs7_message *msg,
-				  struct efi_signature_store *dbx);
-bool efi_signature_verify_with_sigdb(struct efi_image_regions *regs,
-				     struct pkcs7_message *msg,
-				  struct efi_signature_store *db,
-				  struct x509_certificate **cert);
+bool efi_signature_lookup_digest(struct efi_image_regions *regs,
+				 struct efi_signature_store *db);
+bool efi_signature_verify(struct efi_image_regions *regs,
+			  struct pkcs7_message *msg,
+			  struct efi_signature_store *db,
+			  struct efi_signature_store *dbx);
+static inline bool efi_signature_verify_one(struct efi_image_regions *regs,
+					    struct pkcs7_message *msg,
+					    struct efi_signature_store *db)
+{
+	return efi_signature_verify(regs, msg, db, NULL);
+}
+bool efi_signature_check_signers(struct pkcs7_message *msg,
+				 struct efi_signature_store *dbx);
 
 efi_status_t efi_image_region_add(struct efi_image_regions *regs,
 				  const void *start, const void *end,
@@ -782,6 +799,9 @@ bool efi_secure_boot_enabled(void);
 
 bool efi_image_parse(void *efi, size_t len, struct efi_image_regions **regp,
 		     WIN_CERTIFICATE **auth, size_t *auth_len);
+
+/* runtime implementation of memcpy() */
+void efi_memcpy_runtime(void *dest, const void *src, size_t n);
 
 #else /* CONFIG_IS_ENABLED(EFI_LOADER) */
 

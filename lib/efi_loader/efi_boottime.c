@@ -104,7 +104,15 @@ int __efi_exit_check(void)
 	return ret;
 }
 
-/* Called from do_bootefi_exec() */
+/**
+ * efi_save_gd() - save global data register
+ *
+ * On the ARM architecture gd is mapped to a fixed register (r9 or x18).
+ * As this register may be overwritten by an EFI payload we save it here
+ * and restore it on every callback entered.
+ *
+ * This function is called after relocation from initr_reloc_global_data().
+ */
 void efi_save_gd(void)
 {
 #ifdef CONFIG_ARM
@@ -112,10 +120,12 @@ void efi_save_gd(void)
 #endif
 }
 
-/*
- * Special case handler for error/abort that just forces things back to u-boot
- * world so we can dump out an abort message, without any care about returning
- * back to UEFI world.
+/**
+ * efi_restore_gd() - restore global data register
+ *
+ * On the ARM architecture gd is mapped to a fixed register (r9 or x18).
+ * Restore it after returning from the UEFI world to the value saved via
+ * efi_save_gd().
  */
 void efi_restore_gd(void)
 {
@@ -3459,6 +3469,8 @@ static efi_status_t efi_get_child_controllers(
 	 * the buffer will be too large. But that does not harm.
 	 */
 	*number_of_children = 0;
+	if (!count)
+		return EFI_SUCCESS;
 	*child_handle_buffer = calloc(count, sizeof(efi_handle_t));
 	if (!*child_handle_buffer)
 		return EFI_OUT_OF_RESOURCES;
@@ -3536,10 +3548,12 @@ static efi_status_t EFIAPI efi_disconnect_controller(
 		number_of_children = 1;
 		child_handle_buffer = &child_handle;
 	} else {
-		efi_get_child_controllers(efiobj,
-					  driver_image_handle,
-					  &number_of_children,
-					  &child_handle_buffer);
+		r = efi_get_child_controllers(efiobj,
+					      driver_image_handle,
+					      &number_of_children,
+					      &child_handle_buffer);
+		if (r != EFI_SUCCESS)
+			return r;
 	}
 
 	/* Get the driver binding protocol */
