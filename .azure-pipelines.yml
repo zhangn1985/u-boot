@@ -2,7 +2,7 @@ variables:
   windows_vm: vs2017-win2016
   ubuntu_vm: ubuntu-18.04
   macos_vm: macOS-10.15
-  ci_runner_image: trini/u-boot-gitlab-ci-runner:bionic-20200713-05Aug2020
+  ci_runner_image: trini/u-boot-gitlab-ci-runner:bionic-20200807-02Sep2020
   # Add '-u 0' options for Azure pipelines, otherwise we get "permission
   # denied" error when it tries to "useradd -m -u 1001 vsts_azpcontainer",
   # since our $(ci_runner_image) user is not root.
@@ -253,6 +253,18 @@ jobs:
         qemu_x86_64:
           TEST_PY_BD: "qemu-x86_64"
           TEST_PY_TEST_SPEC: "not sleep"
+        r2dplus_i82557c:
+          TEST_PY_BD: "r2dplus"
+          TEST_PY_ID: "--id i82557c_qemu"
+        r2dplus_pcnet:
+          TEST_PY_BD: "r2dplus"
+          TEST_PY_ID: "--id pcnet_qemu"
+        r2dplus_rtl8139:
+          TEST_PY_BD: "r2dplus"
+          TEST_PY_ID: "--id rtl8139_qemu"
+        r2dplus_tulip:
+          TEST_PY_BD: "r2dplus"
+          TEST_PY_ID: "--id tulip_qemu"
         xilinx_zynq_virt:
           TEST_PY_BD: "xilinx_zynq_virt"
           TEST_PY_ID: "--id qemu"

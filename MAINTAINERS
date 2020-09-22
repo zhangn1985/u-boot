@@ -506,9 +506,7 @@ F:	arch/arm/mach-u8500/
 F:	drivers/timer/nomadik-mtu-timer.c
 
 ARM UNIPHIER
-M:	Masahiro Yamada <yamada.masahiro@socionext.com>
-S:	Maintained
-T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-uniphier.git
+S:	Orphan (Since 2020-09)
 F:	arch/arm/mach-uniphier/
 F:	configs/uniphier_*_defconfig
 N:	uniphier
@@ -621,7 +619,7 @@ F:	drivers/mtd/jedec_flash.c
 CLOCK
 M:	Lukasz Majewski <lukma@denx.de>
 S:	Maintained
-T:	git git://git.denx.de/u-boot-dfu.git
+T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-clk.git
 F:	drivers/clk/
 F:	drivers/clk/imx/
 
@@ -985,6 +983,8 @@ F:	include/spmi/
 
 SQUASHFS
 M:	Joao Marcos Costa <joaomarcos.costa@bootlin.com>
+R:	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+R:	Miquel Raynal <miquel.raynal@bootlin.com>
 S:	Maintained
 F:	fs/squashfs/
 F:	include/sqfs.h

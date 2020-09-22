@@ -2,7 +2,7 @@
 
 # Grab our configured image.  The source for this is found at:
 # https://gitlab.denx.de/u-boot/gitlab-ci-runner
-image: trini/u-boot-gitlab-ci-runner:bionic-20200713-05Aug2020
+image: trini/u-boot-gitlab-ci-runner:bionic-20200807-02Sep2020
 
 # We run some tests in different order, to catch some failures quicker.
 stages:
@@ -357,6 +357,34 @@ qemu-x86_64 test.py:
   variables:
     TEST_PY_BD: "qemu-x86_64"
     TEST_PY_TEST_SPEC: "not sleep"
+  <<: *buildman_and_testpy_dfn
+
+r2dplus_i82557c test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "r2dplus"
+    TEST_PY_ID: "--id i82557c_qemu"
+  <<: *buildman_and_testpy_dfn
+
+r2dplus_pcnet test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "r2dplus"
+    TEST_PY_ID: "--id pcnet_qemu"
+  <<: *buildman_and_testpy_dfn
+
+r2dplus_rtl8139 test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "r2dplus"
+    TEST_PY_ID: "--id rtl8139_qemu"
+  <<: *buildman_and_testpy_dfn
+
+r2dplus_tulip test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "r2dplus"
+    TEST_PY_ID: "--id tulip_qemu"
   <<: *buildman_and_testpy_dfn
 
 xilinx_zynq_virt test.py:
