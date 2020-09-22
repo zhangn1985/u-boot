@@ -1,3 +1,14 @@
+u-boot (2020.10~rc5+dfsg-1) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * New upstream release candidate.
+  * debian/control: u-boot-qemu: Set Multi-Arch: foreign.
+
+  [ Uwe Kleine-König ]
+  * control: Use https for upstream homepage
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 21 Sep 2020 20:55:36 -0700
+
 u-boot (2020.10~rc3+dfsg-1) experimental; urgency=medium
 
   * New upstream release candidate.
