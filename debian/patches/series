@@ -1,13 +1,9 @@
 add-debian-revision-to-u-boot-version
-no-force-CROSS_COMPILE-powerpc.diff
 tools-generic-builds.patch
-Makefile-add-kwb-target-to-all.patch
 
 mx53loco
 
 arndale/board-spl-rule.diff
-
-sh4-fix-linker-name-prefix.patch
 
 ensure-config-sandbox-for-make-env.patch
 

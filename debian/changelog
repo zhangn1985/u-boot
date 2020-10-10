@@ -1,3 +1,45 @@
+u-boot (2020.10+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 05 Oct 2020 12:13:28 -0700
+
+u-boot (2020.10~rc5+dfsg-1) experimental; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * New upstream release candidate.
+  * debian/control: u-boot-qemu: Set Multi-Arch: foreign.
+
+  [ Uwe Kleine-König ]
+  * control: Use https for upstream homepage
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 21 Sep 2020 20:55:36 -0700
+
+u-boot (2020.10~rc3+dfsg-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * debian/patches: Refresh and remove obsolete patches.
+  * [armhf] u-boot-sunxi: Add Bananapi_M2_Ultra (Closes: #962931). Thanks
+    to Bernhard Wörner.
+  * [arm64] u-boot-rockchip: Update rock-pi-4 .dtb names.
+  * u-boot-qemu: Build firmware for qemu ppc e500 (Closes: #966624).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sat, 29 Aug 2020 16:04:17 -0700
+
+u-boot (2020.07+dfsg-2) unstable; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * u-boot-install-rockchip: Update with additional RockPro64 names from
+    linux 5.7 device-trees.
+
+  [ Denis Pynkin ]
+  * u-boot-rpi: Add rpi_arm64 target for arm64 (Closes: #966078).
+
+  [ Vagrant Cascadian ]
+  * debian/patches: Fix reproducibility of mx6cuboxi target.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Fri, 28 Aug 2020 16:35:40 -0700
+
 u-boot (2020.07+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
