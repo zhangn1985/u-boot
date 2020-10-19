@@ -118,10 +118,6 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 
 build-tools:
 	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
-	# Disable fit signatures, which requires OpenSSL which triggers
-	# licensing incompatibilities with the GPL:
-	# https://people.gnome.org/~markmc/openssl-and-the-gpl.html
-	sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $(TOOLSDIR)/.config
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
 	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
