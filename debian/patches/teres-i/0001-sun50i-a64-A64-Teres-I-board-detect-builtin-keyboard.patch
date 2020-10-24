@@ -1,0 +1,35 @@
+From 194923246c199bc6a4baa2ffcda1e08677b6f07c Mon Sep 17 00:00:00 2001
+From: Jonas Smedegaard <dr@jones.dk>
+Date: Thu, 6 Aug 2020 01:09:12 +0200
+Subject: [PATCH] sun50i: a64: A64-Teres-I board detect builtin keyboard
+
+A64-Teres-I board is a laptop which comes with a builtin keyboard.
+The keyboard+trackpad controller pauses for 2 seconds at a firmware
+prompt before loading its HID interface.
+
+U-Boot needs to wait equally long to reliably enable the keyboard.
+
+Signed-off-by: Jonas Smedegaard <dr@jones.dk>
+Reviewed-by: Tom Rini <trini@konsulko.com>
+Series-Cc: Jagan Teki <jagan@amarulasolutions.com>
+Series-Cc: Lukasz Majewski <lukma@denx.de>
+Series-Cc: Andre Przywara <andre.przywara@arm.com>
+---
+ configs/teres_i_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configs/teres_i_defconfig b/configs/teres_i_defconfig
+index 1eba20e5f5..ee07f86f64 100644
+--- a/configs/teres_i_defconfig
++++ b/configs/teres_i_defconfig
+@@ -7,6 +7,7 @@ CONFIG_DRAM_ZQ=3881949
+ CONFIG_MMC_SUNXI_SLOT_EXTRA=2
+ CONFIG_USB1_VBUS_PIN="PL7"
+ CONFIG_I2C0_ENABLE=y
++CONFIG_PREBOOT="setenv usb_pgood_delay 2000; usb start"
+ CONFIG_DEFAULT_DEVICE_TREE="sun50i-a64-teres-i"
+ CONFIG_DM_REGULATOR=y
+ CONFIG_DM_REGULATOR_FIXED=y
+-- 
+2.20.1
+
