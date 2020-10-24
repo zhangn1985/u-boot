@@ -1,0 +1,32 @@
+From 22885f4ed9f5a67564aa8f0401669a9601051251 Mon Sep 17 00:00:00 2001
+From: Jonas Smedegaard <dr@jones.dk>
+Date: Sun, 9 Aug 2020 11:48:51 +0200
+Subject: [PATCH] sunxi: Enable ethernet on newer Olimex
+ OLinuXino-A20-Lime2-eMMC
+
+Olimex OLinuXino LIME2 rev. H through L uses Micrel KSZ9031 PHY.
+
+This enables the Micrel PHY for A20-OLinuXino-Lime2-eMMC_defconfig.
+
+Signed-off-by: Jonas Smedegaard <dr@jones.dk>
+Reviewed-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+ configs/A20-OLinuXino-Lime2-eMMC_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/configs/A20-OLinuXino-Lime2-eMMC_defconfig b/configs/A20-OLinuXino-Lime2-eMMC_defconfig
+index b1a38d7a4d..f9f8f14151 100644
+--- a/configs/A20-OLinuXino-Lime2-eMMC_defconfig
++++ b/configs/A20-OLinuXino-Lime2-eMMC_defconfig
+@@ -19,6 +19,8 @@ CONFIG_CMD_USB_MASS_STORAGE=y
+ CONFIG_SCSI_AHCI=y
+ CONFIG_DFU_RAM=y
+ CONFIG_FASTBOOT_CMD_OEM_FORMAT=y
++CONFIG_PHY_MICREL=y
++CONFIG_PHY_MICREL_KSZ90X1=y
+ CONFIG_PHY_REALTEK=y
+ CONFIG_ETH_DESIGNWARE=y
+ CONFIG_RGMII=y
+-- 
+2.20.1
+
