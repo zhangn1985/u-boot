@@ -1,10 +1,8 @@
 Enables support for ext4, the "load" command, and using bootz with raw initrds.
 
-Index: u-boot/configs/mx53loco_defconfig
-===================================================================
---- u-boot.orig/configs/mx53loco_defconfig
-+++ u-boot/configs/mx53loco_defconfig
-@@ -21,6 +21,7 @@ CONFIG_CMD_DHCP=y
+--- a/configs/mx53loco_defconfig
++++ b/configs/mx53loco_defconfig
+@@ -21,6 +21,7 @@
  CONFIG_CMD_MII=y
  CONFIG_CMD_PING=y
  CONFIG_CMD_EXT2=y

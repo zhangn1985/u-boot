@@ -1,10 +1,8 @@
 This patch allows testing in an alternate directory and also detects
 failures to execute commands, treating that as a failure.
 
-Index: u-boot/test/image/test-imagetools.sh
-===================================================================
---- u-boot.orig/test/image/test-imagetools.sh
-+++ u-boot/test/image/test-imagetools.sh
+--- a/test/image/test-imagetools.sh
++++ b/test/image/test-imagetools.sh
 @@ -11,7 +11,7 @@
  # make O=sandbox
  # ./test/image/test-imagetools.sh
@@ -14,7 +12,7 @@ Index: u-boot/test/image/test-imagetools.sh
  SRCDIR=${BASEDIR}/boot
  IMAGE_NAME="v1.0-test"
  IMAGE_MULTI=linux.img
-@@ -94,7 +94,7 @@ create_multi_image()
+@@ -94,7 +94,7 @@
  
  	echo -e "\nBuilding multi-file image..."
  	do_cmd ${MKIMAGE} -A x86 -O linux -T multi -n \"${IMAGE_NAME}\" \
@@ -23,7 +21,7 @@ Index: u-boot/test/image/test-imagetools.sh
  	echo "done."
  }
  
-@@ -102,10 +102,10 @@ create_multi_image()
+@@ -102,10 +102,10 @@
  extract_multi_image()
  {
  	echo -e "\nExtracting multi-file image contents..."
@@ -38,7 +36,7 @@ Index: u-boot/test/image/test-imagetools.sh
  	echo "done."
  }
  
-@@ -158,7 +158,7 @@ create_fit_image()
+@@ -158,7 +158,7 @@
  	" > ${IMAGE_FIT_ITS}
  
  	echo -e "\nBuilding FIT image..."
@@ -47,7 +45,7 @@ Index: u-boot/test/image/test-imagetools.sh
  	echo "done."
  }
  
-@@ -166,10 +166,10 @@ create_fit_image()
+@@ -166,10 +166,10 @@
  extract_fit_image()
  {
  	echo -e "\nExtracting FIT image contents..."
@@ -62,7 +60,7 @@ Index: u-boot/test/image/test-imagetools.sh
  	echo "done."
  }
  
-@@ -181,8 +181,8 @@ list_image()
+@@ -181,8 +181,8 @@
  	local image="$1"
  
  	echo -e "\nListing image contents..."

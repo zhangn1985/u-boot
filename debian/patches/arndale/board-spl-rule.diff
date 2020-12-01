@@ -1,11 +1,9 @@
 Description: Add spl/arndale-spl.bin rule
 Author: Ian Campbell <ijc@debian.org>
 
-Index: u-boot/Makefile
-===================================================================
---- u-boot.orig/Makefile
-+++ u-boot/Makefile
-@@ -1406,6 +1406,9 @@ spl/u-boot-spl.sfp: spl/u-boot-spl
+--- a/Makefile
++++ b/Makefile
+@@ -1941,6 +1941,9 @@
  spl/boot.bin: spl/u-boot-spl
  	@:
  

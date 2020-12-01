@@ -1,11 +1,9 @@
 Description: Enable generic tools build
 Author: Hector Oron <zumbi@debian.org>
 
-Index: u-boot/tools/Makefile
-===================================================================
---- u-boot.orig/tools/Makefile
-+++ u-boot/tools/Makefile
-@@ -54,7 +54,7 @@ HOSTCFLAGS_xway-swap-bytes.o := -pedanti
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -52,7 +52,7 @@
  hostprogs-y += mkenvimage
  mkenvimage-objs := mkenvimage.o os_support.o lib/crc32.o
  

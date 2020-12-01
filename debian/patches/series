@@ -1,4 +1,5 @@
 add-debian-revision-to-u-boot-version
+
 tools-generic-builds.patch
 
 mx53loco
@@ -16,7 +17,5 @@ exynos/0001-arm-config-fix-default-console-only-to-specify-the-d.patch
 riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
 n900/bootz_and_raw_initrd.patch
-
-olinuxino-a20-lime2-emmc/0001-sunxi-Enable-ethernet-on-newer-Olimex-OLinuXino-A20-.patch
 
 teres-i/0001-sun50i-a64-A64-Teres-I-board-detect-builtin-keyboard.patch
