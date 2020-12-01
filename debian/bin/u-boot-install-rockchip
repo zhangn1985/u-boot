@@ -3,7 +3,8 @@ set -e
 
 dtmodel="/sys/firmware/devicetree/base/model"
 if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
-	case $(cat "${dtmodel}") in
+	dtmodelname=$(cat $dtmodel)
+	case "$dtmodelname" in
 		Firefly-RK3288)
 			TARGET="/usr/lib/u-boot/firefly-rk3288"
 			UBOOT_IMAGE="u-boot.img"
@@ -24,7 +25,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 			TARGET="/usr/lib/u-boot/rock-pi-4-rk3399"
 			;;
 		*)
-			echo >&2 "ERROR: Unknown system: ${dtmodel}"
+			echo >&2 "ERROR: Unknown system: ${dtmodelname}"
 			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
 			exit 1
 			;;

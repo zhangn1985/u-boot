@@ -19,6 +19,16 @@ for SD card,
 for eMMC,
 .I /dev/sdX
 for USB SD card readers (be careful wrt your other disks!).
+.PP
+By default, the path where
+.I .dtb
+and
+.I .bin
+files are copied from is a subdirectory of
+.I /usr/lib/u-boot
+deduced from the current running system, but if the
+.RB $ TARGET
+environment variable is set, its contents are used instead.
 .SH OPTIONS
 .TP
 -f | --force
