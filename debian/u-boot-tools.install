@@ -8,9 +8,6 @@ done
 # install config
 echo ${builddir}/config /usr/share/doc/u-boot-tools/
 
-echo doc/mkimage.1 /usr/share/man/man1/
-echo doc/kwboot.1 /usr/share/man/man1/
-
 # example env configs
 for env_config in debian/env-configs/*.config tools/env/fw_env.config ; do
 	echo ${env_config} /usr/share/doc/u-boot-tools/examples/
