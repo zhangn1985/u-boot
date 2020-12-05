@@ -1,4 +1,4 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets sunxi "board/sunxi/README.sunxi64"
+debian/bin/u-boot-install-targets sunxi
 
 echo debian/bin/u-boot-install-sunxi64 /usr/bin/

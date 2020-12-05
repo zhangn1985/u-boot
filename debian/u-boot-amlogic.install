@@ -1,8 +1,2 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets amlogic "
-    doc/board/amlogic/khadas-vim.rst
-    doc/board/amlogic/khadas-vim2.rst
-    doc/board/amlogic/libretech-cc.rst
-    doc/board/amlogic/nanopi-k2.rst
-    doc/board/amlogic/odroid-c2.rst
-    "
+debian/bin/u-boot-install-targets amlogic

@@ -1,5 +1,5 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets rockchip "doc/README.rockchip"
+debian/bin/u-boot-install-targets rockchip
 cp arch/arm/mach-rockchip/make_fit_atf.py debian/build/rockchip_make_fit_atf
 sed -i -e 's,/usr/bin/env python.*,/usr/bin/python3,g' debian/build/rockchip_make_fit_atf
 echo debian/build/rockchip_make_fit_atf /usr/bin/
