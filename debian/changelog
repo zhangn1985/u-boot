@@ -1,3 +1,31 @@
+u-boot (2021.01~rc4+dfsg-1) experimental; urgency=medium
+
+  [ Nicolas Boulenguez ]
+  * Refresh patches for v2021.01-rc3 (Closes: #976320).
+
+  [ Vagrant Cascadian ]
+  * debian/patches: Remove obsolete teres-i patch.
+  * debian/control: Add Build-Depends on python3-pkg-resources.
+
+  [ Nicolas Boulenguez ]
+  * Add support for pinephone-1.2. (Closes: #976319)
+
+  [ Vagrant Cascadian ]
+  * debian/control: Update Build-Depends on arm-trusted-firmware.
+  * [arm64] u-boot-sunxi: Add orangepi_one_plus target. Thanks to harry88.
+    (Closes: #979216)
+  * [arm64] u-boot-amlogic: Add odroid-n2 target. Thanks to Reco.
+    (Closes: #973256)
+  * u-boot-sunxi: Do not install mksunxi_fit_atf, removed upstream.
+  * u-boot-install-sunxi64: Drop support for using a FIT generator, just
+    use the images generated at build time.
+  * u-boot-install-sunxi64: Add support for OrangePi One Plus.
+  * debian/rules: Disable use of SCP firmware for sunxi platforms.
+  * u-boot-install-sunxi64: Add support for new .itb filenames.
+  * debian/targets: Update to use new .itb filename for sunxi systems.
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Tue, 05 Jan 2021 10:17:01 -0800
+
 u-boot (2020.10+dfsg-2) unstable; urgency=medium
 
   [ Vagrant Cascadian ]
