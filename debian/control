@@ -19,6 +19,7 @@ Build-Depends:
  libssl-dev,
  python3:any [linux-any],
  python3-distutils [linux-any],
+ python3-pkg-resources [linux-any],
  swig [linux-any],
  lzop [armhf],
 Build-Depends-Indep:
