@@ -29,7 +29,6 @@ if [ -z "$BL31" ] && [ -f "${atf}" ]; then
 fi
 
 BL31=${BL31:-"/usr/lib/atf/sun50iw1p1/bl31.bin"}
-FIT_GENERATOR=${FIT_GENERATOR:-"mksunxi_fit_atf"}
 
 case "$1" in
     -f|--force)
@@ -56,17 +55,12 @@ if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
     exit 1
 fi
 DEV="$(readlink -f "$DEV")"
-DIR="$(mktemp -d)"
-trap 'rm -rf "$DIR"' 0
-# Build tools get confused by paths, thus let's copy all the pieces into
-# one dir.
 
 if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
     echo >&2 "$0: device/image ($DEV) not accessible via abs path?!?"
     exit 1
 fi
 
-cd "$DIR"
 if [ -z "$FORCE" ]; then
     # A very simple sanity check.  GPT mandates a "protective MBR" so this works
     # even with GPT partitioning.
@@ -84,12 +78,8 @@ if [ -z "$FORCE" ]; then
     fi
 fi
 
-cp -p $TARGET/*.dtb $TARGET/*.bin .
-BL31=$BL31 \
-    $FIT_GENERATOR *.dtb > u-boot.its
-mkimage -f u-boot.its u-boot.itb
 echo "Writing sunxi-spl"
-dd conv=notrunc if=sunxi-spl.bin of="$DEV" bs=8k seek=1
+dd conv=notrunc if=${TARGET}/sunxi-spl.bin of="$DEV" bs=8k seek=1
 echo "Writing u-boot FIT image"
-dd conv=notrunc if=u-boot.itb of="$DEV" bs=8k seek=5
+dd conv=notrunc if=${TARGET}/u-boot.itb of="$DEV" bs=8k seek=5
 sync "$DEV"
