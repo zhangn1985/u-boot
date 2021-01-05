@@ -189,6 +189,9 @@ arm64	amlogic		nanopi-k2	u-boot.bin
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	amlogic		odroid-c2	u-boot.bin
 
+# Reco <bugs@enotuniq.net>
+arm64	amlogic		odroid-n2	u-boot.bin
+
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	  mvebu		mvebu_espressobin-88f3720	u-boot.bin arch/arm/dts/armada-3720-espressobin.dtb
 
