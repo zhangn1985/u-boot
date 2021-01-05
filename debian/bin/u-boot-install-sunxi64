@@ -80,8 +80,22 @@ if [ -z "$FORCE" ]; then
     fi
 fi
 
+itbfiles="u-boot.itb u-boot-sunxi-with-spl.fit.itb"
+itb=
+for i in $itbfiles ; do
+	i=${TARGET}/$i
+	if [ -f "$i" ]; then
+		itb=$i
+	fi
+done
+
+if [ -z "$itb" ]; then
+	echo >&2 "$0: no known .itb file in ${TARGET}"
+	exit 1
+fi
+
 echo "Writing sunxi-spl"
 dd conv=notrunc if=${TARGET}/sunxi-spl.bin of="$DEV" bs=8k seek=1
 echo "Writing u-boot FIT image"
-dd conv=notrunc if=${TARGET}/u-boot.itb of="$DEV" bs=8k seek=5
+dd conv=notrunc if=${itb} of="$DEV" bs=8k seek=5
 sync "$DEV"
