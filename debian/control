@@ -19,7 +19,7 @@ Build-Depends:
  python3:any [linux-any],
  python3-distutils [linux-any],
  swig [linux-any],
- lzop [armhf] <!cross> | lzop:native [armhf] <cross>,
+ lzop [armhf],
 Build-Depends-Indep:
 # For u-boot-qemu targets
  gcc-i686-linux-gnu [!i386],
