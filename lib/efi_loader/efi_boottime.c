@@ -6,18 +6,20 @@
  */
 
 #include <common.h>
+#include <bootm.h>
 #include <div64.h>
+#include <dm/device.h>
+#include <dm/root.h>
 #include <efi_loader.h>
 #include <irq_func.h>
 #include <log.h>
 #include <malloc.h>
-#include <time.h>
-#include <linux/libfdt_env.h>
-#include <u-boot/crc.h>
-#include <bootm.h>
 #include <pe.h>
+#include <time.h>
 #include <u-boot/crc.h>
+#include <usb.h>
 #include <watchdog.h>
+#include <linux/libfdt_env.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -35,6 +37,9 @@ LIST_HEAD(efi_event_queue);
 
 /* Flag to disable timer activity in ExitBootServices() */
 static bool timers_enabled = true;
+
+/* Flag used by the selftest to avoid detaching devices in ExitBootServices() */
+bool efi_st_keep_devices;
 
 /* List of all events registered by RegisterProtocolNotify() */
 LIST_HEAD(efi_register_notify_events);
@@ -1994,7 +1999,12 @@ static efi_status_t EFIAPI efi_exit_boot_services(efi_handle_t image_handle,
 			list_del(&evt->link);
 	}
 
-	board_quiesce_devices();
+	if (!efi_st_keep_devices) {
+		if IS_ENABLED(CONFIG_USB_DEVICE)
+			udc_disconnect();
+		board_quiesce_devices();
+		dm_remove_devices_flags(DM_REMOVE_ACTIVE_ALL);
+	}
 
 	/* Patch out unsupported runtime function */
 	efi_runtime_detach();
@@ -3518,6 +3528,7 @@ static efi_status_t EFIAPI efi_disconnect_controller(
 	size_t number_of_children = 0;
 	efi_status_t r;
 	struct efi_object *efiobj;
+	bool sole_child;
 
 	EFI_ENTRY("%p, %p, %p", controller_handle, driver_image_handle,
 		  child_handle);
@@ -3540,16 +3551,18 @@ static efi_status_t EFIAPI efi_disconnect_controller(
 	}
 
 	/* Create list of child handles */
+	r = efi_get_child_controllers(efiobj,
+				      driver_image_handle,
+				      &number_of_children,
+				      &child_handle_buffer);
+	if (r != EFI_SUCCESS)
+		return r;
+	sole_child = (number_of_children == 1);
+
 	if (child_handle) {
 		number_of_children = 1;
+		free(child_handle_buffer);
 		child_handle_buffer = &child_handle;
-	} else {
-		r = efi_get_child_controllers(efiobj,
-					      driver_image_handle,
-					      &number_of_children,
-					      &child_handle_buffer);
-		if (r != EFI_SUCCESS)
-			return r;
 	}
 
 	/* Get the driver binding protocol */
@@ -3574,7 +3587,7 @@ static efi_status_t EFIAPI efi_disconnect_controller(
 		}
 	}
 	/* Remove the driver */
-	if (!child_handle) {
+	if (!child_handle || sole_child) {
 		r = EFI_CALL(binding_protocol->stop(binding_protocol,
 						    controller_handle,
 						    0, NULL));
