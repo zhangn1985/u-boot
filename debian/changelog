@@ -1,3 +1,33 @@
+u-boot (2020.10+dfsg-2) unstable; urgency=medium
+
+  [ Vagrant Cascadian ]
+  * debian/patches: Enable ethernet on A20-OLinuXino-Lime2-eMMC.
+    (Closes: #916822).  Thanks to Jonas Smedegaard.
+  * debian/patches: Fix keyboard on Teres-I (Closes: #935035).  Thanks to
+    Jonas Smedegaard.
+
+  [ Nicolas Boulenguez ]
+  * Update Homepage and uscan configuration (Closes: #976317).
+  * Drop obsolete version restriction in Build-Depends (Closes: #976316).
+  * Change behaviour of debian/bin/u-boot-install-* for an unknown device
+    tree (Closes: #976315)
+  * Use specific dh_installman instead of dh_install (Closes: #976318).
+  * Simplify debian/u-boot-tools.install (Closes: #976318).
+  * In debian/rules, add prerequisite configs/*_defconfig
+    (Closes: #976318)
+
+  [ Vagrant Cascadian ]
+  * u-boot-qemu: Ship u-boot.rom for the qemu-x86_64 and qemu-x86
+    targets. Thanks to Faidon Liambotis. (Closes: #979107)
+  * debian/control: Update Standards-Version to 4.5.1.
+  * debian/control: Update Build-Depends on lzop.
+
+  [ Luca Boccassi ]
+  * Build u-boot-tools with signature support with OpenSSL.
+    (Closes: #972513)
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Mon, 04 Jan 2021 19:59:11 -0800
+
 u-boot (2020.10+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
