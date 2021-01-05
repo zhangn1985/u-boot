@@ -16,6 +16,7 @@ Build-Depends:
  libc6:armel [armel] <cross !pkg.uboot.notools>,
  libc6:riscv64 [riscv64] <cross !pkg.uboot.notools>,
  libpython3-dev:native [linux-any],
+ libssl-dev,
  python3:any [linux-any],
  python3-distutils [linux-any],
  swig [linux-any],
