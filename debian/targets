@@ -239,6 +239,9 @@ arm64	sunxi		nanopi_neo_plus2	/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin 
 # Frederic Danis <frederic.danis@collabora.com>
 arm64	sunxi		orangepi_zero_plus2	/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h5-orangepi-zero-plus2.dtb u-boot.itb
 
+# harry88@gmx.ph
+arm64	sunxi		orangepi_one_plus	/usr/lib/arm-trusted-firmware/sun50i_h6/bl31.bin u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-h6-orangepi-one-plus.dtb u-boot.itb
+
 # Vagrant Cascadian <vagrant@debian.org>
 arm64	sunxi		pine64_plus	/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin u-boot.bin spl/sunxi-spl.bin u-boot-nodtb.bin arch/arm/dts/sun50i-a64-pine64-plus.dtb arch/arm/dts/sun50i-a64-pine64.dtb u-boot.itb
 
