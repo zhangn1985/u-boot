@@ -93,6 +93,10 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			all:amd64) export CROSS_COMPILE=x86_64-linux-gnu- ;;\
 			*) ;; \
 		esac;\
+		case $$subarch in \
+			sunxi) export SCP=/dev/null ;;\
+			*) unset SCP ;;\
+		esac;\
 		mkdir -p $$builddir; \
 		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
 		sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $$builddir/.config; \
