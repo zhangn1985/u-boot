@@ -6,7 +6,3 @@ debian/build/tools/tools/mksunxiboot    usr/bin
 
 # install config
 debian/build/tools/config               usr/share/doc/u-boot-tools
-
-# example env configs
-debian/env-configs/*.config             usr/share/doc/u-boot-tools/examples
-tools/env/fw_env.config                 usr/share/doc/u-boot-tools/examples
