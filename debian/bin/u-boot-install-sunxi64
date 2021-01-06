@@ -7,7 +7,7 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 	dtmodelname=$(cat $dtmodel)
 	case "$dtmodelname" in
 		Pinebook) TARGET="/usr/lib/u-boot/pinebook" ;;
-		"Pine64 PinePhone (1.2)") TARGET='/usr/lib/u-boot/pinephone-1.2' ;;
+		"Pine64 PinePhone (1.2)") TARGET='/usr/lib/u-boot/pinephone' ;;
 		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
 		"Pine64 LTS") TARGET="/usr/lib/u-boot/pine64-lts" ;;
 		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
