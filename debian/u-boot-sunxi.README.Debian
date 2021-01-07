@@ -6,4 +6,4 @@ Many sunxi boards (Bananapi, Cubieboard) can be written to SD directly:
 
  dd conv=fsync,notrunc if=/usr/lib/u-boot/BOARD/u-boot-sunxi-with-spl.bin of=/dev/mmcblkX bs=1024 seek=8
 
-Pine64 plus can be installed using the u-boot-install-sunxi64 utility.
+Pine64 plus can be installed using the u-boot-install-sunxi utility.
