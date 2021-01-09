@@ -9,11 +9,6 @@ export CROSS_COMPILE ?= $(DEB_HOST_GNU_TYPE)-
 cross_build_tools ?= y
 endif
 
-# support parallel build using DEB_BUILD_OPTIONS=parallel=N
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-  DEB_UBOOT_FLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-endif
-
 # Enable verbose build by default, disable when terse is specified.
 ifneq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
 VERBOSE=0
@@ -97,9 +92,9 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			*) unset SCP ;;\
 		esac;\
 		mkdir -p $$builddir; \
-		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
+		dh_auto_build -- V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
 		sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $$builddir/.config; \
-		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir; \
+		dh_auto_build -- V=$(VERBOSE) O=$$builddir; \
 		case "$$targets" in \
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
@@ -120,10 +115,10 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	done
 
 build-tools:
-	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
+	dh_auto_build -- V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
-	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
+	dh_auto_build -- V=$(VERBOSE) O=$(TOOLSDIR) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		CROSS_BUILD_TOOLS=$(cross_build_tools) \
 		NO_SDL=1 \
