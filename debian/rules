@@ -135,11 +135,6 @@ override_dh_auto_test-indep:
 # Do not spend time searching for an install target in Makefile.
 override_dh_auto_install:
 
-override_dh_strip:
-	# dh_strip tries to strip the cross compiled qemu images, which doesn't
-	# work
-	dh_strip -X qemu
-
 override_dh_clean:
 	rm -rf debian/build/
 	rm -f configs/novena-rawsd_defconfig
