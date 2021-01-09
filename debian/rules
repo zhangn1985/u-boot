@@ -142,6 +142,9 @@ ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	fi
 endif
 
+# Do not spend time searching for an install target in Makefile.
+override_dh_auto_install:
+
 override_dh_strip:
 	# dh_strip tries to strip the cross compiled qemu images, which doesn't
 	# work
