@@ -22,6 +22,8 @@ endif
 comma := ,
 LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 
+notools := $(filter pkg.uboot.notools,$(DEB_BUILD_PROFILES))
+
 # limit builds to only certain subarchitectures
 # e.g. pkg.uboot.subarch.rockchip will only build rockchip targets.
 ifeq (,$(filter pkg.uboot.subarch.%,$(DEB_BUILD_PROFILES)))
@@ -42,10 +44,9 @@ configs/am335x_boneblack_defconfig: configs/am335x_evm_defconfig
 		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
 
 override_dh_auto_build-arch: TARGETARCH := $(DEB_HOST_ARCH)
-ifeq (,$(filter pkg.uboot.notools,$(DEB_BUILD_PROFILES)))
-override_dh_auto_build-arch: build-targets build-tools
-else
 override_dh_auto_build-arch: build-targets
+ifeq ($(notools),)
+  override_dh_auto_build-arch: build-tools
 endif
 
 override_dh_auto_build-indep: TARGETARCH := all
@@ -128,13 +129,12 @@ build-tools:
 	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mksunxiboot
 	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/dumpimage
 
-override_dh_auto_test:
-ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-	# only run tests on native builds
-	if [ -e debian/build/tools/tools/mkimage ] ; then \
-		BASEDIR=debian/build/tools test/image/test-imagetools.sh ;\
-	fi
-endif
+# Only test when tools are built and native.
+override_dh_auto_test-arch:
+  ifeq ($(notools)$(cross_build_tools),)
+	BASEDIR=$(TOOLSDIR) test/image/test-imagetools.sh
+  endif
+override_dh_auto_test-indep:
 
 # Do not spend time searching for an install target in Makefile.
 override_dh_auto_install:
