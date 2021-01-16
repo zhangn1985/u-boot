@@ -60,7 +60,8 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	        builddir=debian/build/$$platform; \
 		case $$bl31 in \
 			/usr/lib/arm-trusted-firmware/*) export BL31=$$bl31 ;; \
-			*) targets="$$bl31 $$targets" ;; \
+			*) targets="$$bl31 $$targets" ;\
+				unset BL31 ;; \
 		esac; \
 		case $$platform in \
 			novena-rawsd) targets="$$targets" ;\
