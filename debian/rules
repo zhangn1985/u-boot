@@ -141,6 +141,7 @@ override_dh_clean:
 	rm -f configs/am335x_boneblack_defconfig
 	rm -f linux.itb linux.its
 	dh_clean
+	find . -type d -name __pycache__ -delete
 
 override_dh_gencontrol:
 	debian/bin/update-substvars
