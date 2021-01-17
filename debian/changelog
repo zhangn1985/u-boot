@@ -1,3 +1,46 @@
+u-boot (2021.01+dfsg-1) unstable; urgency=medium
+
+  [ Nicolas Boulenguez ]
+  * Fix pinephone platform name in u-boot-install-sunxi64.
+    (Closes: #979484)
+  * Insert an empty line in target list for consistency. (Closes: #979485)
+  * Simplify installation of a link for tegra on arm64 but not armhf
+    (Closes: #979486)
+  * Install examples for tools with dh_installexamples instead of
+    dh_install. (Closes: #979295)
+  * Install docs with dh_installdocs instead of dh_install
+    (Closes: #979295)
+
+  [ Vagrant Cascadian ]
+  * u-boot-install-sunxi64: Drop unused code handling ATF.
+  * Rename u-boot-install-sunxi64 to u-boot-install-sunxi. Thanks to
+    Nicolas Boulenguez. (Closes: #979487)
+
+  [ Nicolas Boulenguez ]
+  * Update references to renamed u-boot-install-sunxi64
+  * Prefer dh_installdocs to dh_install for tools too (Closes: #979648).
+  * Remove obsolete maketargets variable (Closes: #979652).
+  * Do not spend time searching for an install target in
+    Makefile. (Closes: #979650)
+  * Prefer dh_auto_build to explicit recursive $(MAKE) (Closes: #979654)
+  * Clarify scope of TOOLSDIR in debian/rules (Closes: #979658).
+  * Make decision about testing tools more explicit (Closes: #979660).
+  * Pass BL31 to puma-rk3399 (Closes: #979482).
+
+  [ Vagrant Cascadian ]
+  * debian/rules: Unset BL31 to avoid using a value from a different
+    platform. Thanks to Nicolas Boulenguez.  (Closes: #979482)
+  * u-boot-rockchip: puma-rk3399: install u-boot.itb.
+  * u-boot-install-rockchip: Add support for "Theobroma Systems RK3399-Q7
+    SoM" using the "puma-rk3399" target.
+
+  [ Nicolas Boulenguez ]
+  * Let dh_strip strip tools (Closes: #980234).
+  * Remove obsolete dh_strip override (Closes: #980235).
+  * Clean python cache (Closes: #980237).
+
+ -- Vagrant Cascadian <vagrant@debian.org>  Sat, 16 Jan 2021 19:50:13 -0800
+
 u-boot (2021.01~rc4+dfsg-2) experimental; urgency=medium
 
   * debian/targets: Use correct name for "pinephone" target. Fixes FTBFS.
