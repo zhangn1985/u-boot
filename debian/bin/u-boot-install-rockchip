@@ -24,6 +24,10 @@ if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
 		"Radxa ROCK Pi 4")
 			TARGET="/usr/lib/u-boot/rock-pi-4-rk3399"
 			;;
+		"Theobroma Systems RK3399-Q7 SoM")
+			TARGET="/usr/lib/u-boot/puma-rk3399"
+			UBOOT_OFFSET="512"
+			;;
 		*)
 			echo >&2 "ERROR: Unknown system: ${dtmodelname}"
 			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
@@ -34,6 +38,7 @@ fi
 
 LOADER_IMAGE=${LOADER_IMAGE:-"idbloader.img"}
 UBOOT_IMAGE=${UBOOT_IMAGE:-"u-boot.itb"}
+UBOOT_OFFSET=${UBOOT_OFFSET:-"16384"}
 
 DEV="$1"
 if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
@@ -56,5 +61,5 @@ fi
 echo "Writing idbloader"
 dd conv=notrunc if=${TARGET}/${LOADER_IMAGE} of="$DEV" seek=64
 echo "Writing u-boot image"
-dd conv=notrunc if=${TARGET}/${UBOOT_IMAGE} of="$DEV" seek=16384
+dd conv=notrunc if=${TARGET}/${UBOOT_IMAGE} of="$DEV" seek=${UBOOT_OFFSET}
 sync "$DEV"
