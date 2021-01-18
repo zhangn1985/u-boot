@@ -1,0 +1,93 @@
+#!/bin/sh
+set -e
+
+dtmodel="/sys/firmware/devicetree/base/model"
+if [ -z "$TARGET" ] && [ -f "${dtmodel}" ]; then
+	dtmodelname=$(cat $dtmodel)
+	case "$dtmodelname" in
+		Pinebook) TARGET="/usr/lib/u-boot/pinebook" ;;
+		"Pine64 PinePhone (1.2)") TARGET='/usr/lib/u-boot/pinephone' ;;
+		Pine64+) TARGET="/usr/lib/u-boot/pine64_plus" ;;
+		"Pine64 LTS") TARGET="/usr/lib/u-boot/pine64-lts" ;;
+		"Olimex A64-Olinuxino") TARGET="/usr/lib/u-boot/a64-olinuxino/" ;;
+		"Olimex A64-Olinuxino-eMMC") TARGET="/usr/lib/u-boot/a64-olinuxino-emmc" ;;
+		"Olimex A64 Teres-I") TARGET="/usr/lib/u-boot/teres_i/" ;;
+		"OrangePi Zero Plus2") TARGET="/usr/lib/u-boot/orangepi_zero_plus2/" ;;
+		"OrangePi One Plus") TARGET="/usr/lib/u-boot/orangepi_one_plus/" ;;
+		"FriendlyARM NanoPi NEO 2") TARGET="/usr/lib/u-boot/nanopi_neo2/" ;;
+		"FriendlyARM NanoPi NEO Plus2") TARGET="/usr/lib/u-boot/nanopi_neo_plus2/" ;;
+		*)
+			echo >&2 "ERROR: Unknown system: ${dtmodelname}"
+			echo >&2 "Specify target: TARGET=/usr/lib/u-boot/UBOOT"
+			exit 1
+			;;
+	esac
+fi
+
+case "$1" in
+    -f|--force)
+	FORCE=y
+	shift;;
+    -*)
+	echo >&2 "$0: unknown option '$1'"
+	exit 1;;
+esac
+
+if [ -z "$(which mkimage)" ]; then
+	echo >&2 "$0: mkimage: command not found. Please install u-boot-tools."
+	exit 1
+fi
+
+DEV="$1"
+if [ -z "$DEV" ] || ! shift || [ -n "$*" ]; then
+    echo >&2 "Usage: $0 /dev/your-sd-or-mmc-or-image"
+    exit 1
+fi
+
+if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
+    echo >&2 "$0: device/image ($DEV) must be writable"
+    exit 1
+fi
+DEV="$(readlink -f "$DEV")"
+
+if [ ! -w "$DEV" ] && [ -z "$FORCE" ]; then
+    echo >&2 "$0: device/image ($DEV) not accessible via abs path?!?"
+    exit 1
+fi
+
+if [ -z "$FORCE" ]; then
+    # A very simple sanity check.  GPT mandates a "protective MBR" so this works
+    # even with GPT partitioning.
+    printf '%b' '\0125\0252' >mbr-sign
+    if ! cmp -s -i 0:510 -n 2 mbr-sign "$DEV"; then
+       echo >&2 "$0: device/image ($DEV) has no MBR partition table"
+       exit 1
+    fi
+
+    # But, on sunxi64, spl will trample upon GPT.
+    printf "EFI PART" >gpt-sign
+    if cmp -s -i 0:512 -n 8 gpt-sign "$DEV"; then
+       echo >&2 "$0: device/image ($DEV) uses GPT partition table, unusable on sunxi64"
+       exit 1
+    fi
+fi
+
+itbfiles="u-boot.itb u-boot-sunxi-with-spl.fit.itb"
+itb=
+for i in $itbfiles ; do
+	i=${TARGET}/$i
+	if [ -f "$i" ]; then
+		itb=$i
+	fi
+done
+
+if [ -z "$itb" ]; then
+	echo >&2 "$0: no known .itb file in ${TARGET}"
+	exit 1
+fi
+
+echo "Writing sunxi-spl"
+dd conv=notrunc if=${TARGET}/sunxi-spl.bin of="$DEV" bs=8k seek=1
+echo "Writing u-boot FIT image"
+dd conv=notrunc if=${itb} of="$DEV" bs=8k seek=5
+sync "$DEV"

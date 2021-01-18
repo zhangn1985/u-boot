@@ -1,0 +1,2 @@
+usr/bin/u-boot-install-sunxi usr/bin/u-boot-install-sunxi64
+usr/share/man/man8/u-boot-install-sunxi.8.gz usr/share/man/man8/u-boot-install-sunxi64.8.gz

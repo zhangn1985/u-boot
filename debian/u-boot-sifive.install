@@ -1,2 +1,2 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets sifive "doc/board/sifive/fu540.rst"
+debian/bin/u-boot-install-targets sifive

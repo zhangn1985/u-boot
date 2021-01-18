@@ -1,0 +1,40 @@
+.TH u-boot-install-sunxi 8 2021-01-07 u-boot
+.SH NAME
+u-boot-install-sunxi \- install u-boot for sunxi (Allwinner) devices
+.SH SYNOPSIS
+.B u-boot-install-sunxi
+.RI [ -f ]
+.I card-device-or-image-file
+.SH DESCRIPTION
+This tool installs a u-boot image to the disk (or possibly a disk
+image), allowing the machine to boot.  The u-boot image is written to
+an area between the partition table and the first partition; there is
+no check if it's large enough \(em some ancient fdisk tools used to
+reserve only 31KB there, which can result in data loss.
+.PP
+The device will usually be
+.I /dev/mmcblk0
+for SD card,
+.I /dev/mmcblk1
+for eMMC,
+.I /dev/sdX
+for USB SD card readers (be careful wrt your other disks!).
+.PP
+By default, the path where
+.I .dtb
+and
+.I .bin
+files are copied from is a subdirectory of
+.I /usr/lib/u-boot
+deduced from the current running system, but if the
+.RB $ TARGET
+environment variable is set, its contents are used instead.
+.SH OPTIONS
+.TP
+-f | --force
+Skip partition table sanity checks.  Usually, a MBR partition table is
+required (so u-boot has something to work with), but in rare setups you
+may put the data on another disk.  Likewise, GPT partition tables are
+incompatible with the layout used on sunxi devices (spl is written at
+offset 16384 while GPT occupies bytes [512..33280) ) but this option lets
+you trample upon them anyway.

@@ -1,2 +1,2 @@
 #!/bin/sh
-debian/bin/u-boot-install-targets mvebu "doc/README.marvell"
+debian/bin/u-boot-install-targets mvebu

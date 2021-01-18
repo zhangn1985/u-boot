@@ -1,11 +1,9 @@
 Add the debian revision to the U-boot version, which is displayed at
 boot and can be helpful to determine which specific version is used.
 
-Index: u-boot/Makefile
-===================================================================
---- u-boot.orig/Makefile
-+++ u-boot/Makefile
-@@ -350,7 +350,7 @@ KBUILD_AFLAGS   := -D__ASSEMBLY__
+--- a/Makefile
++++ b/Makefile
+@@ -447,7 +447,7 @@
  
  # Read UBOOTRELEASE from include/config/uboot.release (if it exists)
  UBOOTRELEASE = $(shell cat include/config/uboot.release 2> /dev/null)

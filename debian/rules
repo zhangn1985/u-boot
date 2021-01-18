@@ -9,11 +9,6 @@ export CROSS_COMPILE ?= $(DEB_HOST_GNU_TYPE)-
 cross_build_tools ?= y
 endif
 
-# support parallel build using DEB_BUILD_OPTIONS=parallel=N
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-  DEB_UBOOT_FLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-endif
-
 # Enable verbose build by default, disable when terse is specified.
 ifneq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
 VERBOSE=0
@@ -27,6 +22,8 @@ endif
 comma := ,
 LDFLAGS := $(patsubst -Wl$(comma)%,%,$(LDFLAGS))
 
+notools := $(filter pkg.uboot.notools,$(DEB_BUILD_PROFILES))
+
 # limit builds to only certain subarchitectures
 # e.g. pkg.uboot.subarch.rockchip will only build rockchip targets.
 ifeq (,$(filter pkg.uboot.subarch.%,$(DEB_BUILD_PROFILES)))
@@ -38,23 +35,20 @@ endif
 %:
 	dh $@
 
-configs/novena-rawsd_defconfig:
+configs/novena-rawsd_defconfig: configs/novena_defconfig
 	sed -e 's,CONFIG_SPL_FS_FAT=y,# CONFIG_SPL_FS_FAT is not set,' \
 		configs/novena_defconfig > configs/novena-rawsd_defconfig
 
-configs/am335x_boneblack_defconfig:
+configs/am335x_boneblack_defconfig: configs/am335x_evm_defconfig
 	sed -e 's,CONFIG_OF_LIST=.*,CONFIG_OF_LIST="am335x-evm am335x-boneblack",g' \
 		configs/am335x_evm_defconfig > configs/am335x_boneblack_defconfig
 
-override_dh_auto_build-arch: TOOLSDIR := debian/build/tools
 override_dh_auto_build-arch: TARGETARCH := $(DEB_HOST_ARCH)
-ifeq (,$(filter pkg.uboot.notools,$(DEB_BUILD_PROFILES)))
-override_dh_auto_build-arch: build-targets build-tools
-else
 override_dh_auto_build-arch: build-targets
+ifeq ($(notools),)
+  override_dh_auto_build-arch: build-tools
 endif
 
-override_dh_auto_build-indep: TOOLSDIR := debian/build/tools
 override_dh_auto_build-indep: TARGETARCH := all
 override_dh_auto_build-indep: build-targets
 
@@ -66,7 +60,8 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 	        builddir=debian/build/$$platform; \
 		case $$bl31 in \
 			/usr/lib/arm-trusted-firmware/*) export BL31=$$bl31 ;; \
-			*) targets="$$bl31 $$targets" ;; \
+			*) targets="$$bl31 $$targets" ;\
+				unset BL31 ;; \
 		esac; \
 		case $$platform in \
 			novena-rawsd) targets="$$targets" ;\
@@ -76,7 +71,6 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			*) targets="$$targets uboot.elf" ;\
 				;; \
 		esac;\
-			maketargets="all" ;\
 		case $$subarch in \
 			-) subpackage="u-boot" ;\
 				;; \
@@ -95,10 +89,14 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			all:amd64) export CROSS_COMPILE=x86_64-linux-gnu- ;;\
 			*) ;; \
 		esac;\
+		case $$subarch in \
+			sunxi) export SCP=/dev/null ;;\
+			*) unset SCP ;;\
+		esac;\
 		mkdir -p $$builddir; \
-		$(MAKE) V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
+		dh_auto_build -- V=$(VERBOSE) O=$$builddir $${platform}_defconfig; \
 		sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $$builddir/.config; \
-		$(MAKE) V=$(VERBOSE) $(DEB_UBOOT_FLAGS) O=$$builddir $${maketargets}; \
+		dh_auto_build -- V=$(VERBOSE) O=$$builddir; \
 		case "$$targets" in \
 			*uboot.elf*) \
 				install -m 644 $$builddir/u-boot $$builddir/uboot.elf; \
@@ -154,37 +152,26 @@ build-targets: configs/novena-rawsd_defconfig configs/am335x_boneblack_defconfig
 			>> debian/build/targets.$$subarch; \
 	done
 
+TOOLSDIR := debian/build/tools
 build-tools:
-	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
-	# Disable fit signatures, which requires OpenSSL which triggers
-	# licensing incompatibilities with the GPL:
-	# https://people.gnome.org/~markmc/openssl-and-the-gpl.html
-	sed -i -e 's,CONFIG_FIT_SIGNATURE=y,# CONFIG_FIT_SIGNATURE is not set,g' $(TOOLSDIR)/.config
+	dh_auto_build -- V=$(VERBOSE) O=$(TOOLSDIR) CROSS_COMPILE=$(CROSS_COMPILE) tools-only_defconfig
 	cp $(TOOLSDIR)/.config $(TOOLSDIR)/config
 	# board-independent tools
-	$(MAKE) V=$(VERBOSE) O=$(TOOLSDIR) $(DEB_UBOOT_FLAGS) \
+	dh_auto_build -- V=$(VERBOSE) O=$(TOOLSDIR) \
 		CROSS_COMPILE=$(CROSS_COMPILE) \
 		CROSS_BUILD_TOOLS=$(cross_build_tools) \
 		NO_SDL=1 \
 	    tools-only
-	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mkimage
-	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mkenvimage
-	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/kwboot
-	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/mksunxiboot
-	$(CROSS_COMPILE)strip --strip-unneeded --remove-section=.comment --remove-section=.note $(TOOLSDIR)/tools/dumpimage
 
-override_dh_auto_test:
-ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-	# only run tests on native builds
-	if [ -e debian/build/tools/tools/mkimage ] ; then \
-		BASEDIR=debian/build/tools test/image/test-imagetools.sh ;\
-	fi
-endif
+# Only test when tools are built and native.
+override_dh_auto_test-arch:
+  ifeq ($(notools)$(cross_build_tools),)
+	BASEDIR=$(TOOLSDIR) test/image/test-imagetools.sh
+  endif
+override_dh_auto_test-indep:
 
-override_dh_strip:
-	# dh_strip tries to strip the cross compiled qemu images, which doesn't
-	# work
-	dh_strip -X qemu
+# Do not spend time searching for an install target in Makefile.
+override_dh_auto_install:
 
 override_dh_clean:
 	rm -rf debian/build/
@@ -192,6 +179,7 @@ override_dh_clean:
 	rm -f configs/am335x_boneblack_defconfig
 	rm -f linux.itb linux.its
 	dh_clean
+	find . -type d -name __pycache__ -delete
 
 override_dh_gencontrol:
 	debian/bin/update-substvars

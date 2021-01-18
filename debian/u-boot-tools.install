@@ -1,17 +1,5 @@
-#!/bin/sh
-
-builddir=debian/build/tools
-for tool in dumpimage mkimage mkenvimage mksunxiboot kwboot ; do
-    echo ${builddir}/tools/${tool} /usr/bin/
-done
-
-# install config
-echo ${builddir}/config /usr/share/doc/u-boot-tools/
-
-echo doc/mkimage.1 /usr/share/man/man1/
-echo doc/kwboot.1 /usr/share/man/man1/
-
-# example env configs
-for env_config in debian/env-configs/*.config tools/env/fw_env.config ; do
-	echo ${env_config} /usr/share/doc/u-boot-tools/examples/
-done
+debian/build/tools/tools/dumpimage      usr/bin
+debian/build/tools/tools/kwboot         usr/bin
+debian/build/tools/tools/mkenvimage     usr/bin
+debian/build/tools/tools/mkimage        usr/bin
+debian/build/tools/tools/mksunxiboot    usr/bin
