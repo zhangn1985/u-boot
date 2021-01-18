@@ -18,5 +18,4 @@ riscv64/qemu-riscv64_smode-sifive-fu540-fix-extlinux-define-.patch
 
 n900/bootz_and_raw_initrd.patch
 khadas/0007-Edge-adjust-boot-sequence.patch
-khadas/5-clk-init.patch
 khadas/rk3399-enable-stable-mac.patch
