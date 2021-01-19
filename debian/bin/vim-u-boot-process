@@ -7,7 +7,7 @@ $1/vim1/blx_fix.sh 	$1/vim1/bl30.bin \
 				$2/bl301_zero.bin \
 				$2/bl30_new.bin bl30
 
-python $1/vim1/acs_tool $1/vim1/bl2.bin $2/bl2_acs.bin $1/vim1/acs.bin 0
+python2 $1/vim1/acs_tool $1/vim1/bl2.bin $2/bl2_acs.bin $1/vim1/acs.bin 0
 
 $1/vim1/blx_fix.sh 	$2/bl2_acs.bin \
 				$2/zero_tmp \

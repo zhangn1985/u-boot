@@ -22,6 +22,7 @@ Build-Depends:
  python3-pkg-resources [linux-any],
  swig [linux-any],
  lzop [armhf],
+ python2 [arm64],
 Build-Depends-Indep:
 Rules-Requires-Root: no
 Standards-Version: 4.5.1
