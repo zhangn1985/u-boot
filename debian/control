@@ -23,12 +23,6 @@ Build-Depends:
  swig [linux-any],
  lzop [armhf],
 Build-Depends-Indep:
-# For u-boot-qemu targets
- gcc-i686-linux-gnu [!i386],
- gcc-arm-linux-gnueabihf [!armhf],
- gcc-aarch64-linux-gnu [!arm64],
- gcc-x86-64-linux-gnu [!amd64],
- gcc-powerpc-linux-gnu [!powerpc],
 Rules-Requires-Root: no
 Standards-Version: 4.5.1
 Homepage: https://www.denx.de/wiki/U-Boot/
