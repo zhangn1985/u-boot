@@ -18,6 +18,7 @@
 	compatible = "rockchip,rk3566-jianpian", "rockchip,rk3566";
 
 	aliases {
+		ethernet0 = &gmac1;
 		mmc0 = &sdmmc1;
 		mmc1 = &sdhci;
 	};

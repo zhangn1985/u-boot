@@ -13,3 +13,19 @@ config BOARD_SPECIFIC_OPTIONS # dummy
 	def_bool y
 
 endif
+
+if TARGET_JIANPIAN_RK3566
+
+config SYS_BOARD
+	default "jianpian_rk3566"
+
+config SYS_VENDOR
+	default "rockchip"
+
+config SYS_CONFIG_NAME
+	default "jianpian_rk3566"
+
+config BOARD_SPECIFIC_OPTIONS # dummy
+	def_bool y
+
+endif
